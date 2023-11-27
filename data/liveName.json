@@ -1,66 +1,66 @@
 [
   {
-    "id": "1",
+    "id": "1st-live-ready-steady-go",
     "name": "1st LIVE Ready Steady Go!",
     "year": "2017",
     "liveTypeId": "1"
   },
   {
-    "id": "2",
+    "id": "live-tour-2018-blue-compass",
     "name": "LIVE TOUR 2018 BLUE COMPASS",
     "year": "2018",
     "liveTypeId": "1"
   },
   {
-    "id": "3",
+    "id": "live-tour-2019-catch-the-rainbow",
     "name": "LIVE TOUR 2019 Catch the Rainbow!",
     "year": "2019",
     "liveTypeId": "1"
   },
   {
-    "id": "4",
+    "id": "5th-anniversary-live-starry-wishes",
     "name": "5th ANNIVERSARY LIVE Starry Wishes",
     "year": "2020",
     "liveTypeId": "1"
   },
   {
-    "id": "5",
+    "id": "live-tour-2021-hello-horizon",
     "name": "LIVE TOUR 2021 HELLO HORIZON",
     "year": "2021",
     "liveTypeId": "1"
   },
   {
-    "id": "6",
+    "id": "live-tour-2022-glow",
     "name": "LIVE TOUR 2022 glow",
     "year": "2022",
     "liveTypeId": "1"
   },
   {
-    "id": "7",
+    "id": "live-tour-2023-scrap-art",
     "name": "LIVE TOUR 2023 SCRAP ART",
     "year": "2023",
     "liveTypeId": "1"
   },
   {
-    "id": "8",
+    "id": "inorimachi-town-meeting-2018",
     "name": "いのりまち町民集会2018",
     "year": "2018",
     "liveTypeId": "2"
   },
   {
-    "id": "9",
+    "id": "inorimachi-town-meeting-2019",
     "name": "いのりまち町民集会2019",
     "year": "2019",
     "liveTypeId": "2"
   },
   {
-    "id": "10",
+    "id": "inorimachi-town-meeting-2021-second-helping",
     "name": "いのりまち町民集会2021-おかわり-",
     "year": "2021",
     "liveTypeId": "2"
   },
   {
-    "id": "11",
+    "id": "inorimachi-town-meeting-2023",
     "name": "いのりまち町民集会2023",
     "year": "2023",
     "liveTypeId": "2"
