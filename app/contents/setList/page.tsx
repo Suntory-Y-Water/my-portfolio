@@ -13,10 +13,7 @@ const SetList = async () => {
       <h1 className='pb-4 text-navy-blue font-bold text-2xl'>ライブ一覧</h1>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
         {liveNames.map((liveName) => (
-          <div
-            key={liveName.id}
-            className='rounded-lg p-8 text-slate-500 border-2 text-center border-slate-500 hover:border-navy-blue hover:text-navy-blue'
-          >
+          <div key={liveName.id} className='rounded-lg p-8 border border-collapse text-center'>
             <Link href={`/contents/setList/${liveName.id}`}>
               <div className='flex justify-center items-center'>
                 <h2 className='text-lg font-bold mr-2'>{liveName.liveName}</h2>
