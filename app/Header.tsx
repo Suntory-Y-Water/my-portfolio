@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
 import { ModeToggle } from '@/components/ui/ModeToggle';
+import { navgationLinks } from '@/data/data';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -41,9 +42,9 @@ const Header = () => {
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
-              <HeaderNavigation href='/contents/setList' title='ライブ一覧' />
-              <HeaderNavigation href='/contents/liveChecker' title='ライブチェッカー' />
-              <HeaderNavigation href='/contents/profile' title='プロフィール' />
+              {navgationLinks.map((link) => (
+                <HeaderNavigation key={link.href} href={link.href} title={link.title} />
+              ))}
             </NavigationMenuList>
           </NavigationMenu>
           <div className='ml-4'>
