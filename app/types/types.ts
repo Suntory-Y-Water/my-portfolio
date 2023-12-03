@@ -1,8 +1,10 @@
-export type Live = {
+export type LiveName = {
   id: string;
-  name: string;
-  year: string;
+  liveName: string;
   liveTypeId: string;
 };
 
-export type Lives = Live[];
+export type HeaderLinkProps = {
+  href: string;
+  title: string;
+};
