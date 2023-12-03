@@ -1,13 +1,12 @@
+import { HeaderLinkProps } from '@/app/types/types';
 import { NavigationMenuLink, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
 import Link from 'next/link';
 
-const HeaderToggleContent = (params: { href: string; title: string }) => {
+const HeaderToggleContent = ({ href, title }: HeaderLinkProps) => {
   return (
     <li>
-      <Link href={params.href} legacyBehavior passHref>
-        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-          {params.title}
-        </NavigationMenuLink>
+      <Link href={href} legacyBehavior passHref>
+        <NavigationMenuLink className={navigationMenuTriggerStyle()}>{title}</NavigationMenuLink>
       </Link>
     </li>
   );

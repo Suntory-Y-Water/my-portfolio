@@ -1,3 +1,4 @@
+import { HeaderLinkProps } from '@/app/types/types';
 import {
   NavigationMenuItem,
   NavigationMenuLink,
@@ -5,13 +6,11 @@ import {
 } from '@/components/ui/navigation-menu';
 import Link from 'next/link';
 
-const HeaderNavigation = (params: { href: string; title: string }) => {
+const HeaderNavigation = ({ href, title }: HeaderLinkProps) => {
   return (
     <NavigationMenuItem>
-      <Link href={params.href} legacyBehavior passHref>
-        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-          {params.title}
-        </NavigationMenuLink>
+      <Link href={href} legacyBehavior passHref>
+        <NavigationMenuLink className={navigationMenuTriggerStyle()}>{title}</NavigationMenuLink>
       </Link>
     </NavigationMenuItem>
   );
