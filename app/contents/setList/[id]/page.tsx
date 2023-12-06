@@ -1,26 +1,48 @@
 import React from 'react';
-import lives from '@/data/liveSongs.json';
+import { SongsSungProps } from '@/app/types/types';
 
-const SetListDetail = async ({ params }: { params: { id: string } }) => {
-  // 会場ごとにデータをグループ化するための型を定義
-  type GroupedLives = { [key: string]: string[] };
+async function SetListDetail({
+  params,
+  searchParams,
+}: {
+  params: { id: string };
+  searchParams: { [key: string]: string | undefined };
+}) {
+  // クエリパラメーターからライブ名を取得する
+  const liveName = searchParams.liveName;
 
-  const groupedLives = lives.reduce<GroupedLives>((acc, live) => {
-    acc[live.venue] = acc[live.venue] || [];
-    acc[live.venue].push(live.title);
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const res = await fetch(`${API_URL}/api/lives/${params.id}`, { cache: 'no-store' });
+  const setLists: SongsSungProps[] = await res.json();
+  type GroupedData = {
+    [key: string]: SongsSungProps[];
+  };
+
+  // 以降は、この型を使用してデータをグループ化
+  const groupedSetLists = setLists.reduce<GroupedData>((acc, item) => {
+    const key = item.venue.name;
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+    acc[key].push(item);
     return acc;
   }, {});
 
+  // 会場ごとにグループ化したライブをソートする
+  Object.keys(groupedSetLists).forEach((key) => {
+    groupedSetLists[key].sort((a, b) => a.id - b.id);
+  });
+
   return (
-    <div className='max-w-3xl mx-auto'>
-      <h1 className='text-3xl font-bold mb-4'>{params.id}</h1>
-      {Object.entries(groupedLives).map(([venue, titles]) => (
+    <div className='max-w-3xl '>
+      <h1 className='text-3xl font-bold mb-4'>{liveName}</h1>
+      {Object.entries(groupedSetLists).map(([venue, setLists]) => (
         <div key={venue} className='mb-8'>
           <h2 className='text-2xl font-semibold'>{venue}</h2>
           <ul>
-            {titles.map((title, index) => (
+            {setLists.map((setList, index) => (
               <li key={index} className='py-0.5'>
-                {title}
+                {setList.song.title}
               </li>
             ))}
           </ul>
@@ -28,6 +50,6 @@ const SetListDetail = async ({ params }: { params: { id: string } }) => {
       ))}
     </div>
   );
-};
+}
 
 export default SetListDetail;

@@ -32,7 +32,10 @@ const SideNav = ({ className, liveNames }: SideNavProps) => {
           <ScrollArea className='h-[300px] px-1'>
             <div className='space-y-2 p-2'>
               {liveNames?.map((liveName, i) => (
-                <Link href={`/contents/setList/${liveName.id}`} key={`${liveName.id}-${i}`}>
+                <Link
+                  href={`/contents/setList/${liveName.id}?liveName=${liveName.name}`}
+                  key={`${liveName.id}-${i}`}
+                >
                   <Button variant='ghost' className='w-full justify-start font-normal'>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
