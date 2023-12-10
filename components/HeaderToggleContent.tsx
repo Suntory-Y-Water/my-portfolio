@@ -1,8 +1,9 @@
 import { HeaderLinkProps } from '@/app/types/types';
 import { NavigationMenuLink, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
 import Link from 'next/link';
+import React from 'react';
 
-const HeaderToggleContent = ({ href, title }: HeaderLinkProps) => {
+function HeaderToggleContent({ href, title }: HeaderLinkProps) {
   return (
     <li>
       <Link href={href} legacyBehavior passHref>
@@ -10,6 +11,6 @@ const HeaderToggleContent = ({ href, title }: HeaderLinkProps) => {
       </Link>
     </li>
   );
-};
+}
 
 export default HeaderToggleContent;

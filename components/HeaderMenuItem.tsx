@@ -5,8 +5,9 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import Link from 'next/link';
+import React from 'react';
 
-const HeaderNavigation = ({ href, title }: HeaderLinkProps) => {
+function HeaderNavigation({ href, title }: HeaderLinkProps) {
   return (
     <NavigationMenuItem>
       <Link href={href} legacyBehavior passHref>
@@ -14,6 +15,6 @@ const HeaderNavigation = ({ href, title }: HeaderLinkProps) => {
       </Link>
     </NavigationMenuItem>
   );
-};
+}
 
 export default HeaderNavigation;
