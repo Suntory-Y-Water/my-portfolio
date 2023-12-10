@@ -35,7 +35,7 @@ const Header = () => {
                     {lives.map((live) => (
                       <HeaderToggleContent
                         key={live.id}
-                        href={`/contents/setList/${live.id}?liveName=${live.name}`}
+                        href={`/contents/set-list/${live.id}?live-name=${live.name}`}
                         title={live.name}
                       />
                     ))}
