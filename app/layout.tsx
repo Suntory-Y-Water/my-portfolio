@@ -1,11 +1,13 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import Header from './Header';
-import Footer from './Footer';
 import SideNav from '@/components/SideNav';
+// eslint-disable-next-line camelcase
 import { Noto_Sans_JP } from 'next/font/google';
 import { ThemeProvider } from '@/components/ui/theme-provider';
 import { liveNames } from '@/data/data';
+import React from 'react';
+import Footer from './Footer';
+import Header from './Header';
 
 const notoSansJp = Noto_Sans_JP({ subsets: ['latin'] });
 

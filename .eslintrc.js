@@ -5,7 +5,8 @@ module.exports = {
     'eslint:recommended', // ESLintの基本的な推奨ルール
     'plugin:@typescript-eslint/recommended', // TypeScript用の推奨ルール
     'plugin:react/recommended', // Reactの推奨ルール
-    'plugin:react-hooks/recommended', // React Hooksのベストプラクティスに準拠
+    'plugin:react-hooks/recommended', // React Hooksのベストプラクティスに準拠,
+    'airbnb',
   ],
   plugins: [
     'react', // Reactプラグインを使用
@@ -21,13 +22,21 @@ module.exports = {
     },
   },
   rules: {
-    'react/react-in-jsx-scope': 'off', // React 17+では不要なため無効化
-    'react/prop-types': 'off', // TypeScriptを使用しているためprop-typesは不要
-    '@typescript-eslint/explicit-module-boundary-types': 'off', // すべての関数で明示的な戻り値の型を要求しない
-    'no-console': 'warn', // コンソールログの使用に警告
-    eqeqeq: ['error', 'always'], // 厳密等価演算子の使用を強制
-    // その他のルールはプロジェクトのニーズに応じて追加
+    'react/jsx-filename-extension': ['off'],
+    'import/extensions': ['off'],
+    'jsx-quotes': ['off'],
+    'linebreak-style': ['off'],
+    'import/prefer-default-export': 'off',
+    'operator-linebreak': ['off'],
   },
+  overrides: [
+    {
+      files: ['app/api/**/*.ts'],
+      rules: {
+        'import/prefer-default-export': 'off',
+      },
+    },
+  ],
   settings: {
     react: {
       version: 'detect', // Reactのバージョンを自動で検出

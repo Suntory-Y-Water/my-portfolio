@@ -1,4 +1,5 @@
 'use client';
+
 import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
@@ -15,13 +16,13 @@ import HeaderNavigation from '@/components/HeaderMenuItem';
 import lives from '@/data/liveName.json';
 import HeaderToggleContent from '@/components/HeaderToggleContent';
 
-const Header = () => {
+function Header() {
   return (
     <header className='sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
       <div className='container flex h-14 items-center'>
         <div className='flex title-font font-medium items-center text-navy-blue mb-4 md:mb-0'>
-          <Link href={'/'}>
-            <Image src={'/icon.png'} alt='icon' width={40} height={40} />
+          <Link href='/'>
+            <Image src='/icon.png' alt='icon' width={40} height={40} />
           </Link>
           <span className='ml-3 text-xl'>Sui Portforio</span>
         </div>
@@ -54,6 +55,6 @@ const Header = () => {
       </div>
     </header>
   );
-};
+}
 
 export default Header;

@@ -1,17 +1,17 @@
 'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { LiveName } from '@/data/data';
-import { navgationLinks } from '@/data/data';
+import { LiveName, navgationLinks } from '@/data/data';
 
 interface SideNavProps extends React.HTMLAttributes<HTMLDivElement> {
   liveNames: LiveName[];
 }
 
-const SideNav = ({ className, liveNames }: SideNavProps) => {
+function SideNav({ className, liveNames }: SideNavProps) {
   return (
     <div className='relative overflow-hidden h-full '>
       <div className={cn('pb-2', className)}>
@@ -31,10 +31,10 @@ const SideNav = ({ className, liveNames }: SideNavProps) => {
           <h2 className='relative px-7 text-lg font-semibold tracking-tight'>セトリ一覧</h2>
           <ScrollArea className='h-[300px] px-1'>
             <div className='space-y-2 p-2'>
-              {liveNames?.map((liveName, i) => (
+              {liveNames?.map((liveName) => (
                 <Link
-                  href={`/contents/setList/${liveName.id}?liveName=${liveName.name}`}
-                  key={`${liveName.id}-${i}`}
+                  href={`/contents/set-list/${liveName.id}?live-name=${liveName.name}`}
+                  key={`${liveName.id}`}
                 >
                   <Button variant='ghost' className='w-full justify-start font-normal'>
                     <svg
@@ -63,6 +63,6 @@ const SideNav = ({ className, liveNames }: SideNavProps) => {
       </div>
     </div>
   );
-};
+}
 
 export default SideNav;

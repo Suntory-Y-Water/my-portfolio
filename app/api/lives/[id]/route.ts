@@ -1,8 +1,7 @@
-import { SongsSungProps } from '@/app/types/types';
 import { supabase } from '@/app/utils/supabaseClient';
 import { NextResponse, NextRequest } from 'next/server';
 
-export const GET = async (req: NextRequest, res: NextResponse) => {
+export async function GET(req: NextRequest) {
   const id = req.url.split('/lives/')[1];
 
   // Supabaseを使用してsongsSungテーブルからデータを取得
@@ -25,4 +24,4 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
   }
 
   return NextResponse.json(data, { status: 200 });
-};
+}

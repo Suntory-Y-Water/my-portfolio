@@ -1,7 +1,9 @@
 export type LiveName = {
   id: string;
   liveName: string;
-  liveTypeId: string;
+  liveType: {
+    type: string;
+  };
 };
 
 export type HeaderLinkProps = {
@@ -11,20 +13,13 @@ export type HeaderLinkProps = {
 
 export type SongsSungProps = {
   id: number;
-  song: SongProps;
+  song: { title: string };
   timesSung: number;
-  liveName: LiveNameProps;
-  venue: VenueNameProps;
+  liveName: { liveName: string };
+  venue: { name: string };
 };
 
-export type SongProps = {
-  title: string;
-};
-
-export type LiveNameProps = {
-  liveName: string;
-};
-
-export type VenueNameProps = {
+export type CheckBoxProps = {
+  id: string;
   name: string;
 };
