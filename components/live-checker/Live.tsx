@@ -39,7 +39,7 @@ export default function Live({ params }: { params: LiveName[] }) {
                 render={({ field }) => (
                   <FormItem
                     key={inoriMinaseLive.id}
-                    className='flex flex-row items-start space-x-3 space-y-0 py-1.5'
+                    className='flex flex-row items-start space-x-3 space-y-0 py-1'
                   >
                     <FormControl>
                       <Checkbox
@@ -69,7 +69,7 @@ export default function Live({ params }: { params: LiveName[] }) {
                 render={({ field }) => (
                   <FormItem
                     key={townMeetingLive.id}
-                    className='flex flex-row items-start space-x-3 space-y-0 py-1.5'
+                    className='flex flex-row items-start space-x-3 space-y-0 py-1'
                   >
                     <FormControl>
                       <Checkbox
@@ -91,7 +91,12 @@ export default function Live({ params }: { params: LiveName[] }) {
           </FormItem>
         )}
       />
-      <Link href={`/contents/live-checker/select-venue?=${form.watch('items')}`}>
+      <Link
+        href={{
+          pathname: '/contents/live-checker/select-venue',
+          query: { live_id: form.watch('items') },
+        }}
+      >
         <Button
           variant='default'
           className='w-full items-center justify-center p-6 my-2 tracking-tight'
