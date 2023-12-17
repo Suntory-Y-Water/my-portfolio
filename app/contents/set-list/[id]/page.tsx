@@ -6,10 +6,10 @@ async function SetListDetail({
   searchParams,
 }: {
   params: { id: string };
-  searchParams: { [key: string]: string | undefined };
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
   // クエリパラメーターからライブ名を取得する
-  const { liveName } = searchParams;
+  const liveName = searchParams.live_name;
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const res = await fetch(`${API_URL}/api/lives/${params.id}`, { cache: 'no-store' });

@@ -7,10 +7,14 @@ import {
 import Link from 'next/link';
 import React from 'react';
 
-function HeaderNavigation({ href, title }: HeaderLinkProps) {
+interface HeaderNavigationProps {
+  href: string;
+  title: string;
+}
+function HeaderNavigation({ href, title }: HeaderNavigationProps) {
   return (
     <NavigationMenuItem>
-      <Link href={href} legacyBehavior passHref>
+      <Link href={href}>
         <NavigationMenuLink className={navigationMenuTriggerStyle()}>{title}</NavigationMenuLink>
       </Link>
     </NavigationMenuItem>

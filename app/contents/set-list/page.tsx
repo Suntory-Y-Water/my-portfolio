@@ -14,7 +14,12 @@ const SetList = async () => {
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
         {liveLists.map((liveList) => (
           <div key={liveList.id} className='rounded-lg p-8 border border-collapse text-center'>
-            <Link href={`/contents/set-list/${liveList.id}?live-name=${liveList.liveName}`}>
+            <Link
+              href={{
+                pathname: `/contents/set-list/${liveList.id}`,
+                query: { live_name: `${liveList.liveName}` },
+              }}
+            >
               <div className='flex justify-center items-center'>
                 <h2 className='text-base font-bold mr-2'>{liveList.liveName}</h2>
                 <ArrowRight size={20} />

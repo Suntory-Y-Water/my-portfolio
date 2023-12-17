@@ -8,6 +8,7 @@ export type LiveName = {
 
 export type HeaderLinkProps = {
   href: string;
+  query: string;
   title: string;
 };
 
@@ -22,4 +23,12 @@ export type SongsSungProps = {
 export type CheckBoxProps = {
   id: string;
   name: string;
+};
+
+export type VenueProps = {
+  id: number;
+  venueName: string;
+  liveName: {
+    name: string;
+  };
 };

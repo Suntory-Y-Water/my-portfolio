@@ -33,8 +33,10 @@ function SideNav({ className, liveNames }: SideNavProps) {
             <div className='space-y-2 p-2'>
               {liveNames?.map((liveName) => (
                 <Link
-                  href={`/contents/set-list/${liveName.id}?live-name=${liveName.name}`}
-                  key={`${liveName.id}`}
+                  href={{
+                    pathname: `/contents/set-list/${liveName.id}`,
+                    query: { live_name: `${liveName.name}` },
+                  }}
                 >
                   <Button variant='ghost' className='w-full justify-start font-normal'>
                     <svg

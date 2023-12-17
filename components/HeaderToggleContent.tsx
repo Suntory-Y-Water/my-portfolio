@@ -3,10 +3,15 @@ import { NavigationMenuLink, navigationMenuTriggerStyle } from '@/components/ui/
 import Link from 'next/link';
 import React from 'react';
 
-function HeaderToggleContent({ href, title }: HeaderLinkProps) {
+function HeaderToggleContent({ href, query, title }: HeaderLinkProps) {
   return (
     <li>
-      <Link href={href} legacyBehavior passHref>
+      <Link
+        href={{
+          pathname: href,
+          query: { live_name: `${query}` },
+        }}
+      >
         <NavigationMenuLink className={navigationMenuTriggerStyle()}>{title}</NavigationMenuLink>
       </Link>
     </li>
