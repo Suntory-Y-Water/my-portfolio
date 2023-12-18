@@ -57,7 +57,7 @@ export const navgationLinks = [
     title: 'ライブチェッカー',
   },
   {
-    href: '/contents/profile',
+    href: '/',
     title: 'プロフィール',
   },
 ];

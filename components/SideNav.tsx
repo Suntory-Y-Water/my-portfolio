@@ -37,6 +37,7 @@ function SideNav({ className, liveNames }: SideNavProps) {
                     pathname: `/contents/set-list/${liveName.id}`,
                     query: { live_name: `${liveName.name}` },
                   }}
+                  key={liveName.id}
                 >
                   <Button variant='ghost' className='w-full justify-start font-normal'>
                     <svg
