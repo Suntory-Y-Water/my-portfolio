@@ -14,7 +14,7 @@ interface HeaderNavigationProps {
 function HeaderNavigation({ href, title }: HeaderNavigationProps) {
   return (
     <NavigationMenuItem>
-      <Link href={href}>
+      <Link href={href} legacyBehavior passHref>
         <NavigationMenuLink className={navigationMenuTriggerStyle()}>{title}</NavigationMenuLink>
       </Link>
     </NavigationMenuItem>

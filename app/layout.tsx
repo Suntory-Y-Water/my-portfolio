@@ -1,7 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import SideNav from '@/components/SideNav';
-// eslint-disable-next-line camelcase
 import { Noto_Sans_JP } from 'next/font/google';
 import { ThemeProvider } from '@/components/ui/theme-provider';
 import { liveNames } from '@/data/data';

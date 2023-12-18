@@ -11,6 +11,8 @@ function HeaderToggleContent({ href, query, title }: HeaderLinkProps) {
           pathname: href,
           query: { live_name: `${query}` },
         }}
+        legacyBehavior
+        passHref
       >
         <NavigationMenuLink className={navigationMenuTriggerStyle()}>{title}</NavigationMenuLink>
       </Link>
