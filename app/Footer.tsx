@@ -2,8 +2,8 @@ import React from 'react';
 
 function Footer() {
   return (
-    <footer className='py-2 px-4'>
-      <small>©2023 Sui</small>
+    <footer className='pt-12 py-8 text-center'>
+      <span>© {new Date().getFullYear()} Sui</span>
     </footer>
   );
 }

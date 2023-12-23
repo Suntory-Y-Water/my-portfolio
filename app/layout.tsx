@@ -11,8 +11,8 @@ import Header from './Header';
 const notoSansJp = Noto_Sans_JP({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Sui portfolio',
-  description: 'Sui portfolio',
+  title: 'Sui Portfolio',
+  description: 'Sui Portfolio',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
