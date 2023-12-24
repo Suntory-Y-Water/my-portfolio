@@ -84,14 +84,6 @@ export default function Venue({ params }: { params: VenueProps[] }) {
           結果を見る
         </Button>
       </Link>
-      <Link href='/contents/live-checker/select-live'>
-        <Button
-          variant='secondary'
-          className='w-full items-center justify-center p-6 my-2 tracking-tight'
-        >
-          ライブ選択に戻る
-        </Button>
-      </Link>
       <Link href='/contents/live-checker'>
         <Button
           variant='outline'
