@@ -15,6 +15,7 @@ import {
 import HeaderNavigation from '@/components/HeaderMenuItem';
 import lives from '@/data/liveName.json';
 import HeaderToggleContent from '@/components/HeaderToggleContent';
+import MobileMenu from '@/components/MobileMenu';
 
 function Header() {
   return (
@@ -26,7 +27,7 @@ function Header() {
           </Link>
           <span className='ml-3 text-xl'>Sui Portforio</span>
         </div>
-        <nav className='md:ml-auto flex items-center text-base justify-center font-medium'>
+        <nav className='hidden md:flex md:ml-auto items-center text-base justify-center font-medium'>
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -49,10 +50,13 @@ function Header() {
               ))}
             </NavigationMenuList>
           </NavigationMenu>
-          <div className='ml-4'>
-            <ModeToggle />
-          </div>
         </nav>
+        <div className='ml-auto md:ml-0'>
+          <ModeToggle />
+        </div>
+      </div>
+      <div className='md:hidden border-t'>
+        <MobileMenu />
       </div>
     </header>
   );

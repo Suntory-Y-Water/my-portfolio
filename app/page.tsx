@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function Home() {
   return (
-    <div className='px-4'>
+    <div>
       <h1 className='pb-4 font-bold text-3xl md:text-4xl lg:text-5xl'>Profile</h1>
       <div className='mt-4 space-y-1'>
         <h2 className='font-bold text-2xl'>Sui</h2>
@@ -29,11 +29,11 @@ export default function Home() {
         />
         <Career
           date='2022年11月 ~ 2023年3月'
-          description='椎間板ヘルニアの回復後、友人の紹介で都内のSES企業に就職し、某事業会社の会計システムプロジェクトに結合テストから参加。実務未経験ながらも、積極的に業務を模索し、ExcelとPythonを活用した業務効率化に取り組んだ。'
+          description='椎間板ヘルニアの回復後、友人の紹介で都内のSES企業に就職し、某事業会社の会計システムプロジェクトに結合テストから参加。ExcelとPythonを活用した業務効率化に取り組んだ。'
         />
         <Career
           date='2023年3月 ~ 2023年12月'
-          description='案件変更を経て、某事業会社の店内システムのクラウド移行プロジェクトに参画。要件定義とシステム設計フェーズでは、ExcelやPowerPoint、Confluenceを活用して詳細なドキュメントを作成。また、Jiraを用いてタスクの進捗管理と情報共有を効率的に行い、プロジェクトの進行状況を明確に把握していた。チームメンバーとして、オンプレミスからクラウドへの移行に伴う新しいアーキテクチャの理解と適応に積極的に取り組み、技術的な洞察力とコミュニケーション能力を同時に高めることができた。'
+          description='案件変更を経て、某事業会社の店内システムのクラウド移行プロジェクトに参画。要件定義と設計フェーズを経て現在に至る。'
         />
       </div>
       <div className='mt-4 space-y-1'>

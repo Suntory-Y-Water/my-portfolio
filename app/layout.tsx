@@ -32,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <aside className='flex font-medium text-base mt-12 sticky top-0'>
                   <SideNav liveNames={liveNames} className='hidden lg:block' />
                 </aside>
-                <main className='container mt-12'>{children}</main>
+                <main className='lg:mt-12'>{children}</main>
               </div>
             </div>
             <div className='mt-auto '>

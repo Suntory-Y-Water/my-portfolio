@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 function LiveChecker() {
   return (
-    <div className='px-4'>
+    <div>
       <h1 className='pb-4 font-bold text-2xl'>ライブチェッカー</h1>
       <div className='mb-4 space-y-1'>
         <p>

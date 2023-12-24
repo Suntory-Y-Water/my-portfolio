@@ -9,7 +9,7 @@ const SetList = async () => {
   const liveLists: LiveName[] = await res.json();
 
   return (
-    <div className='px-4'>
+    <div>
       <h1 className='pb-4 text-navy-blue font-bold text-2xl'>ライブ一覧</h1>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
         {liveLists.map((liveList) => (
