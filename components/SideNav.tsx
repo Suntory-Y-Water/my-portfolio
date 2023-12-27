@@ -13,7 +13,7 @@ interface SideNavProps extends React.HTMLAttributes<HTMLDivElement> {
 
 function SideNav({ className, liveNames }: SideNavProps) {
   return (
-    <div className='relative overflow-hidden h-full '>
+    <div className='relative overflow-hidden h-full' data-testid='sideNav'>
       <div className={cn('pb-2', className)}>
         <div className='space-y-2'>
           <div className='px-3'>
