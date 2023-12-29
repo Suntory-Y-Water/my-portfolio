@@ -49,7 +49,7 @@ export default function Result({ params }: { params: ResultProps[] }) {
           </FormItem>
         )}
       />
-      <Link href='/contents/live-checker'>
+      <Link href='/live-checker'>
         <Button
           variant='default'
           className='w-full items-center justify-center p-6 my-2 tracking-tight'

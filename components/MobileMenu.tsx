@@ -20,7 +20,7 @@ function MobileMenu() {
               className='with-icon_icon__MHUeb'
               fill='none'
               height='24'
-              shape-rendering='geometricPrecision'
+              shapeRendering='geometricPrecision'
               stroke='currentColor'
               strokeLinecap='round'
               strokeLinejoin='round'

@@ -7,7 +7,7 @@ interface CareerProps {
 
 const Career = ({ date, description }: CareerProps) => {
   return (
-    <div className='flex py-2'>
+    <div className='flex py-2 md:space-x-2' data-testid='career'>
       <div className='w-1/6 text-left font-semibold text-blue-600'>{date}</div>
       <div className='border-l-2 pl-4 w-5/6'>
         <p>{description}</p>

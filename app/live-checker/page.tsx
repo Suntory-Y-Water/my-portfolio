@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 function LiveChecker() {
   return (
-    <div>
+    <div className='md:w-2/3'>
       <h1 className='pb-4 font-bold text-2xl'>ライブチェッカー</h1>
       <div className='mb-4 space-y-1'>
         <p>
@@ -13,7 +13,7 @@ function LiveChecker() {
           ライブを選択するを押したあと、ガイドに従って入力してください。
         </p>
       </div>
-      <Link href='/contents/live-checker/select-live'>
+      <Link href='/live-checker/select-live'>
         <Button variant='default' className='w-full items-center justify-center p-6 tracking-tight'>
           今すぐ始める
         </Button>

@@ -17,7 +17,7 @@ const page = async ({
   const venueLists: VenueProps[] = await res.json();
 
   return (
-    <div>
+    <div className='md:w-2/3'>
       <h1 className='pb-4 font-bold text-2xl'>参加した会場を選ぼう</h1>
       <Venue params={venueLists} />
     </div>

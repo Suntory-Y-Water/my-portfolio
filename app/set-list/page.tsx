@@ -16,7 +16,7 @@ const SetList = async () => {
           <div key={liveList.id} className='rounded-lg p-8 border border-collapse text-center'>
             <Link
               href={{
-                pathname: `/contents/set-list/${liveList.id}`,
+                pathname: `/set-list/${liveList.id}`,
                 query: { live_name: `${liveList.liveName}` },
               }}
             >
