@@ -40,7 +40,7 @@ function Header() {
                     {lives.map((live) => (
                       <HeaderToggleContent
                         key={live.id}
-                        href={`/contents/set-list/${live.id}`}
+                        href={`/set-list/${live.id}`}
                         query={live.name}
                         title={live.name}
                       />
@@ -54,7 +54,7 @@ function Header() {
             </NavigationMenuList>
           </NavigationMenu>
         </nav>
-        <div className='ml-auto md:ml-0'>
+        <div className='ml-auto md:ml-2'>
           <ModeToggle />
         </div>
       </div>

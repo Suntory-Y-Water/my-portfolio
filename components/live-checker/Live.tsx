@@ -1,17 +1,20 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { LiveName } from '@/app/types/types';
+import AlertDialogComponent from '../ui/AlertDialogComponent';
 
 interface FormValues {
   items: string[];
 }
 
 export default function Live({ params }: { params: LiveName[] }) {
+  const [isAlertDialogOpen, setAlertDialogOpen] = useState(false);
+
   // ライブ種別ごとにフィルター化して画面表示
   const inoriMinaseLives = params.filter((param) => param.liveType.type === '水瀬いのり個人名義');
   const townMeetingLives = params.filter((param) => param.liveType.type === '町民集会');
@@ -21,6 +24,13 @@ export default function Live({ params }: { params: LiveName[] }) {
       items: [],
     },
   });
+
+  const handleButtonClick = (e: React.SyntheticEvent) => {
+    if (form.watch('items').length === 0) {
+      e.preventDefault();
+      setAlertDialogOpen(true);
+    }
+  };
 
   return (
     <Form {...form}>
@@ -94,18 +104,20 @@ export default function Live({ params }: { params: LiveName[] }) {
       />
       <Link
         href={{
-          pathname: '/contents/live-checker/select-venue',
+          pathname: '/live-checker/select-venue',
           query: { live_id: form.watch('items') },
         }}
+        onClick={handleButtonClick}
       >
         <Button
           variant='default'
-          className='w-full items-center justify-center p-6 my-2 tracking-tight'
+          className='w-full items-center justify-center p-6 mt-6 mb-2 tracking-tight'
+          disabled={form.watch('items').length === 0}
         >
           次へ進む
         </Button>
       </Link>
-      <Link href='/contents/live-checker'>
+      <Link href='/live-checker'>
         <Button
           variant='secondary'
           className='w-full items-center justify-center p-6 my-2 tracking-tight'
@@ -113,6 +125,12 @@ export default function Live({ params }: { params: LiveName[] }) {
           最初に戻る
         </Button>
       </Link>
+      <AlertDialogComponent
+        isOpen={isAlertDialogOpen}
+        onClose={() => setAlertDialogOpen(false)}
+        description='ライブを選択してください。'
+        cancelText='戻る'
+      />
     </Form>
   );
 }

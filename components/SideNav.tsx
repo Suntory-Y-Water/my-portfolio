@@ -34,7 +34,7 @@ function SideNav({ className, liveNames }: SideNavProps) {
               {liveNames?.map((liveName) => (
                 <Link
                   href={{
-                    pathname: `/contents/set-list/${liveName.id}`,
+                    pathname: `/set-list/${liveName.id}`,
                     query: { live_name: `${liveName.name}` },
                   }}
                   key={liveName.id}
