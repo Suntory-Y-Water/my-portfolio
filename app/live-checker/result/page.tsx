@@ -15,7 +15,7 @@ const page = async ({
   const songLists = await res.json();
 
   return (
-    <div className='px-4'>
+    <div className='md:w-2/3'>
       <h1 className='pb-4 font-bold text-2xl'>聴いたことない曲一覧</h1>
       <Result params={songLists} />
     </div>

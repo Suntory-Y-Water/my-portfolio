@@ -49,11 +49,11 @@ export type LiveName = (typeof liveNames)[number];
 
 export const navgationLinks = [
   {
-    href: '/contents/set-list',
+    href: '/set-list',
     title: 'ライブ一覧',
   },
   {
-    href: '/contents/live-checker',
+    href: '/live-checker',
     title: 'ライブチェッカー',
   },
   {

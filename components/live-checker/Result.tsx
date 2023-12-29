@@ -49,30 +49,9 @@ export default function Result({ params }: { params: ResultProps[] }) {
           </FormItem>
         )}
       />
-      <Link
-        href={{
-          pathname: '/contents/live-checker/select-venue',
-          query: { live_id: form.watch('items') },
-        }}
-      >
+      <Link href='/live-checker'>
         <Button
           variant='default'
-          className='w-full items-center justify-center p-6 my-2 tracking-tight'
-        >
-          結果を共有する(未実装)
-        </Button>
-      </Link>
-      <Link href='/contents/live-checker'>
-        <Button
-          variant='secondary'
-          className='w-full items-center justify-center p-6 my-2 tracking-tight'
-        >
-          前の画面に戻る
-        </Button>
-      </Link>
-      <Link href='/contents/live-checker'>
-        <Button
-          variant='outline'
           className='w-full items-center justify-center p-6 my-2 tracking-tight'
         >
           最初に戻る

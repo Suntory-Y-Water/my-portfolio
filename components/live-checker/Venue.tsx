@@ -4,8 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { VenueProps } from '@/app/types/types';
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import AlertDialogComponent from '../ui/AlertDialogComponent';
 
 interface FormValues {
   items: number[];
@@ -23,11 +24,20 @@ const groupVenuesByLiveName = (venues: VenueProps[]): GroupedVenues => {
 };
 
 export default function Venue({ params }: { params: VenueProps[] }) {
+  const [isAlertDialogOpen, setAlertDialogOpen] = useState(false);
+
   const form = useForm<FormValues>({
     defaultValues: {
       items: [],
     },
   });
+
+  const handleButtonClick = (e: React.SyntheticEvent) => {
+    if (form.watch('items').length === 0) {
+      e.preventDefault();
+      setAlertDialogOpen(true);
+    }
+  };
 
   const groupedVenues = params ? groupVenuesByLiveName(params) : {};
 
@@ -73,26 +83,20 @@ export default function Venue({ params }: { params: VenueProps[] }) {
       />
       <Link
         href={{
-          pathname: '/contents/live-checker/result',
+          pathname: '/live-checker/result',
           query: { venue_id: form.watch('items') },
         }}
+        onClick={handleButtonClick}
       >
         <Button
           variant='default'
-          className='w-full items-center justify-center p-6 my-2 tracking-tight'
+          className='w-full items-center justify-center p-6 mt-6 mb-2 tracking-tight'
+          disabled={form.watch('items').length === 0}
         >
           結果を見る
         </Button>
       </Link>
-      <Link href='/contents/live-checker/select-live'>
-        <Button
-          variant='secondary'
-          className='w-full items-center justify-center p-6 my-2 tracking-tight'
-        >
-          ライブ選択に戻る
-        </Button>
-      </Link>
-      <Link href='/contents/live-checker'>
+      <Link href='/live-checker'>
         <Button
           variant='outline'
           className='w-full items-center justify-center p-6 my-2 tracking-tight'
@@ -100,6 +104,12 @@ export default function Venue({ params }: { params: VenueProps[] }) {
           最初に戻る
         </Button>
       </Link>
+      <AlertDialogComponent
+        isOpen={isAlertDialogOpen}
+        onClose={() => setAlertDialogOpen(false)}
+        description='参加した会場を選択してください。'
+        cancelText='戻る'
+      />
     </Form>
   );
 }

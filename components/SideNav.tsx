@@ -13,7 +13,7 @@ interface SideNavProps extends React.HTMLAttributes<HTMLDivElement> {
 
 function SideNav({ className, liveNames }: SideNavProps) {
   return (
-    <div className='relative overflow-hidden h-full '>
+    <div className='relative overflow-hidden h-full' data-testid='sideNav'>
       <div className={cn('pb-2', className)}>
         <div className='space-y-2'>
           <div className='px-3'>
@@ -34,7 +34,7 @@ function SideNav({ className, liveNames }: SideNavProps) {
               {liveNames?.map((liveName) => (
                 <Link
                   href={{
-                    pathname: `/contents/set-list/${liveName.id}`,
+                    pathname: `/set-list/${liveName.id}`,
                     query: { live_name: `${liveName.name}` },
                   }}
                   key={liveName.id}

@@ -34,20 +34,22 @@ async function SetListDetail({
   });
 
   return (
-    <div className='max-w-3xl '>
-      <h1 className='text-3xl font-bold mb-4'>{liveName}</h1>
-      {Object.entries(groupedSetLists).map(([venue, lists]) => (
-        <div key={venue} className='mb-8'>
-          <h2 className='text-2xl font-semibold'>{venue}</h2>
-          <ul>
-            {lists.map((list) => (
-              <li key={list.id} className='py-0.5'>
-                {list.song.title}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+    <div>
+      <div className='max-w-3xl '>
+        <h1 className='text-3xl font-bold mb-4'>{liveName}</h1>
+        {Object.entries(groupedSetLists).map(([venue, lists]) => (
+          <div key={venue} className='mb-8'>
+            <h2 className='text-2xl font-semibold'>{venue}</h2>
+            <ul>
+              {lists.map((list) => (
+                <li key={list.id} className='py-0.5'>
+                  {list.song.title}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
