@@ -1,3 +1,4 @@
+'use client';
 import Venue from '@/components/live-checker/Venue';
 import React from 'react';
 import { VenueProps } from '@/app/types/types';
@@ -11,7 +12,7 @@ const page = async ({
   const liveName = searchParams.live_id;
 
   const res = await fetch(`${API_URL}/api/venues/${liveName}`, {
-    cache: 'no-store',
+    cache: 'force-cache',
   });
 
   const venueLists: VenueProps[] = await res.json();

@@ -12,7 +12,7 @@ async function SetListDetail({
   const liveName = searchParams.live_name;
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const res = await fetch(`${API_URL}/api/lives/${params.id}`, { cache: 'no-store' });
+  const res = await fetch(`${API_URL}/api/lives/${params.id}`, { cache: 'force-cache' });
   const setLists: SongsSungProps[] = await res.json();
   type GroupedData = {
     [key: string]: SongsSungProps[];
