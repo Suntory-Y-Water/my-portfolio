@@ -5,7 +5,7 @@ import React from 'react';
 const page = async () => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const res = await fetch(`${API_URL}/api/lives`, {
-    cache: 'no-store',
+    cache: 'force-cache',
   });
   const liveLists: LiveName[] = await res.json();
 

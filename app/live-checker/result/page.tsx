@@ -9,7 +9,7 @@ const page = async ({
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const ids = searchParams.venue_id;
   const res = await fetch(`${API_URL}/api/unheard/${ids}`, {
-    cache: 'no-store',
+    cache: 'force-cache',
   });
 
   const songLists = await res.json();

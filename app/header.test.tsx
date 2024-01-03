@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Header from './Header';
-import { navgationLinks } from '@/data/data';
+import { navgationLinks } from '@/data';
 import lives from '@/data/liveName.json';
 import { useTheme } from 'next-themes';
 import { ModeToggle } from '@/components/ui/ModeToggle';
