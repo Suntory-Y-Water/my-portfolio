@@ -4,14 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Form, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import React from 'react';
 import Link from 'next/link';
+import { ResultProps } from '@/app/types/types';
 
 interface FormValues {
   items: number[];
-}
-
-interface ResultProps {
-  id: number;
-  title: string;
 }
 
 export default function Result({ params }: { params: ResultProps[] }) {

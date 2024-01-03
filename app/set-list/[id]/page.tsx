@@ -1,5 +1,14 @@
 import React from 'react';
 import { SongsSungProps } from '@/app/types/types';
+import { headers } from 'next/headers';
+import { config } from '@/lib/config';
+
+const fetchData = async (host: string, params: { id: string }) => {
+  const res = await fetch(`${config.apiPrefix}${host}/api/lives/${params.id}`, {
+    cache: 'force-cache',
+  });
+  return res.json();
+};
 
 async function SetListDetail({
   params,
@@ -10,10 +19,9 @@ async function SetListDetail({
 }) {
   // クエリパラメーターからライブ名を取得する
   const liveName = searchParams.live_name;
+  const host = headers().get('host');
+  const setLists: SongsSungProps[] = await fetchData(host!, params!);
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const res = await fetch(`${API_URL}/api/lives/${params.id}`, { cache: 'force-cache' });
-  const setLists: SongsSungProps[] = await res.json();
   type GroupedData = {
     [key: string]: SongsSungProps[];
   };

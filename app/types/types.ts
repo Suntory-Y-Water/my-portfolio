@@ -32,3 +32,12 @@ export type VenueProps = {
     name: string;
   };
 };
+
+export interface SearchParamsProps {
+  [key: string]: string | string[] | undefined;
+}
+
+export interface ResultProps {
+  id: number;
+  title: string;
+}

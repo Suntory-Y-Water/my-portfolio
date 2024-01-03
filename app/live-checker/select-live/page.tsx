@@ -1,13 +1,19 @@
-import { LiveName } from '@/app/types/types';
 import Live from '@/components/live-checker/Live';
 import React from 'react';
+import { headers } from 'next/headers';
+import { config } from '@/lib/config';
+import { LiveName } from '@/app/types/types';
 
-const page = async () => {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const res = await fetch(`${API_URL}/api/lives`, {
+const fetchData = async (host: string) => {
+  const res = await fetch(`${config.apiPrefix}${host}/api/lives`, {
     cache: 'force-cache',
   });
-  const liveLists: LiveName[] = await res.json();
+  return res.json();
+};
+
+const page = async () => {
+  const host = headers().get('host');
+  const liveLists: LiveName[] = await fetchData(host!);
 
   return (
     <div className='md:w-2/3'>
