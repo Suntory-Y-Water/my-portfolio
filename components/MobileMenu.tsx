@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { navgationLinks } from '@/data/data';
+import { navgationLinks } from '@/data';
 import Link from 'next/link';
 import { Button } from './ui/button';
 
