@@ -1,21 +1,20 @@
-'use client';
 import Venue from '@/components/live-checker/Venue';
 import React from 'react';
-import { VenueProps } from '@/app/types/types';
+import { SearchParamsProps, VenueProps } from '@/app/types/types';
+import { headers } from 'next/headers';
+import { config } from '@/lib/config';
 
-const page = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) => {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const liveName = searchParams.live_id;
-
-  const res = await fetch(`${API_URL}/api/venues/${liveName}`, {
+const fetchData = async (host: string, params: string | string[] | undefined) => {
+  const res = await fetch(`${config.apiPrefix}${host}/api/venues/${params}`, {
     cache: 'force-cache',
   });
+  return res.json();
+};
 
-  const venueLists: VenueProps[] = await res.json();
+const page = async ({ searchParams }: { searchParams: SearchParamsProps }) => {
+  const params = searchParams.live_id;
+  const host = headers().get('host');
+  const venueLists: VenueProps[] = await fetchData(host!, params!);
 
   return (
     <div className='md:w-2/3'>
