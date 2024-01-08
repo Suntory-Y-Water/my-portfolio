@@ -1,4 +1,3 @@
-import { HeaderLinkProps } from '@/app/types/types';
 import {
   NavigationMenuItem,
   NavigationMenuLink,

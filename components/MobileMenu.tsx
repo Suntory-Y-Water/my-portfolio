@@ -13,7 +13,7 @@ function MobileMenu() {
 
   return (
     <div>
-      <div className='px-6 py-4 w-full'>
+      <div className='px-4 py-4 w-full'>
         <div className='flex flex-col justify-between'>
           <button className='flex items-center gap-1' type='button' onClick={toggleMenu}>
             <svg

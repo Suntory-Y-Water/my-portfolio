@@ -17,6 +17,9 @@ export default function Result({ params }: { params: ResultProps[] }) {
     },
   });
 
+  const tweetText = `あなたが聴いたことのない曲は77曲中${params.length}曲でした!\r\n\r\https://my-portfolio-rouge-phi.vercel.app/live-checker\r\n\r\#水瀬いのりライブチェッカー`;
+  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
+
   return (
     <Form {...form}>
       <FormField
@@ -45,9 +48,17 @@ export default function Result({ params }: { params: ResultProps[] }) {
           </FormItem>
         )}
       />
-      <Link href='/live-checker'>
+      <Link href={tweetUrl} rel='noopener noreferrer' target='_blank'>
         <Button
           variant='default'
+          className='w-full items-center justify-center p-6 my-2 tracking-tight'
+        >
+          結果をX(Twitter)で共有する
+        </Button>
+      </Link>
+      <Link href='/live-checker'>
+        <Button
+          variant='secondary'
           className='w-full items-center justify-center p-6 my-2 tracking-tight'
         >
           最初に戻る
