@@ -45,7 +45,7 @@ export default function Home() {
         <p>このサイトの一部は以前作成したアプリの機能を搭載しています。</p>
       </div>
       <div className='flex flex-col sm:flex-row mt-4 space-y-4 sm:space-y-0 sm:space-x-4'>
-        <ImageComponent src='/trip.jpg' alt='Trip' />
+        <ImageComponent src='/trip.png' alt='Trip' />
         <ImageComponent src='/cat.png' alt='Cat' />
         <ImageComponent src='/inori.png' alt='Inori' />
       </div>
