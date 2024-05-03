@@ -1,65 +1,67 @@
 'use client';
 
 import Link from 'next/link';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Image from 'next/image';
 import { ModeToggle } from '@/components/ui/ModeToggle';
-import { navgationLinks } from '@/data';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu';
-import HeaderNavigation from '@/components/HeaderMenuItem';
-import HeaderToggleContent from '@/components/HeaderToggleContent';
-import MobileMenu from '@/components/MobileMenu';
-import { liveNames } from '@/data';
+import HamburgerMenu from '@/components/MenuMobile';
+import { IoMdHome } from 'react-icons/io';
+import { MdOutlineArticle } from 'react-icons/md';
+
+type MenuItemLinkProps = {
+  href: string;
+  title: string;
+  icon: ReactElement;
+};
 
 function Header() {
+  const navgationLinks: MenuItemLinkProps[] = [
+    {
+      href: '/',
+      title: 'Home',
+      icon: <IoMdHome size='1.2em' />,
+    },
+    {
+      href: '/posts',
+      title: 'Posts',
+      icon: <MdOutlineArticle size='1.2em' />,
+    },
+  ];
+
   return (
-    <header
-      data-testid='header'
-      className='sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'
-    >
-      <div className='container px-4 flex h-14 items-center'>
-        <div className='flex title-font font-medium items-center md:mb-0'>
-          <Link href='/'>
-            <Image src='/icon.png' alt='icon' width={40} height={40} priority={true} />
+    <header className='sticky top-0 z-20 h-[64px] border-b bg-background backdrop-blur'>
+      <div className='mx-auto flex h-full max-w-[1024px] items-center justify-between px-4'>
+        <div className=''>
+          <Link
+            href='/'
+            className='ease flex w-8 items-center stroke-[5] text-xl font-bold duration-300 hover:-translate-y-0.5'
+            aria-label='最初の画面に戻る'
+          >
+            <Image
+              src='/icon.jpg'
+              width={64}
+              height={64}
+              alt='icon'
+              className='rounded-full'
+              loading='eager'
+            />
           </Link>
-          <span className='ml-3 text-xl'>Sui Portforio</span>
         </div>
-        <nav className='hidden md:flex md:ml-auto items-center text-base justify-center font-medium'>
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>セトリ一覧</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className='gap-3 p-6 md:w-[400px] lg:w-[300px] lg:grid-cols-[.75fr_1fr]'>
-                    {liveNames.map((live) => (
-                      <HeaderToggleContent
-                        key={live.id}
-                        href={`/set-list/${live.id}`}
-                        query={live.name}
-                        title={live.name}
-                      />
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              {navgationLinks.map((link) => (
-                <HeaderNavigation key={link.href} href={link.href} title={link.title} />
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
+        <nav className='hidden sm:flex items-center text-base justify-center font-medium'>
+          <ul>
+            {navgationLinks.map((link) => (
+              <Link key={link.href} href={link.href}>
+                <li className='inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 underline-offset-4 hover:underline h-10 px-4 py-2'>
+                  {link.title}
+                </li>
+              </Link>
+            ))}
+          </ul>
         </nav>
-        <div className='ml-auto md:ml-2'>
+        <div className='flex items-center'>
           <ModeToggle />
+          <HamburgerMenu params={navgationLinks} />
         </div>
-      </div>
-      <div className='md:hidden border-t'>
-        <MobileMenu />
       </div>
     </header>
   );
