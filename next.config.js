@@ -12,7 +12,8 @@ const nextConfig = {
     return config;
   },
   images: {
-    disableStaticImages: true, // importした画像の型定義設定を無効にする
+    disableStaticImages: true,
+    domains: ['images.microcms-assets.io', 'storage.googleapis.com'],
   },
 };
 

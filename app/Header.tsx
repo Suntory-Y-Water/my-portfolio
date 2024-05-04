@@ -7,6 +7,7 @@ import { ModeToggle } from '@/components/ui/ModeToggle';
 import HamburgerMenu from '@/components/MenuMobile';
 import { IoMdHome } from 'react-icons/io';
 import { MdOutlineArticle } from 'react-icons/md';
+import { RiCodeView } from 'react-icons/ri';
 
 type MenuItemLinkProps = {
   href: string;
@@ -25,6 +26,11 @@ function Header() {
       href: '/posts',
       title: 'Posts',
       icon: <MdOutlineArticle size='1.2em' />,
+    },
+    {
+      href: '/contents',
+      title: 'Contents',
+      icon: <RiCodeView size='1.2em' />,
     },
   ];
 
