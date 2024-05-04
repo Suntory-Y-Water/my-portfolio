@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import { FiMenu } from 'react-icons/fi';
 import Link from 'next/link';
 import { ReactElement } from 'react';

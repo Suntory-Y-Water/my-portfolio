@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import dayjs from 'dayjs';
 
 type Props = {

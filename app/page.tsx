@@ -10,6 +10,10 @@ export default function Home() {
         <p>東京都で活動するエンジニア。名前の由来は、目の前にあったサントリーの天然水から。</p>
         <p>健康第一をモットーにしており、一年以上ほぼ毎日朝活しています🌅</p>
       </div>
+      <div className='mt-2 space-y-1'>
+        <h2>Like💫</h2>
+        <p>コーヒー☕️、にゃんころ🐈️、旅行🚅、アニメ📺️、水瀬いのりさん🙏が好きです😎</p>
+      </div>
       <div className='mt-4 space-y-1'>
         <h2>Career👨‍💼</h2>
         <Career
@@ -32,10 +36,6 @@ export default function Home() {
           date='2023年3月 ~ '
           description='案件変更を経て、小売業界の店内システムのクラウド移行プロジェクトに参画。要件定義～設計を経て現在に至る。'
         />
-      </div>
-      <div className='mt-2 space-y-1'>
-        <h2>Like💫</h2>
-        <p>コーヒー☕️、にゃんころ🐈️、旅行🚅、アニメ📺️、水瀬いのりさん🙏が好きです😎</p>
       </div>
     </div>
   );

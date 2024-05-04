@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import './globals.css';
 import type { Metadata } from 'next';
 // eslint-disable-next-line camelcase
