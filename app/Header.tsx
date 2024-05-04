@@ -50,7 +50,7 @@ function Header() {
         <nav className='hidden sm:flex items-center text-base justify-center font-medium'>
           <ul>
             {navgationLinks.map((link) => (
-              <Link key={link.href} href={link.href}>
+              <Link key={link.href} href={link.href} className='px-4 py-[5px] h-[64px]'>
                 <li className='inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 underline-offset-4 hover:underline h-10 px-4 py-2'>
                   {link.title}
                 </li>
