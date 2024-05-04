@@ -31,17 +31,23 @@ const PostsList = async () => {
   const zennData: ZennResponse = await zennResponse.json();
   const zennPosts: ZennPost[] = zennData.articles.map((post) => ({ ...post, source: 'Zenn' }));
 
-  const qiitaResponse = await fetch('https://qiita.com/api/v2/users/Guz9N9KLASTt/items', {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${QIITA_ACCESS_TOKEN}`,
-      'Content-Type': 'application/json',
-    },
-  });
-  const qiitaData: QiitaPost[] = await qiitaResponse.json();
-  const qiitaPosts: QiitaPost[] = qiitaData.map((post) => ({ ...post, source: 'Qiita' }));
+  const usernames = ['Guz9N9KLASTt', 'Suntory_N_Water'];
+  const qiitaPosts: QiitaPost[] = [];
+
+  for (const username of usernames) {
+    const response = await fetch(`https://qiita.com/api/v2/users/${username}/items?per_page=100`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${QIITA_ACCESS_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    const data: QiitaPost[] = await response.json();
+    qiitaPosts.push(...data.map((post) => ({ ...post, source: 'Qiita' as const })));
+  }
+
+  // 全てのポストを日付でソート
   const posts: Post[] = [...zennPosts, ...qiitaPosts].sort((a, b) => {
-    // ZennとQiitaの日付から新しい順に並び替える
     const dateA = a.source === 'Zenn' ? new Date(a.published_at) : new Date(a.created_at);
     const dateB = b.source === 'Zenn' ? new Date(b.published_at) : new Date(b.created_at);
     return dateB.getTime() - dateA.getTime();
