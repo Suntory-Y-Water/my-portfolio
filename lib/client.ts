@@ -46,6 +46,9 @@ export type Article = Contents & MicroCMSContentId & MicroCMSDate;
 export const getContentsList = async (queries?: MicroCMSQueries) => {
   const listData = await client
     .getList<Contents>({
+      customRequestInit: {
+        cache: 'no-store',
+      },
       endpoint: 'contents',
       queries,
     })

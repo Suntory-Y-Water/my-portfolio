@@ -8,14 +8,15 @@ type Props = {
 
 export default function ArticleComponent({ params }: Props) {
   const linkProps = {
-    className: 'flex gap-1 items-center text-twitter hover:underline underline-offset-2',
+    className:
+      'flex gap-1 items-center text-twitter hover:underline underline-offset-2 text-primary',
     target: '_blank',
     rel: 'noopener noreferrer',
   };
 
   return (
     <main className='mx-auto flex max-w-xl flex-col'>
-      <h1 className='pb-8 text-left md:text-center'>{params.title}</h1>
+      <h2 className='pb-8 text-left md:text-center'>{params.title}</h2>
       {params.image && (
         <Image
           src={params.image?.url}
@@ -30,13 +31,12 @@ export default function ArticleComponent({ params }: Props) {
       <div className='flex flex-col gap-3 p-3'>
         <div className='w-full break-all text-left'>
           <div className='w-full break-all text-left'>
-            {/* <div
-              // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+            <div
               dangerouslySetInnerHTML={{
                 __html: `${params.content}`,
               }}
               className='w-full break-all text-left text-sm [&>h4]:font-semibold [&>h4]:pt-3 [&>h4]:pb-1'
-            /> */}
+            />
           </div>
           <ul className='flex flex-col gap-4 text-xs py-4'>
             <li className='flex items-center gap-4'>
@@ -54,8 +54,8 @@ export default function ArticleComponent({ params }: Props) {
               </span>
 
               <div className='flex flex-wrap items-start gap-1.5'>
-                {params.tags.map((tag) => (
-                  <span key={tag.fieldId}>{tag.tagId}</span>
+                {params.tags.map((tag, index) => (
+                  <span key={tag.tagId[index]}>{tag.tagId}</span>
                 ))}
               </div>
             </li>
