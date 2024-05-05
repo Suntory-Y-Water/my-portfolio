@@ -18,7 +18,7 @@ export default function HamburgerMenu({ params }: { params: Props }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className='md:hidden p-1'>
-        <FiMenu size='28px' />
+        <FiMenu size='28px' aria-label='モバイルメニュー' />
       </DropdownMenuTrigger>
       <DropdownMenuContent className='w-[200px] mr-4 py-1.5'>
         {params.map((param) => (

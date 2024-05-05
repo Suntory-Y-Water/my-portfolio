@@ -61,6 +61,9 @@ export const getContentsList = async (queries?: MicroCMSQueries) => {
 export const getContentsDetail = async (contentId: string, queries?: MicroCMSQueries) => {
   const detailData = await client
     .getListDetail<Contents>({
+      customRequestInit: {
+        cache: 'no-store',
+      },
       endpoint: 'contents',
       contentId,
       queries,

@@ -43,24 +43,20 @@ function Header() {
             className='ease flex w-8 items-center stroke-[5] text-xl font-bold duration-300 hover:-translate-y-0.5'
             aria-label='最初の画面に戻る'
           >
-            <Image
-              src='/icon.jpg'
-              width={64}
-              height={64}
-              alt='icon'
-              className='rounded-full'
-              loading='eager'
-            />
+            <Image src='/icon.jpg' width={64} height={64} alt='icon' className='rounded-full' />
           </Link>
         </div>
         <nav className='hidden sm:flex items-center text-base justify-center font-medium'>
           <ul>
             {navgationLinks.map((link) => (
-              <Link key={link.href} href={link.href} className='px-4 py-[5px] h-[64px]'>
-                <li className='inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 underline-offset-4 hover:underline h-10 px-4 py-2'>
+              <li
+                key={link.href}
+                className='inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 underline-offset-4 hover:underline h-10 px-4 py-2'
+              >
+                <Link href={link.href} className='px-4'>
                   {link.title}
-                </li>
-              </Link>
+                </Link>
+              </li>
             ))}
           </ul>
         </nav>

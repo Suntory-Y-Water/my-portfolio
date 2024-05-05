@@ -1,5 +1,8 @@
 import Career from '@/components/Career';
+import Link from 'next/link';
 import React from 'react';
+import { FaXTwitter } from 'react-icons/fa6';
+import { FaGithub } from 'react-icons/fa';
 
 export default function Home() {
   return (
@@ -36,6 +39,44 @@ export default function Home() {
           date='2023年3月 ~ '
           description='案件変更を経て、小売業界の店内システムのクラウド移行プロジェクトに参画。要件定義～設計を経て現在に至る。'
         />
+      </div>
+      <div className='mt-2 space-y-1'>
+        <h2>Others</h2>
+        <div>
+          <Link
+            href='https://twitter.com/Suntory_N_Water'
+            className='underline-offset-4 hover:underline pb-2 inline-flex items-center space-x-2'
+            aria-label='X(Twitter)アカウント'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <FaXTwitter size='1.2em' /> <span className='text-sm'>Suntory_N_Water</span>
+          </Link>
+        </div>
+        <div>
+          <Link
+            href='https://github.com/Suntory-Y-Water'
+            className='underline-offset-4 hover:underline py-2 inline-flex items-center space-x-2'
+            aria-label='GitHubアカウント'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <FaGithub size='1.2em' /> <span className='text-sm'>Suntory-Y-Water</span>
+          </Link>
+        </div>
+      </div>
+      <div className='mt-2 space-y-1'>
+        <h2>Contact</h2>
+        <Link
+          href='https://twitter.com/Suntory_N_Water'
+          className='underline-offset-4 hover:underline inline-flex items-center space-x-2 text-primary'
+          aria-label='問い合わせ先'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <span>X(Twitter)のDM&nbsp;</span>
+        </Link>
+        までお願いします
       </div>
     </div>
   );
