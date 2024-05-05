@@ -1,10 +1,8 @@
 import './globals.css';
 import type { Metadata } from 'next';
-// eslint-disable-next-line camelcase
 import { Noto_Sans_JP } from 'next/font/google';
 import { ThemeProvider } from '@/components/ui/theme-provider';
 import React from 'react';
-import { Analytics } from '@vercel/analytics/react';
 import Header from './Header';
 
 const notoSansJp = Noto_Sans_JP({ subsets: ['latin'] });
@@ -41,10 +39,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           disableTransitionOnChange
         >
           <Header />
-          <div className='mx-auto w-[calc(100%-40px)] max-w-[640px] py-16 md:w-[calc(100%-100px)] md:py-24'>
-            <main>{children}</main>
-            <Analytics />
-          </div>
+          <main className='mx-auto w-[calc(100%-40px)] max-w-[640px] py-16 md:w-[calc(100%-100px)] md:py-24'>
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>
