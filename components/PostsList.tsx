@@ -60,7 +60,8 @@ const PostsList = async () => {
           {post.source === 'Zenn' ? (
             <Link
               href={`https://zenn.dev/${post.path}`}
-              target='blank'
+              target='_blank'
+              rel='noopener noreferrer'
               className='flex aspect-[4/3] w-full h-full flex-col items-center justify-center gap-4 p-6 border rounded-3xl hover:outline-primary hover:outline-2 hover:outline hover:bg-muted/90'
             >
               <span className='text-6xl'>{post.emoji}</span>
@@ -74,7 +75,8 @@ const PostsList = async () => {
           ) : (
             <Link
               href={post.url}
-              target='blank'
+              target='_blank'
+              rel='noopener noreferrer'
               className='flex aspect-[4/3] w-full h-full flex-col items-center justify-center gap-4 p-6 border rounded-3xl hover:outline-primary hover:outline-2 hover:outline hover:bg-muted/90'
             >
               <QiitaIcon />

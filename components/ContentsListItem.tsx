@@ -31,9 +31,9 @@ function ContentsListItem({ contents }: Props) {
           </dt>
           <dd className='flex flex-wrap gap-2.5'>
             {contents.tags &&
-              contents.tags.map((tag, index) => (
+              contents.tags.map((tag) => (
                 <div
-                  key={tag.fieldId + index}
+                  key={tag.fieldId + tag.tagId}
                   className='rounded-sm bg-muted px-2.5 py-1.5 text-xs'
                 >
                   {tag.tagId}
