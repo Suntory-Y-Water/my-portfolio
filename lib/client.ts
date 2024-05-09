@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-// eslint-disable-next-line object-curly-newline
 import { MicroCMSContentId, MicroCMSDate, MicroCMSQueries, createClient } from 'microcms-js-sdk';
 import { notFound } from 'next/navigation';
 
@@ -15,6 +13,9 @@ export const client = createClient({
   serviceDomain: process.env.MICROCMS_DOMAIN || '',
   apiKey: process.env.MICROCMS_API_KEY || '',
 });
+
+// キャッシュの再検証時間 1日で再検証する
+const REVALIDATE_TIME = 60 * 60 * 24;
 
 export interface Contents {
   id: string;
@@ -47,7 +48,7 @@ export const getContentsList = async (queries?: MicroCMSQueries) => {
   const listData = await client
     .getList<Contents>({
       customRequestInit: {
-        cache: 'no-store',
+        next: { revalidate: REVALIDATE_TIME },
       },
       endpoint: 'contents',
       queries,
@@ -62,7 +63,7 @@ export const getContentsDetail = async (contentId: string, queries?: MicroCMSQue
   const detailData = await client
     .getListDetail<Contents>({
       customRequestInit: {
-        cache: 'no-store',
+        next: { revalidate: REVALIDATE_TIME },
       },
       endpoint: 'contents',
       contentId,

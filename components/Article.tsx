@@ -41,7 +41,7 @@ export default function ArticleComponent({ params }: Props) {
           <ul className='flex flex-col gap-4 text-xs py-4'>
             <li className='flex items-center gap-4'>
               <span className='bg-muted min-w-[80px] rounded-md px-2 py-2.5 text-center font-medium'>
-                WEBSITE
+                Site
               </span>
               <Link href={params.url} {...linkProps}>
                 {params.url}
@@ -50,7 +50,7 @@ export default function ArticleComponent({ params }: Props) {
 
             <li className='flex items-center gap-4'>
               <span className='bg-muted min-w-[80px] rounded-md px-2 py-2.5 text-center font-medium'>
-                STACK
+                Tags
               </span>
 
               <div className='flex flex-wrap items-start gap-1.5'>
@@ -62,7 +62,7 @@ export default function ArticleComponent({ params }: Props) {
 
             <li className='flex items-center gap-4'>
               <span className='bg-muted min-w-[80px] rounded-md px-2 py-2.5 text-center font-medium'>
-                SOURCE
+                Source
               </span>
               <Link href={params.source} {...linkProps}>
                 {params.source}
