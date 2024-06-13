@@ -14,9 +14,6 @@ export const client = createClient({
   apiKey: process.env.MICROCMS_API_KEY || '',
 });
 
-// キャッシュの再検証時間 1日で再検証する
-const REVALIDATE_TIME = 60 * 60 * 24;
-
 export interface Contents {
   id: string;
   createdAt: string;
@@ -47,9 +44,6 @@ export type Article = Contents & MicroCMSContentId & MicroCMSDate;
 export const getContentsList = async (queries?: MicroCMSQueries) => {
   const listData = await client
     .getList<Contents>({
-      customRequestInit: {
-        next: { revalidate: REVALIDATE_TIME },
-      },
       endpoint: 'contents',
       queries,
     })
@@ -62,9 +56,6 @@ export const getContentsList = async (queries?: MicroCMSQueries) => {
 export const getContentsDetail = async (contentId: string, queries?: MicroCMSQueries) => {
   const detailData = await client
     .getListDetail<Contents>({
-      customRequestInit: {
-        next: { revalidate: REVALIDATE_TIME },
-      },
       endpoint: 'contents',
       contentId,
       queries,

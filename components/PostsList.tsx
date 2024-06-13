@@ -24,10 +24,17 @@ type QiitaPost = {
 };
 
 type Post = ZennPost | QiitaPost;
+// 1日で再検証
+const revalidateTime = 60 * 60 * 24;
 
 const PostsList = async () => {
   const { QIITA_ACCESS_TOKEN } = process.env;
-  const zennResponse = await fetch('https://zenn.dev/api/articles?username=sui_water&order=latest');
+  const zennResponse = await fetch(
+    'https://zenn.dev/api/articles?username=sui_water&order=latest',
+    {
+      next: { revalidate: revalidateTime },
+    },
+  );
   const zennData: ZennResponse = await zennResponse.json();
   const zennPosts: ZennPost[] = zennData.articles.map((post) => ({ ...post, source: 'Zenn' }));
 
@@ -36,7 +43,7 @@ const PostsList = async () => {
 
   for (const username of usernames) {
     const response = await fetch(`https://qiita.com/api/v2/users/${username}/items?per_page=100`, {
-      method: 'GET',
+      next: { revalidate: revalidateTime },
       headers: {
         Authorization: `Bearer ${QIITA_ACCESS_TOKEN}`,
         'Content-Type': 'application/json',
