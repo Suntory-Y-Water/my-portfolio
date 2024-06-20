@@ -31,9 +31,7 @@ const PostsList = async () => {
   const { QIITA_ACCESS_TOKEN } = process.env;
   const zennResponse = await fetch(
     'https://zenn.dev/api/articles?username=sui_water&order=latest',
-    {
-      next: { revalidate: revalidateTime },
-    },
+    { cache: 'no-store' },
   );
   const zennData: ZennResponse = await zennResponse.json();
   const zennPosts: ZennPost[] = zennData.articles.map((post) => ({ ...post, source: 'Zenn' }));
@@ -43,7 +41,7 @@ const PostsList = async () => {
 
   for (const username of usernames) {
     const response = await fetch(`https://qiita.com/api/v2/users/${username}/items?per_page=100`, {
-      next: { revalidate: revalidateTime },
+      cache: 'no-store',
       headers: {
         Authorization: `Bearer ${QIITA_ACCESS_TOKEN}`,
         'Content-Type': 'application/json',
