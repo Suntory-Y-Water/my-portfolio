@@ -1,4 +1,4 @@
-import ContentsList from '@/components/ContentsList';
+import ContentsList from '@/app/feature/contents/ContentsList';
 import { getContentsList } from '@/lib/client';
 import React from 'react';
 

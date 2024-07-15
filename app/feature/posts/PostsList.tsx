@@ -1,63 +1,13 @@
 import Link from 'next/link';
 import QiitaIcon from '@/components/QiitaIcon';
-import ConvertDate from './ConvertDate';
+import ConvertDate from '@/components/ConvertDate';
+import { Post } from '@/app/types';
 
-type ZennResponse = {
-  articles: ZennPost[];
+type Props = {
+  posts: Post[];
 };
 
-type ZennPost = {
-  id: number;
-  path: string;
-  emoji: string;
-  title: string;
-  published_at: string;
-  source: 'Zenn';
-};
-
-type QiitaPost = {
-  created_at: string;
-  id: string;
-  title: string;
-  url: string;
-  source: 'Qiita';
-};
-
-type Post = ZennPost | QiitaPost;
-// 1日で再検証
-const revalidateTime = 60 * 60 * 24;
-
-const PostsList = async () => {
-  const { QIITA_ACCESS_TOKEN } = process.env;
-  const zennResponse = await fetch(
-    'https://zenn.dev/api/articles?username=sui_water&order=latest',
-    { cache: 'no-store' },
-  );
-  const zennData: ZennResponse = await zennResponse.json();
-  const zennPosts: ZennPost[] = zennData.articles.map((post) => ({ ...post, source: 'Zenn' }));
-
-  const usernames = ['Guz9N9KLASTt', 'Suntory_N_Water'];
-  const qiitaPosts: QiitaPost[] = [];
-
-  for (const username of usernames) {
-    const response = await fetch(`https://qiita.com/api/v2/users/${username}/items?per_page=100`, {
-      cache: 'no-store',
-      headers: {
-        Authorization: `Bearer ${QIITA_ACCESS_TOKEN}`,
-        'Content-Type': 'application/json',
-      },
-    });
-    const data: QiitaPost[] = await response.json();
-    qiitaPosts.push(...data.map((post) => ({ ...post, source: 'Qiita' as const })));
-  }
-
-  // 全てのポストを日付でソート
-  const posts: Post[] = [...zennPosts, ...qiitaPosts].sort((a, b) => {
-    const dateA = a.source === 'Zenn' ? new Date(a.published_at) : new Date(a.created_at);
-    const dateB = b.source === 'Zenn' ? new Date(b.published_at) : new Date(b.created_at);
-    return dateB.getTime() - dateA.getTime();
-  });
-
+const PostsList = async ({ posts }: Props) => {
   return (
     <ul className='grid place-items-center gap-7 items-stretch grid-cols-[repeat(auto-fit,minmax(240px,1fr))]'>
       {posts.map((post) => (

@@ -54,9 +54,9 @@ export default function ArticleComponent({ params }: Props) {
               </span>
 
               <div className='flex flex-wrap items-start gap-1.5'>
-                {params.tags.map((tag, index) => (
-                  <span key={tag.tagId[index]}>{tag.tagId}</span>
-                ))}
+                {params.tags.map((tagsId) =>
+                  tagsId.tagId.map((tag) => <span key={tag}>{tag}</span>),
+                )}
               </div>
             </li>
 
