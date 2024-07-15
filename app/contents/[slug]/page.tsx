@@ -1,4 +1,4 @@
-import ArticleComponent from '@/components/Article';
+import ArticleComponent from '@/app/feature/contents/Article';
 import { getContentsDetail } from '@/lib/client';
 import React from 'react';
 
