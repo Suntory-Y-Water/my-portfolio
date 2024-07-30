@@ -2,7 +2,7 @@ export type ZennResponse = {
   articles: ZennPost[];
 };
 
-export type ZennPost = {
+type ZennPost = {
   id: number;
   path: string;
   emoji: string;
@@ -19,4 +19,10 @@ export type QiitaPost = {
   source: 'Qiita';
 };
 
-export type Post = ZennPost | QiitaPost;
+export type Post = {
+  id: string;
+  url: string;
+  emoji?: string; // Zennのみ。Qiitaの場合はないので、post側ではQiitaアイコンを表示する
+  title: string;
+  createdAt: string;
+};

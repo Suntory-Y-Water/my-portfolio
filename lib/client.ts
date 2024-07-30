@@ -1,66 +1,16 @@
-import { MicroCMSContentId, MicroCMSDate, MicroCMSQueries, createClient } from 'microcms-js-sdk';
-import { notFound } from 'next/navigation';
-
-if (!process.env.MICROCMS_DOMAIN) {
-  throw new Error('MICROCMS_DOMAIN is required');
+export async function fetchPosts<T>(apiUrl: string, headers?: Record<string, string>) {
+  try {
+    const response = await fetch(apiUrl, {
+      headers: {
+        ...headers,
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`レスポンスが正常ではありません。ステータスコード : ${response.status}`);
+    }
+    return await (response.json() as Promise<T>);
+  } catch (error) {
+    throw new Error(`データの取得に失敗しました。エラー内容 : ${error}`);
+  }
 }
-
-if (!process.env.MICROCMS_API_KEY) {
-  throw new Error('MICROCMS_API_KEY is required');
-}
-
-export const client = createClient({
-  serviceDomain: process.env.MICROCMS_DOMAIN || '',
-  apiKey: process.env.MICROCMS_API_KEY || '',
-});
-
-export interface Contents {
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  revisedAt: string;
-  title: string;
-  url: string;
-  description: string;
-  content: string;
-  image: Image;
-  source: string;
-  tags: TagsEntity[];
-}
-export interface Image {
-  url: string;
-  height: number;
-  width: number;
-}
-export interface TagsEntity {
-  fieldId: string;
-  tagId: string[];
-}
-
-export type Article = Contents & MicroCMSContentId & MicroCMSDate;
-
-// コンテンツ一覧を取得する
-export const getContentsList = async (queries?: MicroCMSQueries) => {
-  const listData = await client
-    .getList<Contents>({
-      endpoint: 'contents',
-      queries,
-    })
-    .catch(notFound);
-
-  return listData;
-};
-
-// コンテンツの詳細を取得する
-export const getContentsDetail = async (contentId: string, queries?: MicroCMSQueries) => {
-  const detailData = await client
-    .getListDetail<Contents>({
-      endpoint: 'contents',
-      contentId,
-      queries,
-    })
-    .catch(notFound);
-
-  return detailData;
-};

@@ -37,7 +37,7 @@ export default function Home() {
         />
         <Career
           date='2023年3月 ~ '
-          description='案件変更を経て、小売業界の店内システムのクラウド移行プロジェクトに参画。要件定義～設計を経て現在に至る。'
+          description='案件変更を経て、小売業界の店内システムのクラウド移行プロジェクトに参画。要件定義～外部結合テストを経て現在に至る。'
         />
       </div>
       <div className='mt-2 space-y-1'>

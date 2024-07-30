@@ -1,37 +1,47 @@
 import PostsList from '@/app/feature/posts/PostsList';
 import React from 'react';
-import { Post, QiitaPost, ZennPost, ZennResponse } from '@/app/types';
-import { QIITA_USERNAMES, REVALIDATE_TIME, ZENN_USERNAME } from '@/app/constants';
+import { Post, QiitaPost, ZennResponse } from '@/app/types';
+import { QIITA_USERNAMES, ZENN_USERNAME } from '@/app/constants';
+import { fetchPosts } from '@/lib/client';
+import { envConfig } from '@/lib/utils';
 
-const page = async () => {
-  const { QIITA_ACCESS_TOKEN } = process.env;
-  const zennResponse = await fetch(
-    `https://zenn.dev/api/articles?username=${ZENN_USERNAME}&order=latest`,
-    { next: { revalidate: REVALIDATE_TIME } },
-  );
-  const zennData: ZennResponse = await zennResponse.json();
-  const zennPosts: ZennPost[] = zennData.articles.map((post) => ({ ...post, source: 'Zenn' }));
-
+export default async function Page() {
+  const apiKey = envConfig.QIITA_ACCESS_TOKEN;
   const usernames = QIITA_USERNAMES;
-  const qiitaPosts: QiitaPost[] = [];
+
+  const zennApiUrl = `https://zenn.dev/api/articles?username=${ZENN_USERNAME}&order=latest`;
+  const zennData = await fetchPosts<ZennResponse>(zennApiUrl);
+  const posts: Post[] = zennData.articles.map((post) => {
+    return {
+      id: post.id.toString(),
+      url: `https://zenn.dev${post.path}`,
+      emoji: post.emoji,
+      title: post.title,
+      createdAt: post.published_at,
+    };
+  });
 
   for (const username of usernames) {
-    const response = await fetch(`https://qiita.com/api/v2/users/${username}/items?per_page=100`, {
-      headers: {
-        Authorization: `Bearer ${QIITA_ACCESS_TOKEN}`,
-        'Content-Type': 'application/json',
+    const response = await fetchPosts<QiitaPost[]>(
+      `https://qiita.com/api/v2/users/${username}/items?per_page=100`,
+      {
+        Authorization: `Bearer ${apiKey}`,
       },
-    });
-    const data: QiitaPost[] = await response.json();
-    qiitaPosts.push(...data.map((post) => ({ ...post, source: 'Qiita' as const })));
+    );
+    posts.push(
+      ...response.map((post) => {
+        return {
+          id: post.id,
+          url: post.url,
+          title: post.title,
+          createdAt: post.created_at,
+        };
+      }),
+    );
   }
 
-  // 全てのポストを日付でソート
-  const posts: Post[] = [...zennPosts, ...qiitaPosts].sort((a, b) => {
-    const dateA = a.source === 'Zenn' ? new Date(a.published_at) : new Date(a.created_at);
-    const dateB = b.source === 'Zenn' ? new Date(b.published_at) : new Date(b.created_at);
-    return dateB.getTime() - dateA.getTime();
-  });
+  // postsをcreatedAtの降順にソート
+  posts.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
 
   return (
     <div>
@@ -42,6 +52,4 @@ const page = async () => {
       <PostsList posts={posts} />
     </div>
   );
-};
-
-export default page;
+}
