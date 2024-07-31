@@ -5,6 +5,7 @@ export async function fetchPosts<T>(apiUrl: string, headers?: Record<string, str
         ...headers,
         'Content-Type': 'application/json',
       },
+      cache: 'no-store',
     });
     if (!response.ok) {
       throw new Error(`レスポンスが正常ではありません。ステータスコード : ${response.status}`);

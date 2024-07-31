@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import PostsList from '@/app/feature/posts/PostsList';
 import React from 'react';
 import { Post, QiitaPost, ZennResponse } from '@/app/types';
