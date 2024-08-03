@@ -1,11 +1,12 @@
-export const dynamic = 'force-dynamic';
-
-import PostsList from '@/app/feature/posts/PostsList';
 import React from 'react';
-import { Post, QiitaPost, ZennResponse } from '@/app/types';
+
 import { QIITA_USERNAMES, ZENN_USERNAME } from '@/app/constants';
+import PostsList from '@/app/feature/posts/PostsList';
+import { Post, QiitaPost, ZennResponse } from '@/app/types';
 import { fetchPosts } from '@/lib/client';
 import { envConfig } from '@/lib/utils';
+
+export const dynamic = 'force-dynamic';
 
 export default async function Page() {
   const apiKey = envConfig.QIITA_ACCESS_TOKEN;

@@ -8,7 +8,9 @@ export async function fetchPosts<T>(apiUrl: string, headers?: Record<string, str
       cache: 'no-store',
     });
     if (!response.ok) {
-      throw new Error(`レスポンスが正常ではありません。ステータスコード : ${response.status}`);
+      throw new Error(
+        `レスポンスが正常ではありません。ステータスコード : ${response.status}`,
+      );
     }
     return await (response.json() as Promise<T>);
   } catch (error) {

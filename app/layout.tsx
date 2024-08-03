@@ -1,8 +1,11 @@
 import './globals.css';
+
 import type { Metadata } from 'next';
 import { Noto_Sans_JP } from 'next/font/google';
-import { ThemeProvider } from '@/components/ui/theme-provider';
 import React from 'react';
+
+import { ThemeProvider } from '@/components/ui/theme-provider';
+
 import Header from './Header';
 
 const notoSansJp = Noto_Sans_JP({ subsets: ['latin'] });
