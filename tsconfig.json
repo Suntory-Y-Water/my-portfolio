@@ -28,7 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "jest.setup.js",
-    "tailwind.config.ts"
+    "tailwind.config.ts",
+    "prettier.config.js"
   ],
   "exclude": ["node_modules"]
 }

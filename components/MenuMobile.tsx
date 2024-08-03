@@ -1,6 +1,7 @@
-import { FiMenu } from 'react-icons/fi';
 import Link from 'next/link';
 import { ReactElement } from 'react';
+import { FiMenu } from 'react-icons/fi';
+
 import {
   DropdownMenu,
   DropdownMenuContent,

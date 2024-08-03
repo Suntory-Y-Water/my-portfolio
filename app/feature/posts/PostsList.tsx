@@ -1,4 +1,5 @@
 import { Post } from '@/app/types';
+
 import PostsInfo from './PostsInfo';
 
 type Props = {
