@@ -1,28 +1,27 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import { QIITA_USERNAMES, ZENN_USERNAME } from '@/app/constants';
 import PostsList from '@/app/feature/posts/PostsList';
 import { Post, QiitaPost, ZennResponse } from '@/app/types';
+import PostsListSkeleton from '@/components/ui/post-list-skeleton';
 import { fetchPosts } from '@/lib/client';
 import { envConfig } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
 
-export default async function Page() {
+async function PostsWithData() {
   const apiKey = envConfig.QIITA_ACCESS_TOKEN;
   const usernames = QIITA_USERNAMES;
 
   const zennApiUrl = `https://zenn.dev/api/articles?username=${ZENN_USERNAME}&order=latest`;
   const zennData = await fetchPosts<ZennResponse>(zennApiUrl);
-  const posts: Post[] = zennData.articles.map((post) => {
-    return {
-      id: post.id.toString(),
-      url: `https://zenn.dev${post.path}`,
-      emoji: post.emoji,
-      title: post.title,
-      createdAt: post.published_at,
-    };
-  });
+  const posts: Post[] = zennData.articles.map((post) => ({
+    id: post.id.toString(),
+    url: `https://zenn.dev${post.path}`,
+    emoji: post.emoji,
+    title: post.title,
+    createdAt: post.published_at,
+  }));
 
   for (const username of usernames) {
     const response = await fetchPosts<QiitaPost[]>(
@@ -32,27 +31,30 @@ export default async function Page() {
       },
     );
     posts.push(
-      ...response.map((post) => {
-        return {
-          id: post.id,
-          url: post.url,
-          title: post.title,
-          createdAt: post.created_at,
-        };
-      }),
+      ...response.map((post) => ({
+        id: post.id,
+        url: post.url,
+        title: post.title,
+        createdAt: post.created_at,
+      })),
     );
   }
 
-  // postsをcreatedAtの降順にソート
   posts.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
 
+  return <PostsList posts={posts} />;
+}
+
+export default function Page() {
   return (
     <div>
       <h1>Posts🖊️</h1>
       <p className='pb-10'>
         思いつきで作成したアプリや、バグで苦戦したときの備忘録などをQiitaとZennに投稿しています。
       </p>
-      <PostsList posts={posts} />
+      <Suspense fallback={<PostsListSkeleton />}>
+        <PostsWithData />
+      </Suspense>
     </div>
   );
 }
