@@ -10,7 +10,7 @@ export default function Home() {
     <div>
       <h1>Profile📔</h1>
       <div className='mt-4 space-y-1'>
-        <h2>Sui🌊</h2>
+        <h2>Sui</h2>
         <p>
           東京都で活動するエンジニア。名前の由来は、目の前にあったサントリーの天然水から。
         </p>
@@ -40,7 +40,7 @@ export default function Home() {
         />
         <Career
           date='2023年3月 ~ '
-          description='案件変更を経て、小売業界の店内システムのクラウド移行プロジェクトに参画。要件定義～外部結合テストを経て現在に至る。'
+          description='案件変更を経て、流通業界の店内システムのクラウド移行プロジェクトに参画。要件定義～システムテストを経て現在に至る。'
         />
       </div>
       <div className='mt-2 space-y-1'>
