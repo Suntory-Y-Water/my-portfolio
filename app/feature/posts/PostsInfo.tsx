@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Post } from '@/app/types';
+import type { Post } from '@/app/types';
 import ConvertDate from '@/components/ConvertDate';
 import QiitaIcon from '@/components/QiitaIcon';
 
@@ -19,9 +19,7 @@ export default async function PostsInfo({ post }: Props) {
       >
         {/* Zennのときだけ絵文字を表示する。 */}
         {post.emoji ? <span className='text-6xl'>{post.emoji}</span> : <QiitaIcon />}
-        <p className='line-clamp-2 overflow-hidden break-all text-left font-medium'>
-          {post.title}
-        </p>
+        <p className='line-clamp-2 overflow-hidden break-all text-left font-medium'>{post.title}</p>
         <p className='text-muted-foreground text-xs tracking-widest'>
           <ConvertDate convertDate={post.createdAt} />
         </p>

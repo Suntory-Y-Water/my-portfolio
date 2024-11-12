@@ -1,11 +1,9 @@
-import React from 'react';
-
-interface CareerProps {
+type Props = {
   date: string;
   description: string;
-}
+};
 
-function Career({ date, description }: CareerProps) {
+function Career({ date, description }: Props) {
   return (
     <div className='flex py-2 space-x-2'>
       <div className='w-1/6 text-left'>{date}</div>

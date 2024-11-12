@@ -2,7 +2,7 @@ import './globals.css';
 
 import type { Metadata } from 'next';
 import { Noto_Sans_JP } from 'next/font/google';
-import React from 'react';
+import type React from 'react';
 
 import { ThemeProvider } from '@/components/ui/theme-provider';
 
