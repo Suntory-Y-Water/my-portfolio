@@ -6,6 +6,7 @@ import type React from 'react';
 
 import { ThemeProvider } from '@/components/ui/theme-provider';
 
+import Snow from '@/components/ui/snow';
 import Header from './Header';
 
 const notoSansJp = Noto_Sans_JP({ subsets: ['latin'] });
@@ -35,12 +36,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='ja'>
       <body className={notoSansJp.className}>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider attribute='class' defaultTheme='dark' enableSystem disableTransitionOnChange>
+          <Snow />
           <Header />
           <main className='mx-auto w-[calc(100%-40px)] max-w-[640px] py-16 md:w-[calc(100%-100px)] md:py-24'>
             {children}
