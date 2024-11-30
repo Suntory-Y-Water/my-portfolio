@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 import { FiMenu } from 'react-icons/fi';
 
 import {
@@ -10,12 +10,14 @@ import {
 } from './ui/dropdown-menu';
 
 type Props = {
-  href: string;
-  title: string;
-  icon: ReactElement;
-}[];
+  params: {
+    href: string;
+    title: string;
+    icon: ReactElement;
+  }[];
+};
 
-export default function HamburgerMenu({ params }: { params: Props }) {
+export default function HamburgerMenu({ params }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className='md:hidden p-1'>

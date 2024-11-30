@@ -20,7 +20,8 @@
     ],
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "typeRoots": ["svg.d.ts"]
   },
   "include": [
     "next-env.d.ts",

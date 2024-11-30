@@ -1,8 +1,8 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 
 import { QIITA_USERNAMES, ZENN_USERNAME } from '@/app/constants';
 import PostsList from '@/app/feature/posts/PostsList';
-import { Post, QiitaPost, ZennResponse } from '@/app/types';
+import type { Post, QiitaPost, ZennResponse } from '@/app/types';
 import PostsListSkeleton from '@/components/ui/post-list-skeleton';
 import { fetchPosts } from '@/lib/client';
 import { envConfig } from '@/lib/utils';

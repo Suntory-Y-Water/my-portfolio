@@ -1,4 +1,4 @@
-import { Post } from '@/app/types';
+import type { Post } from '@/app/types';
 
 import PostsInfo from './PostsInfo';
 

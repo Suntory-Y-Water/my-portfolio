@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import React from 'react';
 import { FaGithub } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 
@@ -11,9 +10,7 @@ export default function Home() {
       <h1>Profile📔</h1>
       <div className='mt-4 space-y-1'>
         <h2>Sui</h2>
-        <p>
-          東京都で活動するエンジニア。名前の由来は、目の前にあったサントリーの天然水から。
-        </p>
+        <p>東京都で活動するエンジニア。名前の由来は、目の前にあったサントリーの天然水から。</p>
         <p>健康第一をモットーにしており、一年以上ほぼ毎日朝活しています🌅</p>
       </div>
       <div className='mt-2 space-y-1'>
