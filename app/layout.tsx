@@ -5,8 +5,10 @@ import { Noto_Sans_JP } from 'next/font/google';
 import type React from 'react';
 
 import { ThemeProvider } from '@/components/ui/theme-provider';
+import Script from 'next/script';
 
 import Snow from '@/components/ui/snow';
+import Footer from './Footer';
 import Header from './Header';
 
 const notoSansJp = Noto_Sans_JP({ subsets: ['latin'] });
@@ -33,8 +35,24 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const gaId = process.env.GA_ID || '';
   return (
     <html lang='ja'>
+      <head>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+          strategy='afterInteractive'
+          async
+        />
+        <Script id='google-analytics' strategy='afterInteractive'>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${gaId}');
+          `}
+        </Script>
+      </head>
       <body className={notoSansJp.className}>
         <ThemeProvider attribute='class' defaultTheme='dark' enableSystem disableTransitionOnChange>
           <Snow />
@@ -42,6 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className='mx-auto w-[calc(100%-40px)] max-w-[640px] py-16 md:w-[calc(100%-100px)] md:py-24'>
             {children}
           </main>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
