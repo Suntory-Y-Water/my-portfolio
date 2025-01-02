@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-import type { Post } from '@/app/types';
 import ConvertDate from '@/components/ConvertDate';
 import QiitaIcon from '@/components/QiitaIcon';
+import type { Post } from '@/components/types';
 
 type Props = {
   post: Post;

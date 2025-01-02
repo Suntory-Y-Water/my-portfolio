@@ -3,7 +3,7 @@ import { FaGithub } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 
 import Career from '@/components/Career';
-import { CAREER_CONSTANTS } from './constants';
+import { CAREER_CONSTANTS } from '@/components/constants';
 
 export default function Home() {
   return (
