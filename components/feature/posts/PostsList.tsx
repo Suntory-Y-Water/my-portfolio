@@ -1,5 +1,4 @@
-import type { Post } from '@/app/types';
-
+import type { Post } from '@/components/types';
 import PostsInfo from './PostsInfo';
 
 type Props = {

@@ -8,8 +8,8 @@ import { ThemeProvider } from '@/components/ui/theme-provider';
 import Script from 'next/script';
 
 import Snow from '@/components/ui/snow';
-import Footer from './Footer';
-import Header from './Header';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 const notoSansJp = Noto_Sans_JP({ subsets: ['latin'] });
 
