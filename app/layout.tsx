@@ -6,8 +6,6 @@ import type React from 'react';
 
 import { ThemeProvider } from '@/components/ui/theme-provider';
 import Script from 'next/script';
-
-import Snow from '@/components/ui/snow';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
@@ -55,7 +53,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={notoSansJp.className}>
         <ThemeProvider attribute='class' defaultTheme='dark' enableSystem disableTransitionOnChange>
-          <Snow />
           <Header />
           <main className='mx-auto w-[calc(100%-40px)] max-w-[640px] py-16 md:w-[calc(100%-100px)] md:py-24'>
             {children}

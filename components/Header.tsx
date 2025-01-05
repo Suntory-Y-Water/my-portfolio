@@ -38,7 +38,14 @@ export default function Header() {
             className='ease flex w-8 items-center stroke-[5] text-xl font-bold duration-300 hover:-translate-y-0.5'
             aria-label='最初の画面に戻る'
           >
-            <Image src='/icon.jpg' width={64} height={64} alt='icon' className='rounded-full' />
+            <Image
+              src='/icon.jpg'
+              width={64}
+              height={64}
+              alt='icon'
+              className='rounded-full'
+              loading='lazy'
+            />
           </Link>
         </div>
         <nav className='hidden sm:flex items-center text-base justify-center font-medium'>

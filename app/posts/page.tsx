@@ -13,34 +13,36 @@ async function PostsWithData() {
   const apiKey = envConfig.QIITA_ACCESS_TOKEN;
   const usernames = QIITA_USERNAMES;
 
-  const zennApiUrl = `https://zenn.dev/api/articles?username=${ZENN_USERNAME}&order=latest`;
-  const zennData = await fetchPosts<ZennResponse>(zennApiUrl);
-  const posts: Post[] = zennData.articles.map((post) => ({
-    id: post.id.toString(),
-    url: `https://zenn.dev${post.path}`,
-    emoji: post.emoji,
-    title: post.title,
-    createdAt: post.published_at,
-  }));
+  // 並列処理でデータを取得
+  const [zennData, qiitaData] = await Promise.all([
+    fetchPosts<ZennResponse>(
+      `https://zenn.dev/api/articles?username=${ZENN_USERNAME}&order=latest`,
+    ),
+    Promise.all(
+      usernames.map((username) =>
+        fetchPosts<QiitaPost[]>(`https://qiita.com/api/v2/users/${username}/items?per_page=100`, {
+          Authorization: `Bearer ${apiKey}`,
+        }),
+      ),
+    ),
+  ]);
 
-  for (const username of usernames) {
-    const response = await fetchPosts<QiitaPost[]>(
-      `https://qiita.com/api/v2/users/${username}/items?per_page=100`,
-      {
-        Authorization: `Bearer ${apiKey}`,
-      },
-    );
-    posts.push(
-      ...response.map((post) => ({
-        id: post.id,
-        url: post.url,
-        title: post.title,
-        createdAt: post.created_at,
-      })),
-    );
-  }
-
-  posts.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
+  // ZennとQiitaの記事をマージしてソート
+  const posts: Post[] = [
+    ...zennData.articles.map((post) => ({
+      id: post.id.toString(),
+      url: `https://zenn.dev${post.path}`,
+      emoji: post.emoji,
+      title: post.title,
+      createdAt: post.published_at,
+    })),
+    ...qiitaData.flat().map((post) => ({
+      id: post.id,
+      url: post.url,
+      title: post.title,
+      createdAt: post.created_at,
+    })),
+  ].sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
 
   return <PostsList posts={posts} />;
 }
