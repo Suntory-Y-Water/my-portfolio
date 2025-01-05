@@ -11,10 +11,6 @@ const nextConfig = {
     });
     return config;
   },
-  images: {
-    disableStaticImages: true,
-    domains: ['images.microcms-assets.io', 'storage.googleapis.com'],
-  },
 };
 
 module.exports = nextConfig;
