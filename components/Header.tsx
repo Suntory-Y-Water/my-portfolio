@@ -44,7 +44,7 @@ export default function Header() {
               height={64}
               alt='icon'
               className='rounded-full'
-              loading='lazy'
+              priority
             />
           </Link>
         </div>

@@ -12,7 +12,7 @@
     "format": "biome format ./src"
   },
   "dependencies": {
-    "@radix-ui/react-dropdown-menu": "^2.1.4",
+    "@radix-ui/react-dropdown-menu": "^2.1.5",
     "@radix-ui/react-label": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.1",
     "@svgr/webpack": "^8.1.0",
@@ -29,13 +29,13 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.3",
-    "@types/node": "^22.10.5",
+    "@types/node": "^22.10.10",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "autoprefixer": "^10.4.20",
     "dayjs": "^1.11.13",
-    "postcss": "^8.4.49",
+    "postcss": "^8.5.1",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   }
 }

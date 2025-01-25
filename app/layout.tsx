@@ -9,7 +9,11 @@ import Script from 'next/script';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-const notoSansJp = Noto_Sans_JP({ subsets: ['latin'] });
+const notoSansJp = Noto_Sans_JP({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://sui-portfolio.vercel.app/'),
@@ -50,11 +54,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             gtag('config', '${gaId}');
           `}
         </Script>
+        <link rel='preconnect' href='https://fonts.googleapis.com' />
+        <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='anonymous' />
       </head>
       <body className={notoSansJp.className}>
         <ThemeProvider attribute='class' defaultTheme='dark' enableSystem disableTransitionOnChange>
           <Header />
-          <main className='mx-auto w-[calc(100%-40px)] max-w-[640px] py-16 md:w-[calc(100%-100px)] md:py-24'>
+          <main className='mx-auto w-[calc(100%-40px)] max-w-[768px] py-16 md:w-[calc(100%-100px)] md:py-24'>
             {children}
           </main>
           <Footer />
