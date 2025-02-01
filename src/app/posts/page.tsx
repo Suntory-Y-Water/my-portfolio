@@ -1,11 +1,11 @@
 import { Suspense } from 'react';
 
-import { QIITA_USERNAMES, ZENN_USERNAME } from '@/components/constants';
 import PostsList from '@/components/feature/posts/PostsList';
-import type { Post, QiitaPost, ZennResponse } from '@/components/types';
 import PostsListSkeleton from '@/components/ui/post-list-skeleton';
+import { QIITA_USERNAMES, ZENN_USERNAME } from '@/constants';
 import { fetchPosts } from '@/lib/client';
 import { envConfig } from '@/lib/utils';
+import type { Post, QiitaPost, ZennResponse } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,9 +20,12 @@ async function PostsWithData() {
     ),
     Promise.all(
       usernames.map((username) =>
-        fetchPosts<QiitaPost[]>(`https://qiita.com/api/v2/users/${username}/items?per_page=100`, {
-          Authorization: `Bearer ${apiKey}`,
-        }),
+        fetchPosts<QiitaPost[]>(
+          `https://qiita.com/api/v2/users/${username}/items?per_page=100`,
+          {
+            Authorization: `Bearer ${apiKey}`,
+          },
+        ),
       ),
     ),
   ]);
