@@ -5,7 +5,7 @@ const config = {
   future: {
     hoverOnlyWhenSupported: true,
   },
-  content: ['./components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}'],
+  content: ['./src/components/**/*.{ts,tsx}', './src/app/**/*.{ts,tsx}'],
   prefix: '',
   theme: {
     container: {
