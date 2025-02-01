@@ -4,13 +4,13 @@ import PostsList from '@/components/feature/posts/PostsList';
 import PostsListSkeleton from '@/components/ui/post-list-skeleton';
 import { QIITA_USERNAMES, ZENN_USERNAME } from '@/constants';
 import { fetchPosts } from '@/lib/client';
-import { envConfig } from '@/lib/utils';
+import { env } from '@/lib/utils';
 import type { Post, QiitaPost, ZennResponse } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
 async function PostsWithData() {
-  const apiKey = envConfig.QIITA_ACCESS_TOKEN;
+  const apiKey = env.QIITA_ACCESS_TOKEN;
   const usernames = QIITA_USERNAMES;
 
   // 並列処理でデータを取得

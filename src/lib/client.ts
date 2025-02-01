@@ -1,16 +1,19 @@
-export async function fetchPosts<T>(apiUrl: string, headers?: Record<string, string>) {
+export async function fetchPosts<T>(p: {
+  apiUrl: string;
+  headers?: Record<string, string>;
+}) {
   try {
-    const response = await fetch(apiUrl, {
+    const response = await fetch(p.apiUrl, {
       headers: {
-        ...headers,
+        ...p.headers,
         'Content-Type': 'application/json',
       },
       cache: 'no-store',
     });
     if (!response.ok) {
-      throw new Error(
-        `レスポンスが正常ではありません。ステータスコード : ${response.status}`,
-      );
+      console.error(`データの取得に失敗しました。ステータスコード : ${response.status}`);
+      console.error(`失敗したURL: ${p.apiUrl}`);
+      throw new Error();
     }
     return await (response.json() as Promise<T>);
   } catch (error) {
