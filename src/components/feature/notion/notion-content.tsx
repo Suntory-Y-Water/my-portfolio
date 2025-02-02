@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import { type BlockMapType, NotionRenderer } from 'react-notion';
 import { CodeBlock } from './code-block';

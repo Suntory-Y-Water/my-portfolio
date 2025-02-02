@@ -116,10 +116,8 @@ export const getPostBySlug = cache(async (slug: string) => {
     if (!post || !post.title) return null;
 
     const page = await fetchPosts<BlockMapType>({
-      apiUrl: `${NOTION_API_BASE}/page/${processEnv.NOTION_PAGE_ID}`,
+      apiUrl: `${NOTION_API_BASE}/page/${post.id}`,
     });
-
-    console.log(!Object.values(page).some((block) => block?.value?.type === 'page'));
 
     if (
       !page ||
