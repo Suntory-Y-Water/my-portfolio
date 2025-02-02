@@ -53,7 +53,9 @@ async function PostsWithData() {
 export default function Page() {
   return (
     <div>
-      <h1>記事一覧🖊️</h1>
+      <h1 className='text-4xl font-semibold tracking-wide md:text-[40px] pb-6'>
+        記事一覧🖊️
+      </h1>
       <p className='pb-10'>
         思いつきで作成したアプリや、バグで苦戦したときの備忘録などをQiitaとZennに投稿しています。
       </p>

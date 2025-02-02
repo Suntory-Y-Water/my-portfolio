@@ -47,25 +47,10 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
   }
-}
-
-@layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
-  }
-  h1 {
-    @apply text-4xl font-semibold tracking-wide md:text-[40px] pb-6;
-  }
-  h2 {
-    @apply text-2xl font-medium;
-  }
-  h3 {
-    @apply font-medium pb-4 tracking-wide;
-  }
-  section {
-    @apply pb-16;
   }
 }
