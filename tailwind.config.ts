@@ -5,7 +5,12 @@ const config = {
   future: {
     hoverOnlyWhenSupported: true,
   },
-  content: ['./components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}'],
+  content: [
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
+  ],
   prefix: '',
   theme: {
     container: {
@@ -80,7 +85,8 @@ const config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'fade-in-bottom': 'fade-in-bottom 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000)   both',
+        'fade-in-bottom':
+          'fade-in-bottom 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000)   both',
       },
     },
   },

@@ -27,6 +27,12 @@ export default function Header() {
       title: '記事',
       icon: <MdOutlineArticle size='1.2em' />,
     },
+    // TODO: コンテンツページを作成したら有効化する
+    // {
+    //   href: '/contents',
+    //   title: 'コンテンツ',
+    //   icon: <MdOutlineArticle size='1.2em' />,
+    // },
   ];
 
   return (
@@ -62,6 +68,7 @@ export default function Header() {
             ))}
           </ul>
         </nav>
+        {/* モバイルのときだけハンバーガーメニューを表示する */}
         <div className='flex items-center'>
           <ModeToggle />
           <HamburgerMenu params={navgationLinks} />
