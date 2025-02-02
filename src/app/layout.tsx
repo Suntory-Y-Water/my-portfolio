@@ -57,7 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel='preconnect' href='https://fonts.googleapis.com' />
         <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='anonymous' />
       </head>
-      <body className={notoSansJp.className}>
+      <body className={`${notoSansJp.className}`}>
         <ThemeProvider
           attribute='class'
           defaultTheme='dark'
@@ -65,7 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           disableTransitionOnChange
         >
           <Header />
-          <main className='mx-auto w-[calc(100%-40px)] max-w-[768px] py-16 md:w-[calc(100%-100px)] md:py-24'>
+          <main className='mx-auto w-[calc(100%-40px)] max-w-[1024px] py-8 md:w-[calc(100%-100px)] md:py-24'>
             {children}
           </main>
           <Footer />
