@@ -26,3 +26,23 @@ export type Post = {
   title: string;
   createdAt: string;
 };
+
+export type NotionPosts = {
+  readonly id: string;
+  readonly tags: string[];
+  readonly slug: string;
+  readonly public: boolean;
+  readonly description: string;
+  readonly published: Date;
+  readonly title: string;
+};
+
+export type ContentType = {
+  id: string;
+  title: string;
+  slug: string;
+  date: string;
+  author?: string;
+  tags?: string[];
+  description?: string;
+};

@@ -1,27 +1,30 @@
 import { Suspense } from 'react';
 
-import { QIITA_USERNAMES, ZENN_USERNAME } from '@/components/constants';
 import PostsList from '@/components/feature/posts/PostsList';
-import type { Post, QiitaPost, ZennResponse } from '@/components/types';
 import PostsListSkeleton from '@/components/ui/post-list-skeleton';
+import { QIITA_USERNAMES, ZENN_USERNAME } from '@/constants';
 import { fetchPosts } from '@/lib/client';
-import { envConfig } from '@/lib/utils';
+import { processEnv } from '@/lib/utils';
+import type { Post, QiitaPost, ZennResponse } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
 async function PostsWithData() {
-  const apiKey = envConfig.QIITA_ACCESS_TOKEN;
+  const apiKey = processEnv.QIITA_ACCESS_TOKEN;
   const usernames = QIITA_USERNAMES;
 
   // 並列処理でデータを取得
   const [zennData, qiitaData] = await Promise.all([
-    fetchPosts<ZennResponse>(
-      `https://zenn.dev/api/articles?username=${ZENN_USERNAME}&order=latest`,
-    ),
+    fetchPosts<ZennResponse>({
+      apiUrl: `https://zenn.dev/api/articles?username=${ZENN_USERNAME}&order=latest`,
+    }),
     Promise.all(
       usernames.map((username) =>
-        fetchPosts<QiitaPost[]>(`https://qiita.com/api/v2/users/${username}/items?per_page=100`, {
-          Authorization: `Bearer ${apiKey}`,
+        fetchPosts<QiitaPost[]>({
+          apiUrl: `https://qiita.com/api/v2/users/${username}/items?per_page=100`,
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+          },
         }),
       ),
     ),

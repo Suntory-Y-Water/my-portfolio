@@ -58,7 +58,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='anonymous' />
       </head>
       <body className={notoSansJp.className}>
-        <ThemeProvider attribute='class' defaultTheme='dark' enableSystem disableTransitionOnChange>
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='dark'
+          enableSystem
+          disableTransitionOnChange
+        >
           <Header />
           <main className='mx-auto w-[calc(100%-40px)] max-w-[768px] py-16 md:w-[calc(100%-100px)] md:py-24'>
             {children}
