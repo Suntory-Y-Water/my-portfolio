@@ -35,15 +35,6 @@ importers:
       next-themes:
         specifier: ^0.3.0
         version: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      notion-client:
-        specifier: ^7.1.6
-        version: 7.1.6
-      notion-types:
-        specifier: ^7.1.6
-        version: 7.1.6
-      notion-utils:
-        specifier: ^7.1.6
-        version: 7.1.6
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -53,9 +44,6 @@ importers:
       react-icons:
         specifier: ^5.4.0
         version: 5.4.0(react@18.3.1)
-      react-notion:
-        specifier: ^0.10.0
-        version: 0.10.0(react@18.3.1)
       tailwind-merge:
         specifier: ^2.6.0
         version: 2.6.0
@@ -1420,9 +1408,6 @@ packages:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
 
-  eventemitter3@5.0.1:
-    resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
-
   fast-glob@3.3.3:
     resolution: {integrity: sha512-7MptL8U0cqcFdzIzwOTHoilX9x5BrNqye7Z/LuC7kCMRio1EMSyqRK3BEAUD7sXRq4iT4AzTVuZdhgQ2TCvYLg==}
     engines: {node: '>=8.6.0'}
@@ -1511,10 +1496,6 @@ packages:
     resolution: {integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==}
     engines: {node: '>=0.12.0'}
 
-  is-url-superb@6.1.0:
-    resolution: {integrity: sha512-LXdhGlYqUPdvEyIhWPEEwYYK3yrUiPcBjmFGlZNv1u5GtIL5qQRf7ddDyPNAvsMFqdzS923FROpTQU97tLe3JQ==}
-    engines: {node: '>=12'}
-
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
 
@@ -1550,10 +1531,6 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
-  ky@1.7.4:
-    resolution: {integrity: sha512-zYEr/gh7uLW2l4su11bmQ2M9xLgQLjyvx58UyNM/6nuqyWFHPX5ktMjvpev3F8QWdjSsHUpnWew4PBCswBNuMQ==}
-    engines: {node: '>=18'}
-
   lilconfig@3.1.3:
     resolution: {integrity: sha512-/vlFKAoH5Cgt3Ie+JLhRbwOsCQePABiU3tJ1egGvyQ+33R/vcwM2Zl2QR/LzjsBeItPt3oSVXapn+m4nQDvpzw==}
     engines: {node: '>=14'}
@@ -1582,20 +1559,11 @@ packages:
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  map-age-cleaner@0.1.3:
-    resolution: {integrity: sha512-bJzx6nMoP6PDLPBFmg7+xRKeFZvFboMrGlxmNj9ClvX53KrmvM5bXFXEWjbz4cz1AFn+jWJ9z/DJSz7hrs0w3w==}
-    engines: {node: '>=6'}
-
   mdn-data@2.0.28:
     resolution: {integrity: sha512-aylIc7Z9y4yzHYAJNuESG3hfhC+0Ibp/MAMiaOZgNv4pmEdFyfZhhhny4MNiAfWdBQ1RQ2mfDWmM1x8SvGyp8g==}
 
   mdn-data@2.0.30:
     resolution: {integrity: sha512-GaqWWShW4kv/G9IEucWScBx9G1/vsFZZJUO+tD26M8J8z3Kw5RDQjaoZe03YAClgeS/SWPOcb4nkFBTEi5DUEA==}
-
-  mem@10.0.0:
-    resolution: {integrity: sha512-ucHuGY0h9IKre1NAf8iRyBQhlmuISr0zEOHuLc7szfkUWiaVzuG1g7piPkVl4rVj362pjxsqiOANtDdI7mv86A==}
-    engines: {node: '>=12.20'}
-    deprecated: 'Renamed to memoize: https://www.npmjs.com/package/memoize'
 
   merge2@1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
@@ -1604,10 +1572,6 @@ packages:
   micromatch@4.0.8:
     resolution: {integrity: sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==}
     engines: {node: '>=8.6'}
-
-  mimic-fn@4.0.0:
-    resolution: {integrity: sha512-vqiC06CuhBTUdZH+RYl8sFrL096vA45Ok5ISO6sE/Mr1jRbGH4Csnhi8f3wKVl7x8mO4Au7Ir9D3Oyv1VYMFJw==}
-    engines: {node: '>=12'}
 
   minimatch@9.0.5:
     resolution: {integrity: sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==}
@@ -1666,22 +1630,6 @@ packages:
     resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
 
-  normalize-url@8.0.1:
-    resolution: {integrity: sha512-IO9QvjUMWxPQQhs60oOu10CRkWCiZzSUkzbXGGV9pviYl1fXYcvkzQ5jV9z8Y6un8ARoVRl4EtC6v6jNqbaJ/w==}
-    engines: {node: '>=14.16'}
-
-  notion-client@7.1.6:
-    resolution: {integrity: sha512-NWcUM7wsMQnTLU/CLiuhQt4Zkollx+ZQy5L+3vn9SYBq7tr+d2JWzxCUSpRujVA7NGIqUR/7bphHa8HvayG4BA==}
-    engines: {node: '>=18'}
-
-  notion-types@7.1.6:
-    resolution: {integrity: sha512-bWv5wGrlaEKPd0qGWJq0G5cq8uwgfMKhCM+5GEgdXfzuDD9eoKX2pkfdXnE5bU2uFJJK+LGc2XWggBJ+P8AWCg==}
-    engines: {node: '>=18'}
-
-  notion-utils@7.1.6:
-    resolution: {integrity: sha512-f8QgisZ9dsUea5Ih2kOtzABBdZpYXKvrMV5OegRpHIXYpBUnN3iOr59EtuyuUkcZcKnUCVcMGvnezoAnEMVCSw==}
-    engines: {node: '>=18'}
-
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
 
@@ -1692,22 +1640,6 @@ packages:
   object-hash@3.0.0:
     resolution: {integrity: sha512-RSn9F68PjH9HqtltsSnqYC1XXoWe9Bju5+213R98cNGttag9q9yAOTzdbsqvIa7aNm5WffBZFpWYr2aWrklWAw==}
     engines: {node: '>= 6'}
-
-  p-defer@1.0.0:
-    resolution: {integrity: sha512-wB3wfAxZpk2AzOfUMJNL+d36xothRSyj8EXOa4f6GMqYDN9BJaaSISbsk+wS9abmnebVw95C2Kb5t85UmpCxuw==}
-    engines: {node: '>=4'}
-
-  p-map@7.0.3:
-    resolution: {integrity: sha512-VkndIv2fIB99swvQoA65bm+fsmt6UNdGeIB0oxBs+WhAhdh08QA04JXpI7rbB9r08/nkbysKoya9rtDERYOYMA==}
-    engines: {node: '>=18'}
-
-  p-queue@8.1.0:
-    resolution: {integrity: sha512-mxLDbbGIBEXTJL0zEx8JIylaj3xQ7Z/7eEVjcF9fJX4DBiH9oqe+oahYnlKKxm0Ci9TlWTyhSHgygxMxjIB2jw==}
-    engines: {node: '>=18'}
-
-  p-timeout@6.1.4:
-    resolution: {integrity: sha512-MyIV3ZA/PmyBN/ud8vV9XzwTrNtR4jFrObymZYnZqMmW0zA8Z17vnT0rBgFE/TlohB+YCHqXMgZzb3Csp49vqg==}
-    engines: {node: '>=14.16'}
 
   package-json-from-dist@1.0.1:
     resolution: {integrity: sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==}
@@ -1795,10 +1727,6 @@ packages:
     resolution: {integrity: sha512-6oz2beyjc5VMn/KV1pPw8fliQkhBXrVn1Z3TVyqZxU8kZpzEKhBdmCFqI6ZbmGtamQvQGuU1sgPTk8ZrXDD7jQ==}
     engines: {node: ^10 || ^12 || >=14}
 
-  prismjs@1.29.0:
-    resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
-    engines: {node: '>=6'}
-
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
@@ -1811,12 +1739,6 @@ packages:
     resolution: {integrity: sha512-7eltJxgVt7X64oHh6wSWNwwbKTCtMfK35hcjvJS0yxEAhPM8oUKdS3+kqaW1vicIltw+kR2unHaa12S9pPALoQ==}
     peerDependencies:
       react: '*'
-
-  react-notion@0.10.0:
-    resolution: {integrity: sha512-i5lVAxzSs7GnTpIbKtivPQWxGZiKCO5xmCmMJyn6F91y8X1IIJqnypkK+31F2acb1l1Qd8Yv0ktuvXwz9g49NQ==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      react: '>=16'
 
   react-remove-scroll-bar@2.3.8:
     resolution: {integrity: sha512-9r+yi9+mgU33AKcj6IbT9oRCO78WriSj6t/cF8DWBZJ9aOGPOTEDvdUDz1FwKim7QXWwmHqtdHnRJfhAxEG46Q==}
@@ -3511,8 +3433,6 @@ snapshots:
 
   esutils@2.0.3: {}
 
-  eventemitter3@5.0.1: {}
-
   fast-glob@3.3.3:
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -3595,8 +3515,6 @@ snapshots:
 
   is-number@7.0.0: {}
 
-  is-url-superb@6.1.0: {}
-
   isexe@2.0.0: {}
 
   jackspeak@3.4.3:
@@ -3620,8 +3538,6 @@ snapshots:
   json-parse-even-better-errors@2.3.1: {}
 
   json5@2.2.3: {}
-
-  ky@1.7.4: {}
 
   lilconfig@3.1.3: {}
 
@@ -3647,18 +3563,9 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  map-age-cleaner@0.1.3:
-    dependencies:
-      p-defer: 1.0.0
-
   mdn-data@2.0.28: {}
 
   mdn-data@2.0.30: {}
-
-  mem@10.0.0:
-    dependencies:
-      map-age-cleaner: 0.1.3
-      mimic-fn: 4.0.0
 
   merge2@1.4.1: {}
 
@@ -3666,8 +3573,6 @@ snapshots:
     dependencies:
       braces: 3.0.3
       picomatch: 2.3.1
-
-  mimic-fn@4.0.0: {}
 
   minimatch@9.0.5:
     dependencies:
@@ -3726,25 +3631,6 @@ snapshots:
 
   normalize-range@0.1.2: {}
 
-  normalize-url@8.0.1: {}
-
-  notion-client@7.1.6:
-    dependencies:
-      ky: 1.7.4
-      notion-types: 7.1.6
-      notion-utils: 7.1.6
-      p-map: 7.0.3
-
-  notion-types@7.1.6: {}
-
-  notion-utils@7.1.6:
-    dependencies:
-      is-url-superb: 6.1.0
-      mem: 10.0.0
-      normalize-url: 8.0.1
-      notion-types: 7.1.6
-      p-queue: 8.1.0
-
   nth-check@2.1.1:
     dependencies:
       boolbase: 1.0.0
@@ -3752,17 +3638,6 @@ snapshots:
   object-assign@4.1.1: {}
 
   object-hash@3.0.0: {}
-
-  p-defer@1.0.0: {}
-
-  p-map@7.0.3: {}
-
-  p-queue@8.1.0:
-    dependencies:
-      eventemitter3: 5.0.1
-      p-timeout: 6.1.4
-
-  p-timeout@6.1.4: {}
 
   package-json-from-dist@1.0.1: {}
 
@@ -3839,8 +3714,6 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  prismjs@1.29.0: {}
-
   queue-microtask@1.2.3: {}
 
   react-dom@18.3.1(react@18.3.1):
@@ -3851,11 +3724,6 @@ snapshots:
 
   react-icons@5.4.0(react@18.3.1):
     dependencies:
-      react: 18.3.1
-
-  react-notion@0.10.0(react@18.3.1):
-    dependencies:
-      prismjs: 1.29.0
       react: 18.3.1
 
   react-remove-scroll-bar@2.3.8(@types/react@18.3.18)(react@18.3.1):

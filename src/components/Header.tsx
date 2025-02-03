@@ -27,12 +27,6 @@ export default function Header() {
       title: '記事',
       icon: <MdOutlineArticle size='1.2em' />,
     },
-    // TODO: コンテンツページを作成したら有効化する
-    // {
-    //   href: '/contents',
-    //   title: 'コンテンツ',
-    //   icon: <MdOutlineArticle size='1.2em' />,
-    // },
   ];
 
   return (
