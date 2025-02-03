@@ -7,5 +7,4 @@ export function cn(...inputs: ClassValue[]) {
 
 export const processEnv = {
   QIITA_ACCESS_TOKEN: process.env.QIITA_ACCESS_TOKEN,
-  NOTION_PAGE_ID: process.env.NOTION_PAGE_ID,
 };

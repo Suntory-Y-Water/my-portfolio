@@ -45,6 +45,7 @@ export default function Header() {
               alt='icon'
               className='rounded-full'
               priority
+              quality={75}
             />
           </Link>
         </div>
