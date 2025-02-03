@@ -1,20 +1,11 @@
 import './globals.css';
 
 import type { Metadata } from 'next';
-import { Noto_Sans_JP } from 'next/font/google';
 import type React from 'react';
 
 import { ThemeProvider } from '@/components/ui/theme-provider';
-import Script from 'next/script';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-
-const notoSansJp = Noto_Sans_JP({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  display: 'swap', // FOUT対策
-  preload: false, // 初期ロードを軽減
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://sui-portfolio.vercel.app/'),
@@ -38,27 +29,9 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const gaId = process.env.GA_ID || '';
   return (
     <html lang='ja'>
-      <head>
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-          strategy='lazyOnload'
-          async
-        />
-        <Script id='google-analytics' strategy='afterInteractive'>
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${gaId}');
-          `}
-        </Script>
-        <link rel='preconnect' href='https://fonts.googleapis.com' />
-        <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='anonymous' />
-      </head>
-      <body className={`${notoSansJp.className}`}>
+      <body>
         <ThemeProvider
           attribute='class'
           defaultTheme='dark'
