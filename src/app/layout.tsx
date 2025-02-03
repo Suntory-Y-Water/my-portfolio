@@ -12,7 +12,8 @@ import Header from '../components/Header';
 const notoSansJp = Noto_Sans_JP({
   subsets: ['latin'],
   weight: ['400', '700'],
-  display: 'swap',
+  display: 'swap', // FOUT対策
+  preload: false, // 初期ロードを軽減
 });
 
 export const metadata: Metadata = {
@@ -43,7 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-          strategy='afterInteractive'
+          strategy='lazyOnload'
           async
         />
         <Script id='google-analytics' strategy='afterInteractive'>

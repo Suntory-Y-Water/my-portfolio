@@ -7,7 +7,7 @@ import { fetchPosts } from '@/lib/client';
 import { processEnv } from '@/lib/utils';
 import type { Post, QiitaPost, ZennResponse } from '@/types';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 async function PostsWithData() {
   const apiKey = processEnv.QIITA_ACCESS_TOKEN;
