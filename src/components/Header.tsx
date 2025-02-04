@@ -19,12 +19,12 @@ export default function Header() {
   const navgationLinks: MenuItemLinkProps[] = [
     {
       href: '/',
-      title: 'ホーム',
+      title: 'Home',
       icon: <IoMdHome size='1.2em' />,
     },
     {
       href: '/posts',
-      title: '記事',
+      title: 'Posts',
       icon: <MdOutlineArticle size='1.2em' />,
     },
   ];

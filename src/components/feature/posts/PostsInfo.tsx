@@ -15,7 +15,7 @@ export default async function PostsInfo({ post }: Props) {
         href={post.url}
         target='_blank'
         rel='noopener noreferrer'
-        className='flex aspect-[4/3] w-full h-full flex-col items-center justify-center gap-4 p-6 border rounded-3xl hover:outline-primary hover:outline-2 hover:outline hover:bg-muted/90'
+        className='flex w-full h-full flex-col items-center justify-center gap-4 p-6 border rounded-3xl hover:outline-primary hover:outline-2 hover:outline hover:bg-muted/90'
       >
         {/* Zennのときだけ絵文字を表示する。 */}
         {post.emoji ? <span className='text-6xl'>{post.emoji}</span> : <QiitaIcon />}
