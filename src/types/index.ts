@@ -25,24 +25,22 @@ export type Post = {
   emoji?: string; // Zennのみ。Qiitaの場合はないので、post側ではQiitaアイコンを表示する
   title: string;
   createdAt: string;
+  source: 'Zenn' | 'Qiita' | 'note';
 };
 
-export type NotionPosts = {
-  readonly id: string;
-  readonly tags: string[];
-  readonly slug: string;
-  readonly public: boolean;
-  readonly description: string;
-  readonly published: Date;
-  readonly title: string;
+export type NoteResponse = {
+  readonly data: Data;
 };
 
-export type ContentType = {
-  id: string;
-  title: string;
-  slug: string;
-  date: string;
-  author?: string;
-  tags?: string[];
-  description?: string;
+type Data = {
+  readonly contents: Content[];
+  readonly isLastPage: boolean;
+  readonly totalCount: number;
+};
+
+type Content = {
+  readonly id: number;
+  readonly name: string;
+  readonly publishAt: Date;
+  readonly noteUrl: string;
 };

@@ -5,7 +5,7 @@ import PostsListSkeleton from '@/components/ui/post-list-skeleton';
 import { QIITA_USERNAMES, ZENN_USERNAME } from '@/constants';
 import { fetchPosts } from '@/lib/client';
 import { processEnv } from '@/lib/utils';
-import type { Post, QiitaPost, ZennResponse } from '@/types';
+import type { NoteResponse, Post, QiitaPost, ZennResponse } from '@/types';
 
 export const revalidate = 60;
 
@@ -14,7 +14,7 @@ async function PostsWithData() {
   const usernames = QIITA_USERNAMES;
 
   // 並列処理でデータを取得
-  const [zennData, qiitaData] = await Promise.all([
+  const [zennData, qiitaData, noteData] = await Promise.all([
     fetchPosts<ZennResponse>({
       apiUrl: `https://zenn.dev/api/articles?username=${ZENN_USERNAME}&order=latest`,
     }),
@@ -28,6 +28,10 @@ async function PostsWithData() {
         }),
       ),
     ),
+    fetchPosts<NoteResponse>({
+      apiUrl:
+        'https://note.com/api/v2/creators/suntory_n_water/contents?kind=note&page=1',
+    }),
   ]);
 
   // ZennとQiitaの記事をマージしてソート
@@ -38,12 +42,21 @@ async function PostsWithData() {
       emoji: post.emoji,
       title: post.title,
       createdAt: post.published_at,
+      source: 'Zenn' as const,
     })),
     ...qiitaData.flat().map((post) => ({
       id: post.id,
       url: post.url,
       title: post.title,
       createdAt: post.created_at,
+      source: 'Qiita' as const,
+    })),
+    ...noteData.data.contents.map((post) => ({
+      id: post.id.toString(),
+      url: post.noteUrl,
+      title: post.name,
+      createdAt: post.publishAt.toString(),
+      source: 'note' as const,
     })),
   ].sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
 
@@ -57,7 +70,7 @@ export default function Page() {
         記事一覧🖊️
       </h1>
       <p className='pb-10'>
-        思いつきで作成したアプリや、バグで苦戦したときの備忘録などをQiitaとZennに投稿しています。
+        思いつきで作成したアプリや、バグで苦戦したときの備忘録、日記などをQiita、Zenn、noteに投稿しています。
       </p>
       <Suspense fallback={<PostsListSkeleton />}>
         <PostsWithData />

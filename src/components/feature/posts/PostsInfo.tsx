@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
 import ConvertDate from '@/components/ConvertDate';
-import QiitaIcon from '@/components/QiitaIcon';
 import type { Post } from '@/types';
+import Image from 'next/image';
 
 type Props = {
   post: Post;
@@ -18,7 +18,13 @@ export default async function PostsInfo({ post }: Props) {
         className='flex w-full h-full flex-col items-center justify-center gap-4 p-6 border rounded-3xl hover:outline-primary hover:outline-2 hover:outline hover:bg-muted/90'
       >
         {/* Zennのときだけ絵文字を表示する。 */}
-        {post.emoji ? <span className='text-6xl'>{post.emoji}</span> : <QiitaIcon />}
+        {post.source === 'Zenn' ? (
+          <span className='text-6xl'>{post.emoji}</span>
+        ) : post.source === 'Qiita' ? (
+          <Image src='/qiita-icon.svg' alt='Qiita icon' width='50' height='50' />
+        ) : (
+          <Image src='/note-icon.svg' alt='note icon' width='50' height='50' />
+        )}
         <p className='line-clamp-2 overflow-hidden break-all text-left font-medium'>
           {post.title}
         </p>

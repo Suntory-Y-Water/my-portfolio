@@ -39,7 +39,7 @@ export default function Header() {
             aria-label='最初の画面に戻る'
           >
             <Image
-              src='/icon.jpg'
+              src='/icon.svg'
               width={64}
               height={64}
               alt='icon'
