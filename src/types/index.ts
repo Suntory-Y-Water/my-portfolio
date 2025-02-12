@@ -33,12 +33,12 @@ export type NoteResponse = {
 };
 
 type Data = {
-  readonly contents: Content[];
+  readonly contents: NoteContent[];
   readonly isLastPage: boolean;
   readonly totalCount: number;
 };
 
-type Content = {
+export type NoteContent = {
   readonly id: number;
   readonly name: string;
   readonly publishAt: Date;

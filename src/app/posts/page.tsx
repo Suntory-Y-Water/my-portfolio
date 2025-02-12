@@ -5,9 +5,36 @@ import PostsListSkeleton from '@/components/ui/post-list-skeleton';
 import { QIITA_USERNAMES, ZENN_USERNAME } from '@/constants';
 import { fetchPosts } from '@/lib/client';
 import { processEnv } from '@/lib/utils';
-import type { NoteResponse, Post, QiitaPost, ZennResponse } from '@/types';
+import type { NoteContent, NoteResponse, Post, QiitaPost, ZennResponse } from '@/types';
 
 export const revalidate = 60;
+
+// 取得した全てのnoteデータを結合して返すためのヘルパー関数
+async function fetchAllNoteData(): Promise<NoteResponse> {
+  // 取得した全ページのデータを保持する配列
+  let allContents: NoteContent[] = [];
+  let currentPage = 1;
+  let isLastPage = false;
+
+  // 最終ページになるまでループしてAPIを呼び出す
+  while (!isLastPage) {
+    const apiUrl = `https://note.com/api/v2/creators/suntory_n_water/contents?kind=note&page=${currentPage}`;
+    const response = await fetchPosts<NoteResponse>({ apiUrl });
+    // 取得した内容を全体の配列に結合
+    allContents = [...allContents, ...response.data.contents];
+
+    isLastPage = response.data.isLastPage;
+    currentPage++;
+  }
+
+  return {
+    data: {
+      contents: allContents,
+      isLastPage: true,
+      totalCount: allContents.length,
+    },
+  };
+}
 
 async function PostsWithData() {
   const apiKey = processEnv.QIITA_ACCESS_TOKEN;
@@ -28,10 +55,7 @@ async function PostsWithData() {
         }),
       ),
     ),
-    fetchPosts<NoteResponse>({
-      apiUrl:
-        'https://note.com/api/v2/creators/suntory_n_water/contents?kind=note&page=1',
-    }),
+    fetchAllNoteData(),
   ]);
 
   // ZennとQiitaの記事をマージしてソート
