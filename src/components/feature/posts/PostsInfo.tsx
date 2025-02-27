@@ -8,7 +8,7 @@ type Props = {
   post: Post;
 };
 
-export default async function PostsInfo({ post }: Props) {
+export default function PostsInfo({ post }: Props) {
   return (
     <li className='w-full'>
       <Link
