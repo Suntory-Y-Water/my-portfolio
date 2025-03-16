@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
 import { IoMdHome } from 'react-icons/io';
-import { MdOutlineArticle } from 'react-icons/md';
+import { MdOutlineArticle, MdOutlineBook } from 'react-icons/md';
 
 import HamburgerMenu from '@/components/MenuMobile';
 import { ModeToggle } from '@/components/ui/ModeToggle';
@@ -26,6 +26,11 @@ export default function Header() {
       href: '/posts',
       title: 'Posts',
       icon: <MdOutlineArticle size='1.2em' />,
+    },
+    {
+      href: '/blog',
+      title: 'Blog',
+      icon: <MdOutlineBook size='1.2em' />,
     },
   ];
 

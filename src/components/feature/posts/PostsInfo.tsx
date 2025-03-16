@@ -15,7 +15,7 @@ export default function PostsInfo({ post }: Props) {
         href={post.url}
         target='_blank'
         rel='noopener noreferrer'
-        className='flex w-full h-full flex-col items-center justify-center gap-4 p-6 border rounded-3xl hover:outline-primary hover:outline-2 hover:outline hover:bg-muted/90 transform transition-transform duration-300 hover:scale-105'
+        className='flex w-full h-full flex-col items-center justify-center gap-4 p-6 border rounded-3xl hover:outline-primary hover:outline-2 hover:outline hover:bg-muted/20 transform transition-transform duration-300 hover:scale-105'
       >
         {/* Zennのときだけ絵文字を表示する。 */}
         {post.source === 'Zenn' ? (

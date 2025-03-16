@@ -1,4 +1,4 @@
-import './globals.css';
+import '@/styles/globals.css';
 
 import type { Metadata } from 'next';
 import type React from 'react';
@@ -39,7 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           disableTransitionOnChange
         >
           <Header />
-          <main className='mx-auto w-[calc(100%-40px)] max-w-[1024px] py-8 md:w-[calc(100%-100px)] md:py-24'>
+          <main className='mx-auto w-[calc(100%-32px)] max-w-[1024px] py-4 md:w-[calc(100%-100px)] md:py-8'>
             {children}
           </main>
           <Footer />
