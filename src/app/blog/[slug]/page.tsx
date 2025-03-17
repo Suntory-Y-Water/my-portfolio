@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { CustomMDX } from '@/components/content/custom-mdx';
+import { TableOfContents } from '@/components/content/table-of-contents';
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -90,6 +91,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         {post.metadata.description && (
           <p className='mt-4 text-foreground/80'>{post.metadata.description}</p>
         )}
+
+        {/* Table of Contents */}
+        <TableOfContents source={post.rawContent} />
 
         {/* Article Content */}
         <CustomMDX source={post.rawContent} />
