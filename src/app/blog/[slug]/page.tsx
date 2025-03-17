@@ -7,7 +7,6 @@ import { CustomMDX } from '@/components/content/custom-mdx';
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { siteConfig } from '@/config/site';
 import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
 import { absoluteUrl, formatDate } from '@/lib/utils';
 
@@ -33,20 +32,13 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
       description: post.metadata.description,
       type: 'article',
       url: absoluteUrl(`/blog/${post.slug}`),
-      images: [
-        {
-          url: siteConfig.ogImage,
-          width: 1200,
-          height: 630,
-          alt: post.metadata.title,
-        },
-      ],
+      images: [absoluteUrl(`/blog/ogp/${post.slug}`)],
     },
     twitter: {
       card: 'summary_large_image',
       title: post.metadata.title,
       description: post.metadata.description,
-      images: [siteConfig.ogImage],
+      images: [absoluteUrl(`/blog/ogp/${post.slug}`)],
     },
   };
 }
