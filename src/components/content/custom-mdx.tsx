@@ -2,6 +2,7 @@ import { type EvaluateOptions, evaluate } from '@mdx-js/mdx';
 import type * as React from 'react';
 import * as runtime from 'react/jsx-runtime';
 import rehypePrettyCode from 'rehype-pretty-code';
+import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 
 import { components } from '@/components/content/mdx-components';
@@ -31,7 +32,7 @@ export async function CustomMDX({ source, additionalComponents }: CustomMDXProps
     const options: EvaluateOptions = {
       ...runtime,
       remarkPlugins: [remarkGfm],
-      rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
+      rehypePlugins: [rehypeSlug, [rehypePrettyCode, rehypePrettyCodeOptions]],
     };
 
     const { default: MDXContent } = await evaluate(source, options);

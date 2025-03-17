@@ -22,7 +22,7 @@ export const components = {
   ),
   h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h4
-      className={cn('mt-8 scroll-m-20 text-lg font-semibold tracking-tight', className)}
+      className={cn('mt-4 scroll-m-20 text-lg font-semibold tracking-tight', className)}
       {...props}
     />
   ),
