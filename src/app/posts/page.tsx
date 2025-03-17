@@ -12,7 +12,7 @@ export const revalidate = 60;
 // 取得した全てのnoteデータを結合して返すためのヘルパー関数
 async function fetchAllNoteData(): Promise<NoteResponse> {
   // 取得した全ページのデータを保持する配列
-  let allContents: NoteContent[] = [];
+  const allContents: NoteContent[] = [];
   let currentPage = 1;
   let isLastPage = false;
 
@@ -20,8 +20,7 @@ async function fetchAllNoteData(): Promise<NoteResponse> {
   while (!isLastPage) {
     const apiUrl = `https://note.com/api/v2/creators/suntory_n_water/contents?kind=note&page=${currentPage}`;
     const response = await fetchPosts<NoteResponse>({ apiUrl });
-    // 取得した内容を全体の配列に結合
-    allContents = [...allContents, ...response.data.contents];
+    allContents.push(...response.data.contents);
 
     isLastPage = response.data.isLastPage;
     currentPage++;

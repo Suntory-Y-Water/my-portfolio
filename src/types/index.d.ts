@@ -1,3 +1,17 @@
+export type SiteConfig = {
+  name: string;
+  description: string;
+  url: string;
+  ogImage: string;
+  links: {
+    twitter: string;
+    github: string;
+  };
+  copyRight: string;
+  // メールアドレスは使うときになったら乗せる
+  email?: string;
+};
+
 export type ZennResponse = {
   articles: ZennPost[];
 };
