@@ -1,7 +1,7 @@
 import { BlogCard } from '@/components/content/blog-card';
 import { PageHeader } from '@/components/shared/page-header';
 import { siteConfig } from '@/config/site';
-import { getBlogPostsByTagSlug } from '@/lib/mdx';
+import { getAllTags, getBlogPostsByTagSlug } from '@/lib/mdx';
 import { absoluteUrl } from '@/lib/utils';
 
 interface TagPageProps {
@@ -37,6 +37,13 @@ export async function generateMetadata({ params }: TagPageProps) {
       images: [siteConfig.ogImage],
     },
   };
+}
+
+export async function generateStaticParams() {
+  const allTags = await getAllTags();
+  return allTags.map((tag) => ({
+    slug: tag,
+  }));
 }
 
 export default async function TagPage({ params }: TagPageProps) {

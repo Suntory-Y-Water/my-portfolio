@@ -24,6 +24,12 @@ export async function getBlogPostsByTagSlug(tagSlug: string): Promise<BlogPost[]
   return posts.filter((post) => post.metadata.tags?.includes(tagSlug));
 }
 
+export async function getAllTags(): Promise<string[]> {
+  const posts = await getAllBlogPosts();
+  const tags = posts.flatMap((post) => post.metadata.tags ?? []);
+  return [...new Set(tags)];
+}
+
 export async function getBlogPostBySlug(slug: string) {
   return getBlogPost((post) => post.slug === slug);
 }
