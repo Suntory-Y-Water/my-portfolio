@@ -3,8 +3,8 @@ import '@/styles/globals.css';
 import type { Metadata } from 'next';
 import type React from 'react';
 
+import Footer from '@/components/Footer';
 import { ThemeProvider } from '@/components/ui/theme-provider';
-import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export const metadata: Metadata = {

@@ -6,15 +6,14 @@ import type { SiteConfig } from '@/types';
  * @see https://env.t3.gg/
  */
 export const siteConfig: SiteConfig = {
-  name: 'next-minimal-blog',
+  name: 'sui-portfolio',
   description:
-    'next-minimal-blog is a lightweight, minimalistic blog template built with Next.js 15, MDX, Tailwind CSS, and shadcn/ui',
-  url: 'https://cakegaly.com',
-  ogImage: 'https://cakegaly.com/og.png',
+    'スイのポートフォリオです。簡単な自己紹介と今まで投稿してきた記事のリンクをまとめています。',
+  url: 'https://sui-portfolio.vercel.app/',
+  ogImage: 'https://sui-portfolio.vercel.app/opengraph-image.png',
   links: {
-    twitter: 'https://twitter.com/cakegaly',
-    github: 'https://github.com/cakegaly',
+    twitter: 'https://x.com/Suntory_N_Water',
+    github: 'https://github.com/Suntory-Y-Water',
   },
-  copyRight: 'cakegaly',
-  email: 'cakegaly@gmail.com',
+  copyRight: 'Suntory-N-Water',
 };

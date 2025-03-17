@@ -1,6 +1,5 @@
 import { BlogCard } from '@/components/content/blog-card';
 import { PageHeader } from '@/components/shared/page-header';
-import { tags } from '@/config/blog';
 import { siteConfig } from '@/config/site';
 import { getBlogPostsByTagSlug } from '@/lib/mdx';
 import { absoluteUrl } from '@/lib/utils';
@@ -38,12 +37,6 @@ export async function generateMetadata({ params }: TagPageProps) {
       images: [siteConfig.ogImage],
     },
   };
-}
-
-export async function generateStaticParams() {
-  return Object.keys(tags).map((slug) => ({
-    slug: slug,
-  }));
 }
 
 export default async function TagPage({ params }: TagPageProps) {

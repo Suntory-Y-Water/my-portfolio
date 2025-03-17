@@ -1,16 +1,8 @@
-import type { AuthorConfig } from '@/types';
-
-export const author: AuthorConfig = {
-  slug: 'cakegaly',
-  name: 'cakegaly',
-  image: 'https://github.com/cakegaly.png',
-  twitter: 'cakegaly',
-};
-
 export const postsPerPage = 5;
 
 // TODO: generateStaticParams()で使用されているtagsをどうにかしてmdxから取得できないか
-export const tags: Record<string, { name: string }> = {
+// @see https://github.com/cakegaly/next-minimal-blog/blob/main/src/config/blog.ts
+const tags: Record<string, { name: string }> = {
   eslint: { name: 'ESLint' },
   jamstack: { name: 'Jamstack' },
   nextjs: { name: 'Next.js' },

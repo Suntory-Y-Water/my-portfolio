@@ -8,14 +8,8 @@ export type SiteConfig = {
     github: string;
   };
   copyRight: string;
-  email: string;
-};
-
-export type AuthorConfig = {
-  slug: string;
-  name: string;
-  image: string;
-  twitter: string;
+  // メールアドレスは使うときになったら乗せる
+  email?: string;
 };
 
 export type ZennResponse = {
