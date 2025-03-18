@@ -1,29 +1,32 @@
 import '@/styles/globals.css';
+import '@/styles/mdx.css';
 
 import type { Metadata } from 'next';
 import type React from 'react';
 
+import { siteConfig } from '@/config/site';
+
+import { fontNotoSansJp, fontPlemolJP35Console } from '@/assets/fonts';
 import Footer from '@/components/Footer';
 import { ThemeProvider } from '@/components/ui/theme-provider';
+import { cn } from '@/lib/utils';
 import Header from '../components/Header';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://sui-portfolio.vercel.app/'),
   title: {
-    template: '%s - Portfolio',
-    default: 'Portfolio',
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
-  description:
-    'スイのPortfolioです。簡単な経歴と自己紹介、今まで投稿した技術記事をまとめています。',
+  description: siteConfig.description,
   openGraph: {
-    title: 'スイのPortfolio',
-    description:
-      'スイのPortfolioです。簡単な経歴と自己紹介、今まで投稿した技術記事をまとめています。',
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [siteConfig.ogImage],
   },
   twitter: {
-    title: 'スイのPortfolio',
-    description:
-      'スイのPortfolioです。簡単な経歴と自己紹介、今まで投稿した技術記事をまとめています。',
+    title: siteConfig.name,
+    description: siteConfig.description,
     card: 'summary_large_image',
   },
 };
@@ -31,7 +34,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='ja' suppressHydrationWarning>
-      <body>
+      <body className={cn(fontNotoSansJp.variable, fontPlemolJP35Console.variable)}>
         <ThemeProvider
           attribute='class'
           defaultTheme='system'

@@ -15,6 +15,23 @@ const config = {
         '2xl': '1400px',
       },
     },
+    fontFamily: {
+      sans: [
+        'var(--font-noto-sans-jp)',
+        '"Hiragino Sans"',
+        '"Hiragino Kaku Gothic ProN"',
+        '"Noto Sans JP"',
+        'sans-serif',
+      ],
+      mono: [
+        'var(--font-plemol-jp-35-console)',
+        'Menlo',
+        'Monaco',
+        '"Cascadia Code"',
+        'Consolas',
+        'monospace',
+      ],
+    },
     extend: {
       colors: {
         border: 'hsl(var(--border))',

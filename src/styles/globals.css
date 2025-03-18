@@ -40,8 +40,6 @@
     --chart-3: 33 22% 45%; /* #8D7856 */
     --chart-4: 210 19% 30%; /* #3E4B59 */
     --chart-5: 208 15% 53%; /* #738C9C */
-
-    font-family: "noto-sans", sans-serif;
   }
 
   .light {
@@ -81,6 +79,14 @@
     --chart-4: 210 19% 70%; /* #A5B3C2 */
     --chart-5: 208 15% 63%; /* #8FA0AD */
   }
+  p,
+  li,
+  tr,
+  label {
+    line-height: 2;
+    font-weight: 500;
+    letter-spacing: .16px;
+  }
 }
 
 @layer base {
@@ -89,10 +95,5 @@
   }
   body {
     @apply bg-background text-foreground;
-  }
-
-  strong,
-  b {
-    font-weight: 500;
   }
 }
