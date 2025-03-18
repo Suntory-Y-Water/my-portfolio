@@ -8,7 +8,7 @@ export const components = {
   h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
       className={cn(
-        'mt-12 scroll-m-20 border-b border-border/50 pb-2 text-2xl font-bold tracking-tight first:mt-0',
+        'mt-12 scroll-m-20 border-b-2 border-border/50 pb-2 text-2xl font-bold tracking-tight first:mt-0',
         className,
       )}
       {...props}

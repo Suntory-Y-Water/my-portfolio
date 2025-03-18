@@ -4,11 +4,12 @@ import { ImageResponse } from 'next/og';
 import type { NextRequest } from 'next/server';
 
 type ImageProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export async function GET(_request: NextRequest, { params }: ImageProps) {
-  const post = await getBlogPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = await getBlogPostBySlug(slug);
 
   const title = post?.metadata.title || 'Blog Post';
   const tags = post?.metadata.tags || [];
