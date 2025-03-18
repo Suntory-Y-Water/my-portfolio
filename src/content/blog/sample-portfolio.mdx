@@ -1,0 +1,113 @@
+---
+title: ポートフォリオにブログページを追加しました
+public: true
+date: 2025-03-18
+icon: 🎉
+slug: sample-portfolio
+tags: 
+  - ポートフォリオ
+  - ブログ
+description: ポートフォリオサイトにブログページを追加しました。今後はZennやQiitaで投稿していた内容を、こちらに集約する想定です。
+---
+
+
+## ブログの作成背景
+
+いままで簡単な経歴と自己紹介しか乗せていませんでしたが、作ってみることにしました。
+このページは、[Next.js Minimal Blog](https://github.com/cakegaly/next-minimal-blog)を使用して作成しました。
+<LinkPreview url="https://zenn.dev/cakegaly/articles/next-minimal-blog-20250310" />
+既存のリポジトリに処理を追加したので、まだ**posts**ページの内容も残っている混沌とした状態ですが、ひとまず動くようになったので公開しています。
+
+## 今後のアクション
+
+
+### postsページの廃止
+
+**posts**ページの内容は**blog**ページ配下に過去の投稿という形で残そうと思います。
+
+### レイアウトの微調整
+
+参考にしているサイトからそっくりそのまま移行してきたので、まだレイアウトの調整が必要です。細かいところはボチボチ直しながら記事も投稿していきます。
+
+### 目次の追加
+
+まだ目次がないのでシンプルに見づらいです。改善します。
+
+### ドメインの獲得
+
+現在はvercelドメインですが、個人ブログにするので独自ドメインを取得しようと考えてます。
+取得先は未定ですが、Cloudflare Registrarかな？
+<LinkPreview url="https://www.cloudflare.com/ja-jp/products/registrar/" />
+
+### notion-md-converterを使ってNotion→mdxへのコンバート
+
+Notionからmarkdownに変換するライブラリが提供されているので、Notionで書く→なんやかんやしてmdxにコンバート→自動でPR発行するのが理想です。
+エディタで書くのもよいですが、PCに触れていないとできないのはアウトプットの機会が減ってしまいます。触れる回数を増やすためにもこのあたりは実装していきたいですね。
+
+### こぼればなし : Notion使えばよくない？
+
+「最初からNotion APIを使えばよくね？」感はあると思いますが、`react-notion-x`を使ったブログリポジトリの実装が難しく一度折れています...
+あとは実際のコミットログに投稿した記事があるのなんかよくないですか(?)
+
+## おわりに
+
+この投稿から数ヶ月なにも投稿が無い。なんてことが無いようにつらつら書いていきます⛵️
+
+## 出力のテスト
+
+コールアウト
+
+:::message
+通常カラー
+:::
+
+
+:::message alert
+これはalertカラー
+:::
+
+
+## 画像のテスト
+
+
+![https://prod-files-secure.s3.us-west-2.amazonaws.com/152bb3e3-7b41-4500-b37f-04d26544665e/45f4f5eb-834f-4ecd-9919-3c67bc1777dd/im_wallpaper_08.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466ZHHS5CZY%2F20250318%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250318T073210Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIE00b1SDw5chWifvzSumWCAShmpkEbCivVsPIw8VHJ5EAiB1xw0d4aY5hwpbe5f2Ew2dZ90rUjp3u59JybZG9C7vOyr%2FAwhYEAAaDDYzNzQyMzE4MzgwNSIMy9ljnAVrBcDTLcqHKtwDRZKOyQdq0%2B10AxxqjzPE4M7sfrR4Uc1VEZY3zi5RDR4MhmM%2F9lt9YnF4EhWG%2BnW7Uy%2B72J384MGWzY79S1gQMD5j%2Fr0V9xgUB0neMg%2FxXZAGDOU%2B2Q1GePB6EJeNAIy5Xc%2BNrtqG8VnnuK14Hvkm5CfSZkjGg5nyRST8BhiTM82sn0Bl0r47eAq6QElN18I%2FSDEOXjGuxJYh3nhllkSaKX5uKEGt%2B2Reg6oxiGEGZOyLT7On6nJvUVyLGk6aflSmYMsYGExlK9ef0N573qGWskei2YMSYmqjbNneWTB%2FV33NB983mN24YD5DGBtAtdgu%2B6p4km%2FTesQhYZEuGg4%2F6njqDdeQ%2FK0tmJ3TaGlLdR2rQjrTq79wyEh7Bwk7YjHJnc2qtIrPsr2tiil7z1crVESiEqzElhVAW7PxpzWYRvdmoa44uHTxJup1P%2FCEIMd6KTQu8hsm7EzOQFAYoxlyENS6vu1Z2E%2FVQb6ifJGPTF3skAht0T7UzzlIQ3I5niDtptY%2FRpvNYXEgOE1szLWP85EoJ9VjkwwXfpaCHLef2eVeE0NO9qyf2CsDFG4HCV0hYyCxMGDkvQNrI0nYC2haEFKj9HTo7bEZzv40aVfFEVq9KORRyOzSJMwzQ2IwvLXkvgY6pgF2cRxNUStwXe9zjeB238nokDS90BqD5oecGc%2BO0QRlqJJ8hCjnY%2B2L7%2FpPrShEm%2FmVKsATVzz%2BBURlaq1zQLH2TMf00uZ2zSlbLSGW6UybzZ35TGx7N%2FxoCN0%2BUlkIQ4aCDs69R2Q0%2BWBBd0goM5VkzbyBpXXjVuX548B9pag2sQQOF0mVx4RnB4pPDFvMDuzI0H0WE%2B5lIAmCQbVbVyuDc902GOEt&X-Amz-Signature=6b8fb2b49b6b507398462ade920b594a06b90e29fcf8ed415ca3735e353b9cd4&X-Amz-SignedHeaders=host&x-id=GetObject](https://prod-files-secure.s3.us-west-2.amazonaws.com/152bb3e3-7b41-4500-b37f-04d26544665e/45f4f5eb-834f-4ecd-9919-3c67bc1777dd/im_wallpaper_08.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466ZHHS5CZY%2F20250318%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250318T073210Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIE00b1SDw5chWifvzSumWCAShmpkEbCivVsPIw8VHJ5EAiB1xw0d4aY5hwpbe5f2Ew2dZ90rUjp3u59JybZG9C7vOyr%2FAwhYEAAaDDYzNzQyMzE4MzgwNSIMy9ljnAVrBcDTLcqHKtwDRZKOyQdq0%2B10AxxqjzPE4M7sfrR4Uc1VEZY3zi5RDR4MhmM%2F9lt9YnF4EhWG%2BnW7Uy%2B72J384MGWzY79S1gQMD5j%2Fr0V9xgUB0neMg%2FxXZAGDOU%2B2Q1GePB6EJeNAIy5Xc%2BNrtqG8VnnuK14Hvkm5CfSZkjGg5nyRST8BhiTM82sn0Bl0r47eAq6QElN18I%2FSDEOXjGuxJYh3nhllkSaKX5uKEGt%2B2Reg6oxiGEGZOyLT7On6nJvUVyLGk6aflSmYMsYGExlK9ef0N573qGWskei2YMSYmqjbNneWTB%2FV33NB983mN24YD5DGBtAtdgu%2B6p4km%2FTesQhYZEuGg4%2F6njqDdeQ%2FK0tmJ3TaGlLdR2rQjrTq79wyEh7Bwk7YjHJnc2qtIrPsr2tiil7z1crVESiEqzElhVAW7PxpzWYRvdmoa44uHTxJup1P%2FCEIMd6KTQu8hsm7EzOQFAYoxlyENS6vu1Z2E%2FVQb6ifJGPTF3skAht0T7UzzlIQ3I5niDtptY%2FRpvNYXEgOE1szLWP85EoJ9VjkwwXfpaCHLef2eVeE0NO9qyf2CsDFG4HCV0hYyCxMGDkvQNrI0nYC2haEFKj9HTo7bEZzv40aVfFEVq9KORRyOzSJMwzQ2IwvLXkvgY6pgF2cRxNUStwXe9zjeB238nokDS90BqD5oecGc%2BO0QRlqJJ8hCjnY%2B2L7%2FpPrShEm%2FmVKsATVzz%2BBURlaq1zQLH2TMf00uZ2zSlbLSGW6UybzZ35TGx7N%2FxoCN0%2BUlkIQ4aCDs69R2Q0%2BWBBd0goM5VkzbyBpXXjVuX548B9pag2sQQOF0mVx4RnB4pPDFvMDuzI0H0WE%2B5lIAmCQbVbVyuDc902GOEt&X-Amz-Signature=6b8fb2b49b6b507398462ade920b594a06b90e29fcf8ed415ca3735e353b9cd4&X-Amz-SignedHeaders=host&x-id=GetObject)
+
+
+## 処理フロー
+
+
+# Notionからmdxファイル生成とGitHubへのPR発行の処理フロー
+
+1. **LINE Botのセットアップ**
+   - LINE Botを作成し、Webhook URLを設定
+   - Cloudflare Workersにデプロイする処理を作成
+2. **メッセージ受信と処理開始**
+   - LINEからのWebhookを受信（POST /webhook）
+   - ユーザーIDを確認して認証（自分のIDのみ許可）
+   - メッセージからNotionのURLを抽出
+3. **Notionページの取得**
+   - NotionのAPIを使用してページIDを抽出
+   - ページのメタデータ（タイトル、公開日、タグなど）を取得
+   - ページの全コンテンツを再帰的に取得
+4. **画像の処理とR2への保存**
+   - Notionのコンテンツから画像ブロックを検出
+   - 各画像をダウンロード
+   - 一意のファイル名を生成（UUIDなど）
+   - Cloudflare R2に画像をアップロード
+   - 画像のURLをR2の永続URLに置き換え
+5. **MDXへの変換**
+   - notion-md-converterライブラリを使用してマークダウンに変換
+   - メタデータからフロントマターを生成（title, date, tags など）
+   - マークダウンとフロントマターを組み合わせてMDXファイルを作成
+6. **GitHubへのPR作成**
+   - GitHub APIを使用（Octokit）
+   - 新しいブランチを作成（例：post/記事タイトル）
+   - MDXファイルをコミット（ファイル名は日付-スラグ.mdx形式）
+   - mainブランチをターゲットにPRを作成
+7. **結果通知**
+   - 処理が成功した場合、PR URLをLINEで通知
+   - エラーが発生した場合、エラーメッセージをLINEで通知
+8. **エラーハンドリング**
+   - 各ステップでのエラーをキャッチ
+   - 処理の状態をLINEに随時通知
+   - ログ記録とデバッグ情報の保存
