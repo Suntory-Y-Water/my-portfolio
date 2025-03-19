@@ -16,21 +16,8 @@ const config = {
       },
     },
     fontFamily: {
-      sans: [
-        'var(--font-noto-sans-jp)',
-        '"Hiragino Sans"',
-        '"Hiragino Kaku Gothic ProN"',
-        '"Noto Sans JP"',
-        'sans-serif',
-      ],
-      mono: [
-        'var(--font-plemol-jp-35-console)',
-        'Menlo',
-        'Monaco',
-        '"Cascadia Code"',
-        'Consolas',
-        'monospace',
-      ],
+      sans: ['var(--font-noto-sans-jp)'],
+      mono: ['var(--font-plemol-jp-35-console)'],
     },
     extend: {
       colors: {

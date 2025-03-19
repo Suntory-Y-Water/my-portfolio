@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 
 export const fontNotoSansJp = Noto_Sans_JP({
   subsets: ['latin'],
+  weight: ['400', '700'],
   display: 'swap',
   preload: false,
   variable: '--font-noto-sans-jp',
