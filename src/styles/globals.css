@@ -40,6 +40,8 @@
     --chart-3: 33 22% 45%; /* #8D7856 */
     --chart-4: 210 19% 30%; /* #3E4B59 */
     --chart-5: 208 15% 53%; /* #738C9C */
+
+    font-family: "noto-sans", sans-serif;
   }
 
   .light {

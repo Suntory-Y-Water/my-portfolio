@@ -6,10 +6,9 @@ import type React from 'react';
 
 import { siteConfig } from '@/config/site';
 
-import { fontNotoSansJp, fontPlemolJP35Console } from '@/assets/fonts';
+import { fontPlemolJP35Console } from '@/assets/fonts';
 import Footer from '@/components/Footer';
 import { ThemeProvider } from '@/components/ui/theme-provider';
-import { cn } from '@/lib/utils';
 import Header from '../components/Header';
 
 export const metadata: Metadata = {
@@ -34,7 +33,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='ja' suppressHydrationWarning>
-      <body className={cn(fontNotoSansJp.variable, fontPlemolJP35Console.variable)}>
+      <body className={fontPlemolJP35Console.variable}>
         <ThemeProvider
           attribute='class'
           defaultTheme='system'
