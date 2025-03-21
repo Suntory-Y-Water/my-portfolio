@@ -11,7 +11,6 @@ tags:
 description: ポートフォリオの技術記事投稿頻度をあげるためにNotion + Messaging APIでブログ記事を自動でPull Requestを発行できるようにしました。mdxファイルの作成はnotion-markdown-converterを使用しています。
 ---
 
-
 ## Cloudflare Workersにサーバを構築する
 
 LINE Messaging APIにリクエストを送信するためのサーバーとして、Cloudflare Workersを利用します。
@@ -51,7 +50,7 @@ LINE Messaging APIの仕様上、botからのリクエストから2秒以内を�
 
 以下の実装ではNotion APIからのデータ取得、マークダウン変換、MDXファイル作成といった時間のかかる処理を`ctx.waitUntil()`内で実行しています。
 
-```typescript:index.ts
+```typescript title="index.ts"
 import type { WebhookRequestBody } from '@line/bot-sdk';
 import { $getPageFullContent } from '@notion-md-converter/core';
 import { NotionZennMarkdownConverter } from '@notion-md-converter/zenn';
@@ -167,7 +166,7 @@ Notionから取得したコンテンツは、そのままではブログに適�
 3. コールアウトブロックの適切な形式への変換
 これらの処理により、Notionで作成したコンテンツを自動的にブログ用のMDX形式に変換することが可能になりました。
 
-```typescript:mdx-lib.ts
+```typescript title="mdx-lib.ts"
 /**
  * MDXファイルを生成する関数
  * @param title 記事タイトル
@@ -348,7 +347,7 @@ export function transformLinksToPreviewComponent(markdown: string): string {
 4. 変更をプッシュしてPull Requestを準備
 
 
-```typescript:github-lib.ts
+```typescript title="github-lib.ts"
 import { Octokit } from '@octokit/rest';
 
 /**
@@ -364,7 +363,7 @@ export async function createGithubPr(
   slug: string,
 ): Promise<string> {
   try {
-	  const octokit = new Octokit({ auth: githubToken });
+    const octokit = new Octokit({ auth: githubToken });
     const owner = 'Suntory-Y-Water';
     const repo = 'my-portfolio';
     const baseBranch = 'main';
