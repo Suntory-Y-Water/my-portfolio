@@ -1,83 +1,82 @@
 'use client';
-
-import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 
+/**
+ * 目次の各アイテムを表すインターフェース
+ */
 interface TOCItem {
   id: string;
   text: string;
-  level: number;
+  level: number; // 見出しのレベル（h1, h2, h3など）
 }
 
 interface TableOfContentsProps {
-  source: string;
+  source: string; // MDX
 }
 
+/**
+ * MDXコンテンツの見出しから目次を生成するコンポーネント
+ * 実際のDOM要素からIDを取得して、正確なリンクを生成します
+ */
 export function TableOfContents({ source }: TableOfContentsProps) {
   const [toc, setToc] = useState<TOCItem[]>([]);
-  const [activeId, setActiveId] = useState<string>('');
 
-  // Extract headings from source
+  // MDXソースから見出しを抽出し、実際のDOMからIDを取得する
   useEffect(() => {
-    const headingRegex = /^## (.*$)/gm;
+    // 1. まずMDXソースから見出しのテキストを抽出
+    const headingRegex = /^## (.*$)/gm; // ## で始まる行を見出しとして検出
     const matches = [...source.matchAll(headingRegex)];
 
-    const items: TOCItem[] = matches.map((match) => {
-      const text = match[1].trim();
-      const id = text
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)/g, '');
+    // 2. DOMのレンダリングを待つための短い遅延を設定
+    // MDXコンテンツが完全にレンダリングされた後にIDを取得する
+    const timer = setTimeout(() => {
+      // 3. ドキュメント内のすべてのh2要素を取得
+      const h2Elements = document.querySelectorAll('h2');
 
-      return {
-        id,
-        text,
-        level: 3,
-      };
-    });
-
-    setToc(items);
-  }, [source]);
-
-  // Track active heading on scroll
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
-        }
-      },
-      { rootMargin: '-100px 0px -80% 0px' },
-    );
-
-    // Observe all headings
-    for (const item of toc) {
-      const element = document.getElementById(item.id);
-      if (element) {
-        observer.observe(element);
+      if (h2Elements.length === 0) {
+        return;
       }
-    }
 
-    return () => {
-      observer.disconnect();
-    };
-  }, [toc]);
+      // 4. 実際のDOM要素から目次アイテムを作成
+      const items: TOCItem[] = matches.map((match, index) => {
+        const text = match[1].trim();
+        // テキスト内容が一致する見出し要素を探し、そのIDを取得
+        // 見つからない場合はフォールバックとしてインデックスベースのIDを使用
+        const element = Array.from(h2Elements).find(
+          (el) => el.textContent?.trim() === text,
+        );
+        const id = element?.id || `heading-${index}`;
+
+        return {
+          id,
+          text,
+          level: 3, // h2は目次内でレベル3として扱う
+        };
+      });
+
+      setToc(items);
+    }, 100);
+
+    return () => clearTimeout(timer); // クリーンアップ関数
+  }, [source]);
 
   if (toc.length === 0) {
     return null;
   }
 
-  function handleClick(e: React.MouseEvent<HTMLAnchorElement>, itemText: string) {
+  /**
+   * 目次アイテムのクリック処理
+   * クリックした見出しへスムーズにスクロールする
+   */
+  function handleClick(e: React.MouseEvent<HTMLAnchorElement>, itemId: string) {
     e.preventDefault();
-    const element = document.getElementById(itemText);
+    const element = document.getElementById(itemId);
     if (element) {
       window.scrollTo({
         top: element.offsetTop,
         behavior: 'auto',
       });
-      window.history.pushState({}, '', `#${itemText}`);
+      window.history.pushState({}, '', `#${itemId}`);
     }
   }
 
@@ -86,14 +85,11 @@ export function TableOfContents({ source }: TableOfContentsProps) {
       <h3 className='scroll-m-20 text-xl font-semibold tracking-tight'>目次</h3>
       <ul className='space-y-1.5'>
         {toc.map((item) => (
-          <li key={item.text} className='line-clamp-2'>
+          <li key={item.id} className='line-clamp-2'>
             <a
-              href={`#${item.text}`}
-              className={cn(
-                'inline-block py-1 text-muted-foreground transition-colors hover:text-foreground',
-                activeId === item.id && 'font-medium text-primary',
-              )}
-              onClick={(e) => handleClick(e, item.text)}
+              href={`#${item.id}`}
+              className='inline-block py-1 transition-colors hover:text-foreground font-medium text-primary'
+              onClick={(e) => handleClick(e, item.id)}
             >
               {item.text}
             </a>
