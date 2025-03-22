@@ -61,7 +61,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <div>
-      <article>
+      <article className='min-h-[500px]'>
         {/* Metadata (Date & Tags) */}
         <div className='mb-6 flex flex-wrap items-center justify-between text-sm text-muted-foreground'>
           {post.metadata.date && (
@@ -93,10 +93,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         )}
 
         {/* Table of Contents */}
-        <TableOfContents source={post.rawContent} />
+        <div className='mt-8'>
+          <TableOfContents source={post.rawContent} />
+        </div>
 
         {/* Article Content */}
-        <CustomMDX source={post.rawContent} />
+        <div className='mt-8'>
+          <CustomMDX source={post.rawContent} />
+        </div>
 
         {/* Footer */}
         <footer className='mt-10 border-t pt-8'>
