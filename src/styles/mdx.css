@@ -23,7 +23,7 @@
 }
 
 [data-rehype-pretty-code-title] {
-  @apply mt-4 rounded-t-lg border border-b-0 border-border/50 bg-muted/30 px-4 py-2 text-sm font-medium text-muted-foreground/80;
+  @apply mt-4 rounded-t-lg border border-b-0 border-border/50 bg-muted/50 px-4 py-2 text-sm font-medium text-foreground;
 }
 
 [data-rehype-pretty-code-title] + pre {

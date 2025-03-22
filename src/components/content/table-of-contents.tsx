@@ -82,7 +82,7 @@ export function TableOfContents({ source }: TableOfContentsProps) {
 
   return (
     <div className='pt-4 rounded-lg border-border/50 bg-card/50'>
-      <h3 className='scroll-m-20 text-xl font-semibold tracking-tight'>目次</h3>
+      <h2 className='scroll-m-20 text-xl font-semibold tracking-tight'>目次</h2>
       <ul className='space-y-1.5'>
         {toc.map((item) => (
           <li key={item.id} className='line-clamp-2'>

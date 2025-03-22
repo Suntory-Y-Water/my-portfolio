@@ -35,7 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang='ja'
       suppressHydrationWarning
-      className={`${fontNotoSansJp.variable} ${fontPlemolJP35Console.variable}`}
+      className={`${fontNotoSansJp.variable} ${fontPlemolJP35Console.variable} font-sans`}
     >
       <body>
         <ThemeProvider
