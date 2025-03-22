@@ -64,11 +64,12 @@ export function LinkCard({
                 <div className='relative size-4 overflow-hidden rounded-full bg-muted'>
                   {hostname && (
                     <Image
-                      src={`https://www.google.com/s2/favicons?domain=${hostname}&sz=64`}
+                      src={`https://www.google.com/s2/favicons?domain=${hostname}&sz=32`}
                       alt=''
                       className='object-cover'
                       fill
-                      sizes='16px'
+                      sizes='12px'
+                      loading='lazy'
                     />
                   )}
                 </div>

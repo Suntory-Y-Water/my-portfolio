@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { BlogCard } from '@/components/content/blog-card';
+import { BlogCard } from '@/components/feature/content/blog-card';
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { getAllBlogPosts } from '@/lib/mdx';
