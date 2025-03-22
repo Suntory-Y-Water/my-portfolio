@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { Icons } from '@/components/icons';
+import { Badge } from '@/components/ui/badge';
 import type { BlogPost } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';
 
@@ -47,12 +48,12 @@ export function BlogCard({ data }: BlogCardProps) {
               <Icons.tag className='size-4' />
               <div className='flex gap-1'>
                 {metadata.tags.slice(0, 2).map((tag) => (
-                  <span
+                  <Badge
                     key={tag}
-                    className='inline-flex items-center rounded-md bg-muted px-2 py-0.5 text-xs font-medium'
+                    className='inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium'
                   >
                     {tag}
-                  </span>
+                  </Badge>
                 ))}
                 {metadata.tags.length > 2 && (
                   <span className='text-xs'>+{metadata.tags.length - 2}</span>

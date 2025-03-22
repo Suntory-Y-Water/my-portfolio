@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 
-import Career from '@/components/Career';
+import Career from '@/components/feature/about/Career';
 
 export default function Home() {
   const careerData = [

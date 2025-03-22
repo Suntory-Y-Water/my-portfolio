@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import ConvertDate from '@/components/ConvertDate';
+import ConvertDate from '@/components/feature/posts/ConvertDate';
 import type { Post } from '@/types';
 import Image from 'next/image';
 

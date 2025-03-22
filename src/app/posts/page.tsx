@@ -2,7 +2,6 @@ import { Suspense } from 'react';
 
 import PostsList from '@/components/feature/posts/PostsList';
 import PostsListSkeleton from '@/components/ui/post-list-skeleton';
-import { QIITA_USERNAMES, ZENN_USERNAME } from '@/constants';
 import { fetchPosts } from '@/lib/client';
 import { processEnv } from '@/lib/utils';
 import type { NoteContent, NoteResponse, Post, QiitaPost, ZennResponse } from '@/types';
@@ -37,7 +36,8 @@ async function fetchAllNoteData(): Promise<NoteResponse> {
 
 async function PostsWithData() {
   const apiKey = processEnv.QIITA_ACCESS_TOKEN;
-  const usernames = QIITA_USERNAMES;
+  const usernames = ['Guz9N9KLASTt', 'Suntory_N_Water'];
+  const ZENN_USERNAME = 'sui_water';
 
   // 並列処理でデータを取得
   const [zennData, qiitaData, noteData] = await Promise.all([

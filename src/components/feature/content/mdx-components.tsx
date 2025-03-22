@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { LinkPreview } from '@/components/content/link-preview';
+import { LinkPreview } from '@/components/feature/content/link-preview';
 import { Callout } from '@/components/shared/callout';
 import { cn } from '@/lib/utils';
 

@@ -6,7 +6,7 @@ import type { ReactElement } from 'react';
 import { IoMdHome } from 'react-icons/io';
 import { MdOutlineArticle, MdOutlineBook } from 'react-icons/md';
 
-import HamburgerMenu from '@/components/MenuMobile';
+import HamburgerMenu from '@/components/shared/MenuMobile';
 import { ModeToggle } from '@/components/ui/ModeToggle';
 
 type MenuItemLinkProps = {

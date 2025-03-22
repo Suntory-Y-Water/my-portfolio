@@ -5,7 +5,7 @@ import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 
-import { components } from '@/components/content/mdx-components';
+import { components } from '@/components/feature/content/mdx-components';
 
 interface CustomMDXProps {
   source: string;

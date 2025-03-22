@@ -61,8 +61,8 @@
     --muted: 210 19% 85%; /* #DEE3E8 */
     --muted-foreground: 210 25% 30%; /* #455468*/
 
-    --accent: 214 100% 27;
-    --accent-foreground: 0 0% 100%;
+    --accent: 205.0 100.0% 78%;
+    --accent-foreground: 205 29% 9%;
 
     --destructive: 0 85% 60%; /* #E63E3E */
     --destructive-foreground: 0 0% 98%;

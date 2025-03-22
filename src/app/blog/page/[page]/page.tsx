@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-import { BlogCard } from '@/components/content/blog-card';
+import { BlogCard } from '@/components/feature/content/blog-card';
 import { Pagination } from '@/components/shared/pagination';
 import { postsPerPage } from '@/config/blog';
 import { getAllBlogPosts } from '@/lib/mdx';

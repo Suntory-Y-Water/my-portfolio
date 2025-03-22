@@ -7,9 +7,9 @@ import type React from 'react';
 import { siteConfig } from '@/config/site';
 
 import { fontNotoSansJp, fontPlemolJP35Console } from '@/assets/fonts';
-import Footer from '@/components/Footer';
+import Footer from '@/components/shared/Footer';
 import { ThemeProvider } from '@/components/ui/theme-provider';
-import Header from '../components/Header';
+import Header from '../components/shared/Header';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
