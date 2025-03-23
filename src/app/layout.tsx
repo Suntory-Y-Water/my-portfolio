@@ -31,11 +31,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang='ja'
-      suppressHydrationWarning
-      className={`${fontPlemolJP35Console.variable} font-sans`}
-    >
+    <html lang='ja' suppressHydrationWarning className={fontPlemolJP35Console.variable}>
       <body>
         <ThemeProvider
           attribute='class'
