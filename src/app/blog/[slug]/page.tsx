@@ -66,7 +66,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {post.metadata.date && (
             <div className='inline-flex items-center gap-1'>
               <Icons.calendar className='size-4' />
-              <time dateTime={post.metadata.date}>{formatDate(post.metadata.date)}</time>
+              <time dateTime={new Date(post.metadata.date).toISOString()}>
+                {formatDate(post.metadata.date)}
+              </time>
             </div>
           )}
 
