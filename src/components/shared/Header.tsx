@@ -44,13 +44,12 @@ export default function Header() {
             aria-label='最初の画面に戻る'
           >
             <Image
-              src='/icon.svg'
-              width={64}
-              height={64}
-              alt='icon'
+              src='/images/icon.webp'
+              alt='logo'
+              width='40'
+              height='40'
+              title='logo'
               className='rounded-full'
-              priority
-              quality={75}
             />
           </Link>
         </div>

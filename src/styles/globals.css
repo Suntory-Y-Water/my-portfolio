@@ -13,7 +13,7 @@
     --popover: 207 17% 12%; /* #151A1E */
     --popover-foreground: 0 0% 85%; /* #D9D9D9 */
 
-    --primary: 206 35% 65%; /* #89B3D1 */
+    --primary: 206 35% 40%;
     --primary-foreground: 205 29% 9%;
 
     --secondary: 84 20% 60%; /* #9BAA89 */
@@ -40,6 +40,8 @@
     --chart-3: 33 22% 45%; /* #8D7856 */
     --chart-4: 210 19% 30%; /* #3E4B59 */
     --chart-5: 208 15% 53%; /* #738C9C */
+
+    font-family: "noto-sans", sans-serif;
   }
 
   .light {
@@ -52,7 +54,7 @@
     --popover: 204 29% 99%; /* #FAFBFC */
     --popover-foreground: 205 29% 12%; /* #171E24 */
 
-    --primary: 206 35% 45%; /* #446C85 */
+    --primary: 206 35% 35%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 84 20% 45%; /* #748162*/
