@@ -7,18 +7,18 @@ type Props = {
 };
 
 const metaDescription =
-  'QiitaやZennで技術記事を投稿しており、クリックするとQiitaまたはZennの記事ページへ移動します。最新の技術記事はブログページから確認することができます。';
+  '技術記事を投稿しています。ページを選択すると記事ページへ移動します。';
 
 export const metadata: Metadata = {
-  title: 'Posts',
+  title: 'Blog',
   description: metaDescription,
   openGraph: {
-    title: 'Posts',
+    title: 'Blog',
     description: metaDescription,
     images: [siteConfig.ogImage],
   },
   twitter: {
-    title: 'Posts',
+    title: 'Blog',
     description: metaDescription,
     images: [siteConfig.ogImage],
   },

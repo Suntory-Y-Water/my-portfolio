@@ -137,7 +137,7 @@ export function LinkCard({
       {CardContent}
     </a>
   ) : (
-    <Link href={url} className={cardClasses}>
+    <Link href={url} className={cardClasses} prefetch={false} target='_blank'>
       {CardContent}
     </Link>
   );
