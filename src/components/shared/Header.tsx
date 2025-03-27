@@ -45,7 +45,7 @@ export default function Header() {
           >
             <Image
               src='/images/icon.webp'
-              alt='logo'
+              alt='ポートフォリオサイトのロゴ'
               width='40'
               height='40'
               title='logo'

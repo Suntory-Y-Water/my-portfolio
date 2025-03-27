@@ -10,6 +10,8 @@ import { ThemeProvider } from '@/components/ui/theme-provider';
 import { siteConfig } from '@/config/site';
 import Header from '../components/shared/Header';
 
+import { GoogleAnalytics } from '@next/third-parties/google';
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
@@ -32,6 +34,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='ja' suppressHydrationWarning className={fontPlemolJP35Console.variable}>
+      <head>
+        <link rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.jpg' />
+        <meta
+          name='google-site-verification'
+          content='pd5OEQeX8d8I7AOZbR5U3SPIyZyXYxd392aatHH48yk'
+        />
+      </head>
       <body>
         <ThemeProvider
           attribute='class'
@@ -44,6 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {children}
           </main>
           <Footer />
+          <GoogleAnalytics gaId='G-VJECTY2TM6' />
         </ThemeProvider>
       </body>
     </html>
