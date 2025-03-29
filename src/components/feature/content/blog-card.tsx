@@ -4,6 +4,7 @@ import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 import type { BlogPost } from '@/lib/mdx';
 import { formatDate } from '@/lib/utils';
+import Image from 'next/image';
 
 interface BlogCardProps {
   data: BlogPost;
@@ -23,9 +24,13 @@ export function BlogCard({ data }: BlogCardProps) {
       className='group relative flex items-start gap-4 overflow-hidden rounded-lg border border-border bg-card p-5 shadow-sm transition-all hover:bg-accent/5 hover:shadow-md'
     >
       {/* Icon */}
-      <div className='flex flex-col items-center justify-center rounded-3xl p-4 text-4xl'>
-        {metadata.icon}
-      </div>
+      <Image
+        className='flex flex-col items-center justify-center rounded-3xl p-2'
+        src={metadata.icon ?? ''}
+        alt={metadata.title}
+        width={68}
+        height={68}
+      />
 
       {/* Content */}
       <div className='flex flex-1 flex-col space-y-2'>
