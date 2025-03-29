@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { LinkPreview } from '@/components/feature/content/link-preview';
 import { Callout } from '@/components/shared/callout';
 import { cn } from '@/lib/utils';
+import { CodeBlock } from './code-block';
 
 export const components = {
   h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
@@ -29,9 +30,11 @@ export const components = {
   a: ({ className, ...props }: React.HTMLAttributes<HTMLAnchorElement>) => (
     <a
       className={cn(
-        'font-medium text-primary decoration-primary/30 underline-offset-4 hover:text-primary/80 hover:decoration-primary/50',
+        'font-medium text-primary decoration-primary/30 underline-offset-4 hover:text-primary/80 hover:decoration-primary/50 hover:underline',
         className,
       )}
+      target='_blank'
+      rel='noopener noreferrer'
       {...props}
     />
   ),
@@ -114,17 +117,7 @@ export const components = {
       {...props}
     />
   ),
-  pre: ({ className, ...props }: React.HTMLAttributes<HTMLPreElement>) => (
-    <pre
-      className={cn(
-        'my-6 overflow-x-auto rounded-lg border border-border/50 p-4',
-        'bg-[#111A1F] dark:bg-[#151A1E]',
-        'scrollbar-thin scrollbar-track-transparent scrollbar-thumb-muted',
-        className,
-      )}
-      {...props}
-    />
-  ),
+  pre: CodeBlock,
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
     const isInline = !className?.includes('language-');
     return (

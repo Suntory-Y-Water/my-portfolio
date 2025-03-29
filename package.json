@@ -2,6 +2,7 @@
   "name": "sui-portfolio",
   "version": "0.1.0",
   "private": true,
+  "author": "sui",
   "scripts": {
     "dev": "next dev",
     "clean-dev": "rm -rf .next/cache/fetch-cache && pnpm run dev",
