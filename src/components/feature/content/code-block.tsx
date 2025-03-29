@@ -10,7 +10,7 @@ type CodeBlockProps = {
   children: ReactNode;
 };
 
-export function CodeBlock({ className, children }: CodeBlockProps) {
+export function CodeBlock({ className, children, ...props }: CodeBlockProps) {
   const [isCopied, setIsCopied] = useState(false);
   const preRef = useRef<HTMLPreElement>(null);
 
@@ -26,19 +26,18 @@ export function CodeBlock({ className, children }: CodeBlockProps) {
   }
 
   return (
-    <div className='relative'>
-      <pre
-        ref={preRef}
-        className={cn(
-          'my-6 overflow-x-auto rounded-lg border border-border/50 p-4',
-          'bg-[#111A1F] dark:bg-[#151A1E]',
-          'scrollbar-thin scrollbar-track-transparent scrollbar-thumb-muted',
-          'pr-12', // ボタン用の右側の余白
-          className,
-        )}
-      >
-        {children}
-      </pre>
+    <pre
+      ref={preRef}
+      className={cn(
+        'my-6 overflow-x-auto rounded-lg border border-border/50 p-4',
+        'bg-[#111A1F] dark:bg-[#151A1E]',
+        'scrollbar-thin scrollbar-track-transparent scrollbar-thumb-muted',
+        'relative pr-12', // コピーボタン用の余白
+        className,
+      )}
+      {...props}
+    >
+      {children}
 
       {/* コピー成功メッセージ */}
       {isCopied && (
@@ -60,6 +59,6 @@ export function CodeBlock({ className, children }: CodeBlockProps) {
           <Copy className='h-4 w-4 text-muted-foreground' />
         )}
       </Button>
-    </div>
+    </pre>
   );
 }
