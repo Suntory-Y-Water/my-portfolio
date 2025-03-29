@@ -1,0 +1,495 @@
+---
+title: Lighthouse
+public: true
+date: 2025-03-29
+icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Melting%20face/Flat/melting_face_flat.svg
+slug: lighthouse-performance-update-blog
+tags: 
+  - Notion
+description: ブログページのパフォーマンスが良くないです。この記事ではGoogle Chromeの拡張機能であるlighthouseからスコアが悪いものを改善していきます。
+---
+
+<LinkPreview url="https://googlechrome.github.io/lighthouse/viewer/?psiurl=https%3A%2F%2Fsuntory-n-water.com%2Fblog%2Fcloudflare-get-domain-vercel&strategy=mobile&category=performance&category=accessibility&category=best-practices&category=seo&locale=ja&utm_source=lh-chrome-ext" />
+
+## 現状分析
+
+ブログの個別ページでパフォーマンスが著しく悪い状態です。
+Lighthouseのデータを見てソースコードを改善していきます。
+![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-1743229724959.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-1743229724959.png)
+出力するデータは上記画像の「JSON形式で保存」を実行することで出力できます。
+以下のコードで、対象スコアが改善余地あり、要改善のものだけを一覧にして出力します。
+
+
+```javascript title="script.js"
+const fs = require('node:fs');
+
+// 入力ファイルと出力ファイルのパス
+const inputFile = 'lighthouse.json';
+const outputFile = 'output.json';
+
+// JSONファイルを読み込む
+const rawData = fs.readFileSync(inputFile, 'utf-8');
+const lighthouseData = JSON.parse(rawData);
+
+// スコアが低いものを抽出（全カテゴリ対象）
+const extractedData = {};
+
+for (const key in lighthouseData.audits) {
+  const audit = lighthouseData.audits[key];
+
+  // スコアが存在し、0.89未満（赤 or 黄色）のものを抽出
+  if (audit.score !== null && audit.score < 0.9) {
+    extractedData[key] = audit;
+  }
+}
+
+// 結果をJSONファイルに出力
+fs.writeFileSync(outputFile, JSON.stringify(extractedData, null, 2), 'utf-8');
+
+console.log(`全カテゴリで改善が必要な項目を ${outputFile} に出力しました！`);
+```
+
+lighthouseの分析結果を見て、パフォーマンスやアクセシビリティの問題点を優先度順にまとめます。以下が改善すべき項目です。
+
+# Lighthouseによる改善点分析と対応策
+
+Lighthouseの出力結果を分析した結果、スコアが赤（低評価）となっている以下の項目について改善が必須です。それぞれの指摘事項と一般的な改善案を見ていきましょう。
+
+### レンダリングを妨げるリソースの除外
+
+**指摘事項:**
+- CSSファイルがページの最初のレンダリングをブロックしている
+- 約1,910ミリ秒の短縮が可能とされている
+**改善案:**
+- クリティカルCSSをインライン化して初期表示に必要なスタイルを直接HTMLに埋め込む
+- 非クリティカルなCSSをロード遅延させる（`media="print"` や `onload` 属性の活用）
+- 使用していないCSSを削除する
+- CSSファイルの分割とロード順序の最適化
+
+### 使用していないCSSの削減
+
+**指摘事項:**
+- 使われていないCSSルールが多く含まれている
+- 約30KBのCSS削減が可能とされている
+**改善案:**
+- PurgeCSS等のツールを使用して、実際に使用されているCSSのみを抽出
+- Tailwind CSSのJIT（Just-In-Time）モードを活用して未使用クラスを削除
+- メディアクエリを適切に設定し、必要な場合にのみロードされるようにする
+- コンポーネント単位でのCSS分割を行い、必要なページでのみロード
+
+### 色のコントラスト比の問題
+
+**指摘事項:**
+- テキストと背景色のコントラスト比が不十分（4.41）で、WCAG 2.0の基準（4.5:1）を満たしていない
+- リンクの色が特に問題視されている
+**改善案:**
+- プライマリカラーの色相を維持しながら、より暗い/明るい色調に調整してコントラスト比を向上
+- テキストサイズを大きくするか、ウェイトを太くして視認性を高める
+- アクセシビリティツールを使用してコントラスト比を事前に確認
+- `:hover`や`:focus`状態でもコントラスト比が基準を満たすよう設定
+
+### Largest Contentful Paint (LCP)の問題
+
+**指摘事項:**
+- LCPの時間が13.2秒と非常に長い
+- コンテンツが描画されるまでに時間がかかりすぎている
+**改善案:**
+- 画像の最適化と適切なサイズ設定
+- 重要なコンテンツの優先読み込みを設定
+- レンダリングブロッキングリソースの除去または遅延ロード
+- サーバー応答時間の改善とCDNの活用
+- リソースのプリロードとプリコネクトを活用
+
+### サードパーティリソースの問題
+
+**指摘事項:**
+- r2.devから読み込まれている画像リソースが多くのメインスレッド時間を消費している
+- 読み込み速度が遅くなっている
+**改善案:**
+- サードパーティホスティングの画像を自サーバーにホストするか、最適化された画像CDNを使用
+- 遅延読み込み（lazy loading）を実装して必要なタイミングでのみ読み込む
+- 画像サイズの縮小とフォーマットの最適化（WebP形式の使用）
+- クリティカルでないサードパーティスクリプトの遅延読み込みを実装
+
+
+
+# Lighthouseのパフォーマンス改善ガイド：必須対応項目の実装方法
+
+Lighthouseの分析結果から、特にスコアが赤（低評価）となっている項目に焦点を当て、具体的な改善方法を解説します。これらの改善を実装することで、ウェブサイトの表示速度とユーザー体験が大幅に向上します。
+
+## 色のコントラスト比の問題改善
+
+Lighthouseの分析によると、テキストと背景色のコントラスト比が4.41:1となっており、WCAG基準で求められる4.5:1を下回っています。主に問題となっているのはリンクテキストのプライマリカラーです。
+
+### 改善実装
+
+`src/styles/globals.css`のカラー変数を修正して、コントラスト比を向上させます。
+
+```css
+@layer base {
+  :root {
+    /* プライマリカラーを暗くしてコントラスト比を向上（元: 206 35% 65%） */
+    --primary: 206 35% 40%;
+    /* 他のカラー定義はそのまま */
+  }
+
+  .light {
+    /* ライトモードのプライマリカラーも調整（元: 206 35% 45%） */
+    --primary: 206 35% 35%;
+    /* 他のカラー定義はそのまま */
+  }
+}
+```
+
+このカラー調整の前後でコントラスト比をWCAGのガイドラインに従って測定し、4.5:1以上になることを確認しました。カラー調整はブランドイメージを維持しながら、視認性と可読性を高めるバランスを考慮しています。
+参考：[WCAG 2.1のコントラスト比の要件](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html) - コントラスト比の最小要件セクション
+
+## Largest Contentful Paint (LCP)の改善
+
+LCPが13.2秒と非常に長く、ユーザー体験に大きな影響を与えています。Lighthouseの分析によれば、レンダリング遅延が95%を占めており、特に画像リソースの最適化が必要です。
+
+### 画像最適化の実装
+
+まず、`next.config.mjs`を修正して画像最適化の設定を追加します：
+
+```
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // 既存の設定を維持
+  images: {
+    loader: 'custom',
+    loaderFile: './src/lib/image-loader.ts',
+    domains: ['pub-37c337e4f6b74be784982bc3041040b4.r2.dev'], // 外部ドメインを許可
+    formats: ['image/webp'], // WebP形式を優先
+  },
+  // 他の設定は維持
+};
+
+export default nextConfig;
+```
+
+次に、MDXコンテンツ内の画像表示を最適化するため、`src/components/feature/content/mdx-components.tsx`のimg要素の実装を変更します：
+
+```typescript
+// img コンポーネントを修正
+img: ({ className, alt, src, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => {
+  const isExternal = src?.startsWith('http');
+
+  if (isExternal) {
+    return (
+      <div className="my-4 relative">
+        <Image
+          src={src || ''}
+          alt={alt || ''}
+          width={800} // 適切な幅を指定
+          height={400} // アスペクト比を維持する高さ
+          className={cn('rounded-md border border-border/50', className)}
+          sizes="(max-width: 768px) 100vw, 800px" // レスポンシブサイズ設定
+          priority={true} // LCP対象の場合はpriorityをtrueに
+          loading="eager" // 優先的に読み込む
+        />
+      </div>
+    );
+  }
+
+  // 内部画像の処理は維持
+  return (
+    // biome-ignore lint/a11y/useAltText: altは上位から渡される
+    <img
+      className={cn('rounded-md border border-border/50', className)}
+      alt={alt}
+      width="800" // 明示的な幅を指定
+      height="400" // 明示的な高さを指定
+      src={src}
+      {...props}
+    />
+  );
+},
+```
+
+この実装では、Next.jsの`Image`コンポーネントを使用して外部画像を最適化しつつ、以下の主要な改善を行っています：
+1. 適切な`width`と`height`を指定して画像のレイアウトシフトを防止
+2. `sizes`属性でレスポンシブな読み込みを設定
+3. 重要な画像に`priority`属性を設定して優先的に読み込み
+4. 内部画像にも明示的なサイズを指定
+参考：[Next.js Image Optimization](https://nextjs.org/docs/app/building-your-application/optimizing/images) - 「Responsive Sizes」セクション
+
+## レンダリングブロッキングリソースの最適化
+
+Lighthouseの分析では、CSSファイルがレンダリングをブロックし、約1,910ミリ秒の遅延が発生していることが指摘されています。
+
+### クリティカルCSSの実装
+
+`src/app/layout.tsx`を修正してクリティカルCSSをインライン化します：
+
+```typescript
+import '@/styles/globals.css';
+import '@/styles/mdx.css';
+import { fontNotoSansJp, fontPlemolJP35Console } from '@/assets/fonts';
+// 他のインポート
+
+// クリティカルCSSの定義
+const criticalCSS = `
+  /* 初期表示に必要な最小限のスタイル */
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-noto-sans-jp), sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .dark {
+    color-scheme: dark;
+  }
+
+  /* ヘッダーなど初期表示に必須の要素のスタイル */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    height: 64px;
+    border-bottom-width: 1px;
+    background-color: hsl(var(--background));
+    backdrop-filter: blur(4px);
+  }
+`;
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html
+      lang='ja'
+      suppressHydrationWarning
+      className={`${fontNotoSansJp.variable} ${fontPlemolJP35Console.variable} font-sans`}
+    >
+      <head>
+        {/* クリティカルCSSをインライン化 */}
+        <style dangerouslySetInnerHTML={{ __html: criticalCSS }} />
+      </head>
+      <body>
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          <main className='mx-auto w-[calc(100%-32px)] max-w-[1024px] py-4 md:w-[calc(100%-100px)] md:py-8'>
+            {children}
+          </main>
+          <Footer />
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+クリティカルCSSをインライン化することで、初期表示に必要な最小限のスタイルをHTMLに直接埋め込み、外部CSSファイルの読み込み待ちによるレンダリングブロックを回避します。
+参考：[Web.dev - Extract Critical CSS](https://web.dev/articles/extract-critical-css) - 「Inline the Critical CSS」セクション
+
+## 使用していないCSSとJavaScriptの削減
+
+Lighthouseの分析では、約30KBの未使用CSSと24KBの未使用JavaScriptが指摘されています。これらを削減するためのアプローチを実装します。
+
+### CSS最適化の実装
+
+まず、TailwindCSSの設定を最適化して未使用クラスを削除します：
+
+```
+// tailwind.config.ts の修正
+import type { Config } from 'tailwindcss';
+
+const config = {
+  // 既存の設定を維持
+  content: [
+    './src/**/*.{ts,tsx}',
+    './src/**/*.mdx', // MDXファイルも対象に追加
+  ],
+  // 以下を追加
+  future: {
+    hoverOnlyWhenSupported: true,
+    respectDefaultRingColorOpacity: true,
+  },
+  // safelist: 保持したいクラスがある場合に指定
+  safelist: [
+    // 動的に生成されるクラスなど、必要なものだけを指定
+    'bg-primary',
+    'text-primary-foreground',
+  ],
+  theme: {
+    // 既存の設定を維持
+  },
+  // 以下を追加
+  plugins: [
+    require('tailwindcss-animate'),
+    // 未使用CSSの削減プラグイン
+    require('@fullhuman/postcss-purgecss')({
+      content: ['./src/**/*.{ts,tsx}', './src/**/*.mdx'],
+      defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || [],
+      safelist: {
+        standard: ['html', 'body', 'dark'],
+        deep: [/^dark/, /^light/]
+      }
+    }),
+  ],
+} satisfies Config;
+
+export default config;
+```
+
+次に、PostCSSの設定を拡張して、CSSの最適化を行います：
+
+```
+// postcss.config.js の修正
+module.exports = {
+  plugins: {
+    'tailwindcss': {},
+    'autoprefixer': {},
+    'cssnano': {
+      preset: [
+        'default',
+        {
+          discardComments: {
+            removeAll: true,
+          },
+          normalizeWhitespace: true,
+        }
+      ]
+    }
+  },
+};
+```
+
+
+### JavaScript最適化の実装
+
+次に、Next.jsの設定を拡張して、JavaScriptバンドルを最適化します：
+
+```
+// next.config.mjs に追加
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // 既存の設定を維持
+
+  // バンドル最適化設定
+  swcMinify: true, // SWC Minifyを有効化
+
+  // コンポーネントレベルでのコード分割を有効化
+  compiler: {
+    // 削除対象のコンソール出力を指定
+    removeConsole: process.env.NODE_ENV === 'production' ? {
+      exclude: ['error', 'warn'],
+    } : false,
+  },
+
+  // Webpackの設定を追加
+  webpack: (config, { dev, isServer }) => {
+    // 本番ビルド時のみ最適化
+    if (!dev && !isServer) {
+      // Tree-shakingの強化
+      config.optimization.usedExports = true;
+
+      // チャンク分割の最適化
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        maxInitialRequests: 25,
+        minSize: 20000,
+        maxSize: 60000,
+        cacheGroups: {
+          // ベンダーチャンクの最適化
+          vendors: {
+            test: /[\\/]node_modules[\\/]/,
+            priority: -10,
+            reuseExistingChunk: true,
+          },
+          // 共通チャンクの最適化
+          commons: {
+            name: 'commons',
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true,
+          },
+        },
+      };
+    }
+
+    return config;
+  },
+};
+
+export default nextConfig;
+```
+
+これらの最適化により、未使用のCSSとJavaScriptコードを削減し、必要な部分のみをバンドルに含めることでページの読み込み速度を向上させます。
+参考：
+- [Next.js Compiler Options](https://nextjs.org/docs/app/api-reference/next-config-js/compiler) - コンパイラ最適化のセクション
+- [Webpack Bundle Optimization](https://webpack.js.org/guides/production/) - プロダクションビルド最適化のセクション
+
+## サードパーティリソースの最適化
+
+Lighthouseの分析では、r2.devホスティングからの画像リソースがパフォーマンスに大きな影響を与えていることが指摘されています。
+
+### 画像最適化の実装
+
+既存の外部画像を最適化して提供するために、`src/lib/image-loader.ts`を拡張します：
+
+```typescript
+import type { ImageLoader, ImageLoaderProps } from 'next/image';
+
+// 既存のMicroCMSローダー
+const microCMSLoader: ImageLoader = ({ src, width, quality }: ImageLoaderProps) => {
+  // 既存の実装を維持
+};
+
+// r2.devドメイン専用の最適化ローダーを追加
+const r2DevLoader: ImageLoader = ({ src, width, quality }: ImageLoaderProps) => {
+  // r2.devドメインの画像かどうかを確認
+  if (src.includes('r2.dev')) {
+    const url = new URL(src);
+
+    // 最適化のためのパラメータを追加
+    // 注: 実際にはR2がどのようなパラメータをサポートしているかに依存
+    url.searchParams.set('w', width.toString());
+    url.searchParams.set('q', (quality || 75).toString());
+    url.searchParams.set('format', 'webp'); // WebP形式を指定
+
+    return url.href;
+  }
+
+  return src;
+};
+
+// ローカル画像ローダー
+const localLoader: ImageLoader = ({ src, width }: ImageLoaderProps) => {
+  return `${src}?w=${width}`;
+};
+
+// カスタムローダー
+const customLoader: ImageLoader = ({ src, width, quality }: ImageLoaderProps) => {
+  // r2.devドメインの場合
+  if (src.includes('r2.dev')) {
+    return r2DevLoader({ src, width, quality });
+  }
+
+  // 相対パスかドメインパスかで分岐
+  return src.startsWith('/')
+    ? localLoader({ src, width, quality })
+    : microCMSLoader({ src, width, quality });
+};
+
+export default customLoader;
+```
+
+これにより、r2.devから提供される画像も最適化して表示できるようになります。ただし、実際にはR2が提供するAPIパラメータに依存するため、必要に応じて調整が必要です。
+また、将来的にはこれらの画像をプロジェクト内に移行するか、より最適化されたCDNを使用することも検討すべきでしょう。
+参考：[Next.js Custom Image Loader](https://nextjs.org/docs/app/api-reference/components/image#loader) - カスタムローダーのセクション
+
+## まとめ
+
+Lighthouseで指摘された重要な問題に対して、具体的な改善実装を行いました。これらの改善を適用することで：
+1. アクセシビリティが向上し、より多くのユーザーがコンテンツを読みやすくなります
+2. 初期表示が大幅に高速化され、ユーザー体験が向上します
+3. 不要なコードや最適化されていないリソースが削減され、全体的なパフォーマンスが向上します
+これらの最適化は一度に行うのではなく、段階的に実装して効果を測定しながら進めることをお勧めします。各改善後にLighthouseで再測定を行い、スコアの向上を確認しましょう。また、実際のユーザー環境での体験も重要なので、実際のデバイスでのテストも並行して行うことが大切です。
+今後もパフォーマンスを維持するためには、新しい機能やコンテンツを追加する際にも、これらの最適化プラクティスを継続的に適用していくことが重要です。
