@@ -12,6 +12,11 @@ interface BlogCardProps {
 export function BlogCard({ data }: BlogCardProps) {
   const { metadata, slug } = data;
 
+  // 日付のフォーマット ハイドレーションエラーが出るためISO文字列に変換して標準化
+  const dateISO = new Date(metadata.date).toISOString();
+
+  const formattedDate = formatDate(metadata.date);
+
   return (
     <Link
       href={`/blog/${slug}`}
@@ -40,7 +45,7 @@ export function BlogCard({ data }: BlogCardProps) {
         <div className='flex flex-wrap items-center gap-x-4 gap-y-1 pt-2 text-xs text-muted-foreground'>
           <div className='flex items-center gap-1'>
             <Icons.calendar className='size-4' />
-            <time dateTime={metadata.date}>{formatDate(metadata.date)}</time>
+            <time dateTime={dateISO}>{formattedDate}</time>
           </div>
 
           {metadata.tags && metadata.tags.length > 0 && (

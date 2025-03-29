@@ -8,7 +8,7 @@ import { getPaginatedBlogPosts } from '@/lib/pagination';
 
 export default async function TopPage() {
   const allPosts = await getAllBlogPosts();
-  const { items: paginatedPosts } = getPaginatedBlogPosts(allPosts, 1, 10);
+  const { items: paginatedPosts } = getPaginatedBlogPosts(allPosts, 1, 5);
 
   return (
     <section>

@@ -22,6 +22,8 @@ Please be sure to reply in Japanese from now on.
 - Use descriptive variable names with auxiliary verbs (e.g., `isLoading`, `hasError`).
 - Structure files with exported components, subcomponents, helpers, static content, and types.
 - Use lowercase with dashes for directory names (e.g., `components/auth-wizard`).
+- Functions should be created with function declarations instead of using arrow functions.
+- Don't apologize, just ask for permission.
 
 ### Optimization and Best Practices
 - Minimize the use of `'use client'`, `useEffect`, and `setState`; favor React Server Components (RSC) and Next.js SSR features.

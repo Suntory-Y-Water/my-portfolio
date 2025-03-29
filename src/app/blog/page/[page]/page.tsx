@@ -48,7 +48,11 @@ export default async function BlogListPage({ params }: BlogListPageProps) {
         ))}
       </div>
 
-      <Pagination currentPage={currentPage} totalPages={totalPages} basePath='/page' />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        basePath='/blog/page'
+      />
     </section>
   );
 }
