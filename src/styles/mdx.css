@@ -30,6 +30,14 @@
   @apply mt-0 rounded-t-none;
 }
 
+[data-rehype-pretty-code-title] + div > pre {
+  @apply mt-0 rounded-t-none;
+}
+
+[data-rehype-pretty-code-figure] [data-rehype-pretty-code-title] + div > pre {
+  @apply mt-0 rounded-t-none;
+}
+
 /* Inline code specific styles */
 :not(pre) > code {
   font-feature-settings: "calt" 1, "tnum" 1, "case" 1, "ss01" 1, "ss02" 1;
