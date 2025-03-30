@@ -46,7 +46,7 @@ WindowsのPCで見たときはこのようなアイコンになっています�
 例えば、「😎」は以下のようなURLで定義されています。途中の`%20`は半角スペースです。
 
 ```bash
-<LinkPreview url="https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Smiling%20face%20with%20sunglasses/Flat/smiling_face_with_sunglasses_flat.svg" />
+https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Smiling%20face%20with%20sunglasses/Flat/smiling_face_with_sunglasses_flat.svg"
 ```
 
 各絵文字は`/assets/{slug}/{style}/{slug}_{style}.svg`という定義に成り立っているので、それにあわせて絵文字を`fetch`します。
@@ -164,6 +164,7 @@ async function checkUrlValidity(url: string) {
 <LinkPreview url="https://suntory-n-water.com/blog/messaging-api-github-pr" />
 確認したところ、iOSで[Fluent Emoji](https://fluentemoji.com/)の内容が反映されていますね。
 ![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9137.png-1743294181758.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9137.png-1743294181758.png)
+
 見づらいですが救急車と波がiOSのものではないことが確認できます。
 ![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9138.jpeg-1743294181758.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9138.jpeg-1743294181758.png)
 
