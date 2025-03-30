@@ -24,13 +24,20 @@ export function BlogCard({ data }: BlogCardProps) {
       className='group relative flex items-start gap-4 overflow-hidden rounded-lg border border-border bg-card p-5 shadow-sm transition-all hover:bg-accent/5 hover:shadow-md'
     >
       {/* Icon */}
-      <Image
-        className='flex flex-col items-center justify-center rounded-3xl p-2'
-        src={metadata.icon ?? ''}
-        alt={metadata.title}
-        width={68}
-        height={68}
-      />
+      {/* 画像がhttps://から始まる場合はImageを使用 */}
+      {metadata.icon?.startsWith('https://') ? (
+        <Image
+          className='flex flex-col items-center justify-center rounded-3xl p-2'
+          src={metadata.icon}
+          alt={metadata.title}
+          width={68}
+          height={68}
+        />
+      ) : (
+        <div className='flex flex-col items-center justify-center rounded-3xl p-4 text-4xl'>
+          {metadata.icon}
+        </div>
+      )}
 
       {/* Content */}
       <div className='flex flex-1 flex-col space-y-2'>
