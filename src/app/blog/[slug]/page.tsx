@@ -1,13 +1,16 @@
 import '@/styles/mdx.css';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { CustomMDX } from '@/components/feature/content/custom-mdx';
+import { TableOfContents } from '@/components/feature/content/table-of-contents';
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
+import { extractTOC } from '@/lib/toc';
 import { absoluteUrl, formatDate } from '@/lib/utils';
 
 export const revalidate = false;
@@ -58,9 +61,25 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  // 目次を生成
+  const tableOfContents = extractTOC(post.rawContent);
+
   return (
     <div>
       <article className='min-h-[500px]'>
+        {/* Icon */}
+        {post.metadata.icon && (
+          <div className='flex justify-center mb-6'>
+            <Image
+              src={post.metadata.icon}
+              alt={`Icon for ${post.metadata.title}`}
+              width={80}
+              height={80}
+              className='rounded-full'
+            />
+          </div>
+        )}
+
         {/* Metadata (Date & Tags) */}
         <div className='mb-6 flex flex-wrap items-center justify-between text-sm text-muted-foreground'>
           {post.metadata.date && (
@@ -92,6 +111,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         {post.metadata.description && (
           <p className='mt-4 text-foreground/80'>{post.metadata.description}</p>
         )}
+
+        {/* Table of Contents */}
+        {tableOfContents.length > 0 && <TableOfContents items={tableOfContents} />}
 
         {/* Article Content */}
         <div className='mt-8'>
