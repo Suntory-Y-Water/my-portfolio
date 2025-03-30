@@ -32,6 +32,7 @@ export function BlogCard({ data }: BlogCardProps) {
           alt={metadata.title}
           width={68}
           height={68}
+          priority={true}
         />
       ) : (
         <div className='flex flex-col items-center justify-center rounded-3xl p-4 text-4xl'>
