@@ -75,7 +75,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               alt={`Icon for ${post.metadata.title}`}
               width={80}
               height={80}
-              className='rounded-full'
             />
           </div>
         )}
