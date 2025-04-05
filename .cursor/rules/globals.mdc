@@ -106,7 +106,7 @@ Based on these instructions, follow the process below:
 
 6.**Directories/files of rules to follow**.
 
-   - ./.cursor/rules/dev-rules/*.mdc 
+   - ./.cursor/rules/*.mdc 
    - Please strictly follow the rules in the above file.
 
 ---
