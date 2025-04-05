@@ -1,46 +1,19 @@
-name: Auto-approve Dependabot PRs
-
-on:
-  pull_request:
-    types: [opened, synchronize]
-
-permissions:
-  contents: read
-  pull-requests: write
-
+name: Auto patch merge
+on: pull_request
 jobs:
-  auto-approve:
-    # dependabotからのPRのみを対象とする
-    if: github.actor == 'dependabot[bot]'
+  merge:
+    if: ${{ github.actor == 'dependabot[bot]' }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 8
-          run_install: false
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Build test
-        run: pnpm build
-
-      # ビルドが成功した場合のみPRを承認
-      - name: Auto-approve
-        if: success()
-        uses: hmarr/auto-approve-action@v3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v4
+      - id: meta                           # 依存関係のメタデータを取得
+        uses: dependabot/fetch-metadata@v2 # 条件分岐でパッチバージョンかチェック
+      - if: ${{ steps.meta.outputs.update-type == 'version-update:semver-patch' }}
+        run: |
+          gh pr review "${GITHUB_HEAD_REF}" --approve
+          gh pr merge "${GITHUB_HEAD_REF}" --merge --auto
