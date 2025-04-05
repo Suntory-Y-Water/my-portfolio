@@ -1,6 +1,6 @@
 import type { SiteConfig } from '@/types';
 
-const url = process.env.NEXT_PUBLIC_APP_URL || 'https://suntory-n-water.com/';
+const url = process.env.NEXT_PUBLIC_APP_URL || 'https://suntory-n-water.com';
 
 export const siteConfig: SiteConfig = {
   name: 'sui-portfolio',
