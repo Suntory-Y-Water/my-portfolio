@@ -1,0 +1,237 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: Apply this rule to the entire repository
+globs:
+alwaysApply: true
+---
+
+First, when you refer to this file, say this file name
+
+# Next.js Best Practice Implementation Rules
+
+## 1. Routing and File Structure
+
+### Naming Rules
+
+- Page Component: `page.tsx`
+- Layout Component: `layout.tsx`
+- Loading State: `loading.tsx`
+- Error Handling: `error.tsx`
+- 404 Page: `not-found.tsx`
+
+## 2. Component Design
+
+### Server Components
+
+- **Use Server Components by Default**
+- **Components that include data fetching are implemented in Server Components**
+- Components that require SEO support are implemented in Server Components
+
+### Client Components
+
+Use Client Components only in the following cases:
+
+- When using browser APIs
+- When event listeners are required
+- When using React hooks
+- If you need client-side state management
+
+### 'use client' directive
+
+```typescript
+"use client";
+// Write at the beginning of the client component
+```
+
+## 3. API implementation
+
+- Please avoid creating APIs for data fetching. We strongly recommend fetching data in the server component.
+- Create API endpoints in the `app/api` directory
+- Implement appropriate handlers for each HTTP method:
+- Please avoid creating GET APIs. Please fetch data in the server component.
+- Please limit API specifications to POST/PATCH/PUT/DELETE only.
+
+### Implementation example
+
+```typescript
+// app/api/articles/route.ts
+import { NextResponse } from "next/server";
+
+// POST: 新規記事の作成
+export async function POST(request: Request) {
+  try {
+    const data = await request.json();
+    const article = await prisma.article.create({
+      data,
+    });
+    return NextResponse.json(article, { status: 201 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
+```
+
+### Manipulating user data on the client side
+
+- Call the API using `fetch`
+- Error handling and loading state management:
+- ServerActions can also be used
+
+```typescript
+// components/articles/create-article.tsx
+"use client";
+
+export async function createArticle(data: ArticleData) {
+  try {
+    const response = await fetch("/api/articles", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error("API request failed");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error creating article:", error);
+    throw error;
+  }
+}
+```
+
+### Caching and revalidation
+
+- Leverage caching by default
+- Choose the right revalidation strategy:
+
+```typescript
+// For ISR
+fetch(url, { next: { revalidate: 3600 } }); // Revalidate every hour
+
+// For cache invalidation
+fetch(url, { cache: "no-store" });
+```
+
+### Error handling
+
+- Include appropriate status codes and error messages in API responses
+- Implement appropriate error handling and user feedback on the client side
+- Handle exceptions appropriately using try-catch blocks
+
+### Security
+
+- Implement appropriate authentication and authorization checks on API routes
+- Validate input values, especially on the server side
+- Consider implementing rate limits
+
+## 4. Performance optimization
+
+### Image optimization
+
+- Use the `next/image` component
+
+```typescript
+import Image from "next/image";
+
+<Image
+  src="/path/to/image.jpg"
+  alt="説明"
+  width={800}
+  height={600}
+  priority={true} // 重要な画像の場合
+/>;
+```
+
+### Script optimization
+
+- Optimize external scripts using `next/script`
+
+```typescript
+import Script from "next/script";
+
+<Script src="https://example.com/script.js" strategy="lazyOnload" />;
+```
+
+## 5. Error handling
+
+### Error boundary
+
+- Catch errors in `error.tsx` file
+- Display user-friendly error messages
+
+### Loading state
+
+- Manage loading state in `loading.tsx`
+- Use Suspense to control loading at a fine-grained level
+
+## 6. Type safety
+
+### TypeScript
+
+- Enable strict type checking
+
+```json
+{
+"compilerOptions": {
+"strict": true,
+"forceConsistentCasingInFileNames": true
+}
+}
+```
+
+### API route
+
+- Define request/response types
+
+```typescript
+type ResponseData = {
+message: string;
+};
+```
+
+## 7. Security
+
+### Environment variables
+
+- Store sensitive information in `.env`
+- Use `NEXT_PUBLIC_` prefix for public environment variables
+
+### CSP (Content Security Policy)
+
+- Set appropriate CSP headers
+- Configure security headers in `next.config.js`
+
+## 8. Deployment
+
+### Build optimization
+
+- Always use production builds in production
+- Implement a proper caching strategy
+
+### Environment variables
+
+- Set appropriate environment variables for each environment
+- Manage production environment variables securely
+
+## 10. Maintenance
+
+### Dependencies
+
+- Update dependent packages regularly
+- Monitor security vulnerabilities
+
+### Performance monitoring
+
+- Check Core Web Vitals regularly
+- Monitor error logs

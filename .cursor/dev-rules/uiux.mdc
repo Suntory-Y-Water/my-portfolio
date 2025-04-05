@@ -1,0 +1,190 @@
+---
+description: 
+globs: *.tsx
+alwaysApply: false
+---
+---
+description:
+globs: *.tsx
+alwaysApply: false
+---
+First, when you refer to this file, say this file name
+
+# UI/UX design and implementation rules
+
+## 1. Design system
+
+### Importance: Highest
+
+- Use components based on shadcn/ui
+- **Do not change existing UI without approval**
+- Minimize customization of components
+
+```typescript
+// ✅ Good example: Use shadcn/ui component as is
+import { Button } from "@/components/ui/button";
+
+// ❌ Bad example: Unnecessary customization
+const CustomButton = styled(Button)`
+// Unique styling
+`;
+```
+
+## 2. Styling conventions
+
+### Importance: High
+
+### Use Tailwind CSS
+
+- Use utility classes as a priority
+- Custom classes are defined with `@layer`
+- Use the naming convention `kebab-case`
+
+```typescript
+// ✅ Good example
+<div className="flex items-center justify-between p-4">
+
+// ❌ Bad example
+<div style={{ display: 'flex', alignItems: 'center' }}>
+```
+
+## 3. Responsive design
+
+### Importance: High
+
+- Mobile first approach
+- Use Tailwind breakpoints
+- sm: 640px
+- md: 768px
+- lg: 1024px
+- xl: 1280px
+- 2xl: 1536px
+
+## 4. Accessibility
+
+### Importance: High
+
+- Follow WAI-ARIA guidelines
+- Support keyboard navigation
+- Ensure appropriate contrast ratio
+- Screen reader support
+
+## 5. Animations and transitions
+
+### Importance: Medium
+
+- Use `tailwindcss/animation`
+- Avoid excessive animations
+- Use `framer-motion` only when necessary
+
+## 6. Form design
+
+### Importance: High
+
+- Use form components from shadcn/ui
+- Display validation messages clearly
+- Implement input assistance (autocomplete, etc.)
+
+## 7. Important restrictions
+
+### Importance: Highest
+
+1. Limitations on UI changes
+
+- **Do not change existing UI components or layouts**
+- **Always get prior approval if changes are required**
+- Be especially careful when changing layout, colors, fonts, spacing, etc.
+
+2. Adding components
+
+- Follow shadcn/ui design principles for new components
+- Prioritize reusing existing components
+
+## 8. Error display and feedback
+
+### Importance: High
+
+- Use `@/components/ui/toast` for toast notifications
+- Error messages are specific and easy to understand
+- Appropriate display of loading status
+
+## 9. Icons and images
+
+### Importance: Medium
+
+- Use Lucide Icons as standard
+- Optimize SVG icons
+- Optimize images with `next/image`
+
+## 10. Dark mode support
+
+### Importance: High
+
+- Styling with `dark:` prefix
+- Integrate with system settings
+- Maintain contrast ratio
+
+## 11. Component design principles
+
+### Importance: High
+
+- Single responsibility principle
+- Flexible customization via Props
+- Appropriate component division
+
+```typescript
+// ✅ Good example
+interface CardProps {
+title: string;
+children: React.ReactNode;
+className?: string;
+}
+
+// ❌ Bad example
+interface CardProps {
+title: string;
+titleColor: string; // Unnecessary customizations
+
+customPadding: string; // Things to avoid
+
+}
+
+```
+
+## Things to watch out for
+
+1. Design consistency
+
+- Consistent use of component libraries
+
+- Minimize custom styles
+
+- Follow design tokens
+
+2. Performance
+
+- Remove unnecessary animations
+
+- Optimize images
+
+- Monitor bundle size
+
+3. Quality control
+
+- Storybook component creation
+
+- Visual regression testing
+
+- Cross-browser testing
+
+4. Documentation
+
+- Component use cases
+
+- Props typing
+
+- Design system guidelines
+
+These rules are important to ensure the consistency and maintainability of your project.
+
+If changes are required, make sure they go through a team approval process.
