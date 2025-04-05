@@ -88,8 +88,7 @@ Based on these instructions, follow the process below:
    [Briefly describe the overall summary.]
 
    ## Execution steps
-   1. description and result of step 1] 2.
-   2.[description and results of step 2].
+   1. description and result of step 1 2.
    ...
 
    ## Final deliverables
@@ -107,7 +106,7 @@ Based on these instructions, follow the process below:
 
 6.**Directories/files of rules to follow**.
 
-   - . /cursor/rules/dev-rules/*.mdc 
+   - ./.cursor/rules/*.mdc 
    - Please strictly follow the rules in the above file.
 
 ---
