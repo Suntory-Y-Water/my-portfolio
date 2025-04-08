@@ -1,6 +1,6 @@
 ---
 title: チンチロをするMCPサーバーを作ってみる
-public: false
+public: true
 date: 2025-04-08
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Game%20die/Flat/game_die_flat.svg
 slug: chinchillo-mcp-server
@@ -47,6 +47,7 @@ MCPの説明は他の人が丁寧に書いているので省略します。
 
 はじめに `src/server.ts` を作成し、MCP サーバーを初期化します。以下のように `McpServer` クラスをインポートし、`name` と `version` を指定してインスタンスを作成します。
 その後、`server.tool()` メソッドを使用してツールを定義します。
+
 `playChinchillo()`メソッドは実際にチンチロを行うビジネスロジックです。現時点では作成していません。
 `server.tool()` メソッドの第一引数にはMCPサーバーで使用できる名前、第二引数にはMCPサーバーの説明を設定します。
 
@@ -397,8 +398,8 @@ export function playChinchillo(rollCount: number): {
 ## ローカルでのテスト
 
 一通りロジックを作成できたので、ローカル上でテストをします。
-`InMemoryTransport` を使用することでメモリ上でクライアントとサーバーを接続できます。
-`src/server.test.ts` に実装していきましょう。
+`InMemoryTransport`を使用することでメモリ上でクライアントとサーバーを接続できます。
+`src/server.test.ts`に実装していきましょう。
 テスト結果はランダムな数値を作成している都合複雑になるので、今回は値が返却できているかだけを見ていきます。
 
 ```javascript
@@ -544,3 +545,7 @@ Claude Desktopを開くとMCPサーバーが使用可能になっています。
 バリデーションに書いてあることをしっかり守っているのが特徴的です。
 
 いろいろなことが出来るけど、どう活かすかがまだ思いついていないので今後も動向を追っていきたいですね！
+
+今回使用したコードは以下のリポジトリです。
+
+<LinkPreview url="https://github.com/Suntory-Y-Water/chinchillo-mcp-server" />
