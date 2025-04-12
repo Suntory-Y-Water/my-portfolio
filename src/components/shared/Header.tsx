@@ -2,12 +2,16 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import type { ReactElement } from 'react';
 import { IoMdHome } from 'react-icons/io';
 import { MdOutlineArticle, MdOutlineBook } from 'react-icons/md';
 
+import { Icons } from '@/components/icons';
 import HamburgerMenu from '@/components/shared/MenuMobile';
 import { ModeToggle } from '@/components/ui/ModeToggle';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 type MenuItemLinkProps = {
   href: string;
@@ -15,62 +19,86 @@ type MenuItemLinkProps = {
   icon: ReactElement;
 };
 
+const NAVIGATION_LINKS: MenuItemLinkProps[] = [
+  {
+    href: '/',
+    title: 'Home',
+    icon: <IoMdHome size='1.2em' />,
+  },
+  {
+    href: '/posts',
+    title: 'Posts',
+    icon: <MdOutlineArticle size='1.2em' />,
+  },
+  {
+    href: '/blog',
+    title: 'Blog',
+    icon: <MdOutlineBook size='1.2em' />,
+  },
+  {
+    href: '/tags',
+    title: 'Tags',
+    icon: <Icons.tag className='size-5' />,
+  },
+];
+
 export default function Header() {
-  const navgationLinks: MenuItemLinkProps[] = [
-    {
-      href: '/',
-      title: 'Home',
-      icon: <IoMdHome size='1.2em' />,
-    },
-    {
-      href: '/posts',
-      title: 'Posts',
-      icon: <MdOutlineArticle size='1.2em' />,
-    },
-    {
-      href: '/blog',
-      title: 'Blog',
-      icon: <MdOutlineBook size='1.2em' />,
-    },
-  ];
+  const pathname = usePathname();
+
+  function isLinkActive(linkHref: string): boolean {
+    // Exact match required for the root path to avoid highlighting on all pages
+    if (linkHref === '/') {
+      return pathname === linkHref;
+    }
+    return pathname.startsWith(linkHref);
+  }
 
   return (
-    <header className='sticky top-0 z-20 h-[64px] border-b bg-background backdrop-blur'>
-      <div className='mx-auto flex h-full max-w-[1024px] items-center justify-between px-4'>
-        <div className=''>
-          <Link
-            href='/'
-            className='ease flex w-8 items-center stroke-[5] text-xl font-bold duration-300 hover:-translate-y-0.5'
-            aria-label='最初の画面に戻る'
-          >
-            <Image
-              src='/images/icon.webp'
-              alt='ポートフォリオサイトのロゴ'
-              width='40'
-              height='40'
-              title='logo'
-              className='rounded-full'
-            />
-          </Link>
-        </div>
-        <nav className='hidden sm:flex items-center text-base justify-center font-medium'>
-          <ul>
-            {navgationLinks.map((link) => (
-              <li
-                key={link.href}
-                className='inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 underline-offset-4 hover:underline h-10 px-4 py-2'
-              >
-                <Link href={link.href} className='px-4'>
-                  {link.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
+    <header className='sticky top-0 z-30 h-16 w-full border-b border-border/40 bg-background/80 backdrop-blur-sm transition-all duration-300'>
+      {/* Maintain container and alignment */}
+      <div className='container mx-auto flex h-full max-w-5xl items-center justify-between px-4'>
+        {/* Logo */}
+        <Link
+          href='/'
+          className='flex items-center gap-2 transition-transform duration-300 hover:scale-105'
+          aria-label='最初の画面に戻る'
+        >
+          <Image
+            src='/images/icon.webp'
+            alt='ポートフォリオサイトのロゴ'
+            width={32}
+            height={32}
+            priority
+            className='rounded-full'
+          />
+        </Link>
+
+        {/* Desktop Navigation */}
+        <nav className='hidden items-center gap-1 md:flex'>
+          {NAVIGATION_LINKS.map((link) => (
+            <Button
+              key={link.href}
+              variant='link'
+              size='sm'
+              asChild
+              className={cn(
+                'text-muted-foreground transition-colors',
+                // Apply active styles using the isLinkActive helper function
+                isLinkActive(link.href) && 'font-semibold text-foreground', // <-- Updated condition
+              )}
+            >
+              <Link href={link.href}>{link.title}</Link>
+            </Button>
+          ))}
         </nav>
-        {/* モバイルのときだけハンバーガーメニューを表示する */}
-        <div className='flex items-center'>
+
+        {/* Right side elements: Theme toggle and Mobile Menu */}
+        <div className='flex items-center gap-2'>
           <ModeToggle />
-          <HamburgerMenu params={navgationLinks} />
+          {/* Pass updated links to mobile menu */}
+          <div className='md:hidden'>
+            <HamburgerMenu params={NAVIGATION_LINKS} />
+          </div>
         </div>
       </div>
     </header>
