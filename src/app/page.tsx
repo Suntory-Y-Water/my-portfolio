@@ -38,7 +38,7 @@ export default function Home() {
     },
     {
       id: '2025-04',
-      date: '2025年4月(予定) ~ ',
+      date: '2025年4月 ~ ',
       description: '2年間勤めたSES企業を退職し、SaaSの自社開発企業へ転職予定。',
     },
   ];

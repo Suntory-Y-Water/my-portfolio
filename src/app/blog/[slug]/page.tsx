@@ -93,7 +93,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {post.metadata.tags && post.metadata.tags.length > 0 && (
             <div className='inline-flex flex-wrap gap-2'>
               {post.metadata.tags.map((tag) => (
-                <Link key={tag} href={`/blog/tag/${tag}`}>
+                <Link key={tag} href={`/tags/${tag}`}>
                   <Badge className='px-2 py-0.5 text-xs'>{tag}</Badge>
                 </Link>
               ))}

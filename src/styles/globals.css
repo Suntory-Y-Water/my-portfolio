@@ -92,9 +92,34 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border; /* Use updated border color */
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased; /* Add antialiasing */
+    /* Apply default font from tailwind.config.ts [476] */
+    font-family: var(--font-sans);
+  }
+  /* Improve focus visibility globally */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+  /* Adjust heading styles */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold tracking-tight; /* Consistent tracking */
+  }
+  h1 {
+    @apply text-3xl md:text-4xl;
+  } /* Adjust sizes */
+  h2 {
+    @apply text-2xl md:text-3xl border-b pb-2 mb-4;
+  } /* Add bottom border to h2 */
+  p,
+  li {
+    @apply leading-relaxed text-foreground/90; /* Slightly relaxed leading [166] */
   }
 }
