@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { BlogPost } from '@/lib/mdx';
-import { formatDate , cn } from '@/lib/utils';
+import { formatDate, cn } from '@/lib/utils';
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 

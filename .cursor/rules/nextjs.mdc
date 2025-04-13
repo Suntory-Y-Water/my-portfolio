@@ -1,7 +1,7 @@
 ---
 description: 
-globs: 
-alwaysApply: true
+globs: *.tsx,*.ts
+alwaysApply: false
 ---
 ---
 description: Apply this rule to the entire repository
