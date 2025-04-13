@@ -131,6 +131,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </Button>
 
           <div className='flex items-center space-x-2'>
+            <Link
+              href={`/blog/md/${slug}`}
+              className='inline-flex items-center gap-1.5 px-2 py-1 text-sm text-muted-foreground hover:text-primary'
+            >
+              <Icons.fileText className='size-4' />
+              <span>Markdown バージョン</span>
+            </Link>
             <GitHubEditButton filePath={post.filePath} />
           </div>
         </footer>
