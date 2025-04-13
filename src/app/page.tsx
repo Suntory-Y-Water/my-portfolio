@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-
 import Career from '@/components/feature/about/Career';
 
 export default function Home() {
@@ -44,7 +43,7 @@ export default function Home() {
   ];
   return (
     <div>
-      <h1 className='text-4xl font-semibold tracking-wide md:text-[40px] pb-6'>
+      <h1 className='pb-6 text-4xl font-semibold tracking-wide md:text-[40px]'>
         私について
       </h1>
       <div className='mt-4 space-y-1'>
@@ -56,12 +55,18 @@ export default function Home() {
       </div>
       <div className='mt-4 space-y-1'>
         <h2 className='text-2xl font-semibold'>好きなもの</h2>
-        <p>コーヒー☕️、にゃんころ🐈️、旅行🚅、アニメ📺️、水瀬いのりさん🙏が好きです。</p>
+        <p>
+          コーヒー☕️、にゃんころ🐈️、旅行🚅、アニメ📺️、水瀬いのりさん🙏が好きです。
+        </p>
       </div>
       <div className='mt-4 space-y-1'>
         <h2 className='text-2xl font-semibold'>経歴</h2>
         {careerData.map((career) => (
-          <Career key={career.id} date={career.date} description={career.description} />
+          <Career
+            key={career.id}
+            date={career.date}
+            description={career.description}
+          />
         ))}
       </div>
       <div className='mt-2 space-y-1'>
@@ -69,23 +74,25 @@ export default function Home() {
         <div>
           <Link
             href='https://twitter.com/Suntory_N_Water'
-            className='underline-offset-4 hover:underline pb-2 inline-flex items-center space-x-2'
+            className='inline-flex items-center space-x-2 pb-2 underline-offset-4 hover:underline'
             aria-label='X(Twitter)アカウント'
             target='_blank'
             rel='noopener noreferrer'
           >
-            <FaXTwitter size='1.2em' /> <span className='text-sm'>Suntory_N_Water</span>
+            <FaXTwitter size='1.2em' />{' '}
+            <span className='text-sm'>Suntory_N_Water</span>
           </Link>
         </div>
         <div>
           <Link
             href='https://github.com/Suntory-Y-Water'
-            className='underline-offset-4 hover:underline py-2 inline-flex items-center space-x-2'
+            className='inline-flex items-center space-x-2 py-2 underline-offset-4 hover:underline'
             aria-label='GitHubアカウント'
             target='_blank'
             rel='noopener noreferrer'
           >
-            <FaGithub size='1.2em' /> <span className='text-sm'>Suntory-Y-Water</span>
+            <FaGithub size='1.2em' />{' '}
+            <span className='text-sm'>Suntory-Y-Water</span>
           </Link>
         </div>
       </div>
@@ -93,7 +100,7 @@ export default function Home() {
         <h2 className='text-2xl font-semibold'>連絡先</h2>
         <a
           href='https://twitter.com/Suntory_N_Water'
-          className='underline-offset-4 hover:underline inline-flex items-center space-x-2 text-primary'
+          className='inline-flex items-center space-x-2 text-primary underline-offset-4 hover:underline'
           aria-label='問い合わせ先'
           target='_blank'
           rel='noopener noreferrer'

@@ -1,8 +1,8 @@
 'use client';
 
-import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { useState } from 'react';
+import { cn } from '@/lib/utils';
 
 interface ImageWithFallbackProps {
   src?: string;
@@ -10,12 +10,16 @@ interface ImageWithFallbackProps {
   className?: string;
 }
 
-export function ImageWithFallback({ src, alt, className }: ImageWithFallbackProps) {
+export function ImageWithFallback({
+  src,
+  alt,
+  className,
+}: ImageWithFallbackProps) {
   const [error, setError] = useState(false);
 
   if (error || !src) {
     return (
-      <div className='flex h-full w-full items-center justify-center bg-muted/30'>
+      <div className='flex size-full items-center justify-center bg-muted/30'>
         <span className='text-4xl text-muted-foreground/20'>🔗</span>
       </div>
     );

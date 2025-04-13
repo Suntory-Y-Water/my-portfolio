@@ -1,10 +1,9 @@
 import { notFound } from 'next/navigation';
-
-import { BlogCard } from '@/components/feature/content/blog-card';
-import { Pagination } from '@/components/shared/pagination';
 import { postsPerPage } from '@/config/blog';
 import { getAllBlogPosts } from '@/lib/mdx';
 import { getPaginatedBlogPosts } from '@/lib/pagination';
+import { BlogCard } from '@/components/feature/content/blog-card';
+import { Pagination } from '@/components/shared/pagination';
 
 interface BlogListPageProps {
   params: Promise<{ page: string }>;
@@ -17,7 +16,7 @@ export async function generateStaticParams() {
   return await Promise.all(
     Array.from({ length: totalPages }, (_, i) => ({
       page: String(i + 1),
-    })),
+    }))
   );
 }
 

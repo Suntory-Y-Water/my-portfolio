@@ -1,8 +1,7 @@
 import Link from 'next/link';
-
+import { cn } from '@/lib/utils';
 import { Icons } from '@/components/icons';
 import { buttonVariants } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 
 interface PaginationProps {
   currentPage: number;
@@ -10,7 +9,11 @@ interface PaginationProps {
   basePath: string;
 }
 
-export function Pagination({ currentPage, totalPages, basePath }: PaginationProps) {
+export function Pagination({
+  currentPage,
+  totalPages,
+  basePath,
+}: PaginationProps) {
   const prevPage = currentPage > 1 ? currentPage - 1 : null;
   const nextPage = currentPage < totalPages ? currentPage + 1 : null;
 
@@ -21,17 +24,17 @@ export function Pagination({ currentPage, totalPages, basePath }: PaginationProp
           href={`${basePath}${`/${prevPage}`}`}
           className={cn(buttonVariants({ variant: 'outline' }), 'gap-1 pl-2.5')}
         >
-          <Icons.chevronLeft className='h-4 w-4' />
+          <Icons.chevronLeft className='size-4' />
           <span className='sr-only'>Previous</span>
         </Link>
       ) : (
         <div
           className={cn(
             buttonVariants({ variant: 'outline' }),
-            'pointer-events-none gap-1 pl-2.5 opacity-50',
+            'pointer-events-none gap-1 pl-2.5 opacity-50'
           )}
         >
-          <Icons.chevronLeft className='h-4 w-4' />
+          <Icons.chevronLeft className='size-4' />
           <span className='sr-only'>Previous</span>
         </div>
       )}
@@ -44,17 +47,17 @@ export function Pagination({ currentPage, totalPages, basePath }: PaginationProp
           className={cn(buttonVariants({ variant: 'outline' }), 'gap-1 pr-2.5')}
         >
           <span className='sr-only'>Next</span>
-          <Icons.chevronRight className='h-4 w-4' />
+          <Icons.chevronRight className='size-4' />
         </Link>
       ) : (
         <div
           className={cn(
             buttonVariants({ variant: 'outline' }),
-            'pointer-events-none gap-1 pr-2.5 opacity-50',
+            'pointer-events-none gap-1 pr-2.5 opacity-50'
           )}
         >
           <span className='sr-only'>Next</span>
-          <Icons.chevronRight className='h-4 w-4' />
+          <Icons.chevronRight className='size-4' />
         </div>
       )}
     </div>

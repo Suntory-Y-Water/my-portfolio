@@ -1,9 +1,9 @@
 version: 2
 updates:
   - package-ecosystem: npm
-    directory: "/"
+    directory: '/'
     schedule:
       interval: weekly
     allow:
-      - dependency-type: "direct"
+      - dependency-type: 'direct'
     open-pull-requests-limit: 5

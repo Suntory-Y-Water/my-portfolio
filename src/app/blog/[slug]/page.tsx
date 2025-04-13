@@ -3,15 +3,15 @@ import '@/styles/mdx.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-
+import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
+import { extractTOC } from '@/lib/toc';
+import { absoluteUrl, formatDate } from '@/lib/utils';
 import { CustomMDX } from '@/components/feature/content/custom-mdx';
+import { GitHubEditButton } from '@/components/feature/content/github-edit-button';
 import { TableOfContents } from '@/components/feature/content/table-of-contents';
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
-import { extractTOC } from '@/lib/toc';
-import { absoluteUrl, formatDate } from '@/lib/utils';
 
 export const revalidate = false;
 
@@ -69,7 +69,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <article className='min-h-[500px]'>
         {/* Icon */}
         {post.metadata.icon && (
-          <div className='flex justify-center mb-6'>
+          <div className='mb-6 flex justify-center'>
             <Image
               src={post.metadata.icon}
               alt={`Icon for ${post.metadata.title}`}
@@ -112,7 +112,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         )}
 
         {/* Table of Contents */}
-        {tableOfContents.length > 0 && <TableOfContents items={tableOfContents} />}
+        {tableOfContents.length > 0 && (
+          <TableOfContents items={tableOfContents} />
+        )}
 
         {/* Article Content */}
         <div className='mt-8'>
@@ -120,13 +122,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
 
         {/* Footer */}
-        <footer className='mt-10 border-t pt-8'>
+        <footer className='mt-10 flex flex-wrap items-center justify-between gap-4 border-t pt-8'>
           <Button variant='ghost' asChild className='h-9 px-2'>
             <Link href='/blog' className='group inline-flex items-center'>
               <Icons.arrowLeft className='mr-2 size-4 transition-transform group-hover:-translate-x-1' />
               Back to blog page
             </Link>
           </Button>
+
+          <div className='flex items-center space-x-2'>
+            <GitHubEditButton filePath={post.filePath} />
+          </div>
         </footer>
       </article>
     </div>

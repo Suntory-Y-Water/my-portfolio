@@ -1,11 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
-
+import type { BlogPost } from '@/lib/mdx';
+import { formatDate , cn } from '@/lib/utils';
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
-import type { BlogPost } from '@/lib/mdx';
-import { formatDate } from '@/lib/utils';
-import { cn } from '@/lib/utils';
 
 interface BlogCardProps {
   data: BlogPost;
@@ -22,12 +20,12 @@ export function BlogCard({ data }: BlogCardProps) {
       className={cn(
         'group relative block overflow-hidden rounded-lg bg-card p-5 transition-all duration-300',
         'hover:bg-accent/30 hover:shadow-lg hover:ring-1 hover:ring-primary/50',
-        'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
+        'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2'
       )}
     >
       <div className='flex flex-row items-start gap-4'>
         {/* Icon Section */}
-        <div className='flex-shrink-0'>
+        <div className='shrink-0'>
           {metadata.icon?.startsWith('https://') ? (
             <Image
               className='size-[60px] object-cover p-1'
@@ -82,7 +80,9 @@ export function BlogCard({ data }: BlogCardProps) {
                     </Badge>
                   ))}
                   {metadata.tags.length > 3 && (
-                    <span className='text-[11px]'>+{metadata.tags.length - 3} more</span>
+                    <span className='text-[11px]'>
+                      +{metadata.tags.length - 3} more
+                    </span>
                   )}
                 </div>
               </div>

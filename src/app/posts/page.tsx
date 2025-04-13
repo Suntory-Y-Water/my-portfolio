@@ -1,10 +1,15 @@
 import { Suspense } from 'react';
-
-import PostsList from '@/components/feature/posts/PostsList';
-import PostsListSkeleton from '@/components/ui/post-list-skeleton';
 import { fetchPosts } from '@/lib/client';
 import { processEnv } from '@/lib/utils';
-import type { NoteContent, NoteResponse, Post, QiitaPost, ZennResponse } from '@/types';
+import PostsList from '@/components/feature/posts/PostsList';
+import PostsListSkeleton from '@/components/ui/post-list-skeleton';
+import type {
+  NoteContent,
+  NoteResponse,
+  Post,
+  QiitaPost,
+  ZennResponse,
+} from '@/types';
 
 export const revalidate = 60;
 
@@ -51,8 +56,8 @@ async function PostsWithData() {
           headers: {
             Authorization: `Bearer ${apiKey}`,
           },
-        }),
-      ),
+        })
+      )
     ),
     fetchAllNoteData(),
   ]);
@@ -89,7 +94,7 @@ async function PostsWithData() {
 export default function Page() {
   return (
     <div>
-      <h1 className='text-4xl font-semibold tracking-wide md:text-[40px] pb-6'>
+      <h1 className='pb-6 text-4xl font-semibold tracking-wide md:text-[40px]'>
         記事一覧🖊️
       </h1>
       <p className='pb-10'>

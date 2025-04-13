@@ -7,6 +7,9 @@ export type SiteConfig = {
     twitter: string;
     github: string;
   };
+  repository?: {
+    branch?: string;
+  };
   copyRight: string;
   // メールアドレスは使うときになったら乗せる
   email?: string;

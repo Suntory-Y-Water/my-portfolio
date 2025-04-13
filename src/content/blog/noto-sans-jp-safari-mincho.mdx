@@ -4,24 +4,20 @@ public: true
 date: 2025-03-21
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Pencil/Flat/pencil_flat.svg
 slug: noto-sans-jp-safari-mincho
-tags: 
+tags:
   - Tailwind CSS
   - Next.js
 description: SafariやiOSのGoogle Chromeだけフォントが明朝体に変わってしまっている件。
 ---
-
 
 ## iOSのSafariだけFontが崩れる
 
 font-familyに何も指定しなかった場合は、OS・ブラウザごとのデフォルトフォントが適用されます。
 大半のブラウザのデフォルトフォントは、ゴシック体ですが、macOSとiOS（iPhone、iPad）の標準ブラウザSafariだけはデフォルトフォントが明朝体になっています。
 
-<LinkPreview url="https://qiita.com/ksk1015/items/9d2028454ee144c64c60" />
-
+<LinkPreview url='https://qiita.com/ksk1015/items/9d2028454ee144c64c60' />
 
 ## layout.tsxに複数指定しているけど、何故か崩れてしまう
-
-
 
 ```typescript title="layout.tsx"
 // src\app\layout.tsx
@@ -80,9 +76,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-
-
-
 ```typescript title="index.ts"
 // src\assets\fonts\index.ts
 import { Noto_Sans_JP } from 'next/font/google';
@@ -102,15 +95,11 @@ export const fontPlemolJP35Console = localFont({
 });
 ```
 
-
-
 ## 公式ドキュメントを見直してみる
 
 `layout.tsx`でフォントを指定する箇所がbodyではなくhtmlタグに設定する必要があった
 
-<LinkPreview url="https://nextjs.org/docs/app/building-your-application/optimizing/fonts#with-tailwind-css" />
-
-
+<LinkPreview url='https://nextjs.org/docs/app/building-your-application/optimizing/fonts#with-tailwind-css' />
 
 ```typescript title="layout.tsx"
 export default function RootLayout({ children }: { children: React.ReactNode }) {

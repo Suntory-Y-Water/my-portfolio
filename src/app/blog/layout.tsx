@@ -1,6 +1,6 @@
-import { siteConfig } from '@/config/site';
-import type { Metadata } from 'next';
 import type React from 'react';
+import type { Metadata } from 'next';
+import { siteConfig } from '@/config/site';
 
 type Props = {
   children: React.ReactNode;

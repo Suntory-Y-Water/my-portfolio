@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-
-import { PageHeader } from '@/components/shared/page-header';
-import { Card, CardContent } from '@/components/ui/card';
 import { siteConfig } from '@/config/site';
 import { getAllTags } from '@/lib/mdx';
 import { absoluteUrl, cn } from '@/lib/utils';
+import { PageHeader } from '@/components/shared/page-header';
+import { Card, CardContent } from '@/components/ui/card';
 
 const PAGE_TITLE = 'すべてのタグ';
 const PAGE_DESCRIPTION =
@@ -57,7 +56,7 @@ export default async function TagsPage() {
                 className={cn(
                   'flex h-full items-center justify-center p-4 text-center transition-all duration-200',
                   'hover:shadow-md hover:ring-1 hover:ring-primary/50',
-                  'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
+                  'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2'
                 )}
               >
                 <CardContent className='p-0'>
@@ -70,7 +69,9 @@ export default async function TagsPage() {
           ))}
         </div>
       ) : (
-        <p className='pt-4 text-muted-foreground'>タグが見つかりませんでした。</p>
+        <p className='pt-4 text-muted-foreground'>
+          タグが見つかりませんでした。
+        </p>
       )}
     </section>
   );

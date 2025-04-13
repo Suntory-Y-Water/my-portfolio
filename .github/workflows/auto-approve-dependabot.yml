@@ -7,12 +7,12 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-      checks: read    # 検証結果を読み取るための権限を追加
+      checks: read # 検証結果を読み取るための権限を追加
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
-      - id: meta                           # 依存関係のメタデータを取得
+      - id: meta # 依存関係のメタデータを取得
         uses: dependabot/fetch-metadata@v2 # 条件分岐でパッチバージョンかチェック
       - name: Wait for CI to succeed
         run: |
