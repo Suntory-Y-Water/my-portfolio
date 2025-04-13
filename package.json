@@ -5,13 +5,13 @@
   "author": "sui",
   "scripts": {
     "dev": "next dev",
-    "clean-dev": "rm -rf .next/cache/fetch-cache && pnpm run dev",
     "build": "next build",
-    "clean-build": "rm -rf .next/cache/fetch-cache && next build",
     "start": "next start",
-    "lint": "biome lint ./src",
-    "lint:fix": "biome lint --write ./src",
-    "format": "biome format ./src",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "clean": "rm -rf .next/ node_modules/",
     "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
@@ -38,16 +38,26 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "@next/eslint-plugin-next": "^15.3.0",
     "@types/node": "^22.14.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.2",
     "autoprefixer": "^10.4.21",
     "dayjs": "^1.11.13",
+    "eslint": "^9.24.0",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-tailwindcss": "^3.18.0",
+    "eslint-plugin-unused-imports": "^4.1.4",
     "postcss": "^8.5.3",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "rehype-pretty-code": "^0.14.1",
     "remark-gfm": "^4.0.1",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.29.1"
   }
 }

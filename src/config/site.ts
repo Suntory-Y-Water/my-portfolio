@@ -12,5 +12,8 @@ export const siteConfig: SiteConfig = {
     twitter: 'https://x.com/Suntory_N_Water',
     github: 'https://github.com/Suntory-Y-Water',
   },
+  repository: {
+    branch: 'main',
+  },
   copyRight: 'Suntory-N-Water',
 };

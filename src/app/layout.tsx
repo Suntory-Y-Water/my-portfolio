@@ -1,16 +1,14 @@
 import '@/styles/globals.css';
 import '@/styles/mdx.css';
 
-import type { Metadata } from 'next';
 import type React from 'react';
-
-import { fontPlemolJP35Console } from '@/assets/fonts';
+import type { Metadata } from 'next';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import { siteConfig } from '@/config/site';
 import Footer from '@/components/shared/Footer';
 import { ThemeProvider } from '@/components/ui/theme-provider';
-import { siteConfig } from '@/config/site';
+import { fontPlemolJP35Console } from '@/assets/fonts';
 import Header from '../components/shared/Header';
-
-import { GoogleAnalytics } from '@next/third-parties/google';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -31,11 +29,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang='ja' suppressHydrationWarning className={fontPlemolJP35Console.variable}>
+    <html
+      lang='ja'
+      suppressHydrationWarning
+      className={fontPlemolJP35Console.variable}
+    >
       <head>
-        <link rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.jpg' />
+        <link
+          rel='apple-touch-icon'
+          sizes='180x180'
+          href='/apple-touch-icon.jpg'
+        />
         <meta
           name='google-site-verification'
           content='pd5OEQeX8d8I7AOZbR5U3SPIyZyXYxd392aatHH48yk'
@@ -49,7 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           disableTransitionOnChange
         >
           <Header />
-          <main className='mx-auto w-[calc(100%-32px)] max-w-[1024px] py-4 md:w-[calc(100%-100px)] md:py-8'>
+          <main className='mx-auto w-[calc(100%-32px)] max-w-screen-lg py-4 md:w-[calc(100%-100px)] md:py-8'>
             {children}
           </main>
           <Footer />

@@ -4,12 +4,11 @@ public: true
 date: 2025-03-25
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Framed%20picture/Flat/framed_picture_flat.svg
 slug: notion-images-put-cloudflare
-tags: 
+tags:
   - Cloudflare Workers
   - Cloudflare
 description: Notionで作成されたマークダウンコンテンツには、Amazon S3に保存された画像へのリンクが含まれています。ブログ記事として公開する際に、これらの画像をCloudflare R2ストレージなどの外部ストレージに移行することで非公開ページの画像も表示することができます。この記事ではNotionのページに添付されている画像をCloudflare R2に格納する処理について解説します。
 ---
-
 
 ## 画像移行処理の概要
 
@@ -54,8 +53,8 @@ export async function processAndUploadImages({
 
   // 処理対象のURLを収集（altテキストがURLの場合のみ処理）
   const urlsToProcess = matches
-    .filter(match => match[1].startsWith('https://')) // altテキストがURLのもののみ
-    .map(match => match[1]); // 画像URL部分を抽出
+    .filter((match) => match[1].startsWith('https://')) // altテキストがURLのもののみ
+    .map((match) => match[1]); // 画像URL部分を抽出
 
   // 重複を除外
   const uniqueUrls = [...new Set(urlsToProcess)];
@@ -95,7 +94,9 @@ async function processImage(
     // 画像をダウンロード
     const response = await fetch(imageUrl);
     if (!response.ok) {
-      console.error(`画像のダウンロードに失敗: ${imageUrl}, ステータス: ${response.status}`);
+      console.error(
+        `画像のダウンロードに失敗: ${imageUrl}, ステータス: ${response.status}`
+      );
       return;
     }
 
@@ -112,7 +113,9 @@ async function processImage(
     processedUrls.set(imageUrl, publicUrl);
     console.log(`画像アップロード成功: ${publicUrl}`);
   } catch (error) {
-    console.error(`画像処理エラー (${imageUrl}): ${error instanceof Error ? error.message : error}`);
+    console.error(
+      `画像処理エラー (${imageUrl}): ${error instanceof Error ? error.message : error}`
+    );
   }
 }
 
@@ -125,7 +128,7 @@ function extractFileName(url: string): string {
     const urlPath = new URL(url).pathname;
     const fileName = urlPath.split('/').pop() || defaultName;
     // クエリパラメータを除去
-    return fileName.split('?')[0]; 
+    return fileName.split('?')[0];
   } catch {
     return defaultName;
   }
@@ -158,7 +161,6 @@ function replaceMarkdownUrls(
 
 ## 主要関数の詳細解説
 
-
 ### processAndUploadImages関数
 
 メインの処理を担当する関数です。次のような流れで画像の移行を行います。
@@ -181,7 +183,6 @@ export async function processAndUploadImages({
 - Notionの特殊な記法（altテキストがURLになっている）に対応
 - 重複URLの処理を省くための最適化
 - 並列処理による高速化
-
 
 ### processImage関数
 
@@ -226,7 +227,6 @@ function extractFileName(url: string): string {
 - クエリパラメータを除去したファイル名の取得
 - エラー時のフォールバック処理
 
-
 ### replaceMarkdownUrls関数
 
 マークダウン内のURL参照を新しいR2のURLに置き換える関数です。
@@ -246,9 +246,7 @@ function replaceMarkdownUrls(
 - マークダウン内の画像記法を検索
 - 新しいR2のURLに置き換え
 
-
 ## 実装時の注意点
-
 
 ### 並列処理による効率化
 
@@ -263,10 +261,10 @@ await Promise.allSettled(uploadPromises);
 
 `Promise.all()`ではなく`Promise.allSettled()`を選んだのは、一部の画像処理に失敗があっても他の処理を続行させるためです。
 ブログ記事の場合、一枚の画像が表示できなくても記事全体を表示できないよりはマシです。
-<LinkPreview url="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Promise/all" />
 
-<LinkPreview url="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled" />
+<LinkPreview url='https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Promise/all' />
 
+<LinkPreview url='https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled' />
 
 ### 最適な正規表現の活用
 
@@ -296,8 +294,8 @@ const uniqueUrls = [...new Set(urlsToProcess)];
 
 例えば同じ画像が10回使われていても、ネットワーク転送は1回で済みます。
 特にCloudflareのWorker環境では、CPUリソースよりもネットワークリクエストの方がコストが高いため、この最適化は重要です。
-<LinkPreview url="https://developers.cloudflare.com/workers/platform/limits/" />
 
+<LinkPreview url='https://developers.cloudflare.com/workers/platform/limits/' />
 
 ### ファイル名の生成
 
@@ -309,10 +307,10 @@ const safeFileName = `images/${fileName}-${Date.now()}.png`;
 ```
 
 この命名規則には以下のメリットがあります。
+
 1. 元のファイル名を維持することで、コンテンツの追跡が容易
 2. タイムスタンプにより名前の衝突を回避
 3. `images/`フォルダに分類することで、R2内での管理が容易
-
 
 ## まとめ
 

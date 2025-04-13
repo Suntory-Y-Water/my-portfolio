@@ -1,5 +1,5 @@
-import { Icons } from '@/components/icons';
 import { cn } from '@/lib/utils';
+import { Icons } from '@/components/icons';
 
 type CalloutType = 'info' | 'note' | 'warning' | 'danger';
 
@@ -73,7 +73,11 @@ export function Callout({
 
   return (
     <div
-      className={cn('my-6 rounded-lg border p-4 shadow-sm', containerClasses, className)}
+      className={cn(
+        'my-6 rounded-lg border p-4 shadow-sm',
+        containerClasses,
+        className
+      )}
       {...props}
     >
       <div className='flex items-start gap-3'>
@@ -81,7 +85,9 @@ export function Callout({
           <Icon className={cn('size-5', iconClasses)} />
         </div>
         <div className='w-full min-w-0'>
-          <div className={cn('mb-1 font-medium', titleClasses)}>{calloutTitle}</div>
+          <div className={cn('mb-1 font-medium', titleClasses)}>
+            {calloutTitle}
+          </div>
           <div className='text-foreground/90 [&>p:not(:first-child)]:mt-4 [&>p]:my-0'>
             {children}
           </div>

@@ -1,6 +1,10 @@
 import type { ImageLoader, ImageLoaderProps } from 'next/image';
 
-const microCMSLoader: ImageLoader = ({ src, width, quality }: ImageLoaderProps) => {
+const microCMSLoader: ImageLoader = ({
+  src,
+  width,
+  quality,
+}: ImageLoaderProps) => {
   const url = new URL(src);
   const params = url.searchParams;
 
@@ -19,7 +23,11 @@ const localLoader: ImageLoader = ({ src, width }: ImageLoaderProps) => {
   return `${src}?w=${width}`;
 };
 
-const customLoader: ImageLoader = ({ src, width, quality }: ImageLoaderProps) =>
+const customLoader: ImageLoader = ({
+  src,
+  width,
+  quality,
+}: ImageLoaderProps) =>
   src.startsWith('/')
     ? localLoader({ src, width, quality })
     : microCMSLoader({ src, width, quality });

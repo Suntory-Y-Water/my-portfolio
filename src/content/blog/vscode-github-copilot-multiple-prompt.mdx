@@ -4,7 +4,7 @@ public: true
 date: 2025-04-05
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Airplane%20departure/Flat/airplane_departure_flat.svg
 slug: vscode-github-copilot-multiple-prompt
-tags: 
+tags:
   - GitHub
   - GitHub Copilot
   - Visual Studio Code
@@ -17,28 +17,27 @@ GitHub Copilotでもカスタムルールを設定して、コード生成の品
 
 具体的には、複数のルールを設定して体系的に開発を進める手順を紹介します。
 
-<Callout type="info" title="">
+<Callout type='info' title=''>
   カスタムルールを読み込む設定はパブリックプレビュー段階であり、変更される可能性があります。
 </Callout>
 
-
 公式ドキュメントを参考に、実践していきましょう。
-<LinkPreview url="https://docs.github.com/ja/enterprise-cloud@latest/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot" />
+
+<LinkPreview url='https://docs.github.com/ja/enterprise-cloud@latest/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot' />
 
 ## ベースとなるルールの作成
 
 この記事では2つのルールを作成します。
+
 - 出力時の作法をまとめた基本ルール
 - フレームワークに関係しないベースとなるコーディングルール
-
 
 ## 基本ルール
 
 リポジトリのルートに `.github/copilot-instructions.md` という名前のファイルを作成します。
 このファイルではコーディングルールなどは記載せず、出力するときの形式やコードを分析するときの手順を記載しています。
 
-
-```markdown
+````markdown
 # `.github/copilot-instructions.md` Structured Outline
 
 # Precondition
@@ -89,6 +88,7 @@ Before proceeding, check for:
 
 - Promptly verify the results of each execution step.
 - If errors or inconsistencies occur, follow this procedure:
+
   1. Isolate the issue and identify the cause (e.g., log analysis)
   2. Create and implement a countermeasure
   3. Verify operation post-fix
@@ -118,17 +118,21 @@ Provide the final results in the following format:
 # Execution Result Report
 
 # Summary
+
 [Brief overview of the task and results.]
 
 # Execution Steps
+
 1. [Step 1 description and result]
 2. [Step 2 description and result]
-...
+   ...
 
 # Final Deliverables
+
 [Details and links to deliverables, if applicable]
 
 # Issue Response (if applicable)
+
 - Issues encountered and response actions
 - Future considerations
 
@@ -150,7 +154,7 @@ Provide the final results in the following format:
 
 Follow these instructions carefully to ensure a reliable, high-quality implementation. Act only within the given scope and avoid unnecessary changes. Always confirm when uncertain or when major decisions are needed.
 ```
-
+````
 
 ルールが正しく読み込まれているかは以下の手順で確認できます。VScodeを開き、`Ctrl + Alt + I`を押してチャットを起動すると、ファイルが読み込まれたことが確認できます。
 今回設定したルールでは、読み込み時にファイル名を出力するよう指定しているため、これによって動作確認ができます(長いため画像は省略しています)。
@@ -160,12 +164,14 @@ Follow these instructions carefully to ensure a reliable, high-quality implement
 
 これはGitHub Copilotに限った話ではないですが、ルールが呼ばれるときと、呼ばれているか分からないときがあります。
 そんなときには、ルールの先頭で無意味な言葉を叫ばせる。という方法があります。
-<LinkPreview url="https://docs.cline.bot/improving-your-prompting-skills/prompting#memory-and-confidence-checks" />
+
+<LinkPreview url='https://docs.cline.bot/improving-your-prompting-skills/prompting#memory-and-confidence-checks' />
 今回設定したルールでは、ファイルを読み込んだときの冒頭に、読み込んだファイル名を出力させるようにしています。
 
 ## 追加ルール(コーディングルール)の作成
 
 以下の設定を行うと、`.github/prompts`配下に用途ごとのルールを作成して読み込ませることも可能です。
+
 1. `Ctrl + Shift + P`でコマンドパレットを開きます。
 2. 「Open Workspace Settings (JSON)」と入力し、表示されるオプションを選択します。
 3. `settings.json` ファイルに `"chat.promptFiles": true` を追加します。
@@ -175,6 +181,7 @@ Follow these instructions carefully to ensure a reliable, high-quality implement
 
 ```markdown
 <!-- .github/prompts/coding-rules.prompt.md -->
+
 # Clean Code Guidelines
 
 First, when referencing this file, say the name of this file.
@@ -276,8 +283,8 @@ Example: "Loaded copilot-instructions.md".
 - Manage technical debt by leaving "TODO" comments for code that should be improved later
 ```
 
-
 実際に作成したコードを使用する方法は以下のとおりです。
+
 1. Copilot Chat の下部にある**コンテキストを追加する**を選択します。
 2. ドロップダウン メニューの**プロンプト**を選択し、使うプロンプトファイルを選択します。
 
@@ -291,15 +298,15 @@ Example: "Loaded copilot-instructions.md".
 
 カスタム指示機能もシステムプロンプト同様に、指示した内容全てを忠実に守ってくれるわけではありません。
 公式ドキュメントにも記載されてる通り、以下のような指示の精度はあまり高くないようです。
+
 1. 外部リソースへの参照の要望
 2. 回答方法のフォーマット化
 3. 回答時に詳細に出力するよう指示
-<LinkPreview url="https://docs.github.com/ja/enterprise-cloud@latest/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot" />
+   <LinkPreview url='https://docs.github.com/ja/enterprise-cloud@latest/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot' />
 
 また、Cursorと異なり、GitHub Copilotでは`coding-rules.prompt.md`内から他のファイルをパス指定で読み込むことができません。
 このような指定を試みると、読み込めないとCopilotからエラーが表示されます。
 ![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-1743861744607.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-1743861744607.png)
-
 
 ## まとめ
 

@@ -1,17 +1,16 @@
 'use client';
 
+import type { ReactElement } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import type { ReactElement } from 'react';
 import { IoMdHome } from 'react-icons/io';
 import { MdOutlineArticle, MdOutlineBook } from 'react-icons/md';
-
+import { cn } from '@/lib/utils';
 import { Icons } from '@/components/icons';
 import HamburgerMenu from '@/components/shared/MenuMobile';
-import { ModeToggle } from '@/components/ui/ModeToggle';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { ModeToggle } from '@/components/ui/ModeToggle';
 
 type MenuItemLinkProps = {
   href: string;
@@ -84,7 +83,7 @@ export default function Header() {
               className={cn(
                 'text-muted-foreground transition-colors',
                 // Apply active styles using the isLinkActive helper function
-                isLinkActive(link.href) && 'font-semibold text-foreground', // <-- Updated condition
+                isLinkActive(link.href) && 'font-semibold text-foreground' // <-- Updated condition
               )}
             >
               <Link href={link.href}>{link.title}</Link>

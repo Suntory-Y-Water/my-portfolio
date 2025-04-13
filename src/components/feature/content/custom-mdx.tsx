@@ -1,17 +1,18 @@
-import { type EvaluateOptions, evaluate } from '@mdx-js/mdx';
 import type * as React from 'react';
+import { type EvaluateOptions, evaluate } from '@mdx-js/mdx';
 import * as runtime from 'react/jsx-runtime';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
-
 import { components } from '@/components/feature/content/mdx-components';
 
 interface CustomMDXProps {
   source: string;
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  additionalComponents?: Record<string, React.ComponentType<any>>;
+  additionalComponents?: Record<
+    string,
+    React.ComponentType<Record<string, unknown>>
+  >;
 }
 
 const rehypePrettyCodeOptions = {
@@ -27,7 +28,10 @@ const rehypePrettyCodeOptions = {
  * It passes the React runtime directly to the MDX evaluator to avoid React version conflicts,
  * which is a common issue in Next.js 15.2.0+ with MDX libraries.
  */
-export async function CustomMDX({ source, additionalComponents }: CustomMDXProps) {
+export async function CustomMDX({
+  source,
+  additionalComponents,
+}: CustomMDXProps) {
   try {
     const options: EvaluateOptions = {
       ...runtime,

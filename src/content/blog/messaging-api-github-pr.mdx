@@ -4,7 +4,7 @@ public: true
 date: 2025-03-20
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire/Flat/fire_flat.svg
 slug: messaging-api-github-pr
-tags: 
+tags:
   - LINE Messaging API
   - Cloudflare Workers
   - Notion
@@ -26,27 +26,30 @@ Cloudflare Workersは、Cloudflareが提供するサーバーレスプラット�
 Cloudflare Workersの最大の利点は、このコールドスタートが発生せず、初回アクセス時でも高速に処理が実行される点にあります。
 この特性は、LINE Messaging APIのような即時応答が求められるサービスに最適です。
 詳しい解説は以下の記事が参考になります。
-<LinkPreview url="https://zenn.dev/msy/articles/4c48d9d9e06147" />
+
+<LinkPreview url='https://zenn.dev/msy/articles/4c48d9d9e06147' />
 
 ## 実装したソースコード
 
 今回の実装では、LINE Messaging APIのWebhook URLとしてエンドポイントを設定しています。
 セキュリティを考慮して、このWorkersは他LINEユーザーやNotionのページURL以外のリクエストを受け付けないよう、必要最低限のバリデーションチェックを実装しています。
 ソースコードは以下のリポジトリで公開しています。
-<LinkPreview url="https://github.com/Suntory-Y-Water/blog-worker" />
 
+<LinkPreview url='https://github.com/Suntory-Y-Water/blog-worker' />
 
 ### メインロジックをctx.waitUntil()でラップ
 
 LINE Messaging APIの仕様上、botからのリクエストから2秒以内を目安にHTTPステータスコード200をレスポンスすることが推奨されています。
 この時間制約を守らない場合、LINE Messaging APIからタイムアウトエラーが返却される可能性があります。
-<LinkPreview url="https://developers.line.biz/ja/docs/partner-docs/development-guidelines/#webhook-flow-image" />
-通常のWorkers環境では、処理に2秒以上かかるとLINE Messaging APIとの通信がタイムアウトするため、エラーが発生します。
-<LinkPreview url="https://developers.line.biz/ja/docs/partner-docs/development-guidelines/#error-notification" />
+
+<LinkPreview url='https://developers.line.biz/ja/docs/partner-docs/development-guidelines/#webhook-flow-image' />
+通常のWorkers環境では、処理に2秒以上かかるとLINE Messaging
+APIとの通信がタイムアウトするため、エラーが発生します。
+<LinkPreview url='https://developers.line.biz/ja/docs/partner-docs/development-guidelines/#error-notification' />
 
 この問題を解決するために、重たい非同期処理を`ctx.waitUntil()`でラップしています。これにより、メインの処理フローは即座にレスポンスを返し、バックグラウンドで非同期処理を継続することが可能になります。
 
-<LinkPreview url="https://developers.cloudflare.com/workers/runtime-apis/context/#waituntil" />
+<LinkPreview url='https://developers.cloudflare.com/workers/runtime-apis/context/#waituntil' />
 
 以下の実装ではNotion APIからのデータ取得、マークダウン変換、MDXファイル作成といった時間のかかる処理を`ctx.waitUntil()`内で実行しています。
 
@@ -71,20 +74,26 @@ export default {
       if (body.events && body.events.length > 0) {
         const event = body.events[0];
         if (event.type !== 'message' || event.message.type !== 'text') {
-          return new Response('テキストメッセージを送信してください', { status: 400 });
+          return new Response('テキストメッセージを送信してください', {
+            status: 400,
+          });
         }
 
         const text = event.message.text;
 
         const notionPageUrlRegex = /^https:\/\/www\.notion\.so\/.+/;
         if (!notionPageUrlRegex.test(text)) {
-          return new Response('notionのページURLを指定してください', { status: 400 });
+          return new Response('notionのページURLを指定してください', {
+            status: 400,
+          });
         }
 
         const pageId = text.split('?')[0].split('/').pop()?.slice(-32);
 
         if (!pageId) {
-          return new Response('notionのページURLを指定してください', { status: 400 });
+          return new Response('notionのページURLを指定してください', {
+            status: 400,
+          });
         }
 
         ctx.waitUntil(
@@ -101,9 +110,12 @@ export default {
 
               const title = page.properties.title.title[0].plain_text;
               const date = page.properties.date.last_edited_time;
-              const description = page.properties.description.rich_text[0].plain_text;
+              const description =
+                page.properties.description.rich_text[0].plain_text;
               const icon = page.icon.emoji;
-              const tags = page.properties.tags.multi_select.map((tag) => tag.name);
+              const tags = page.properties.tags.multi_select.map(
+                (tag) => tag.name
+              );
               const slug = page.properties.slug.rich_text[0].plain_text;
               const isPublic = page.properties.public.checkbox;
 
@@ -123,11 +135,15 @@ export default {
                 slug,
                 tags,
                 description,
-                markdown,
+                markdown
               );
 
               // GitHubにPRを作成
-              const branchName = await createGithubPr(env.GITHUB_TOKEN, mdxContent, slug);
+              const branchName = await createGithubPr(
+                env.GITHUB_TOKEN,
+                mdxContent,
+                slug
+              );
 
               // 完了メッセージをLINEに送信
               const replyText = `GitHubのPRを作成しました！\nブランチ名 : ${branchName}\n以下のURLからPull Requestを確認して下さい。\nhttps://github.com/Suntory-Y-Water/my-portfolio/compare/main...${branchName}`;
@@ -137,10 +153,11 @@ export default {
                 accessToken: env.LINE_CHANNEL_ACCESS_TOKEN,
               });
             } catch (error) {
-              const message = error instanceof Error ? error.message : 'unknown error';
+              const message =
+                error instanceof Error ? error.message : 'unknown error';
               return new Response(message, { status: 500 });
             }
-          })(),
+          })()
         );
 
         return new Response('ok!', { status: 200 });
@@ -157,14 +174,14 @@ export default {
 } satisfies ExportedHandler<Env>;
 ```
 
-
 ### MDXファイル生成とコンポーネント変換
 
 Notionから取得したコンテンツは、そのままではブログに適した形式ではありません。そこで、以下の変換処理を実装しています。
+
 1. Zenn形式のマークダウンへの変換
 2. リンクカードコンポーネントへの変換
 3. コールアウトブロックの適切な形式への変換
-これらの処理により、Notionで作成したコンテンツを自動的にブログ用のMDX形式に変換することが可能になりました。
+   これらの処理により、Notionで作成したコンテンツを自動的にブログ用のMDX形式に変換することが可能になりました。
 
 ```typescript title="mdx-lib.ts"
 /**
@@ -187,7 +204,7 @@ export function createMdxContent(
   slug: string,
   tags: string[],
   description: string,
-  markdown: string,
+  markdown: string
 ): string {
   // マークダウンをMDX形式に変換
   const mdxContent = convertZennToMdx(markdown);
@@ -256,7 +273,7 @@ export function convertZennToMdx(markdown: string): string {
 
       // <Callout>コンポーネントを生成
       return `<Callout type="${calloutType}" title="">\n${indentedContent}\n</Callout>\n`;
-    },
+    }
   );
 }
 
@@ -336,16 +353,17 @@ export function transformLinksToPreviewComponent(markdown: string): string {
 
 既存のライブラリを使用せずに独自の変換処理を実装した理由は、すでにフロントエンドで特定の形式のコンポーネントを用意しているためです。
 作成したブログページの例はこちらでご確認いただけます。
-<LinkPreview url="https://suntory-n-water.com/blog/add-blog-to-portfolio" />
+
+<LinkPreview url='https://suntory-n-water.com/blog/add-blog-to-portfolio' />
 
 ## GitHubにPRを発行する
 
 最後に変換したMDXファイルを自動的にGitHubリポジトリにプッシュし、Pull Requestを作成します。この処理には`Octokit`を使用しており、以下の手順で実行しています。
+
 1. メインブランチの最新コミットSHAを取得
 2. 新しいブランチを作成
 3. MDXファイルをBase64エンコードしてコミット
 4. 変更をプッシュしてPull Requestを準備
-
 
 ```typescript title="github-lib.ts"
 import { Octokit } from '@octokit/rest';
@@ -360,7 +378,7 @@ import { Octokit } from '@octokit/rest';
 export async function createGithubPr(
   githubToken: string,
   mdxContent: string,
-  slug: string,
+  slug: string
 ): Promise<string> {
   try {
     const octokit = new Octokit({ auth: githubToken });
@@ -394,14 +412,16 @@ export async function createGithubPr(
     const base64Content = btoa(String.fromCharCode(...new Uint8Array(bytes)));
 
     // ファイルをコミット
-    const { data: commitData } = await octokit.repos.createOrUpdateFileContents({
-      owner,
-      repo,
-      path: filePath,
-      message: `add: blog post: ${slug}`,
-      content: base64Content,
-      branch: newBranchName,
-    });
+    const { data: commitData } = await octokit.repos.createOrUpdateFileContents(
+      {
+        owner,
+        repo,
+        path: filePath,
+        message: `add: blog post: ${slug}`,
+        content: base64Content,
+        branch: newBranchName,
+      }
+    );
     console.log(`コミットが作成されました: ${commitData.commit.sha}`);
     return newBranchName;
   } catch (error) {

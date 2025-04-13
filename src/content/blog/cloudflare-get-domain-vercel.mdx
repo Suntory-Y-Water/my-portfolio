@@ -4,12 +4,11 @@ public: true
 date: 2025-03-22
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Water wave/Flat/water_wave_flat.svg
 slug: cloudflare-get-domain-vercel
-tags: 
+tags:
   - Cloudflare
   - Vercel
 description: 独自ドメインを購入し、Vercelにデプロイされたウェブサイトに設定する方法を紹介します。Next.jsで作成したポートフォリオサイトを例に、Cloudflareでドメインを購入から設定完了までの手順を解説します。
 ---
-
 
 ## 前提条件
 
@@ -20,6 +19,7 @@ description: 独自ドメインを購入し、Vercelにデプロイされたウ�
 ## Cloudflareでドメインを購入する
 
 Cloudflareでドメインを購入するには、以下の手順に従います：
+
 1. [Cloudflare](https://www.cloudflare.com/ja-jp/)にログインします
 2. ダッシュボードから「ドメイン登録」→「ドメインの登録」を選択します
 3. 購入したいドメイン名を検索ボックスに入力します（例: `suntory-n-water.com`）
@@ -28,7 +28,6 @@ Cloudflareでドメインを購入するには、以下の手順に従います�
 
 購入が完了すると、下図のようにドメイン一覧にあなたのドメインが表示されます。
 ![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-1742693786925.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-1742693786925.png)
-
 
 ## Cloudflareで必要なDNSレコードを設定する
 
@@ -45,10 +44,10 @@ Cloudflareでドメインを購入するには、以下の手順に従います�
 
 ![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-1742693788045.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-1742693788045.png)
 
-
 ## Vercelでドメインをプロジェクトに追加する
 
 Vercelのプロジェクトに購入したドメインを紐づけます：
+
 1. [Vercel Dashboard](https://vercel.com/dashboard)にログインします
 2. ドメインを設定したいプロジェクトを選択します
 3. 上部メニューから「Settings」タブをクリックします

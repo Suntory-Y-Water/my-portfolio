@@ -57,7 +57,10 @@ function TableOfContentsItem({ item, index }: TableOfContentsItemProps) {
               <span className='mr-2 text-muted-foreground'>
                 {index}.{childIndex + 1}.
               </span>
-              <a href={`#${child.id}`} className='hover:text-primary hover:underline'>
+              <a
+                href={`#${child.id}`}
+                className='hover:text-primary hover:underline'
+              >
                 {child.text}
               </a>
             </li>

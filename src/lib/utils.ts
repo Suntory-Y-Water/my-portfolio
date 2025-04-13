@@ -24,5 +24,7 @@ export function absoluteUrl(path: string) {
 }
 
 export function truncateText(inputText: string, maxLength: number): string {
-  return inputText.length > maxLength ? `${inputText.slice(0, maxLength)}...` : inputText;
+  return inputText.length > maxLength
+    ? `${inputText.slice(0, maxLength)}...`
+    : inputText;
 }

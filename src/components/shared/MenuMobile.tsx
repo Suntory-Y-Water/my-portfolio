@@ -1,7 +1,6 @@
-import Link from 'next/link';
 import type { ReactElement } from 'react';
+import Link from 'next/link';
 import { FiMenu } from 'react-icons/fi';
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,13 +19,17 @@ type Props = {
 export default function HamburgerMenu({ params }: Props) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className='md:hidden p-1'>
+      <DropdownMenuTrigger className='p-1 md:hidden'>
         <FiMenu size='28px' aria-label='モバイルメニュー' />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='w-[200px] mr-4 py-1.5'>
+      <DropdownMenuContent className='mr-4 w-[200px] py-1.5'>
         {params.map((param) => (
-          <Link className='items-center py-1 w-full' href={param.href} key={param.href}>
-            <DropdownMenuItem className='flex gap-2 w-full py-2'>
+          <Link
+            className='w-full items-center py-1'
+            href={param.href}
+            key={param.href}
+          >
+            <DropdownMenuItem className='flex w-full gap-2 py-2'>
               {param.icon}
               {param.title}
             </DropdownMenuItem>

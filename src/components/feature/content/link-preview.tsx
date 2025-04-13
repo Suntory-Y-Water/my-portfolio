@@ -1,13 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
-
-import { getOGData } from '@/actions/fetch-og-metadata';
-import { Icons } from '@/components/icons';
-import { ImageWithFallback } from '@/components/shared/image-with-fallback';
 import { siteConfig } from '@/config/site';
 import { getBlogPostBySlug } from '@/lib/mdx';
 import { cn } from '@/lib/utils';
+import { Icons } from '@/components/icons';
+import { ImageWithFallback } from '@/components/shared/image-with-fallback';
+import { getOGData } from '@/actions/fetch-og-metadata';
 
 interface LinkCardProps {
   url: string;
@@ -79,7 +78,7 @@ export function LinkCard({
             ) : (
               <span className='flex items-center gap-1.5'>
                 <div className='size-4 rounded-full bg-primary/10'>
-                  <span className='flex h-full w-full items-center justify-center text-[10px] font-bold text-primary'>
+                  <span className='flex size-full items-center justify-center text-[10px] font-bold text-primary'>
                     B
                   </span>
                 </div>
@@ -107,7 +106,7 @@ export function LinkCard({
 
       {image ? (
         <div className='hidden w-[148px] shrink-0 sm:block'>
-          <div className='relative h-full w-full'>
+          <div className='relative size-full'>
             <ImageWithFallback
               src={image || '/placeholder.svg'}
               alt={title || 'Link preview'}
@@ -116,7 +115,7 @@ export function LinkCard({
         </div>
       ) : (
         <div className='hidden w-[148px] shrink-0 bg-muted/30 sm:block'>
-          <div className='flex h-full w-full items-center justify-center'>
+          <div className='flex size-full items-center justify-center'>
             <span className='text-4xl text-muted-foreground/20'>
               {isExternal ? '🔗' : '📝'}
             </span>
@@ -129,11 +128,16 @@ export function LinkCard({
   const cardClasses = cn(
     'group my-4 flex overflow-hidden rounded-lg border bg-card transition-all duration-200 hover:bg-accent/5 hover:shadow-md',
     error && 'border-border/50 bg-card/50',
-    className,
+    className
   );
 
   return isExternal ? (
-    <a href={url} target='_blank' rel='noopener noreferrer' className={cardClasses}>
+    <a
+      href={url}
+      target='_blank'
+      rel='noopener noreferrer'
+      className={cardClasses}
+    >
       {CardContent}
     </a>
   ) : (
@@ -206,7 +210,7 @@ export function LinkPreview({ url, className }: LinkPreviewProps) {
         <div
           className={cn(
             'my-4 h-[124px] animate-pulse rounded-lg border bg-muted/50',
-            className,
+            className
           )}
         />
       }

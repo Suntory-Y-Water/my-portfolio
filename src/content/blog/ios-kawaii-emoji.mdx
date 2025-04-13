@@ -4,22 +4,23 @@ public: true
 date: 2025-03-30
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Smiling%20face%20with%20halo/Flat/smiling_face_with_halo_flat.svg
 slug: ios-kawaii-emoji
-tags: 
+tags:
   - 絵文字
 description: 絵文字は私たちのデジタルコミュニケーションに欠かせない存在ですが、同じ絵文字コードでもOSによって見た目が大きく異なります。例えば「🫠」（溶ける顔）や「😎」（サングラスの顔）は、iOSとWindowsで全く異なるデザインです。本記事では、Webアプリケーション上でOSに関係なく統一した絵文字表示を実現するため、MicrosoftのFluent UI Emojiを使った実装方法を解説します。
 ---
-
 
 ## iOSとWindowsでの絵文字差異
 
 絵文字はUnicodeで定義されています。
 Unicodeでは絵文字ごとに固有のコードポイント(番号)が割り当てられており、これによってデバイス間で同じ絵文字が識別されます。
+
 - 😎 : U+1F60E
 - 😂 : U+1F602
 
 Unicodeはデザインを指定していません。
 「😎＝サングラスをかけた顔」という意味は統一されていますが、「どんなサングラスをかけるか」「表情はどうするか」などは各プラットフォームごとで自由にデザインできます。
 これは意図的な設計選択であり、各企業が自社のデザイン言語に合わせた絵文字スタイルを開発できるようにしています。例えば以下のような違いがあります。
+
 - Appleの絵文字：光沢のある3D調デザインが特徴
 - Microsoftの絵文字：Fluent Design Systemに準拠したフラットでカラフルなデザイン
 - Googleの絵文字：Material Designに基づいたシンプルなアウトラインと鮮やかな色使い
@@ -33,12 +34,15 @@ WindowsのPCで見たときはこのようなアイコンになっています�
 これはMicrosoftのFluent UI Emojiコレクションの一部です。
 このコレクションはオープンソースで公開されており、以下のリポジトリからダウンロードできます。
 
-<LinkPreview url="https://github.com/microsoft/fluentui-emoji" />
+<LinkPreview url='https://github.com/microsoft/fluentui-emoji' />
 
 以下のWebサイトで各アイコンの比較をすることができます。
-<LinkPreview url="https://fluentemoji.com/" />
-どちらの絵文字も可愛いんですが、個人的にはFluent UI Emojiのほうが可愛いですよね！？
-ということで私のポートフォリオに表示しているブログページのアイコンを、Fluent UI Emojiにしていきましょう。
+
+<LinkPreview url='https://fluentemoji.com/' />
+どちらの絵文字も可愛いんですが、個人的にはFluent UI
+Emojiのほうが可愛いですよね！？
+ということで私のポートフォリオに表示しているブログページのアイコンを、Fluent UI
+Emojiにしていきましょう。
 
 ## Fluent Emojiの概要
 
@@ -72,7 +76,6 @@ pnpm add unicode-emoji-json
   }
 }
 ```
-
 
 ## 変換ロジックの作成
 
@@ -116,7 +119,8 @@ async function getValidFluentEmojiUrl(icon: string) {
 注意点としては、2015年頃に人の顔や手足などを表す絵文字の一部で、ユーザーが肌の色（スキントーン）を選べるようになりました。その影響で一部絵文字のURLが異なっています。
 
 (公式サイトから引用しようとしたらページが削除されていました…)
-<LinkPreview url="https://internet.watch.impress.co.jp/docs/news/697088.html" />
+
+<LinkPreview url='https://internet.watch.impress.co.jp/docs/news/697088.html' />
 肌の色を選ぶことができる絵文字は`skin_tone_support`が`ture`のものが対象です。
 
 今回は初期設定のデフォルトを選択します。
@@ -139,7 +143,6 @@ function generateFluentEmojiUrl(emojiInfo: Emoji) {
 }
 ```
 
-
 最後に絵文字の有効性を確認します。
 もしURLが異なっていたり、アイコンがなくなっているときは入力元のアイコンを表示したいので、fetchして正常終了するか確認していきましょう。
 
@@ -153,16 +156,19 @@ async function checkUrlValidity(url: string) {
     return true;
   } catch (error) {
     const message = error instanceof Error ? error.message : '不明なエラー';
-    console.error(`URLの有効性チェックに失敗しました: ${url} message: ${message}`);
+    console.error(
+      `URLの有効性チェックに失敗しました: ${url} message: ${message}`
+    );
     return false;
   }
 }
 ```
 
-
 上記のソースコードを実装したものを、以下の記事で紹介したロジックに追加して記事を追加します。
-<LinkPreview url="https://suntory-n-water.com/blog/messaging-api-github-pr" />
-確認したところ、iOSで[Fluent Emoji](https://fluentemoji.com/)の内容が反映されていますね。
+
+<LinkPreview url='https://suntory-n-water.com/blog/messaging-api-github-pr' />
+確認したところ、iOSで[Fluent
+Emoji](https://fluentemoji.com/)の内容が反映されていますね。
 ![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9137.png-1743294181758.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9137.png-1743294181758.png)
 
 見づらいですが救急車と波がiOSのものではないことが確認できます。
