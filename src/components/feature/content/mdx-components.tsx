@@ -92,7 +92,14 @@ export const components = {
   }: React.ImgHTMLAttributes<HTMLImageElement>) => (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      className={cn('rounded-md border border-border/50', className)}
+      className={cn(
+        'rounded-md border border-border/50',
+        'h-auto max-w-full',
+        'max-h-[600px]',
+        'object-contain',
+        'mx-auto',
+        className
+      )}
       alt={alt}
       {...props}
     />

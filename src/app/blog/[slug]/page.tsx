@@ -126,7 +126,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <Button variant='ghost' asChild className='h-9 px-2'>
             <Link href='/blog' className='group inline-flex items-center'>
               <Icons.arrowLeft className='mr-2 size-4 transition-transform group-hover:-translate-x-1' />
-              Back to blog page
+              ブログ一覧に戻る
             </Link>
           </Button>
 
