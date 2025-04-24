@@ -159,7 +159,7 @@ Follow these instructions carefully to ensure a reliable, high-quality implement
 
 ルールが正しく読み込まれているかは以下の手順で確認できます。VScodeを開き、`Ctrl + Alt + I`を押してチャットを起動すると、ファイルが読み込まれたことが確認できます。
 今回設定したルールでは、読み込み時にファイル名を出力するよう指定しているため、これによって動作確認ができます(長いため画像は省略しています)。
-![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-ebd79af2-ee66-40cb-ae2e-cdc088462914.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-ebd79af2-ee66-40cb-ae2e-cdc088462914.png)
+![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-f633910d-8802-498f-88f1-9fd8cfe3bd8a.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-f633910d-8802-498f-88f1-9fd8cfe3bd8a.png)
 
 ### ルールが読み込まれなかったときにやること
 
@@ -288,10 +288,10 @@ Example: "Loaded copilot-instructions.md".
 2. ドロップダウン メニューの**プロンプト**を選択し、使うプロンプトファイルを選択します。
 
 読み込みが完了するとこのようにラベルのようなアイコンでファイルが設定されます。
-![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-ce84c64f-875e-4a21-904b-24add42e0190.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-ce84c64f-875e-4a21-904b-24add42e0190.png)
+![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-4afc8f45-1bc6-414a-8047-63dc9f5431db.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-4afc8f45-1bc6-414a-8047-63dc9f5431db.png)
 
 プロンプトを送信すると、正しく読み込まれていることが確認できます。
-![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-b2a12c1e-2ffe-4be7-858b-1308a0046e42.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-b2a12c1e-2ffe-4be7-858b-1308a0046e42.png)
+![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-48494a54-0281-4daf-b96b-a242cb60e962.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-48494a54-0281-4daf-b96b-a242cb60e962.png)
 
 ## 注意点
 
@@ -304,7 +304,7 @@ Example: "Loaded copilot-instructions.md".
 
 また、Cursorと異なり、GitHub Copilotでは`copilot-instructions.md`内から他のファイルをパス指定で読み込むことができません。
 `copilot-instructions.md`から`coding-rules.prompt.md`を読み込むようなプロンプトを入れて試してみると、読み込めないとCopilotからエラーが表示されます。
-![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-6002001f-4f62-4934-b505-55839747bac7.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-6002001f-4f62-4934-b505-55839747bac7.png)
+![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-e6375277-0150-4ea2-a6b7-7346605364f4.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-e6375277-0150-4ea2-a6b7-7346605364f4.png)
 
 
 ## まとめ
@@ -313,5 +313,6 @@ GitHub Copilotでも複数のカスタムルールを設定することで、コ
 1. 基本ルールを`.github/copilot-instructions.md`に設定する方法
 2. コーディングルールを`.github/prompts`ディレクトリに追加する方法
 3. ルールの読み込み確認方法と注意点
+
 これらの設定を活用することで、チーム開発における一貫性のあるコードスタイルの維持が保たれます。
 プロンプトを継続的に改善していくことで、より質の高いコード生成を実現でしょう。
