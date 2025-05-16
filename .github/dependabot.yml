@@ -1,9 +1,31 @@
 version: 2
 updates:
-  - package-ecosystem: npm
+  - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: weekly
-    allow:
-      - dependency-type: 'direct'
-    open-pull-requests-limit: 5
+      interval: 'daily'
+    commit-message:
+      prefix: 'chore'
+      include: 'scope'
+    labels:
+      - 'dependencies'
+      - 'dependabot'
+    groups:
+      npm-all-dependencies:
+        patterns:
+          - '*' # npmエコシステムのすべての依存関係をこのグループに含めます
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    commit-message:
+      prefix: 'chore'
+      include: 'scope'
+    labels:
+      - 'github-actions'
+      - 'dependabot'
+    groups:
+      github-actions-all:
+        patterns:
+          - '*' # GitHub Actionsエコシステムのすべての依存関係をこのグループに含めます
