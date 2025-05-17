@@ -14,13 +14,17 @@ updates:
       npm-all-dependencies:
         patterns:
           - '*' # npmエコシステムのすべての依存関係をこのグループに含めます
+    # メジャーアップデートを無視する設定
+    ignore:
+      - dependency-name: '*' # すべての npm 依存関係に対して
+        update-types: ['version-update:semver-major'] # メジャーアップデートを無視
 
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
       interval: 'weekly'
     commit-message:
-      prefix: 'chore'
+      prefix: 'chore(actions)'
       include: 'scope'
     labels:
       - 'github-actions'
@@ -29,3 +33,6 @@ updates:
       github-actions-all:
         patterns:
           - '*' # GitHub Actionsエコシステムのすべての依存関係をこのグループに含めます
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
