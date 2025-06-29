@@ -11,9 +11,6 @@ importers:
       '@mdx-js/mdx':
         specifier: ^3.1.0
         version: 3.1.0(acorn@8.15.0)
-      '@next/bundle-analyzer':
-        specifier: ^15.3.4
-        version: 15.3.4
       '@next/third-parties':
         specifier: ^15.3.4
         version: 15.3.4(next@15.3.4(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
@@ -72,6 +69,9 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.17)
     devDependencies:
+      '@next/bundle-analyzer':
+        specifier: ^15.3.4
+        version: 15.3.4
       '@next/eslint-plugin-next':
         specifier: ^15.3.4
         version: 15.3.4
