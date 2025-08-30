@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: 'daily'
+      interval: 'monthly'
     commit-message:
       prefix: 'chore'
       include: 'scope'
@@ -22,7 +22,7 @@ updates:
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
-      interval: 'weekly'
+      interval: 'monthly'
     commit-message:
       prefix: 'chore(actions)'
       include: 'scope'
