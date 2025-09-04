@@ -12,7 +12,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "clean": "rm -rf .next/ node_modules/",
-    "analyze": "ANALYZE=true next build"
+    "analyze": "ANALYZE=true next build",
+    "typecheck": "tsc --noEmit",
+    "ai-check": "pnpm run typecheck && pnpm run lint"
   },
   "dependencies": {
     "@mdx-js/mdx": "^3.1.1",
@@ -25,6 +27,7 @@
     "@svgr/webpack": "^8.1.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.17",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.542.0",
     "next": "15.5.2",
@@ -33,6 +36,7 @@
     "react-dom": "^19.1.1",
     "react-icons": "^5.5.0",
     "rehype-slug": "^6.0.0",
+    "remark-breaks": "^4.0.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7"
   },
@@ -43,7 +47,6 @@
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
     "autoprefixer": "^10.4.21",
-    "dayjs": "^1.11.17",
     "eslint": "^9.34.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
