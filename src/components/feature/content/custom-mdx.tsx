@@ -3,6 +3,7 @@ import { type EvaluateOptions, evaluate } from '@mdx-js/mdx';
 import * as runtime from 'react/jsx-runtime';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
+import remarkBreaks from 'remark-breaks';
 import remarkGfm from 'remark-gfm';
 import { components } from '@/components/feature/content/mdx-components';
 
@@ -35,7 +36,7 @@ export async function CustomMDX({
   try {
     const options: EvaluateOptions = {
       ...runtime,
-      remarkPlugins: [remarkGfm],
+      remarkPlugins: [remarkGfm, remarkBreaks],
       rehypePlugins: [rehypeSlug, [rehypePrettyCode, rehypePrettyCodeOptions]],
     };
 
