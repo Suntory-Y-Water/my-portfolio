@@ -28,10 +28,12 @@ Next.jsとCloudflareを組み合わせた開発環境で、devcontainerが突然
 - Docker/devcontainer上でNext.jsとCloudflare連携ツールチェーンを利用する開発者
 - Debian系ベースイメージの互換性について知りたい方
 - 似たようなエラーで困っている開発者
+
 **解決できる問題**
 - devcontainer内でCloudflare Workersローカル開発環境が起動しない
 - glibcバージョン要件によるネイティブバイナリ実行エラー
 - Debian世代選択の判断基準
+
 **前提知識**
 - Dockerとdevcontainerの基本的な使い方
 - Next.jsプロジェクトの開発経験
@@ -43,8 +45,7 @@ Next.jsとCloudflareを組み合わせた開発環境で、devcontainerが突然
 
 ホストはmacOSで、devcontainerのベースイメージに `mcr.microsoft.com/devcontainers/javascript-node:20-bullseye` を使用していました。
 プロジェクトはNext.jsに `@opennextjs/cloudflare` を含む構成です。
-不思議なことに、ローカルでは正常に動作するのに、開発コンテナ内だけで失敗していました。
-まさに「ローカルでは動くのに...」という、開発者なら一度は経験する厄介なパターンです。
+不思議なことに、ローカルでは正常に動作するのに、開発コンテナ内だけで失敗していました。「ローカルでは動くのに...」という、開発者なら一度は経験する厄介なパターンです。
 
 ### 観測されたエラー内容
 
@@ -140,15 +141,19 @@ devcontainer.jsonの設定を以下のように変更しました。
 
 解決はしましたが、なぜこの変更で問題が解決したのかを理解するために、公式情報を調べました。
 **Debian 11 bullseyeのglibc**
-Debian公式パッケージ情報によると、bullseyeは **glibc 2.31系**(`2.31-13+deb11u13`)を提供しています。([Debian Packages](https://packages.debian.org/source/bullseye/glibc))
+Debian公式パッケージ情報によると、bullseyeは **glibc 2.31系**(`2.31-13+deb11u13`)を提供しています。
+<LinkPreview url="https://packages.debian.org/source/bullseye/glibc" />
 **Debian 12 bookwormのglibc**
-一方、bookwormは **glibc 2.36系**(`2.36-9+deb12u13`)を提供しています。([Launchpad](https://launchpad.net/debian/bookworm/%2Bsource/glibc))
+一方、bookwormは **glibc 2.36系**(`2.36-9+deb12u13`)を提供しています。
+<LinkPreview url="https://launchpad.net/debian/bookworm/%2Bsource/glibc" />
 
 ### Cloudflare workerdの要件変化
 
 Cloudflare Workers SDKのGitHubリポジトリのIssueを調べると、興味深い情報が見つかりました。
-近年のworkerdでは **glibc 2.35以上**を要求するようになっており、Ubuntu 20.04(glibc 2.31)などの古い環境での非対応化が議論されています。([GitHub Issue](https://github.com/cloudflare/workers-sdk/issues/9336))
-また、「あなたのOSはglibc 2.35+をサポートしていないようだ」というメンテナからのコメントもある別のIssueも確認できました。([GitHub Issue](https://github.com/cloudflare/workers-sdk/issues/9446))
+近年のworkerdでは **glibc 2.35以上**を要求するようになっており、Ubuntu 20.04(glibc 2.31)などの古い環境での非対応化が議論されています。
+<LinkPreview url="https://github.com/cloudflare/workers-sdk/issues/9336" />
+また、「あなたのOSはglibc 2.35+をサポートしていないようだ」というメンテナからのコメントもある別のIssueも確認できました。
+<LinkPreview url="https://github.com/cloudflare/workers-sdk/issues/9446" />
 
 ### 技術的な背景の整理
 
@@ -176,11 +181,7 @@ Node公式のDockerイメージも同様のタグ体系を採用しています�
 
 ## まとめ
 
-今回のトラブルシューティングを通じて分かったことをまとめると、以下の通りです。
 devcontainerでNext.js + Cloudflare環境が起動しない場合、ベースOSのglibc系列とworkerdの要求バージョンの不整合が原因の可能性があります。具体的には、bullseyeのglibc 2.31系では、workerdが要求するglibc 2.35+の要件を満たせません。
-**解決方法**
-devcontainer.jsonのベースイメージを `...:20-bullseye` から `...:20-bookworm` に変更することで、glibc 2.36系の環境になり、workerdの要件を満たせるようになります。
-**今後の開発で気をつけたいこと**
 Cloudflare Workers関連のツールを使用する際は、開発環境のglibc要件も考慮に入れる必要があります。特に、長期間メンテナンスしているプロジェクトでは、依存ツールの要件変化に注意が必要です。
 
 ## 参考資料
