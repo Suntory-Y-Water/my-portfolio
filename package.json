@@ -7,14 +7,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "check": "biome check .",
+    "check:fix": "biome check --write .",
+    "ci": "biome ci .",
     "clean": "rm -rf .next/ node_modules/",
     "analyze": "ANALYZE=true next build",
     "typecheck": "tsc --noEmit",
-    "ai-check": "pnpm run typecheck && pnpm run lint"
+    "ai-check": "pnpm run typecheck && pnpm run check"
   },
   "dependencies": {
     "@mdx-js/mdx": "^3.1.1",
@@ -41,26 +44,16 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.3.4",
     "@next/bundle-analyzer": "^15.5.2",
-    "@next/eslint-plugin-next": "^15.5.2",
     "@types/node": "^22.18.0",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
     "autoprefixer": "^10.4.21",
-    "eslint": "^9.34.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-tailwindcss": "^3.18.2",
-    "eslint-plugin-unused-imports": "^4.2.0",
     "postcss": "^8.5.6",
-    "prettier": "^3.6.2",
-    "prettier-plugin-tailwindcss": "^0.6.14",
     "rehype-pretty-code": "^0.14.1",
     "remark-gfm": "^4.0.1",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5.9.2",
-    "typescript-eslint": "^8.41.0"
+    "typescript": "^5.9.2"
   }
 }

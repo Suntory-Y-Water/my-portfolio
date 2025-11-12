@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { siteConfig } from '@/config/site';
 import { SocialIcons } from '@/components/icons/social-icons';
 import { Button } from '@/components/ui/button';
+import { siteConfig } from '@/config/site';
 
 interface GitHubEditButtonProps {
   filePath?: string;

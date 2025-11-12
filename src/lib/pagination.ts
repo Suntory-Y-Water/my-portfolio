@@ -10,7 +10,7 @@ export interface PaginationResult<T> {
 export function paginateItems<T>(
   items: T[],
   page = 1,
-  pageSize = 10
+  pageSize = 10,
 ): PaginationResult<T> {
   const totalItems = items.length;
   const totalPages = Math.ceil(totalItems / pageSize);
@@ -30,7 +30,7 @@ export function paginateItems<T>(
 export function getPaginatedBlogPosts(
   allPosts: BlogPost[],
   page = 1,
-  pageSize = 10
+  pageSize = 10,
 ): PaginationResult<BlogPost> {
   return paginateItems(allPosts, page, pageSize);
 }

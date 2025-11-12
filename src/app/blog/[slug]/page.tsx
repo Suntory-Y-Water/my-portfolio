@@ -3,15 +3,15 @@ import '@/styles/mdx.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
-import { extractTOC } from '@/lib/toc';
-import { absoluteUrl, formatDate } from '@/lib/utils';
 import { CustomMDX } from '@/components/feature/content/custom-mdx';
 import { GitHubEditButton } from '@/components/feature/content/github-edit-button';
 import { TableOfContents } from '@/components/feature/content/table-of-contents';
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
+import { extractTOC } from '@/lib/toc';
+import { absoluteUrl, formatDate } from '@/lib/utils';
 
 export const revalidate = false;
 

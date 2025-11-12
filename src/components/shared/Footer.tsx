@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { siteConfig } from '@/config/site';
 import { SocialIcons } from '@/components/icons';
+import { siteConfig } from '@/config/site';
 
 export default function Footer() {
   const twitterUrl = siteConfig.links.twitter;

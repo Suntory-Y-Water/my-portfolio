@@ -23,7 +23,7 @@ export const getOGData = cache(
       const getMetaContent = (property: string): string | undefined => {
         const regex = new RegExp(
           `<meta[^>]+(?:property|name)="${property}"[^>]+content="([^"]+)"`,
-          'i'
+          'i',
         );
         return regex.exec(html)?.[1];
       };
@@ -43,5 +43,5 @@ export const getOGData = cache(
       console.error('Error fetching OG data:', error);
       return { url };
     }
-  }
+  },
 );

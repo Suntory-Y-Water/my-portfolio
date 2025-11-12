@@ -19,7 +19,7 @@ const BreadcrumbList = React.forwardRef<
     ref={ref}
     className={cn(
       'flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5',
-      className
+      className,
     )}
     {...props}
   />
@@ -57,14 +57,12 @@ const BreadcrumbLink = React.forwardRef<
 BreadcrumbLink.displayName = 'BreadcrumbLink';
 
 const BreadcrumbPage = React.forwardRef<
-  HTMLSpanElement,
-  React.ComponentPropsWithoutRef<'span'>
+  HTMLButtonElement,
+  React.ComponentPropsWithoutRef<'button'>
 >(({ className, ...props }, ref) => (
-  <span
+  <button
     ref={ref}
-    role='button'
-    // https://biomejs.dev/linter/rules/use-focusable-interactive/
-    tabIndex={0}
+    type='button'
     aria-disabled='true'
     aria-current='page'
     className={cn('font-normal text-foreground', className)}

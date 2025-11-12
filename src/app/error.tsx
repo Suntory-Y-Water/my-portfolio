@@ -1,8 +1,7 @@
 'use client';
 import Link from 'next/link';
 
-// biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
-export default function Error({
+export default function ErrorPage({
   error,
 }: {
   error: Error & { digest?: string };

@@ -1,5 +1,5 @@
-import type * as React from 'react';
 import { type EvaluateOptions, evaluate } from '@mdx-js/mdx';
+import type * as React from 'react';
 import * as runtime from 'react/jsx-runtime';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';

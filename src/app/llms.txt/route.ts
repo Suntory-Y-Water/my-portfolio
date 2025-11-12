@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { siteConfig } from '@/config/site';
-import { getAllBlogPosts } from '@/lib/mdx';
 import type { BlogPost } from '@/lib/mdx';
+import { getAllBlogPosts } from '@/lib/mdx';
 
 // llms.txt の内容を生成する関数
 const renderLlmsTxt = (posts: BlogPost[]) => `# ${siteConfig.name}
@@ -15,7 +15,7 @@ ${
 ${posts
   .map(
     (post) =>
-      `- [${post.metadata.title}](${siteConfig.url}/blog/${post.slug}.md): ${post.metadata.description || ''}`
+      `- [${post.metadata.title}](${siteConfig.url}/blog/${post.slug}.md): ${post.metadata.description || ''}`,
   )
   .join('\n')}
 `

@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import type { BlogPost } from '@/lib/mdx';
-import { formatDate, cn } from '@/lib/utils';
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
+import type { BlogPost } from '@/lib/mdx';
+import { cn, formatDate } from '@/lib/utils';
 
 interface BlogCardProps {
   data: BlogPost;
@@ -20,7 +20,7 @@ export function BlogCard({ data }: BlogCardProps) {
       className={cn(
         'group relative block overflow-hidden rounded-lg bg-card p-5 transition-all duration-300',
         'hover:bg-accent/30 hover:shadow-lg hover:ring-1 hover:ring-primary/50',
-        'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2'
+        'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
       )}
     >
       <div className='flex flex-row items-start gap-4'>

@@ -2,8 +2,8 @@
 
 import { Check, Copy } from 'lucide-react';
 import { type ReactNode, useRef, useState } from 'react';
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 type CodeBlockProps = {
   className?: string;
@@ -34,7 +34,7 @@ export function CodeBlock({ className, children, ...props }: CodeBlockProps) {
           'bg-[#111A1F] dark:bg-[#151A1E]',
           'scrollbar-thin scrollbar-track-transparent scrollbar-thumb-muted',
           'pr-12', // コピーボタン用の余白
-          className
+          className,
         )}
         {...props}
       >
