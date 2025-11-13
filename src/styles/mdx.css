@@ -41,11 +41,11 @@
 /* Inline code specific styles */
 :not(pre) > code {
   font-feature-settings:
-    'calt' 1,
-    'tnum' 1,
-    'case' 1,
-    'ss01' 1,
-    'ss02' 1;
+    "calt" 1,
+    "tnum" 1,
+    "case" 1,
+    "ss01" 1,
+    "ss02" 1;
 }
 
 /* Optional: Add subtle transition */

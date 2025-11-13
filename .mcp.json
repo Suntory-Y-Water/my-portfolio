@@ -5,6 +5,7 @@
       "args": ["-y", "@upstash/context7-mcp@latest"]
     },
     "serena": {
+      "type": "stdio",
       "command": "uvx",
       "args": [
         "--from",
@@ -14,9 +15,24 @@
         "--context",
         "ide-assistant",
         "--project",
-        "."
+        ".",
+        "--enable-gui-log-window",
+        "false",
+        "--enable-web-dashboard",
+        "false"
       ],
-      "cwd": "."
+      "env": {}
+    },
+    "kiri": {
+      "command": "npx",
+      "args": [
+        "kiri-mcp-server@latest",
+        "--repo",
+        ".",
+        "--db",
+        ".kiri/index.duckdb",
+        "--watch"
+      ]
     }
   }
 }

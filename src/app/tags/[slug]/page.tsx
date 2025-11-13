@@ -1,8 +1,8 @@
+import { BlogCard } from '@/components/feature/content/blog-card';
+import { PageHeader } from '@/components/shared/page-header';
 import { siteConfig } from '@/config/site';
 import { getAllTags, getBlogPostsByTagSlug } from '@/lib/mdx';
 import { absoluteUrl } from '@/lib/utils';
-import { BlogCard } from '@/components/feature/content/blog-card';
-import { PageHeader } from '@/components/shared/page-header';
 
 interface TagPageProps {
   params: Promise<{ slug: string }>;

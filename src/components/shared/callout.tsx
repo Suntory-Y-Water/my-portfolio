@@ -1,5 +1,5 @@
-import { cn } from '@/lib/utils';
 import { Icons } from '@/components/icons';
+import { cn } from '@/lib/utils';
 
 type CalloutType = 'info' | 'note' | 'warning' | 'danger';
 
@@ -76,7 +76,7 @@ export function Callout({
       className={cn(
         'my-6 rounded-lg border p-4 shadow-sm',
         containerClasses,
-        className
+        className,
       )}
       {...props}
     >

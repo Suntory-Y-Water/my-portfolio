@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
 import { Icons } from '@/components/icons';
 import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface PaginationProps {
   currentPage: number;
@@ -31,7 +31,7 @@ export function Pagination({
         <div
           className={cn(
             buttonVariants({ variant: 'outline' }),
-            'pointer-events-none gap-1 pl-2.5 opacity-50'
+            'pointer-events-none gap-1 pl-2.5 opacity-50',
           )}
         >
           <Icons.chevronLeft className='size-4' />
@@ -53,7 +53,7 @@ export function Pagination({
         <div
           className={cn(
             buttonVariants({ variant: 'outline' }),
-            'pointer-events-none gap-1 pr-2.5 opacity-50'
+            'pointer-events-none gap-1 pr-2.5 opacity-50',
           )}
         >
           <span className='sr-only'>Next</span>

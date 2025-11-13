@@ -14,7 +14,7 @@ export async function fetchPosts<T>(p: {
     });
     if (!response.ok) {
       console.error(
-        `データの取得に失敗しました。ステータスコード : ${response.status}`
+        `データの取得に失敗しました。ステータスコード : ${response.status}`,
       );
       console.error(`失敗したURL: ${p.apiUrl}`);
       throw new Error();

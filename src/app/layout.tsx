@@ -1,13 +1,13 @@
 import '@/styles/globals.css';
 import '@/styles/mdx.css';
 
-import type React from 'react';
-import type { Metadata } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
-import { siteConfig } from '@/config/site';
+import type { Metadata } from 'next';
+import type React from 'react';
+import { fontPlemolJP35Console } from '@/assets/fonts';
 import Footer from '@/components/shared/Footer';
 import { ThemeProvider } from '@/components/ui/theme-provider';
-import { fontPlemolJP35Console } from '@/assets/fonts';
+import { siteConfig } from '@/config/site';
 import Header from '../components/shared/Header';
 
 export const metadata: Metadata = {

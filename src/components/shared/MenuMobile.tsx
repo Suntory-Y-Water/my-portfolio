@@ -1,5 +1,5 @@
-import type { ReactElement } from 'react';
 import Link from 'next/link';
+import type { ReactElement } from 'react';
 import { FiMenu } from 'react-icons/fi';
 import {
   DropdownMenu,

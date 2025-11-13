@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
-import { fetchPosts } from '@/lib/client';
-import { processEnv } from '@/lib/utils';
 import PostsList from '@/components/feature/posts/PostsList';
 import PostsListSkeleton from '@/components/ui/post-list-skeleton';
+import { fetchPosts } from '@/lib/client';
+import { processEnv } from '@/lib/utils';
 import type {
   NoteContent,
   NoteResponse,
@@ -56,8 +56,8 @@ async function PostsWithData() {
           headers: {
             Authorization: `Bearer ${apiKey}`,
           },
-        })
-      )
+        }),
+      ),
     ),
     fetchAllNoteData(),
   ]);

@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
 import { LinkPreview } from '@/components/feature/content/link-preview';
 import { Callout } from '@/components/shared/callout';
+import { cn } from '@/lib/utils';
 import { CodeBlock } from './code-block';
 
 export const components = {
@@ -9,7 +9,7 @@ export const components = {
     <h2
       className={cn(
         'mt-12 scroll-m-20 border-b-2 border-border/50 pb-2 text-2xl font-bold tracking-tight first:mt-0',
-        className
+        className,
       )}
       {...props}
     />
@@ -18,7 +18,7 @@ export const components = {
     <h3
       className={cn(
         'mt-8 scroll-m-20 text-xl font-semibold tracking-tight',
-        className
+        className,
       )}
       {...props}
     />
@@ -27,7 +27,7 @@ export const components = {
     <h4
       className={cn(
         'mt-4 scroll-m-20 text-lg font-semibold tracking-tight',
-        className
+        className,
       )}
       {...props}
     />
@@ -36,7 +36,7 @@ export const components = {
     <a
       className={cn(
         'font-medium text-primary decoration-primary/30 underline-offset-4 hover:text-primary/80 hover:underline hover:decoration-primary/50',
-        className
+        className,
       )}
       target='_blank'
       rel='noopener noreferrer'
@@ -47,7 +47,7 @@ export const components = {
     <p
       className={cn(
         'leading-7 text-foreground/90 [&:not(:first-child)]:mt-6',
-        className
+        className,
       )}
       {...props}
     />
@@ -56,7 +56,7 @@ export const components = {
     <ul
       className={cn(
         'my-6 ml-6 list-disc marker:text-muted-foreground',
-        className
+        className,
       )}
       {...props}
     />
@@ -65,7 +65,7 @@ export const components = {
     <ol
       className={cn(
         'my-6 ml-6 list-decimal marker:text-muted-foreground',
-        className
+        className,
       )}
       {...props}
     />
@@ -80,7 +80,7 @@ export const components = {
     <blockquote
       className={cn(
         'mt-6 border-l-2 border-primary pl-6 italic text-foreground/80',
-        className
+        className,
       )}
       {...props}
     />
@@ -90,7 +90,7 @@ export const components = {
     alt,
     ...props
   }: React.ImgHTMLAttributes<HTMLImageElement>) => (
-    // eslint-disable-next-line @next/next/no-img-element
+    // biome-ignore lint/performance/noImgElement: MDX content requires flexible img rendering
     <img
       className={cn(
         'rounded-md border border-border/50',
@@ -98,7 +98,7 @@ export const components = {
         'max-h-[600px]',
         'object-contain',
         'mx-auto',
-        className
+        className,
       )}
       alt={alt}
       {...props}
@@ -121,7 +121,7 @@ export const components = {
         'm-0 border-t border-border/50 p-0',
         'transition-colors duration-150',
         'hover:bg-muted/30',
-        className
+        className,
       )}
       {...props}
     />
@@ -132,7 +132,7 @@ export const components = {
         'border border-border/50 bg-background px-4 py-3 text-left font-bold',
         'text-foreground/90',
         '[&[align=center]]:text-center [&[align=right]]:text-right',
-        className
+        className,
       )}
       {...props}
     />
@@ -143,7 +143,7 @@ export const components = {
         'border border-border/50 px-4 py-3 text-left',
         '[&[align=center]]:text-center [&[align=right]]:text-right',
         '[&>code]:rounded-sm [&>code]:bg-muted/30 [&>code]:px-1.5 [&>code]:py-0.5',
-        className
+        className,
       )}
       {...props}
     />
@@ -167,7 +167,7 @@ export const components = {
             '[&>span]:border-l-2 [&>span]:border-l-transparent [&>span]:pl-4',
             '[&>span.line-highlighted]:border-l-primary [&>span.line-highlighted]:bg-primary/5',
           ],
-          className
+          className,
         )}
         {...props}
       />
@@ -183,7 +183,7 @@ export const components = {
         'text-[13px] leading-6',
         '[&>span]:border-l-2 [&>span]:border-l-transparent [&>span]:pl-4',
         '[&>span.line-highlighted]:border-l-primary [&>span.line-highlighted]:bg-primary/5',
-        className
+        className,
       )}
       {...props}
     />

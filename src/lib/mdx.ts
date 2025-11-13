@@ -15,12 +15,12 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
   const posts = await getMDXData(blogDir);
   return posts.sort(
     (a, b) =>
-      new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime()
+      new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime(),
   );
 }
 
 export async function getBlogPostsByTagSlug(
-  tagSlug: string
+  tagSlug: string,
 ): Promise<BlogPost[]> {
   const posts = await getAllBlogPosts();
   return posts.filter((post) => post.metadata.tags?.includes(tagSlug));
@@ -37,7 +37,7 @@ export async function getBlogPostBySlug(slug: string) {
 }
 
 async function getBlogPost(
-  predicate: (post: BlogPost) => boolean
+  predicate: (post: BlogPost) => boolean,
 ): Promise<BlogPost | undefined> {
   const posts = await getAllBlogPosts();
   return posts.find(predicate);
@@ -50,7 +50,7 @@ async function getMDXData<T>(dir: string): Promise<MDXData<T>[]> {
 
 async function getMDXFiles(dir: string): Promise<string[]> {
   return (await fs.readdir(dir)).filter(
-    (file) => path.extname(file) === '.mdx'
+    (file) => path.extname(file) === '.mdx',
   );
 }
 
