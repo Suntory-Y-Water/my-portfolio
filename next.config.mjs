@@ -40,6 +40,16 @@ const nextConfig = {
       },
     ];
   },
+
+  // .mdサフィックスでMarkdown配信
+  async rewrites() {
+    return [
+      {
+        source: '/blog/:slug.md',
+        destination: '/blog/md/:slug',
+      },
+    ];
+  },
 };
 
 export default withBundleAnalyzer(nextConfig);
