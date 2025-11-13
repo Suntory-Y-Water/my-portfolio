@@ -1,6 +1,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
+import { getTagNameFromSlug, getTagSlug } from '@/config/tag-slugs';
 import type { Frontmatter, MDXData } from '@/types/mdx';
 
 const blogDir = path.join(process.cwd(), 'src', 'content', 'blog');
@@ -22,14 +23,33 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
 export async function getBlogPostsByTagSlug(
   tagSlug: string,
 ): Promise<BlogPost[]> {
+  const tagName = getTagNameFromSlug(tagSlug);
+
+  if (!tagName) {
+    return [];
+  }
+
   const posts = await getAllBlogPosts();
-  return posts.filter((post) => post.metadata.tags?.includes(tagSlug));
+  return posts.filter((post) => post.metadata.tags?.includes(tagName));
 }
 
 export async function getAllTags(): Promise<string[]> {
   const posts = await getAllBlogPosts();
   const tags = posts.flatMap((post) => post.metadata.tags ?? []);
   return [...new Set(tags)];
+}
+
+/**
+ * 全ブログ記事から使用されているタグのslugを取得
+ */
+export async function getAllTagSlugs(): Promise<string[]> {
+  const posts = await getAllBlogPosts();
+  const tagNames = posts.flatMap((post) => post.metadata.tags ?? []);
+  const uniqueTagNames = [...new Set(tagNames)];
+
+  // タグ名をslugに変換（重複排除のため再度Set化）
+  const slugs = uniqueTagNames.map(getTagSlug);
+  return [...new Set(slugs)];
 }
 
 export async function getBlogPostBySlug(slug: string) {

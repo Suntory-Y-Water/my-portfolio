@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/shared/page-header';
 import { Card, CardContent } from '@/components/ui/card';
 import { siteConfig } from '@/config/site';
+import { getTagSlug } from '@/config/tag-slugs';
 import { getAllTags } from '@/lib/mdx';
 import { absoluteUrl, cn } from '@/lib/utils';
 
@@ -47,7 +48,7 @@ export default async function TagsPage() {
         <div className='grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4 pt-4'>
           {sortedTags.map((tag) => (
             <Link
-              href={`/tags/${encodeURIComponent(tag)}`}
+              href={`/tags/${getTagSlug(tag)}`}
               key={tag}
               passHref
               className='no-underline'
