@@ -21,6 +21,8 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
+    locale: 'ja_JP',
+    siteName: siteConfig.name,
   },
   twitter: {
     title: siteConfig.name,

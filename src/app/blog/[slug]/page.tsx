@@ -30,18 +30,28 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   return {
     title: post.metadata.title,
     description: post.metadata.description,
+    alternates: {
+      canonical: absoluteUrl(`/blog/${post.slug}`),
+    },
     openGraph: {
       title: post.metadata.title,
       description: post.metadata.description,
       type: 'article',
       url: absoluteUrl(`/blog/${post.slug}`),
       images: [absoluteUrl(`/blog/ogp/${post.slug}`)],
+      locale: 'ja_JP',
+      siteName: 'sui-portfolio',
     },
     twitter: {
       card: 'summary_large_image',
       title: post.metadata.title,
       description: post.metadata.description,
       images: [absoluteUrl(`/blog/ogp/${post.slug}`)],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
     },
   };
 }
