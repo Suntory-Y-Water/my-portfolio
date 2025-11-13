@@ -10,6 +10,7 @@ import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
+import { getTagSlug } from '@/config/tag-slugs';
 import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
 import { extractTOC } from '@/lib/toc';
 import { absoluteUrl, formatDate } from '@/lib/utils';
@@ -138,7 +139,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {post.metadata.tags && post.metadata.tags.length > 0 && (
             <div className='inline-flex flex-wrap gap-2'>
               {post.metadata.tags.map((tag) => (
-                <Link key={tag} href={`/tags/${tag}`}>
+                <Link key={tag} href={`/tags/${getTagSlug(tag)}`}>
                   <Badge className='px-2 py-0.5 text-xs'>{tag}</Badge>
                 </Link>
               ))}
