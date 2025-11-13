@@ -9,6 +9,7 @@ import { TableOfContents } from '@/components/feature/content/table-of-contents'
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { siteConfig } from '@/config/site';
 import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
 import { extractTOC } from '@/lib/toc';
 import { absoluteUrl, formatDate } from '@/lib/utils';
@@ -74,8 +75,42 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   // 目次を生成
   const tableOfContents = extractTOC(post.rawContent);
 
+  // 構造化データ (JSON-LD) の生成
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.metadata.title,
+    datePublished: post.metadata.date,
+    dateModified: post.metadata.date,
+    description: post.metadata.description,
+    image: absoluteUrl(`/blog/ogp/${post.slug}`),
+    author: {
+      '@type': 'Person',
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: siteConfig.name,
+      logo: {
+        '@type': 'ImageObject',
+        url: absoluteUrl('/opengraph-image.png'),
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': absoluteUrl(`/blog/${post.slug}`),
+    },
+  };
+
   return (
     <div>
+      {/* 構造化データ (JSON-LD) */}
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <article className='min-h-[500px]'>
         {/* Icon */}
         {post.metadata.icon && (
