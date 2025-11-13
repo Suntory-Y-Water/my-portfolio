@@ -12,6 +12,8 @@
 
 ### 1. RSS Feedの情報補完
 
+**状態**: ✅ **実装済み** (2025-11-13)
+
 **現状の問題**
 - `src/app/rss.xml/route.ts` のtitleとdescriptionが"TODO"のまま
 
@@ -36,6 +38,8 @@
 
 ### 2. RSS Feed画像追加
 
+**状態**: ✅ **実装済み** (2025-11-13)
+
 **現状**
 - RSSに画像情報が含まれていない
 
@@ -58,6 +62,8 @@
 
 ### 3. OGP locale設定追加
 
+**状態**: ✅ **実装済み** (2025-11-13)
+
 **現状**
 - OGPにlocale情報が含まれていない
 
@@ -79,6 +85,8 @@ openGraph: {
 ---
 
 ### 4. Canonical URL設定
+
+**状態**: ✅ **実装済み** (2025-11-13)
 
 **現状**
 - ブログ記事ページにcanonical URLが設定されていない
@@ -170,6 +178,8 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 
 ### 7. 記事詳細ページのrobots設定
 
+**状態**: ✅ **実装済み** (2025-11-13)
+
 **現状**
 - 記事ページに画像プレビュー用のrobots設定がない
 
@@ -198,6 +208,8 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 ---
 
 ### 8. OGP site_name追加
+
+**状態**: ✅ **実装済み** (2025-11-13)
 
 **現状**
 - openGraphに`siteName`が設定されていない
