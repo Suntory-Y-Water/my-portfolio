@@ -159,13 +159,16 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 
 ### 6. Theme Color設定
 
+**状態**: ✅ **実装済み** (2025-11-13)
+
 **現状**
 - HTMLに`theme-color`メタタグが設定されていない
 
 **改善案**
 ```typescript
 // src/app/layout.tsx の <head> 内に追加
-<meta name="theme-color" content="#333333" />
+<meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#1f1f1f" media="(prefers-color-scheme: dark)" />
 ```
 
 **参考実装**: `sapper-blog-app/app/src/app.html:6`
@@ -173,6 +176,8 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 **影響範囲**
 - モバイルブラウザのUIテーマ色の制御
 - ブランドカラーの一貫性向上
+
+**実装詳細**: `src/app/layout.tsx:55-56`
 
 ---
 
@@ -235,6 +240,8 @@ openGraph: {
 
 ### 9. 構造化データ(JSON-LD)の追加
 
+**状態**: ✅ **実装済み** (2025-11-13)
+
 **現状**
 - Schema.org形式の構造化データが実装されていない
 
@@ -254,7 +261,20 @@ const jsonLd = {
   description: post.metadata.description,
   author: {
     '@type': 'Person',
-    name: siteConfig.author,
+    name: siteConfig.name,
+    url: siteConfig.url,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: siteConfig.name,
+    logo: {
+      '@type': 'ImageObject',
+      url: absoluteUrl('/opengraph-image.png'),
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': absoluteUrl(`/blog/${post.slug}`),
   },
   image: absoluteUrl(`/blog/ogp/${post.slug}`),
 };
@@ -266,6 +286,8 @@ const jsonLd = {
 - Google検索でのリッチスニペット表示
 - 検索結果でのCTR向上
 - ナレッジグラフへの情報提供
+
+**実装詳細**: `src/app/blog/[slug]/page.tsx:78-112`
 
 ---
 
@@ -328,15 +350,15 @@ const jsonLd = {
 
 ## 実装優先順位の推奨順序
 
-1. RSS Feedの情報補完 (即座に実施)
-2. RSS Feed画像追加 (即座に実施)
-3. Canonical URL設定 (重要)
-4. OGP locale設定追加
-5. 記事詳細ページのrobots設定
-6. OGP site_name追加
+1. ✅ RSS Feedの情報補完 (即座に実施) - **実装済み**
+2. ✅ RSS Feed画像追加 (即座に実施) - **実装済み**
+3. ✅ Canonical URL設定 (重要) - **実装済み**
+4. ✅ OGP locale設定追加 - **実装済み**
+5. ✅ 記事詳細ページのrobots設定 - **実装済み**
+6. ✅ OGP site_name追加 - **実装済み**
 7. Web App Manifest追加 (PWA対応を視野に入れる場合)
-8. Theme Color設定
-9. 構造化データ(JSON-LD)の追加 (リッチスニペット狙い)
+8. ✅ Theme Color設定 - **実装済み** (2025-11-13)
+9. ✅ 構造化データ(JSON-LD)の追加 (リッチスニペット狙い) - **実装済み** (2025-11-13)
 10. Markdown版のダウンロードリンク (ユーザー体験向上)
 11. rel="author"リンクの追加
 

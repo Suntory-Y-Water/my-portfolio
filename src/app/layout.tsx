@@ -52,6 +52,16 @@ export default function RootLayout({
           name='google-site-verification'
           content='pd5OEQeX8d8I7AOZbR5U3SPIyZyXYxd392aatHH48yk'
         />
+        <meta
+          name='theme-color'
+          content='#fafafa'
+          media='(prefers-color-scheme: light)'
+        />
+        <meta
+          name='theme-color'
+          content='#1f1f1f'
+          media='(prefers-color-scheme: dark)'
+        />
       </head>
       <body>
         <ThemeProvider
