@@ -64,6 +64,22 @@
 }
 
 /* Markdown Content Styles - matching mdx-components.tsx */
+
+/* Code blocks - matching CodeBlock component */
+.markdown-content pre {
+  @apply my-6 overflow-x-auto rounded-lg border border-border/50 bg-muted p-4;
+  max-width: 100%;
+}
+
+.markdown-content pre code {
+  @apply block text-sm leading-relaxed;
+}
+
+/* Inline code - matching mdx-components code styling */
+.markdown-content :not(pre) > code {
+  @apply relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-medium text-foreground/90;
+}
+
 .markdown-content h2 {
   @apply mt-12 scroll-m-20 border-b-2 border-border/50 pb-2 text-2xl font-bold tracking-tight first:mt-0;
 }

@@ -273,7 +273,7 @@ export function convertZennToMdx(markdown: string): string {
       }
 
       // <Callout>コンポーネントを生成
-      return `> [!${CALLOUTTYPE}]
+      return `> [!NOTE]
 > \n${indentedContent}\n\n`;
     }
   );

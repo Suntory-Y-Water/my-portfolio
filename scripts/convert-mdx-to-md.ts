@@ -27,7 +27,16 @@ function convertMdxToMd(mdxContent: string): { content: string; stats: { linkPre
   content = content.replace(/<Callout\s+type=['"](.*?)['"]\s+title=['"](.*?)['"]\s*>([\s\S]*?)<\/Callout>/g, (match, type, title, content) => {
     calloutCount++;
     const trimmedContent = content.trim();
-    const alertType = type.toUpperCase();
+    // Map Callout types to supported GFM Alert types
+    const typeMap: Record<string, string> = {
+      'info': 'NOTE',
+      'note': 'NOTE',
+      'warning': 'WARNING',
+      'danger': 'CAUTION',
+      'tip': 'TIP',
+      'important': 'IMPORTANT',
+    };
+    const alertType = typeMap[type.toLowerCase()] || 'NOTE';
     // Convert to GFM Alerts format
     return `> [!${alertType}]${title ? `\n> **${title}**` : ''}\n> ${trimmedContent.replace(/\n/g, '\n> ')}`;
   });

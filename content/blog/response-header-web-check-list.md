@@ -52,7 +52,7 @@ https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Strict-Transpor
 この攻撃は、公共Wi-Fiなどの信頼できないネットワークで非常に危険です。
 ユーザーはHTTPSの鍵アイコンを見ないかもしれませんが、多くの場合そのような細かい点を見落としがちです。
 
-> [!INFO]
+> [!NOTE]
 > 公共Wi-Fiを接続するときは鍵アイコン(HTTPS)が設定されていることを確認しましょう。
 
 ### HSTSの仕組みと効果

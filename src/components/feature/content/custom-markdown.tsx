@@ -2,7 +2,7 @@ import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
-import remarkGithubBlockquoteAlert from 'remark-github-blockquote-alert';
+import { remarkAlert } from 'remark-github-blockquote-alert';
 import remarkLinkCard from 'remark-link-card';
 import remarkRehype from 'remark-rehype';
 import rehypeSlug from 'rehype-slug';
@@ -31,7 +31,7 @@ export async function CustomMarkdown({ source }: CustomMarkdownProps) {
       .use(remarkParse)
       .use(remarkGfm)
       .use(remarkBreaks)
-      .use(remarkGithubBlockquoteAlert)
+      .use(remarkAlert)
       .use(remarkLinkCard)
       .use(remarkRehype)
       .use(rehypeSlug)
