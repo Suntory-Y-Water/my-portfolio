@@ -1,0 +1,183 @@
+---
+title: iOSでもWindowsと同じ絵文字を表示したい！
+public: true
+date: 2025-03-30T00:00:00.000Z
+icon: >-
+  https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Smiling%20face%20with%20halo/Flat/smiling_face_with_halo_flat.svg
+slug: ios-kawaii-emoji
+tags:
+  - 絵文字
+description: "絵文字は私たちのデジタルコミュニケーションに欠かせない存在ですが、同じ絵文字コードでもOSによって見た目が大きく異なります。例えば「\U0001FAE0」（溶ける顔）や「\U0001F60E」（サングラスの顔）は、iOSとWindowsで全く異なるデザインです。本記事では、Webアプリケーション上でOSに関係なく統一した絵文字表示を実現するため、MicrosoftのFluent UI Emojiを使った実装方法を解説します。"
+---
+
+## iOSとWindowsでの絵文字差異
+
+絵文字はUnicodeで定義されています。
+Unicodeでは絵文字ごとに固有のコードポイント(番号)が割り当てられており、これによってデバイス間で同じ絵文字が識別されます。
+
+- 😎 : U+1F60E
+- 😂 : U+1F602
+
+Unicodeはデザインを指定していません。
+「😎＝サングラスをかけた顔」という意味は統一されていますが、「どんなサングラスをかけるか」「表情はどうするか」などは各プラットフォームごとで自由にデザインできます。
+これは意図的な設計選択であり、各企業が自社のデザイン言語に合わせた絵文字スタイルを開発できるようにしています。例えば以下のような違いがあります。
+
+- Appleの絵文字：光沢のある3D調デザインが特徴
+- Microsoftの絵文字：Fluent Design Systemに準拠したフラットでカラフルなデザイン
+- Googleの絵文字：Material Designに基づいたシンプルなアウトラインと鮮やかな色使い
+
+実際に絵文字の違いを見ていきましょう。
+例えば「😎＝サングラスをかけた顔」の絵文字はiOSではこのようなアイコンになっています。
+![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9132.jpeg-1743294181758.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9132.jpeg-1743294181758.png)
+
+WindowsのPCで見たときはこのようなアイコンになっています。
+![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9133.jpeg-1743294181758.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9133.jpeg-1743294181758.png)
+これはMicrosoftのFluent UI Emojiコレクションの一部です。
+このコレクションはオープンソースで公開されており、以下のリポジトリからダウンロードできます。
+
+[https://github.com/microsoft/fluentui-emoji](https://github.com/microsoft/fluentui-emoji)
+
+以下のWebサイトで各アイコンの比較をすることができます。
+
+[https://fluentemoji.com/](https://fluentemoji.com/)
+どちらの絵文字も可愛いんですが、個人的にはFluent UI
+Emojiのほうが可愛いですよね！？
+ということで私のポートフォリオに表示しているブログページのアイコンを、Fluent UI
+Emojiにしていきましょう。
+
+## Fluent Emojiの概要
+
+絵文字は[Fluent Emoji](https://fluentemoji.com/)で公開されているSVGを使用します。
+例えば、「😎」は以下のようなURLで定義されています。途中の`%20`は半角スペースです。
+
+```bash
+https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Smiling%20face%20with%20sunglasses/Flat/smiling_face_with_sunglasses_flat.svg
+```
+
+各絵文字は`/assets/{slug}/{style}/{slug}_{style}.svg`という定義に成り立っているので、それにあわせて絵文字を`fetch`します。
+今回はFlatアイコンのみを使用するので、`style`の箇所は`flat`固定です。
+
+絵文字のslug特定には`unicode-emoji-json`を使用します。
+
+```bash
+pnpm add unicode-emoji-json
+```
+
+以下は`unicode-emoji-json`の構造体です。絵文字アイコンに紐づいて`slug`が設定されています。
+
+```json
+{
+  "😀": {
+    "name": "grinning face",
+    "slug": "grinning_face",
+    "group": "Smileys & Emotion",
+    "emoji_version": "1.0",
+    "unicode_version": "1.0",
+    "skin_tone_support": false
+  }
+}
+```
+
+## 変換ロジックの作成
+
+絵文字の構造体が分かったところで、実際に絵文字アイコンを`unicode-emoji-json`を利用して変換する処理を実装していきましょう。
+絵文字の構造体を見るに、各絵文字に紐づいている状態なので以下のような実装で`slug`等を取得できます。
+
+```typescript
+import emojiData from 'unicode-emoji-json';
+
+type Emoji = {
+  name: string;
+  slug: string;
+  group: string;
+  emoji_version: string;
+  unicode_version: string;
+  skin_tone_support: boolean;
+};
+
+async function getValidFluentEmojiUrl(icon: string) {
+  const emojiInfo = emojiData[icon as keyof typeof emojiData];
+
+  if (!emojiInfo) {
+    return icon;
+  }
+
+  // URLを生成
+  const url = generateFluentEmojiUrl(emojiInfo);
+
+  // URLが有効かどうかを確認
+  const isValid = await checkUrlValidity(url);
+
+  if (!isValid) {
+    return icon;
+  }
+
+  return url;
+}
+```
+
+絵文字が取得できたら、各絵文字のURLを取得していきます。
+注意点としては、2015年頃に人の顔や手足などを表す絵文字の一部で、ユーザーが肌の色（スキントーン）を選べるようになりました。その影響で一部絵文字のURLが異なっています。
+
+(公式サイトから引用しようとしたらページが削除されていました…)
+
+[https://internet.watch.impress.co.jp/docs/news/697088.html](https://internet.watch.impress.co.jp/docs/news/697088.html)
+肌の色を選ぶことができる絵文字は`skin_tone_support`が`ture`のものが対象です。
+
+今回は初期設定のデフォルトを選択します。
+
+```typescript
+function generateFluentEmojiUrl(emojiInfo: Emoji) {
+  const { name, slug, skin_tone_support } = emojiInfo;
+
+  // ディレクトリ名は最初の単語の先頭のみ大文字、残りは小文字
+  // grinning face -> Grinning face
+  const dirName = name.charAt(0).toUpperCase() + name.slice(1);
+
+  const encodedDirName = dirName.replace(/ /g, '%20');
+
+  if (!skin_tone_support) {
+    return `https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/${encodedDirName}/Flat/${slug}_flat.svg`;
+  }
+
+  return `https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/${encodedDirName}/Default/Flat/${slug}_flat_default.svg`;
+}
+```
+
+最後に絵文字の有効性を確認します。
+もしURLが異なっていたり、アイコンがなくなっているときは入力元のアイコンを表示したいので、fetchして正常終了するか確認していきましょう。
+
+```typescript
+async function checkUrlValidity(url: string) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      return false;
+    }
+    return true;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : '不明なエラー';
+    console.error(
+      `URLの有効性チェックに失敗しました: ${url} message: ${message}`
+    );
+    return false;
+  }
+}
+```
+
+上記のソースコードを実装したものを、以下の記事で紹介したロジックに追加して記事を追加します。
+
+[https://suntory-n-water.com/blog/messaging-api-github-pr](https://suntory-n-water.com/blog/messaging-api-github-pr)
+確認したところ、iOSで[Fluent
+Emoji](https://fluentemoji.com/)の内容が反映されていますね。
+![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9137.png-1743294181758.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9137.png-1743294181758.png)
+
+見づらいですが救急車と波がiOSのものではないことが確認できます。
+![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9138.jpeg-1743294181758.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9138.jpeg-1743294181758.png)
+
+## まとめ
+
+- 絵文字はUnicodeで統一的に定義されていますが、実際の表示デザインはプラットフォームによって異なる。
+- iOSでも[Fluent Emoji](https://fluentemoji.com/)を使うことで、Windowsで表示される絵文字と同様のものを使用できる。
+- MicrosoftのFluent UI Emojiはオープンソースで提供されており、Webアプリケーションで利用可能。
+- `unicode-emoji-json`ライブラリを利用して絵文字コードからFluent Emojiへのマッピングを実装できます

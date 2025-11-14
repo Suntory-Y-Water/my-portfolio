@@ -1,12 +1,14 @@
 ---
 title: 「Webサービス公開前のチェックリスト」にあるレスポンスヘッダの内容を調べてみる
 public: true
-date: 2025-03-28
-icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ambulance/Flat/ambulance_flat.svg
+date: 2025-03-28T00:00:00.000Z
+icon: >-
+  https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ambulance/Flat/ambulance_flat.svg
 slug: response-header-web-check-list
 tags:
   - セキュリティ
-description: Webサービス公開前のチェックリストにあるレスポンスヘッダの意味が全くわからなかったので、どんなリスクから守ってくれるのかを調べてみました。この記事ではWebサービスを公開する前に必要なレスポンスヘッダの内容と設定しなかったときのリスクを知ることができます。
+description: >-
+  Webサービス公開前のチェックリストにあるレスポンスヘッダの意味が全くわからなかったので、どんなリスクから守ってくれるのかを調べてみました。この記事ではWebサービスを公開する前に必要なレスポンスヘッダの内容と設定しなかったときのリスクを知ることができます。
 ---
 
 ## はじめに
@@ -51,7 +53,7 @@ HTTP Strict Transport Security (HSTS) は、Webサイトが「HTTPS接続のみ�
 この攻撃は、公共Wi-Fiなどの信頼できないネットワークで非常に危険です。
 ユーザーはHTTPSの鍵アイコンを見ないかもしれませんが、多くの場合そのような細かい点を見落としがちです。
 
-> [!NOTE]
+> [!INFO]
 > 公共Wi-Fiを接続するときは鍵アイコン(HTTPS)が設定されていることを確認しましょう。
 
 ### HSTSの仕組みと効果

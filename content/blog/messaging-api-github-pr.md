@@ -1,0 +1,445 @@
+---
+title: LINE Messaging APIから自動でGitHubにPRを発行する
+public: true
+date: 2025-03-20T00:00:00.000Z
+icon: >-
+  https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire/Flat/fire_flat.svg
+slug: messaging-api-github-pr
+tags:
+  - LINE Messaging API
+  - Cloudflare Workers
+  - Notion
+description: >-
+  ポートフォリオの技術記事投稿頻度をあげるためにNotion + Messaging APIでブログ記事を自動でPull
+  Requestを発行できるようにしました。mdxファイルの作成はnotion-markdown-converterを使用しています。
+---
+
+## Cloudflare Workersにサーバを構築する
+
+LINE Messaging APIにリクエストを送信するためのサーバーとして、Cloudflare Workersを利用します。
+Cloudflare Workersは、Cloudflareが提供するサーバーレスプラットフォームであり、エッジ（CDNの拠点）で直接コードを実行できるサービスです。
+このサービスを活用することで、従来のサーバーやクラウドインスタンスを使用する代わりに、Cloudflareのグローバルネットワーク上でコードが動作し、高速かつスケーラブルな処理が可能になります。
+
+### 技術選定の理由
+
+サーバーレスプラットフォームでは一般的に、コールドスタートと呼ばれる問題が発生します。
+コールドスタートとは、サーバーレス環境で初めて関数を呼び出したときに、その関数を実行するために必要なコンテナが起動されるまでに時間がかかる現象です。
+この結果、初回の呼び出しは遅延が発生し、パフォーマンスが低下することがあります。
+
+Cloudflare Workersの最大の利点は、このコールドスタートが発生せず、初回アクセス時でも高速に処理が実行される点にあります。
+この特性は、LINE Messaging APIのような即時応答が求められるサービスに最適です。
+詳しい解説は以下の記事が参考になります。
+
+[https://zenn.dev/msy/articles/4c48d9d9e06147](https://zenn.dev/msy/articles/4c48d9d9e06147)
+
+## 実装したソースコード
+
+今回の実装では、LINE Messaging APIのWebhook URLとしてエンドポイントを設定しています。
+セキュリティを考慮して、このWorkersは他LINEユーザーやNotionのページURL以外のリクエストを受け付けないよう、必要最低限のバリデーションチェックを実装しています。
+ソースコードは以下のリポジトリで公開しています。
+
+[https://github.com/Suntory-Y-Water/blog-worker](https://github.com/Suntory-Y-Water/blog-worker)
+
+### メインロジックをctx.waitUntil()でラップ
+
+LINE Messaging APIの仕様上、botからのリクエストから2秒以内を目安にHTTPステータスコード200をレスポンスすることが推奨されています。
+この時間制約を守らない場合、LINE Messaging APIからタイムアウトエラーが返却される可能性があります。
+
+[https://developers.line.biz/ja/docs/partner-docs/development-guidelines/#webhook-flow-image](https://developers.line.biz/ja/docs/partner-docs/development-guidelines/#webhook-flow-image)
+通常のWorkers環境では、処理に2秒以上かかるとLINE Messaging
+APIとの通信がタイムアウトするため、エラーが発生します。
+[https://developers.line.biz/ja/docs/partner-docs/development-guidelines/#error-notification](https://developers.line.biz/ja/docs/partner-docs/development-guidelines/#error-notification)
+
+この問題を解決するために、重たい非同期処理を`ctx.waitUntil()`でラップしています。これにより、メインの処理フローは即座にレスポンスを返し、バックグラウンドで非同期処理を継続することが可能になります。
+
+[https://developers.cloudflare.com/workers/runtime-apis/context/#waituntil](https://developers.cloudflare.com/workers/runtime-apis/context/#waituntil)
+
+以下の実装ではNotion APIからのデータ取得、マークダウン変換、MDXファイル作成といった時間のかかる処理を`ctx.waitUntil()`内で実行しています。
+
+```typescript title="index.ts"
+import type { WebhookRequestBody } from '@line/bot-sdk';
+import { $getPageFullContent } from '@notion-md-converter/core';
+import { NotionZennMarkdownConverter } from '@notion-md-converter/zenn';
+import { Client } from '@notionhq/client';
+import { sendMessage } from './lib/line-lib';
+
+import type { NotionResponse } from './types';
+
+import { createGithubPr } from './lib/github-lib';
+import { createMdxContent } from './lib/mdx-lib';
+
+export default {
+  async fetch(request, env, ctx): Promise<Response> {
+    try {
+      // LINEのWebhookを受け取る
+      const body = await request.json<WebhookRequestBody>();
+
+      if (body.events && body.events.length > 0) {
+        const event = body.events[0];
+        if (event.type !== 'message' || event.message.type !== 'text') {
+          return new Response('テキストメッセージを送信してください', {
+            status: 400,
+          });
+        }
+
+        const text = event.message.text;
+
+        const notionPageUrlRegex = /^https:\/\/www\.notion\.so\/.+/;
+        if (!notionPageUrlRegex.test(text)) {
+          return new Response('notionのページURLを指定してください', {
+            status: 400,
+          });
+        }
+
+        const pageId = text.split('?')[0].split('/').pop()?.slice(-32);
+
+        if (!pageId) {
+          return new Response('notionのページURLを指定してください', {
+            status: 400,
+          });
+        }
+
+        ctx.waitUntil(
+          (async () => {
+            try {
+              // notion clientを使用して、ページのメタデータを取得
+              const client = new Client({
+                auth: env.NOTION_API_KEY,
+              });
+
+              const page = (await client.pages.retrieve({
+                page_id: pageId,
+              })) as NotionResponse;
+
+              const title = page.properties.title.title[0].plain_text;
+              const date = page.properties.date.last_edited_time;
+              const description =
+                page.properties.description.rich_text[0].plain_text;
+              const icon = page.icon.emoji;
+              const tags = page.properties.tags.multi_select.map(
+                (tag) => tag.name
+              );
+              const slug = page.properties.slug.rich_text[0].plain_text;
+              const isPublic = page.properties.public.checkbox;
+
+              // Notionのページ内容を取得
+              const content = await $getPageFullContent(client, pageId);
+
+              // Zenn形式に変換
+              const executor = new NotionZennMarkdownConverter();
+              const markdown = executor.execute(content);
+
+              // MDXファイルを生成
+              const mdxContent = createMdxContent(
+                title,
+                isPublic,
+                date,
+                icon,
+                slug,
+                tags,
+                description,
+                markdown
+              );
+
+              // GitHubにPRを作成
+              const branchName = await createGithubPr(
+                env.GITHUB_TOKEN,
+                mdxContent,
+                slug
+              );
+
+              // 完了メッセージをLINEに送信
+              const replyText = `GitHubのPRを作成しました！\nブランチ名 : ${branchName}\n以下のURLからPull Requestを確認して下さい。\nhttps://github.com/Suntory-Y-Water/my-portfolio/compare/main...${branchName}`;
+              await sendMessage({
+                message: replyText,
+                replyToken: event.replyToken,
+                accessToken: env.LINE_CHANNEL_ACCESS_TOKEN,
+              });
+            } catch (error) {
+              const message =
+                error instanceof Error ? error.message : 'unknown error';
+              return new Response(message, { status: 500 });
+            }
+          })()
+        );
+
+        return new Response('ok!', { status: 200 });
+      }
+
+      return new Response('LINE経由でテキストメッセージを送信してください', {
+        status: 400,
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'unknown error';
+      return new Response(message, { status: 500 });
+    }
+  },
+} satisfies ExportedHandler<Env>;
+```
+
+### MDXファイル生成とコンポーネント変換
+
+Notionから取得したコンテンツは、そのままではブログに適した形式ではありません。そこで、以下の変換処理を実装しています。
+
+1. Zenn形式のマークダウンへの変換
+2. リンクカードコンポーネントへの変換
+3. コールアウトブロックの適切な形式への変換
+   これらの処理により、Notionで作成したコンテンツを自動的にブログ用のMDX形式に変換することが可能になりました。
+
+```typescript title="mdx-lib.ts"
+/**
+ * MDXファイルを生成する関数
+ * @param title 記事タイトル
+ * @param isPublic 公開設定
+ * @param date 日付
+ * @param icon アイコン
+ * @param slug スラッグ
+ * @param tags タグ配列
+ * @param description 説明
+ * @param markdown マークダウンコンテンツ
+ * @returns 生成されたMDXコンテンツ
+ */
+export function createMdxContent(
+  title: string,
+  isPublic: boolean,
+  date: string,
+  icon: string,
+  slug: string,
+  tags: string[],
+  description: string,
+  markdown: string
+): string {
+  // マークダウンをMDX形式に変換
+  const mdxContent = convertZennToMdx(markdown);
+  // マークダウン内の単独URLをLinkPreviewコンポーネントに変換
+  const transformedMdxContent = transformLinksToPreviewComponent(mdxContent);
+
+  // フロントマターの作成
+  // タグのインデントを統一（2スペース）
+  const tagsString = tags.map((tag) => `  - ${tag}`).join('\n');
+
+  // 日付を「YYYY-MM-DD」形式にフォーマット
+  const dateObj = new Date(date);
+  const formattedDate = `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}-${String(dateObj.getDate()).padStart(2, '0')}`;
+
+  // MDXファイルの作成（インデントなし、適切な改行あり）
+  return `---
+title: ${title}
+public: ${isPublic}
+date: ${formattedDate}
+icon: ${icon}
+slug: ${slug}
+tags: 
+${tagsString}
+description: ${description}
+---
+
+${transformedMdxContent}`;
+}
+
+/**
+ * Zennの:::messageブロックをMDXの<Callout>コンポーネントに変換する関数
+ * @param markdown Zenn形式のマークダウンテキスト
+ * @returns <Callout>コンポーネントを使用したMDX形式のテキスト
+ */
+export function convertZennToMdx(markdown: string): string {
+  // Zennの:::messageブロックを検出する正規表現
+  // :::message [type] で始まり、:::で終わるブロックを検出
+  const messageBlockRegex = /:::message(?:\s+([a-z]+))?\n([\s\S]*?):::/g;
+
+  // 変換処理
+  return markdown.replace(
+    messageBlockRegex,
+    (_, type: string | undefined, content: string | undefined) => {
+      // contentがundefinedの場合は空文字列にする
+      const safeContent = content || '';
+
+      // contentの前後の空白行を削除
+      const trimmedContent = safeContent.trim();
+
+      // 複数行のコンテンツを各行にインデントを追加して整形
+      const indentedContent = trimmedContent
+        .split('\n')
+        .map((line: string) => `  ${line}`)
+        .join('\n');
+
+      // typeの変換
+      // alert -> warning
+      // info -> info (default)
+      // typeが指定されていない場合は "info" とする
+      let calloutType = 'info';
+      if (type === 'alert') {
+        calloutType = 'warning';
+      } else if (type) {
+        calloutType = type;
+      }
+
+      // <Callout>コンポーネントを生成
+      return `> [!${CALLOUTTYPE}]
+> \n${indentedContent}\n\n`;
+    }
+  );
+}
+
+/**
+ * URLを検出する正規表現パターン
+ * 空白、改行、または特定の句読点で区切られたURLを検出する
+ */
+const URL_REGEX = /(https?:\/\/[^\s]+)/g;
+
+/**
+ * マークダウンリンク形式かどうかを判定する正規表現
+ */
+const MARKDOWN_LINK_REGEX = /\[.+?\]\(.+?\)/;
+
+/**
+ * URLから末尾の句読点などを除去する
+ * @param url URL文字列
+ * @returns クリーンアップされたURL
+ */
+function cleanUrl(url: string): string {
+  // URLの末尾にある句読点などを除去
+  return url.replace(/[.,;:!?)"'>}\]]$/, '');
+}
+
+/**
+ * 文字列が単独のURLかどうかを判定する
+ * （前後の空白を除いた上で、文字列全体がURLかどうか）
+ * @param text 判定する文字列
+ * @returns 単独のURLならtrue、そうでなければfalse
+ */
+function isStandaloneUrl(text: string): boolean {
+  const trimmed = text.trim();
+  const match = trimmed.match(URL_REGEX);
+
+  if (!match || match.length !== 1) {
+    return false;
+  }
+
+  const cleanedUrl = cleanUrl(match[0]);
+  return trimmed === match[0] || trimmed === cleanedUrl;
+}
+
+/**
+ * マークダウンテキスト内の単独URLを<LinkPreview />コンポーネントに変換する
+ *
+ * @param markdown 変換対象のマークダウンテキスト
+ * @returns 変換後のマークダウンテキスト
+ */
+export function transformLinksToPreviewComponent(markdown: string): string {
+  if (!markdown) return markdown;
+
+  // 行ごとに処理する
+  const lines = markdown.split('\n');
+
+  // 変換後の行を格納する配列
+  const transformedLines = lines.map((line) => {
+    // すでにマークダウンリンク形式 [text](url) になっている場合は変換しない
+    if (MARKDOWN_LINK_REGEX.test(line)) {
+      return line;
+    }
+
+    // 行が単独のURLかどうかをチェック
+    if (isStandaloneUrl(line)) {
+      const trimmed = line.trim();
+      const url = cleanUrl(trimmed);
+      return `[${url}](${url})`;
+    }
+
+    // それ以外の場合は元の行をそのまま返す
+    return line;
+  });
+
+  // 変換後の行を結合して返す
+  return transformedLines.join('\n');
+}
+```
+
+既存のライブラリを使用せずに独自の変換処理を実装した理由は、すでにフロントエンドで特定の形式のコンポーネントを用意しているためです。
+作成したブログページの例はこちらでご確認いただけます。
+
+[https://suntory-n-water.com/blog/add-blog-to-portfolio](https://suntory-n-water.com/blog/add-blog-to-portfolio)
+
+## GitHubにPRを発行する
+
+最後に変換したMDXファイルを自動的にGitHubリポジトリにプッシュし、Pull Requestを作成します。この処理には`Octokit`を使用しており、以下の手順で実行しています。
+
+1. メインブランチの最新コミットSHAを取得
+2. 新しいブランチを作成
+3. MDXファイルをBase64エンコードしてコミット
+4. 変更をプッシュしてPull Requestを準備
+
+```typescript title="github-lib.ts"
+import { Octokit } from '@octokit/rest';
+
+/**
+ * GitHubにファイルをコミットしてpushする関数
+ * @param githubToken GitHub APIアクセストークン
+ * @param mdxContent コミットするMDXコンテンツ
+ * @param slug 記事のスラッグ（URLパス）
+ * @returns 作成したブランチ名
+ */
+export async function createGithubPr(
+  githubToken: string,
+  mdxContent: string,
+  slug: string
+): Promise<string> {
+  try {
+    const octokit = new Octokit({ auth: githubToken });
+    const owner = 'Suntory-Y-Water';
+    const repo = 'my-portfolio';
+    const baseBranch = 'main';
+    const newBranchName = `blog-${slug}`;
+    const filePath = `src/content/blog/${slug}.mdx`;
+
+    // mainブランチの最新のコミットSHAを取得
+    const { data: refData } = await octokit.git.getRef({
+      owner,
+      repo,
+      ref: `heads/${baseBranch}`,
+    });
+    const mainSha = refData.object.sha;
+
+    // 新しいブランチを作成
+    await octokit.git.createRef({
+      owner,
+      repo,
+      ref: `refs/heads/${newBranchName}`,
+      sha: mainSha,
+    });
+    console.log(`ブランチを作成しました: ${newBranchName}`);
+
+    // ファイルの内容をエンコード（Cloudflare Workers対応版）
+    // TextEncoder/btoa を使用してBase64エンコード
+    const encoder = new TextEncoder();
+    const bytes = encoder.encode(mdxContent);
+    const base64Content = btoa(String.fromCharCode(...new Uint8Array(bytes)));
+
+    // ファイルをコミット
+    const { data: commitData } = await octokit.repos.createOrUpdateFileContents(
+      {
+        owner,
+        repo,
+        path: filePath,
+        message: `add: blog post: ${slug}`,
+        content: base64Content,
+        branch: newBranchName,
+      }
+    );
+    console.log(`コミットが作成されました: ${commitData.commit.sha}`);
+    return newBranchName;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'unknown error';
+    console.error('GitHubへのpushに失敗しました');
+    console.error(`message: ${message}`);
+    throw error;
+  }
+}
+```
+
+処理が完了すると、作成されたPull RequestのURLを含むメッセージをLINEに返信します。
+これにより、ユーザーはNotionからLINEボットにURLを送信するだけで、ブログ記事の公開準備が整うワークフローが実現しました。
+
+## まとめ
+
+今回の実装では、Cloudflare WorkersとLINE Messaging APIを組み合わせることで、記事作成から公開までのワークフローが大幅に効率化され、コンテンツ作成に集中できる環境が整いました。
