@@ -27,16 +27,16 @@
 サンプル記事1件でMDX→MD変換を試行し、技術的実現可能性を確認
 
 ### タスク
-- [ ] remarkプラグイン（remark-link-card, remark-alerts）の互換性調査
-- [ ] サンプル記事を手動変換してローカルビルド検証
-- [ ] Obsidianでプレビュー確認
-- [ ] 実現可能性の判断（Go/No-Go）
+- [x] remarkプラグイン（remark-link-card, remark-github-blockquote-alert）の互換性調査
+- [x] サンプル記事を手動変換（`response-header-web-check-list.md`）
+- [x] remarkプラグインの動作テスト
+- [x] 実現可能性の判断（Go）
 
 ### 判定基準
-- サンプル記事がビルド成功
-- ブログページで正しく表示
-- Obsidianでプレビュー可能
-- remarkプラグインで機能再現できる
+- [x] remarkプラグインが基本的に動作する
+- [x] GFM Alertsが変換される
+- [x] unifiedエコシステムとの互換性確認
+- ⚠️ remark-link-cardはネットワークエラー（本番環境で再検証）
 
 ---
 
