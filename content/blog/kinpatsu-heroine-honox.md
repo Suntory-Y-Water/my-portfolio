@@ -34,13 +34,13 @@ description: HonoXとCloudflare Workersを活用し、アニメの金髪ヒロ�
 
 開発したソースコードは、以下のGitHubリポジトリで公開しています。
 
-[https://github.com/Suntory-Y-Water/kinpatsu-heroine-com](https://github.com/Suntory-Y-Water/kinpatsu-heroine-com)
+https://github.com/Suntory-Y-Water/kinpatsu-heroine-com
 
 ## サイトの使い方
 
 「金髪ヒロイン.com」は実際にデプロイ済みですので、ぜひ一度アクセスして試してみてください。
 
-[https://kinpatsu-heroine.com/](https://kinpatsu-heroine.com/)
+https://kinpatsu-heroine.com/
 
 ### トップページ
 
@@ -498,11 +498,11 @@ Honoをベースにしているため、既存のHonoの知識やエコシステ
 
 ## 参考文献
 
-[https://zenn.dev/calloc134/articles/honox-thread-float-bbs](https://zenn.dev/calloc134/articles/honox-thread-float-bbs)
-[https://zenn.dev/yusukebe/articles/4d6297f3be121a](https://zenn.dev/yusukebe/articles/4d6297f3be121a)
-[https://zenn.dev/lifull/articles/86661ce204d665](https://zenn.dev/lifull/articles/86661ce204d665)
-[https://developers.annict.com/](https://developers.annict.com/)
-[https://orm.drizzle.team/](https://orm.drizzle.team/)
-[https://developers.cloudflare.com/workers/](https://developers.cloudflare.com/workers/)
-[https://developers.cloudflare.com/d1/](https://developers.cloudflare.com/d1/)
-[https://developers.cloudflare.com/r2/](https://developers.cloudflare.com/r2/)
+https://zenn.dev/calloc134/articles/honox-thread-float-bbs
+https://zenn.dev/yusukebe/articles/4d6297f3be121a
+https://zenn.dev/lifull/articles/86661ce204d665
+https://developers.annict.com/
+https://orm.drizzle.team/
+https://developers.cloudflare.com/workers/
+https://developers.cloudflare.com/d1/
+https://developers.cloudflare.com/r2/

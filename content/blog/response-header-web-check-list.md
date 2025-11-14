@@ -14,7 +14,7 @@ description: Webサービス公開前のチェックリストにあるレスポ�
 
 レスポンスヘッダの設定値をあまり気にしてきたことがなかったので、下記記事で公開されているレスポンスヘッダの内容を調べてみました。
 
-[https://zenn.dev/catnose99/articles/547cbf57e5ad28](https://zenn.dev/catnose99/articles/547cbf57e5ad28)
+https://zenn.dev/catnose99/articles/547cbf57e5ad28
 
 記載されている内容は下記の3つです。
 
@@ -34,7 +34,7 @@ HTTP Strict Transport Security (HSTS) は、Webサイトが「HTTPS接続のみ�
 従来のHTTP通信では、最初にHTTPでアクセスした後、サーバーからリダイレクトを受けてHTTPSに切り替えるというプロセスが一般的でした。
 この「HTTP→HTTPS」の移行過程に潜在的なセキュリティホールが存在していました。HSTSはこの問題を解決するために設計されています。
 
-[https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Strict-Transport-Security](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Strict-Transport-Security)
+https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Strict-Transport-Security
 
 ### 実際の攻撃(SSLストリッピング攻撃)
 
@@ -93,7 +93,7 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 
 中間者攻撃（MITM攻撃）とは、通信を行っている二者（例えばユーザーとウェブサイト）の間に第三者が入り込み、両者は互いに直接通信していると思っているのに、実際にはその第三者が通信を傍受・監視・改ざんしている状態を指します。
 
-[https://developer.mozilla.org/ja/docs/Glossary/MitM](https://developer.mozilla.org/ja/docs/Glossary/MitM)
+https://developer.mozilla.org/ja/docs/Glossary/MitM
 
 ### 基本的な仕組み
 
@@ -133,7 +133,7 @@ CSPは複数のディレクティブで構成されており、その中の一�
 
 これは「クリックジャッキング」と呼ばれる攻撃から保護するために導入されました。
 
-[https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors)
+https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors
 
 ### クリックジャッキング攻撃とその歴史
 

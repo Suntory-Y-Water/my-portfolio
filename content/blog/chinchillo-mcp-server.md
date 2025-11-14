@@ -16,12 +16,12 @@ description: Model Context Protocol (MCP) を使うと、AIアシスタントに
 
 いつも参考にしているブログで、サイコロを使った記事を発見しました。そのまま真似るのも面白みにかけるので、チンチロというギャンブル要素満載のサイコロゲームができるMCPサーバーを作ってみることにしました。
 
-[https://azukiazusa.dev/blog/typescript-mcp-server/](https://azukiazusa.dev/blog/typescript-mcp-server/)
+https://azukiazusa.dev/blog/typescript-mcp-server/
 
 MCPの説明は他の人が丁寧に書いているので省略します。
 私は上記のブログとこのあたりの記事を読んでキャッチアップしていました。
 
-[https://zenn.dev/smartround_dev/articles/02af1058e9f80f](https://zenn.dev/smartround_dev/articles/02af1058e9f80f)
+https://zenn.dev/smartround_dev/articles/02af1058e9f80f
 
 ## ロジックの概要
 
@@ -548,4 +548,4 @@ Claude Desktopを開くとMCPサーバーが使用可能になっています。
 
 今回使用したコードは以下のリポジトリに格納しています。
 
-[https://github.com/Suntory-Y-Water/chinchillo-mcp-server](https://github.com/Suntory-Y-Water/chinchillo-mcp-server)
+https://github.com/Suntory-Y-Water/chinchillo-mcp-server

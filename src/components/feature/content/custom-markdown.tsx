@@ -42,7 +42,7 @@ export async function CustomMarkdown({ source }: CustomMarkdownProps) {
 
     return (
       <div
-        className='markdown-content'
+        className='mdx-content'
         dangerouslySetInnerHTML={{ __html: String(result) }}
       />
     );

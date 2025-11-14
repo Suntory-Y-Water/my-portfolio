@@ -15,7 +15,7 @@ tags:
 
 このページは、[Next.js Minimal Blog](https://github.com/cakegaly/next-minimal-blog)を使用して作成しました。
 
-[https://zenn.dev/cakegaly/articles/next-minimal-blog-20250310](https://zenn.dev/cakegaly/articles/next-minimal-blog-20250310)
+https://zenn.dev/cakegaly/articles/next-minimal-blog-20250310
 
 既存のリポジトリに処理を追加したので、まだ**posts**ページの内容も残っている混沌とした状態ですが、ひとまず動くようになったので公開しています。
 
@@ -38,7 +38,7 @@ tags:
 現在はvercelドメインですが、個人ブログにするので独自ドメインを取得しようと考えてます。
 取得先は未定ですが、Cloudflare Registrarかな？
 
-[https://www.cloudflare.com/ja-jp/products/registrar/](https://www.cloudflare.com/ja-jp/products/registrar/)
+https://www.cloudflare.com/ja-jp/products/registrar/
 
 ### notion-md-converterを使ってNotion→mdxへのコンバート
 

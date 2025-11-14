@@ -17,10 +17,10 @@ function convertMdxToMd(mdxContent: string): { content: string; stats: { linkPre
   let calloutCount = 0;
   let imageCount = 0;
 
-  // Convert <LinkPreview url='...' /> to plain link
+  // Convert <LinkPreview url='...' /> to plain URL for remark-link-card
   content = content.replace(/<LinkPreview\s+url=['"](.*?)['"]\s*\/>/g, (match, url) => {
     linkPreviewCount++;
-    return `[${url}](${url})`;
+    return url;
   });
 
   // Convert <Callout type='...' title='...'>...</Callout> to GFM Alerts

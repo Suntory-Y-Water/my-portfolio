@@ -35,11 +35,11 @@ WindowsのPCで見たときはこのようなアイコンになっています�
 これはMicrosoftのFluent UI Emojiコレクションの一部です。
 このコレクションはオープンソースで公開されており、以下のリポジトリからダウンロードできます。
 
-[https://github.com/microsoft/fluentui-emoji](https://github.com/microsoft/fluentui-emoji)
+https://github.com/microsoft/fluentui-emoji
 
 以下のWebサイトで各アイコンの比較をすることができます。
 
-[https://fluentemoji.com/](https://fluentemoji.com/)
+https://fluentemoji.com/
 どちらの絵文字も可愛いんですが、個人的にはFluent UI
 Emojiのほうが可愛いですよね！？
 ということで私のポートフォリオに表示しているブログページのアイコンを、Fluent UI
@@ -121,7 +121,7 @@ async function getValidFluentEmojiUrl(icon: string) {
 
 (公式サイトから引用しようとしたらページが削除されていました…)
 
-[https://internet.watch.impress.co.jp/docs/news/697088.html](https://internet.watch.impress.co.jp/docs/news/697088.html)
+https://internet.watch.impress.co.jp/docs/news/697088.html
 肌の色を選ぶことができる絵文字は`skin_tone_support`が`ture`のものが対象です。
 
 今回は初期設定のデフォルトを選択します。
@@ -167,7 +167,7 @@ async function checkUrlValidity(url: string) {
 
 上記のソースコードを実装したものを、以下の記事で紹介したロジックに追加して記事を追加します。
 
-[https://suntory-n-water.com/blog/messaging-api-github-pr](https://suntory-n-water.com/blog/messaging-api-github-pr)
+https://suntory-n-water.com/blog/messaging-api-github-pr
 確認したところ、iOSで[Fluent
 Emoji](https://fluentemoji.com/)の内容が反映されていますね。
 ![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9137.png-1743294181758.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9137.png-1743294181758.png)

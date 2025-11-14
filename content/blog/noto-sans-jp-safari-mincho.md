@@ -16,7 +16,7 @@ description: SafariやiOSのGoogle Chromeだけフォントが明朝体に変わ
 font-familyに何も指定しなかった場合は、OS・ブラウザごとのデフォルトフォントが適用されます。
 大半のブラウザのデフォルトフォントは、ゴシック体ですが、macOSとiOS（iPhone、iPad）の標準ブラウザSafariだけはデフォルトフォントが明朝体になっています。
 
-[https://qiita.com/ksk1015/items/9d2028454ee144c64c60](https://qiita.com/ksk1015/items/9d2028454ee144c64c60)
+https://qiita.com/ksk1015/items/9d2028454ee144c64c60
 
 ## layout.tsxに複数指定しているけど、何故か崩れてしまう
 
@@ -100,7 +100,7 @@ export const fontPlemolJP35Console = localFont({
 
 `layout.tsx`でフォントを指定する箇所がbodyではなくhtmlタグに設定する必要があった
 
-[https://nextjs.org/docs/app/building-your-application/optimizing/fonts#with-tailwind-css](https://nextjs.org/docs/app/building-your-application/optimizing/fonts#with-tailwind-css)
+https://nextjs.org/docs/app/building-your-application/optimizing/fonts#with-tailwind-css
 
 ```typescript title="layout.tsx"
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -263,9 +263,9 @@ await Promise.allSettled(uploadPromises);
 `Promise.all()`ではなく`Promise.allSettled()`を選んだのは、一部の画像処理に失敗があっても他の処理を続行させるためです。
 ブログ記事の場合、一枚の画像が表示できなくても記事全体を表示できないよりはマシです。
 
-[https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Promise/all](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Promise/all)
+https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
 
-[https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled)
+https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled
 
 ### 最適な正規表現の活用
 
@@ -296,7 +296,7 @@ const uniqueUrls = [...new Set(urlsToProcess)];
 例えば同じ画像が10回使われていても、ネットワーク転送は1回で済みます。
 特にCloudflareのWorker環境では、CPUリソースよりもネットワークリクエストの方がコストが高いため、この最適化は重要です。
 
-[https://developers.cloudflare.com/workers/platform/limits/](https://developers.cloudflare.com/workers/platform/limits/)
+https://developers.cloudflare.com/workers/platform/limits/
 
 ### ファイル名の生成
 
