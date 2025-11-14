@@ -6,7 +6,7 @@ Obsidianでブログ記事を執筆できるようにする。
 
 ### 背景
 - **現状の課題**: Obsidianは標準MarkdownをサポートするがMDXは未サポート
-- **ニーズ**: PCがなくてもObsidianモバイルアプリで記事を執筆したい
+- **ニーズ**: Obsidianでブログを書きたい
 - **参考実装**: azukiazusa.dev（sapper-blog-app）のブログ構成
 
 ---
