@@ -16,7 +16,12 @@ import { visit } from 'unist-util-visit';
 export function rehypeCodeCopyButton() {
   return (tree: Root) => {
     visit(tree, 'element', (node: Element, index, parent) => {
-      if (node.tagName === 'pre' && index !== null && parent) {
+      if (
+        node.tagName === 'pre' &&
+        typeof index === 'number' &&
+        parent &&
+        Array.isArray(parent.children)
+      ) {
         // preタグを<div class="group relative">でラップ
         const wrapper: Element = {
           type: 'element',
