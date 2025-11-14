@@ -1,16 +1,19 @@
 ---
 title: Next.js + OpenNext.js をdevcontainerで起動しようとしたときにハマったこと
 public: false
-date: 2025-09-21
-icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Wrench/Flat/wrench_flat.svg
+date: 2025-09-21T00:00:00.000Z
+icon: >-
+  https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Wrench/Flat/wrench_flat.svg
 slug: nextjs-cloudflare-devcontainer-glibc-issue
-tags: 
+tags:
   - Next.js
   - Cloudflare
   - OpenNext.js
   - Docker
   - DevConatainers
-description: Debian 11 bullseyeベースのdevcontainerでNext.js 15 + OpenNext.jsの開発サーバーが起動せず、Debian 12 bookwormベースに変更して解決した事例。glibcバージョン要件とworkerdの実行互換について整理。
+description: >-
+  Debian 11 bullseyeベースのdevcontainerでNext.js 15 + OpenNext.jsの開発サーバーが起動せず、Debian
+  12 bookwormベースに変更して解決した事例。glibcバージョン要件とworkerdの実行互換について整理。
 ---
 
 

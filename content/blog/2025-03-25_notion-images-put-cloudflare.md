@@ -1,13 +1,18 @@
 ---
 title: Notionの画像(S3)をCloudflare R2に格納する
 public: true
-date: 2025-03-25
-icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Framed%20picture/Flat/framed_picture_flat.svg
+date: 2025-03-25T00:00:00.000Z
+icon: >-
+  https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Framed%20picture/Flat/framed_picture_flat.svg
 slug: notion-images-put-cloudflare
 tags:
   - Cloudflare Workers
   - Cloudflare
-description: Notionで作成されたマークダウンコンテンツには、Amazon S3に保存された画像へのリンクが含まれています。ブログ記事として公開する際に、これらの画像をCloudflare R2ストレージなどの外部ストレージに移行することで非公開ページの画像も表示することができます。この記事ではNotionのページに添付されている画像をCloudflare R2に格納する処理について解説します。
+description: >-
+  Notionで作成されたマークダウンコンテンツには、Amazon
+  S3に保存された画像へのリンクが含まれています。ブログ記事として公開する際に、これらの画像をCloudflare
+  R2ストレージなどの外部ストレージに移行することで非公開ページの画像も表示することができます。この記事ではNotionのページに添付されている画像をCloudflare
+  R2に格納する処理について解説します。
 ---
 
 

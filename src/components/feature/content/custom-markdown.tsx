@@ -8,6 +8,8 @@ import rehypeSlug from 'rehype-slug';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeStringify from 'rehype-stringify';
 import { rehypeLinkCard } from '@/lib/rehype-link-card';
+import { rehypeCodeCopyButton } from '@/lib/rehype-code-copy-button';
+import { MarkdownContent } from './markdown-content';
 
 interface CustomMarkdownProps {
   source: string;
@@ -37,15 +39,11 @@ export async function CustomMarkdown({ source }: CustomMarkdownProps) {
       .use(rehypeLinkCard)
       // @ts-expect-error: rehypePrettyCode type mismatch
       .use(rehypePrettyCode, rehypePrettyCodeOptions)
+      .use(rehypeCodeCopyButton)
       .use(rehypeStringify, { allowDangerousHtml: true })
       .process(source);
 
-    return (
-      <div
-        className='markdown-content'
-        dangerouslySetInnerHTML={{ __html: String(result) }}
-      />
-    );
+    return <MarkdownContent html={String(result)} />;
   } catch (error) {
     console.error('Error rendering Markdown:', error);
     return (

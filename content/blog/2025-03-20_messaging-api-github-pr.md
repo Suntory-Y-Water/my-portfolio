@@ -1,14 +1,17 @@
 ---
 title: LINE Messaging APIから自動でGitHubにPRを発行する
 public: true
-date: 2025-03-20
-icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire/Flat/fire_flat.svg
+date: 2025-03-20T00:00:00.000Z
+icon: >-
+  https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire/Flat/fire_flat.svg
 slug: messaging-api-github-pr
 tags:
   - LINE Messaging API
   - Cloudflare Workers
   - Notion
-description: ポートフォリオの技術記事投稿頻度をあげるためにNotion + Messaging APIでブログ記事を自動でPull Requestを発行できるようにしました。mdxファイルの作成はnotion-markdown-converterを使用しています。
+description: >-
+  ポートフォリオの技術記事投稿頻度をあげるためにNotion + Messaging APIでブログ記事を自動でPull
+  Requestを発行できるようにしました。mdxファイルの作成はnotion-markdown-converterを使用しています。
 ---
 
 

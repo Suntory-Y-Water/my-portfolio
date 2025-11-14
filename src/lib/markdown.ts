@@ -79,9 +79,13 @@ async function readMarkdownFile<T>(filePath: string): Promise<MDXData<T>> {
   const { data, content } = matter(rawContent);
   const relativePath = path.relative(process.cwd(), filePath);
 
+  // フロントマターにslugフィールドがあればそれを使用、なければファイル名から抽出
+  const slug = (data as Record<string, unknown>).slug as string | undefined;
+  const filenameSlug = path.basename(filePath, path.extname(filePath));
+
   return {
     metadata: data as Frontmatter<T>,
-    slug: path.basename(filePath, path.extname(filePath)),
+    slug: slug ?? filenameSlug,
     rawContent: content,
     filePath: relativePath,
   };
