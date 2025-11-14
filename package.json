@@ -33,7 +33,6 @@
     "clsx": "^2.1.1",
     "dayjs": "^1.11.19",
     "gray-matter": "^4.0.3",
-    "hast": "^1.0.0",
     "lucide-react": "^0.542.0",
     "next": "15.5.2",
     "next-themes": "^0.4.6",
@@ -54,6 +53,7 @@
   "devDependencies": {
     "@biomejs/biome": "^2.3.5",
     "@next/bundle-analyzer": "^16.0.3",
+    "@types/hast": "^3.0.4",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.4",
     "@types/react-dom": "^19.2.3",
