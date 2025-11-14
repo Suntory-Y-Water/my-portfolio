@@ -6,16 +6,25 @@
 ## 決定事項
 
 ### 1. LinkPreview実装方式
-**決定**: remarkプラグイン活用
+~~**決定**: remarkプラグイン活用~~
+
+**【変更: 2025-11-14】カスタムrehypeプラグイン実装**
 
 **理由**:
-- 保守性が高い（コミュニティによるメンテナンス）
-- 標準的な実装パターン
-- `remark-link-card`等の既存プラグインが利用可能
+- npmの`remark-link-card`はエラー時にURLが消失する問題
+- 既存の`getOGData` Server Actionを再利用可能
+- エラーハンドリングが確実（フォールバック表示）
+- SSGでビルド時にOG情報を取得・キャッシュ
+
+**実装内容**:
+- `src/lib/rehype-link-card.ts` でカスタムrehypeプラグイン
+- `@/actions/fetch-og-metadata`の`getOGData`を使用
+- `allowDangerousHtml`で静的HTML生成
+- エラー時はURLを消さずフォールバック表示
 
 **代替案**:
-- カスタムremarkプラグイン開発（保守コスト高）
-- 機能廃止（UX低下）
+- ~~カスタムremarkプラグイン開発（保守コスト高）~~ → 採用
+- 機能廃止（UX低下） → 不採用
 
 ---
 

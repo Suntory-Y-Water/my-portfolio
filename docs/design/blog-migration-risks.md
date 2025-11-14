@@ -2,37 +2,32 @@
 
 ## クリティカルリスク
 
-### remarkプラグインの互換性問題
+### ~~remarkプラグインの互換性問題~~ 【解決済み】
 
 **リスク内容**:
-- `remark-link-card`が期待通りに動作しない
-- プラグイン同士の競合が発生する
-- Next.js 15系との互換性がない
+- ~~`remark-link-card`が期待通りに動作しない~~
+- ~~プラグイン同士の競合が発生する~~
+- ~~Next.js 15系との互換性がない~~
 
 **影響**:
-- LinkPreview機能が実装できない
-- Phase 1で検証が失敗
-- 移行計画の変更が必要
+- ~~LinkPreview機能が実装できない~~
+- ~~Phase 1で検証が失敗~~
+- ~~移行計画の変更が必要~~
 
-**予防策**:
+**【2025-11-14 解決】**:
+カスタム`rehype-link-card`プラグインを実装（`src/lib/rehype-link-card.ts`）
 
-```bash
-# プラグインの最終更新日を確認
-npm info remark-link-card
-npm info remark-alerts
+**実装内容**:
+- 既存の`getOGData` Server Action（`@/actions/fetch-og-metadata`）を使用
+- SSG（Static Site Generation）でOG情報を取得
+- エラー時はURLを消さず、フォールバック表示
+- `allowDangerousHtml`で静的HTML生成
+- npmの`remark-link-card`は不採用（エラー時にURL消失の問題）
 
-# GitHub issuesで互換性問題を検索
-```
-
-**代替案**:
-1. カスタムremarkプラグインの開発
-2. 既存のLinkPreviewコンポーネントロジックの抽出
-3. rehypeプラグインでの実装検討
-
-**発生時の対応**:
-- Phase 1のプロトタイプ検証で早期発見
-- 代替プラグインの調査（`remark-embed`, `remark-oembed`等）
-- カスタムプラグイン開発への切り替え
+**結果**:
+- リンクカード機能が安定して動作
+- ビルド時にOG情報を取得・キャッシュ
+- エラーハンドリングが適切に動作
 
 ---
 

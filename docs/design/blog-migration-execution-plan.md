@@ -36,7 +36,7 @@
 - [x] remarkプラグインが基本的に動作する
 - [x] GFM Alertsが変換される
 - [x] unifiedエコシステムとの互換性確認
-- ⚠️ remark-link-cardはネットワークエラー（本番環境で再検証）
+- [x] ~~remark-link-cardはネットワークエラー~~ → カスタムrehype-link-card実装で解決
 
 ---
 
@@ -76,7 +76,9 @@ Next.jsのビルドシステムをMarkdown処理に移行
 ### 判定基準
 - [x] `pnpm run typecheck`パス
 - [x] `pnpm run lint`パス
-- ⚠️ ビルドテストはCIで確認（環境変数必要）
+- [x] カスタムrehype-link-card実装（`src/lib/rehype-link-card.ts`）
+- [x] allowDangerousHtml設定で静的HTML生成
+- [ ] ビルドテストは本番環境で確認
 
 ---
 
@@ -86,18 +88,23 @@ Next.jsのビルドシステムをMarkdown処理に移行
 変換後の記事が正しく表示されることを確認し、本番環境にデプロイ
 
 ### タスク
-- [ ] ローカルで全13記事の表示確認（LinkPreview, Callout, 画像, 目次）
+- [x] ローカルで全13記事の表示確認（LinkPreview, Callout, 画像, 目次）
+- [ ] リンクカードのレイアウト最終調整（元のlink-preview.tsxと完全一致）
+- [ ] コードブロックのコピーボタン実装（クライアントサイドまたはrehypeプラグイン）
 - [ ] Obsidian最終確認（ボルトとして開く、プレビュー、新規記事作成テスト）
-- [ ] 静的解析（typecheck, lint, check:tags）
+- [x] 静的解析（typecheck, lint, check:tags）
 - [ ] SEO・パフォーマンス確認（URL維持、OGP、JSON-LD、Lighthouse）
 - [ ] 本番環境へデプロイ
 
 ### 判定基準
-- 全記事が正しく表示
-- Obsidianで編集可能
-- 静的解析パス
-- Lighthouse Performance 90以上
-- URL変更なし
+- [x] 全記事が基本表示される
+- [x] リンクカードがOG情報を表示（レイアウト微調整中）
+- [ ] リンクカードが元のLinkPreviewと視覚的に一致
+- [ ] コードブロックにコピーボタンがある
+- [ ] Obsidianで編集可能
+- [x] 静的解析パス
+- [ ] Lighthouse Performance 90以上
+- [ ] URL変更なし
 
 ---
 
@@ -139,7 +146,9 @@ Obsidianで`content/blog/`に`.md`ファイルを作成、フロントマター�
 - [x] Phase 1: プロトタイプ検証
 - [x] Phase 2: 変換ツール開発
 - [x] Phase 3: ビルドシステム移行
-- [ ] Phase 4: テスト＆デプロイ（CIで確認）
+- [~] Phase 4: テスト＆デプロイ（レイアウト調整中）
+
+**最終更新**: 2025-11-14 (Session: claude/create-execution-plan-01NdG7dnUQbUY32R4iTwK7Au)
 
 ---
 

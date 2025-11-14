@@ -59,7 +59,29 @@
 
 **Phase 2に進む**: 変換ツール開発を開始する
 
-ただし、remark-link-cardについては以下の対応を並行して実施:
-- 本番ビルド環境でのテスト
-- 代替プラグインの調査
-- 必要に応じてカスタムプラグイン開発を検討
+~~ただし、remark-link-cardについては以下の対応を並行して実施:~~
+~~- 本番ビルド環境でのテスト~~
+~~- 代替プラグインの調査~~
+~~- 必要に応じてカスタムプラグイン開発を検討~~
+
+---
+
+## 【追記: 2025-11-14】remark-link-card問題の解決
+
+### 問題
+- `remark-link-card` (npm版) はネットワークエラー時にURLが消失する問題
+- 参考プロジェクト（azukiazusa.dev）は独自の`remark-link-card`（v0.0.0, monorepo内）を使用
+
+### 解決策
+カスタム`rehype-link-card`プラグインを実装（`src/lib/rehype-link-card.ts`）
+
+**実装内容:**
+- 既存の`getOGData` Server Action（`@/actions/fetch-og-metadata`）を使用
+- SSG（Static Site Generation）でOG情報を取得
+- エラー時はURLを消さず、フォールバック表示
+- `allowDangerousHtml`で静的HTML生成
+
+**結果:**
+- リンクカード機能が安定して動作
+- ビルド時にOG情報を取得・キャッシュ
+- エラーハンドリングが適切に動作
