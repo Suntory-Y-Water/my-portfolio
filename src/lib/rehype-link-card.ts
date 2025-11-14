@@ -149,10 +149,8 @@ function createLinkCardHTML(data: LinkCardData): string {
 
   return `<a ${linkAttrs}>
     <div class="flex flex-1 flex-col gap-2 p-4">
-      <div class="flex items-center gap-1">
-        <div class="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-          ${iconSection}
-        </div>
+      <div class="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+        ${iconSection}
       </div>
       <div class="flex-1">
         <h3 class="font-semibold leading-tight text-foreground transition-colors group-hover:text-accent">
