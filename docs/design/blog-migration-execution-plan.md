@@ -13,11 +13,11 @@
 ## Phase 0: 意思決定
 
 ### 決定事項
-- [ ] **LinkPreview実装**: remarkプラグイン活用 / カスタム開発 / 廃止
-- [ ] **フロントマター**: 現状維持 / azukiazusa.dev形式
-- [ ] **移行方式**: 一括移行 / 段階的移行
-- [ ] **画像管理**: Cloudflare R2維持 / content/配下に配置
-- [ ] ADRに記録
+- [x] **LinkPreview実装**: remarkプラグイン活用
+- [x] **フロントマター**: 現状維持
+- [x] **移行方式**: 一括移行
+- [x] **画像管理**: Cloudflare R2維持
+- [x] 意思決定を記録（`blog-migration-decisions.md`）
 
 ---
 
