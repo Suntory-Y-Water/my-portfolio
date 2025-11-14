@@ -65,17 +65,18 @@
 Next.jsのビルドシステムをMarkdown処理に移行
 
 ### タスク
-- [ ] 依存パッケージ追加（unified, remark-*, rehype-*）
-- [ ] `src/lib/markdown.ts`実装（`mdx.ts`をベースに作成）
-- [ ] コンポーネント修正（`custom-mdx.tsx` → `custom-markdown.tsx`）
-- [ ] ページコンポーネント修正（blog/[slug], blog, tags/[slug], sitemap）
-- [ ] `next.config.mjs`修正（pageExtensionsに.md追加）
-- [ ] ビルド・型チェック・Lintが全てパス
+- [x] 依存パッケージ追加（unified, remark-*, rehype-*）
+- [x] `src/lib/markdown.ts`実装（`mdx.ts`をベースに作成）
+- [x] コンポーネント修正（`custom-mdx.tsx` → `custom-markdown.tsx`）
+- [x] ページコンポーネント修正（全ファイル`@/lib/mdx` → `@/lib/markdown`）
+- [x] `next.config.mjs`修正（既に.md対応済み）
+- [x] 型チェック・Lintパス
+- [ ] ビルドテスト
 
 ### 判定基準
-- `pnpm run build`成功
-- `pnpm run typecheck`パス
-- `pnpm run lint`パス
+- [ ] `pnpm run build`成功
+- [x] `pnpm run typecheck`パス
+- [x] `pnpm run lint`パス
 
 ---
 

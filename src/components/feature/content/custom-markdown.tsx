@@ -35,6 +35,7 @@ export async function CustomMarkdown({ source }: CustomMarkdownProps) {
       .use(remarkLinkCard)
       .use(remarkRehype)
       .use(rehypeSlug)
+      // @ts-expect-error: rehypePrettyCode type mismatch
       .use(rehypePrettyCode, rehypePrettyCodeOptions)
       .use(rehypeStringify)
       .process(source);

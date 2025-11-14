@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { postsPerPage } from '@/config/blog';
 import { siteConfig } from '@/config/site';
-import { getAllBlogPosts, getAllTagSlugs } from '@/lib/mdx';
+import { getAllBlogPosts, getAllTagSlugs } from '@/lib/markdown';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || siteConfig.url;

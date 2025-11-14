@@ -95,13 +95,14 @@ function convertAllMdxFiles(sourceDir: string, targetDir: string, testMode = fal
       const parsed = matter(mdxContent, {
         engines: {
           yaml: {
-            parse: (str: string) => str, // Keep original YAML as string
-            stringify: (obj: unknown) => obj as string,
+            parse: (str: string) => ({ _raw: str }) as object,
+            stringify: (obj: any) => obj._raw as string,
           },
         },
       });
 
-      const { data: frontmatterStr, content } = parsed as { data: string; content: string };
+      const frontmatterStr = (parsed.data as any)._raw as string;
+      const { content } = parsed;
 
       // Convert MDX components to Markdown
       const { content: convertedContent, stats: conversionStats } = convertMdxToMd(content);

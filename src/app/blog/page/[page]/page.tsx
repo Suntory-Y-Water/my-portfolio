@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { BlogCard } from '@/components/feature/content/blog-card';
 import { Pagination } from '@/components/shared/pagination';
 import { postsPerPage } from '@/config/blog';
-import { getAllBlogPosts } from '@/lib/mdx';
+import { getAllBlogPosts } from '@/lib/markdown';
 import { getPaginatedBlogPosts } from '@/lib/pagination';
 
 interface BlogListPageProps {

@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 import type { NextRequest } from 'next/server';
 import { siteConfig } from '@/config/site';
-import { getBlogPostBySlug } from '@/lib/mdx';
+import { getBlogPostBySlug } from '@/lib/markdown';
 
 type ImageProps = {
   params: Promise<{ slug: string }>;
