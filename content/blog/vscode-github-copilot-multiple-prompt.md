@@ -1,18 +1,16 @@
 ---
 title: GitHub Copilotもルールを強制させる
 public: true
-date: 2025-04-24T00:00:00.000Z
-icon: >-
-  https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Airplane%20departure/Flat/airplane_departure_flat.svg
+date: 2025-04-24
+icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Airplane%20departure/Flat/airplane_departure_flat.svg
 slug: vscode-github-copilot-multiple-prompt
-tags:
+tags: 
   - GitHub
   - GitHub Copilot
   - Visual Studio Code
-description: >-
-  VSCodeで使えるGitHub Copilotでも
-  Cursorと同じようなルールを設定することができます。この記事では複数のルールを設定して開発を行う方法を解説します。
+description: VSCodeで使えるGitHub Copilotでも Cursorと同じようなルールを設定することができます。この記事では複数のルールを設定して開発を行う方法を解説します。
 ---
+
 
 GitHub Copilotでもカスタムルールを設定して、コード生成の品質を向上させることができます。
 この記事では、Cursorの「Project rules」と同様の機能をGitHub Copilot上で実現する方法を解説します。

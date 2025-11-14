@@ -1,14 +1,14 @@
 ---
 title: iOSでもWindowsと同じ絵文字を表示したい！
 public: true
-date: 2025-03-30T00:00:00.000Z
-icon: >-
-  https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Smiling%20face%20with%20halo/Flat/smiling_face_with_halo_flat.svg
+date: 2025-03-30
+icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Smiling%20face%20with%20halo/Flat/smiling_face_with_halo_flat.svg
 slug: ios-kawaii-emoji
 tags:
   - 絵文字
-description: "絵文字は私たちのデジタルコミュニケーションに欠かせない存在ですが、同じ絵文字コードでもOSによって見た目が大きく異なります。例えば「\U0001FAE0」（溶ける顔）や「\U0001F60E」（サングラスの顔）は、iOSとWindowsで全く異なるデザインです。本記事では、Webアプリケーション上でOSに関係なく統一した絵文字表示を実現するため、MicrosoftのFluent UI Emojiを使った実装方法を解説します。"
+description: 絵文字は私たちのデジタルコミュニケーションに欠かせない存在ですが、同じ絵文字コードでもOSによって見た目が大きく異なります。例えば「🫠」（溶ける顔）や「😎」（サングラスの顔）は、iOSとWindowsで全く異なるデザインです。本記事では、Webアプリケーション上でOSに関係なく統一した絵文字表示を実現するため、MicrosoftのFluent UI Emojiを使った実装方法を解説します。
 ---
+
 
 ## iOSとWindowsでの絵文字差異
 

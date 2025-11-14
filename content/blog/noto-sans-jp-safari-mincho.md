@@ -1,15 +1,15 @@
 ---
 title: NotoSansJP使ってるのにSafariのフォントが明朝体になる
 public: true
-date: 2025-03-21T00:00:00.000Z
-icon: >-
-  https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Pencil/Flat/pencil_flat.svg
+date: 2025-03-21
+icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Pencil/Flat/pencil_flat.svg
 slug: noto-sans-jp-safari-mincho
 tags:
   - Tailwind CSS
   - Next.js
 description: SafariやiOSのGoogle Chromeだけフォントが明朝体に変わってしまっている件。
 ---
+
 
 ## iOSのSafariだけFontが崩れる
 

@@ -1,17 +1,14 @@
 ---
 title: チンチロをするMCPサーバーを作ってみる
 public: true
-date: 2025-04-10T00:00:00.000Z
-icon: >-
-  https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Game%20die/Flat/game_die_flat.svg
+date: 2025-04-10
+icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Game%20die/Flat/game_die_flat.svg
 slug: chinchillo-mcp-server
 tags:
   - MCP
-description: >-
-  Model Context Protocol (MCP)
-  を使うと、AIアシスタントに新しい機能を追加できます。この記事では、サイコロゲーム「チンチロ」を例に、TypeScriptでMCPサーバーを実装し、Claude
-  Desktopで遊ぶ方法を紹介します。AIの進化が進む中、MCPの基本的な仕組みを実際に手を動かして学んでみましょう。
+description: Model Context Protocol (MCP) を使うと、AIアシスタントに新しい機能を追加できます。この記事では、サイコロゲーム「チンチロ」を例に、TypeScriptでMCPサーバーを実装し、Claude Desktopで遊ぶ方法を紹介します。AIの進化が進む中、MCPの基本的な仕組みを実際に手を動かして学んでみましょう。
 ---
+
 
 日進月歩でAIの進化が凄まじい日々を過ごしております。
 ここ2週間くらいでMCPに関する記事がかなり増えた印象を持ちましたので、「話題になってるなら実際に触ってみよう！」という単純な動機で手を動かしてみました。

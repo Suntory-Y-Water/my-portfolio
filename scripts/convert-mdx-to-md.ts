@@ -91,8 +91,17 @@ function convertAllMdxFiles(sourceDir: string, targetDir: string, testMode = fal
       // Read MDX file
       const mdxContent = readFileSync(sourcePath, 'utf-8');
 
-      // Parse frontmatter and content
-      const { data: frontmatter, content } = matter(mdxContent);
+      // Parse frontmatter and content with original formatting preserved
+      const parsed = matter(mdxContent, {
+        engines: {
+          yaml: {
+            parse: (str: string) => str, // Keep original YAML as string
+            stringify: (obj: unknown) => obj as string,
+          },
+        },
+      });
+
+      const { data: frontmatterStr, content } = parsed as { data: string; content: string };
 
       // Convert MDX components to Markdown
       const { content: convertedContent, stats: conversionStats } = convertMdxToMd(content);
@@ -102,8 +111,8 @@ function convertAllMdxFiles(sourceDir: string, targetDir: string, testMode = fal
       stats.calloutCount += conversionStats.callout;
       stats.imageCount += conversionStats.image;
 
-      // Reconstruct file with frontmatter
-      const output = matter.stringify(convertedContent, frontmatter);
+      // Reconstruct file with original frontmatter
+      const output = `---\n${frontmatterStr.trim()}\n---\n\n${convertedContent}`;
 
       // Write to target file
       writeFileSync(targetPath, output, 'utf-8');

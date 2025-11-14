@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { BlogCard } from '@/components/feature/content/blog-card';
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import { getAllBlogPosts } from '@/lib/mdx';
+import { getAllBlogPosts } from '@/lib/markdown';
 import { getPaginatedBlogPosts } from '@/lib/pagination';
 
 export default async function TopPage() {
