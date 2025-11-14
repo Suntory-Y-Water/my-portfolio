@@ -94,10 +94,14 @@
 
 .markdown-content a {
   @apply font-medium text-primary decoration-primary/30 underline-offset-4 hover:text-primary/80 hover:underline hover:decoration-primary/50;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .markdown-content p {
   @apply leading-7 text-foreground/90 [&:not(:first-child)]:mt-6;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .markdown-content ul {
@@ -145,24 +149,52 @@
   @apply my-6 rounded-lg border p-4 shadow-sm;
 }
 
+.markdown-content .markdown-alert > .markdown-alert-title {
+  @apply mb-2 flex items-center gap-2 font-semibold;
+}
+
+.markdown-content .markdown-alert > .markdown-alert-title svg {
+  @apply size-4 shrink-0;
+}
+
 .markdown-content .markdown-alert-note {
   @apply border-slate-200 bg-slate-50/50 dark:border-slate-800 dark:bg-slate-900/30;
+}
+
+.markdown-content .markdown-alert-note > .markdown-alert-title {
+  @apply text-slate-800 dark:text-slate-300;
 }
 
 .markdown-content .markdown-alert-tip {
   @apply border-green-200 bg-green-50/50 dark:border-green-900 dark:bg-green-950/30;
 }
 
+.markdown-content .markdown-alert-tip > .markdown-alert-title {
+  @apply text-green-800 dark:text-green-300;
+}
+
 .markdown-content .markdown-alert-important {
   @apply border-purple-200 bg-purple-50/50 dark:border-purple-900 dark:bg-purple-950/30;
+}
+
+.markdown-content .markdown-alert-important > .markdown-alert-title {
+  @apply text-purple-800 dark:text-purple-300;
 }
 
 .markdown-content .markdown-alert-warning {
   @apply border-amber-200 bg-amber-50/50 dark:border-amber-900 dark:bg-amber-950/30;
 }
 
+.markdown-content .markdown-alert-warning > .markdown-alert-title {
+  @apply text-amber-800 dark:text-amber-300;
+}
+
 .markdown-content .markdown-alert-caution {
   @apply border-red-200 bg-red-50/50 dark:border-red-900 dark:bg-red-950/30;
+}
+
+.markdown-content .markdown-alert-caution > .markdown-alert-title {
+  @apply text-red-800 dark:text-red-300;
 }
 
 /* remark-link-card styles */
