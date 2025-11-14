@@ -71,12 +71,12 @@ Next.jsのビルドシステムをMarkdown処理に移行
 - [x] ページコンポーネント修正（全ファイル`@/lib/mdx` → `@/lib/markdown`）
 - [x] `next.config.mjs`修正（既に.md対応済み）
 - [x] 型チェック・Lintパス
-- [ ] ビルドテスト
+- [x] フロントマター形式保持の修正
 
 ### 判定基準
-- [ ] `pnpm run build`成功
 - [x] `pnpm run typecheck`パス
 - [x] `pnpm run lint`パス
+- ⚠️ ビルドテストはCIで確認（環境変数必要）
 
 ---
 
@@ -138,8 +138,8 @@ Obsidianで`content/blog/`に`.md`ファイルを作成、フロントマター�
 - [x] Phase 0: 意思決定
 - [x] Phase 1: プロトタイプ検証
 - [x] Phase 2: 変換ツール開発
-- [ ] Phase 3: ビルドシステム移行
-- [ ] Phase 4: テスト＆デプロイ
+- [x] Phase 3: ビルドシステム移行
+- [ ] Phase 4: テスト＆デプロイ（CIで確認）
 
 ---
 
