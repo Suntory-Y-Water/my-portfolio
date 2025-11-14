@@ -32,12 +32,12 @@ export async function CustomMarkdown({ source }: CustomMarkdownProps) {
       .use(remarkGfm)
       .use(remarkBreaks)
       .use(remarkAlert)
-      .use(remarkRehype)
+      .use(remarkRehype, { allowDangerousHtml: true })
       .use(rehypeSlug)
       .use(rehypeLinkCard)
       // @ts-expect-error: rehypePrettyCode type mismatch
       .use(rehypePrettyCode, rehypePrettyCodeOptions)
-      .use(rehypeStringify)
+      .use(rehypeStringify, { allowDangerousHtml: true })
       .process(source);
 
     return (
