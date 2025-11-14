@@ -3,11 +3,11 @@ import remarkParse from 'remark-parse';
 import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
 import { remarkAlert } from 'remark-github-blockquote-alert';
-import remarkLinkCard from 'remark-link-card';
 import remarkRehype from 'remark-rehype';
 import rehypeSlug from 'rehype-slug';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeStringify from 'rehype-stringify';
+import { rehypeLinkCard } from '@/lib/rehype-link-card';
 
 interface CustomMarkdownProps {
   source: string;
@@ -32,9 +32,9 @@ export async function CustomMarkdown({ source }: CustomMarkdownProps) {
       .use(remarkGfm)
       .use(remarkBreaks)
       .use(remarkAlert)
-      .use(remarkLinkCard)
       .use(remarkRehype)
       .use(rehypeSlug)
+      .use(rehypeLinkCard)
       // @ts-expect-error: rehypePrettyCode type mismatch
       .use(rehypePrettyCode, rehypePrettyCodeOptions)
       .use(rehypeStringify)
