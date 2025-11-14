@@ -1,6 +1,6 @@
 # MDX to Markdown 移行ステータス
 
-最終更新: 2025-11-14
+最終更新: 2025-11-14 (Session: claude/create-execution-plan-01NdG7dnUQbUY32R4iTwK7Au)
 
 ## 完了した項目 ✅
 
@@ -35,6 +35,14 @@
 - [x] 型チェック、Lint通過
 - [x] Frontmatterの日付形式保持
 
+### リンクカード（基本機能）
+- [x] カスタム `rehype-link-card` プラグイン実装
+- [x] 既存の `getOGData` Server Actionを使用
+- [x] SSG（Static Site Generation）でOG情報取得
+- [x] エラーハンドリング（URLが消えない仕組み）
+- [x] ファビコン、タイトル、説明文の表示
+- [x] `allowDangerousHtml` でHTMLインジェクション対応
+
 ## 未完了の項目 ❌
 
 ### 1. コードブロックのコピーボタン
@@ -55,41 +63,28 @@
 **参考:**
 - 元の実装: `src/components/feature/content/code-block.tsx`
 
-### 2. リンクカード
+### 2. リンクカードのレイアウト調整
 
 **現状:**
-- `remark-link-card` プラグインを使用
-- ビルド時にネットワークリクエストでOG情報を取得する仕様
-- 開発環境でネットワークエラーが発生（`getaddrinfo EAI_AGAIN`）
+- カスタム `rehype-link-card` プラグインで基本機能は実装済み（`src/lib/rehype-link-card.ts`）
+- OG情報の取得は動作しているが、レイアウトが元のLinkPreviewコンポーネントと完全に一致していない
+- アイコン周りの配置、余白、スタイルが微妙にずれている
 
 **技術的課題:**
-- Next.js 15 Server Components のビルド時にネットワークアクセスが不安定
-- 外部URLへのリクエストがタイムアウトまたは失敗
-- 本番環境でも動作保証がない
+- rehypeプラグインで生成する静的HTMLと、元のReactコンポーネント（`link-preview.tsx`）のレイアウトを完全一致させる
+- TailwindクラスをHTML文字列として正確に再現する必要がある
+- ネストされたdiv構造、flex、gap、paddingの完全一致
 
-**参考プロジェクト:**
-- https://azukiazusa.dev/blog/claude-code-sandbox-feature/ では動作している
-- 実装方法の調査が必要
+**実装内容:**
+- `src/lib/rehype-link-card.ts` でカスタムrehypeプラグイン実装
+- `getOGData` Server Action（`@/actions/fetch-og-metadata`）を使用
+- エラー時はURLを消さず、フォールバック表示
+- ファビコン、タイトル、説明文、OGイメージを表示
 
-**解決策候補:**
-1. **別のプラグインを試す**
-   - `rehype-link-card` や他の代替プラグイン
-
-2. **独自実装（API Route）**
-   ```
-   クライアント → API Route → OG情報取得 → キャッシュ → 返却
-   ```
-   - Next.js の API Route でサーバーサイド取得
-   - Redis などでキャッシュ
-
-3. **クライアントサイド取得**
-   - ページ読み込み後に動的にOG情報を取得
-   - Intersection Observer で遅延読み込み
-
-4. **ビルド時の事前生成**
-   - ビルド時にすべてのURLのOG情報を取得
-   - 静的JSONファイルとして保存
-   - ランタイムで読み込み
+**参考:**
+- 元の実装: `src/components/feature/content/link-preview.tsx`（lines 56-90）
+- azukiazusa.devでは独自の `remark-link-card` パッケージ（v0.0.0, monorepo内）を使用
+- npmの `remark-link-card`（gladevise製）はエラー時にURL消失の問題があり不採用
 
 ## その他のメモ
 
@@ -108,14 +103,17 @@
 
 ## 次のアクション
 
-1. **リンクカード実装の調査**
-   - 参考プロジェクト（azukiazusa.dev）のソースコード確認
-   - 代替手段の評価
+1. **リンクカードのレイアウト完全一致**
+   - 元の `link-preview.tsx` と生成HTMLの完全一致を目指す
+   - アイコン、ファビコン、余白のピクセルパーフェクトな調整
+   - デプロイして実際のレンダリングを確認
 
 2. **コピーボタンの実装**
    - rehype プラグインでの実装を検討
    - またはクライアントサイドでの動的追加
+   - Web Components の検討
 
 3. **本番環境での動作確認**
-   - Vercel/Cloudflare などの本番環境でのビルド確認
-   - リンクカードが本番で動作するか検証
+   - Vercel でのビルド確認
+   - リンクカードのOG取得が本番で正常動作するか検証
+   - パフォーマンス計測
