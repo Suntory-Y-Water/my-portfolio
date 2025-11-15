@@ -14,8 +14,49 @@ type TableOfContentsProps = {
 
 /**
  * 記事の目次を表示するコンポーネント
- * h2とh3要素から階層構造を持った目次を生成します
- * 通常のアンカータグを使用してNext.jsのルーターを介さずに直接ジャンプします
+ *
+ * このコンポーネントはh2とh3要素から階層構造を持った目次を生成し、記事の上部に表示します。
+ * 目次項目をクリックすると、通常のアンカータグを使用してNext.jsのルーターを介さずに該当セクションに直接ジャンプします。
+ * 目次が空の場合は何も表示されません。
+ *
+ * @param items - 目次項目の配列。各項目にはid（見出しのID）、text（見出しテキスト）、level（見出しレベル）、items（サブ項目）が含まれます
+ * @param className - 追加のCSSクラス名（任意）。ボーダーやパディングなどのスタイルをカスタマイズする際に使用します
+ * @returns 目次コンポーネント。項目が空の場合はnullを返します
+ *
+ * @example
+ * ```tsx
+ * import { TableOfContents } from '@/components/feature/content/table-of-contents';
+ * import type { TOCItem } from '@/components/feature/content/table-of-contents';
+ *
+ * const tocItems: TOCItem[] = [
+ *   {
+ *     id: 'introduction',
+ *     text: '概要',
+ *     level: 2,
+ *     items: [
+ *       { id: 'what-is-react', text: 'Reactとは', level: 3 },
+ *       { id: 'why-react', text: 'なぜReactを使うのか', level: 3 },
+ *     ],
+ *   },
+ *   {
+ *     id: 'installation',
+ *     text: 'インストール',
+ *     level: 2,
+ *   },
+ * ];
+ *
+ * export default function BlogPost() {
+ *   return (
+ *     <article>
+ *       <TableOfContents items={tocItems} />
+ *       <div id='introduction'>
+ *         <h2>概要</h2>
+ *         ...
+ *       </div>
+ *     </article>
+ *   );
+ * }
+ * ```
  */
 export function TableOfContents({ items, className }: TableOfContentsProps) {
   if (items.length === 0) {
@@ -41,6 +82,33 @@ type TableOfContentsItemProps = {
   index: number;
 };
 
+/**
+ * 目次の個別項目を表示する内部コンポーネント
+ *
+ * このコンポーネントは目次の1つの項目（見出し）を表示し、サブ項目がある場合は再帰的に表示します。
+ * 項目番号を表示し、クリックすると該当セクションにスクロールします。
+ *
+ * @param item - 表示する目次項目。id、text、levelプロパティと、任意でサブ項目（items）を含みます
+ * @param index - 項目の番号（1から始まる）。目次のナンバリングに使用されます
+ * @returns 目次項目コンポーネント
+ *
+ * @example
+ * ```tsx
+ * // TableOfContentsコンポーネント内で自動的に使用されます
+ * const item = {
+ *   id: 'introduction',
+ *   text: '概要',
+ *   level: 2,
+ *   items: [
+ *     { id: 'what-is-react', text: 'Reactとは', level: 3 },
+ *   ],
+ * };
+ *
+ * <TableOfContentsItem item={item} index={1} />
+ * // 出力: 1. 概要
+ * //       1.1. Reactとは
+ * ```
+ */
 function TableOfContentsItem({ item, index }: TableOfContentsItemProps) {
   return (
     <li>

@@ -32,12 +32,18 @@ const buttonVariants = cva(
   },
 );
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
-}
+export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean;
+  };
 
+/**
+ * shadcn/ui ボタンコンポーネント
+ *
+ * @param variant - ボタンのスタイルバリアント（default, destructive, outline, secondary, ghost, link）
+ * @param size - ボタンのサイズ（default, sm, lg, icon）
+ * @param asChild - trueの場合、Radix UIのSlotコンポーネントとして描画
+ */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button';
