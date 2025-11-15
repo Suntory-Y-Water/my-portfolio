@@ -1,6 +1,5 @@
 ---
 title: GitHub Copilotもルールを強制させる
-public: true
 date: 2025-04-24
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Airplane%20departure/Flat/airplane_departure_flat.svg
 slug: vscode-github-copilot-multiple-prompt
@@ -12,8 +11,8 @@ description: VSCodeで使えるGitHub Copilotでも Cursorと同じようなル�
 ---
 
 
-GitHub Copilotでもカスタムルールを設定して、コード生成の品質を向上させることができます。
-この記事では、Cursorの「Project rules」と同様の機能をGitHub Copilot上で実現する方法を解説します。
+GitHub Copilot でもカスタムルールを設定して、コード生成の品質を向上させることができます。
+この記事では、Cursor の「Project rules」と同様の機能を GitHub Copilot 上で実現する方法を解説します。
 具体的には、複数のルールを設定して体系的に開発を進める手順を紹介します。
 
 
@@ -27,7 +26,7 @@ https://docs.github.com/ja/enterprise-cloud@latest/copilot/customizing-copilot/a
 
 ## ベースとなるルールの作成
 
-この記事では2つのルールを作成します。
+この記事では 2 つのルールを作成します。
 - 出力時の作法をまとめた基本ルール
 - フレームワークに関係しないベースとなるコーディングルール
 
@@ -157,21 +156,21 @@ Follow these instructions carefully to ensure a reliable, high-quality implement
 ```
 
 
-ルールが正しく読み込まれているかは以下の手順で確認できます。VScodeを開き、`Ctrl + Alt + I`を押してチャットを起動すると、ファイルが読み込まれたことが確認できます。
+ルールが正しく読み込まれているかは以下の手順で確認できます。VScode を開き、`Ctrl + Alt + I` を押してチャットを起動すると、ファイルが読み込まれたことが確認できます。
 今回設定したルールでは、読み込み時にファイル名を出力するよう指定しているため、これによって動作確認ができます(長いため画像は省略しています)。
 ![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-f633910d-8802-498f-88f1-9fd8cfe3bd8a.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-f633910d-8802-498f-88f1-9fd8cfe3bd8a.png)
 
 ### ルールが読み込まれなかったときにやること
 
-これはGitHub Copilotに限った話ではないですが、ルールが呼ばれるときと、呼ばれているか分からないときがあります。
+これは GitHub Copilot に限った話ではないですが、ルールが呼ばれるときと、呼ばれているか分からないときがあります。
 そんなときには、ルールの先頭で無意味な言葉を叫ばせる。という方法があります。
 https://docs.cline.bot/improving-your-prompting-skills/prompting#memory-and-confidence-checks
 今回設定したルールでは、ファイルを読み込んだときの冒頭に、読み込んだファイル名を出力させるようにしています。
 
 ## 追加ルール(コーディングルール)の作成
 
-以下の設定を行うと、`.github/prompts`配下に用途ごとのルールを作成して読み込ませることも可能です。
-1. `Ctrl + Shift + P`でコマンドパレットを開く
+以下の設定を行うと、`.github/prompts` 配下に用途ごとのルールを作成して読み込ませることも可能です。
+1. `Ctrl + Shift + P` でコマンドパレットを開く
 2. 「Open Workspace Settings (JSON)」と入力し、表示されるオプションを選びます。
 3. `settings.json` ファイルに `"chat.promptFiles": true` を追加します。
 
@@ -302,16 +301,16 @@ Example: "Loaded copilot-instructions.md".
 3. 回答時に詳細に出力するよう指示
 https://docs.github.com/ja/enterprise-cloud@latest/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot
 
-また、Cursorと異なり、GitHub Copilotでは`copilot-instructions.md`内から他のファイルをパス指定で読み込むことができません。
-`copilot-instructions.md`から`coding-rules.prompt.md`を読み込むようなプロンプトを入れて試してみると、読み込めないとCopilotからエラーが表示されます。
+また、Cursor と異なり、GitHub Copilot では `copilot-instructions.md` 内から他のファイルをパス指定で読み込むことができません。
+`copilot-instructions.md` から `coding-rules.prompt.md` を読み込むようなプロンプトを入れて試してみると、読み込めないと Copilot からエラーが表示されます。
 ![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-e6375277-0150-4ea2-a6b7-7346605364f4.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-e6375277-0150-4ea2-a6b7-7346605364f4.png)
 
 
 ## まとめ
 
-GitHub Copilotでも複数のカスタムルールを設定することで、コード生成の品質を向上させることができます。本記事では以下の内容を解説しました。
-1. 基本ルールを`.github/copilot-instructions.md`に設定する方法
-2. コーディングルールを`.github/prompts`ディレクトリに追加する方法
+GitHub Copilot でも複数のカスタムルールを設定することで、コード生成の品質を向上させることができます。本記事では以下の内容を解説しました。
+1. 基本ルールを `.github/copilot-instructions.md` に設定する方法
+2. コーディングルールを `.github/prompts` ディレクトリに追加する方法
 3. ルールの読み込み確認方法と注意点
 
 これらの設定を活用することで、チーム開発における一貫性のあるコードスタイルの維持が保たれます。
