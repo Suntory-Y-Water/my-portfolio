@@ -2,7 +2,7 @@
 /**
  * タグ整合性チェックスクリプト
  *
- * MDXファイル内で使用されている全てのタグが
+ * Markdownファイル内で使用されている全てのタグが
  * マッピングテーブル（src/config/tag-slugs.ts）に登録されているかチェックします。
  *
  * ## 実行方法
@@ -22,7 +22,7 @@ import path from 'node:path';
 import matter from 'gray-matter';
 import { TAG_SLUG_MAP } from '../src/config/tag-slugs';
 
-const blogDir = path.join(process.cwd(), 'src', 'content', 'blog');
+const blogDir = path.join(process.cwd(), 'content', 'blog');
 
 async function checkTags() {
   console.log('🔍 タグ整合性チェックを開始します...\n');
@@ -31,14 +31,14 @@ async function checkTags() {
   const mappedTags = Object.keys(TAG_SLUG_MAP);
   console.log(`✅ マッピングテーブルに登録済み: ${mappedTags.length}個のタグ\n`);
 
-  // MDXファイルから全タグを抽出
+  // Markdownファイルから全タグを抽出
   const files = await fs.readdir(blogDir);
-  const mdxFiles = files.filter((file) => path.extname(file) === '.mdx');
+  const mdFiles = files.filter((file) => path.extname(file) === '.md');
 
   const allTags = new Set<string>();
   const fileTagMap = new Map<string, string[]>(); // ファイル名→タグリスト
 
-  for (const file of mdxFiles) {
+  for (const file of mdFiles) {
     const filePath = path.join(blogDir, file);
     const content = await fs.readFile(filePath, 'utf-8');
     const { data } = matter(content);
@@ -49,7 +49,7 @@ async function checkTags() {
     }
   }
 
-  console.log(`📝 MDXファイル内で使用中: ${allTags.size}個のタグ\n`);
+  console.log(`📝 Markdownファイル内で使用中: ${allTags.size}個のタグ\n`);
 
   // 未登録タグを検出
   const unmappedTags = Array.from(allTags).filter(
