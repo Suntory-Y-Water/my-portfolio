@@ -1,6 +1,5 @@
 ---
 title: Vercelで独自ドメインを設定する
-public: true
 date: 2025-03-22
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Water%20wave/Flat/water_wave_flat.svg
 slug: cloudflare-get-domain-vercel
@@ -13,13 +12,13 @@ description: 独自ドメインを購入し、Vercelにデプロイされたウ�
 
 ## 前提条件
 
-- Vercelアカウントを持っていること
-- Cloudflareアカウントを持っていること
-- すでにVercelにデプロイされたWebサイトやWebアプリがあること
+- Vercel アカウントを持っていること
+- Cloudflare アカウントを持っていること
+- すでに Vercel にデプロイされた Web サイトや Web アプリがあること
 
 ## Cloudflareでドメインを購入する
 
-Cloudflareでドメインを購入するには、以下の手順に従います：
+Cloudflare でドメインを購入するには、以下の手順に従います。
 
 1. [Cloudflare](https://www.cloudflare.com/ja-jp/)にログインします
 2. ダッシュボードから「ドメイン登録」→「ドメインの登録」を選択します
@@ -32,14 +31,14 @@ Cloudflareでドメインを購入するには、以下の手順に従います�
 
 ## Cloudflareで必要なDNSレコードを設定する
 
-1. Cloudflareダッシュボードで購入したドメインを選択します
+1. Cloudflare ダッシュボードで購入したドメインを選択します
 2. 左側メニューから「DNS」タブをクリックします
-3. 「Add record」ボタンをクリックし、以下の内容でレコードを追加します：
+3. 「Add record」ボタンをクリックし、以下の内容でレコードを追加します。
    - タイプ: `CNAME`
    - 名前: `www`（またはご希望のサブドメイン名）
    - ターゲット: `cname.vercel-dns.com`
    - TTL: Auto
-   - Proxy status: Proxied（CDN機能を使用する場合）または DNS only
+   - Proxy status: Proxied（CDN 機能を使用する場合）または DNS only
 
 下図のように設定されていることを確認してください。
 
@@ -47,7 +46,7 @@ Cloudflareでドメインを購入するには、以下の手順に従います�
 
 ## Vercelでドメインをプロジェクトに追加する
 
-Vercelのプロジェクトに購入したドメインを紐づけます：
+Vercel のプロジェクトに購入したドメインを紐づけます。
 
 1. [Vercel Dashboard](https://vercel.com/dashboard)にログインします
 2. ドメインを設定したいプロジェクトを選択します
@@ -62,19 +61,19 @@ Vercelのプロジェクトに購入したドメインを紐づけます：
 
 ## Vercelの検証を確認する
 
-Vercelはドメインの所有権を検証します。正しくDNS設定ができていれば、自動的に検証が完了します。
+Vercel はドメインの所有権を検証します。正しく DNS 設定ができていれば、自動的に検証が完了します。
 「Valid Configuration」と表示されていることを確認してください。しばらく時間が経過した後、購入したドメインにアクセスしてウェブサイトが表示されれば設定完了です。
 
 ## 環境変数の更新
 
-ドメインの設定が完了したら必要に応じて、`NEXT_PUBLIC_APP_URL`といった環境変数を更新します。
+ドメインの設定が完了したら、`NEXT_PUBLIC_APP_URL` といった環境変数を更新します。
 
 ```bash
 NEXT_PUBLIC_APP_URL=https://sui-portfolio.com
 ```
 
-環境変数を更新したら、Vercel Dashboardで「Redeploy」ボタンをクリックし、新しい設定で再デプロイしましょう。
+環境変数を更新したら、Vercel Dashboard で「Redeploy」ボタンをクリックし、新しい設定で再デプロイしましょう。
 
 ## まとめ
 
-この記事では、Cloudflareでドメインを購入し、Vercelにデプロイされたウェブサイトに設定する方法を解説しました。
+この記事では、Cloudflare でドメインを購入し、Vercel にデプロイされたウェブサイトに設定する方法を解説しました。

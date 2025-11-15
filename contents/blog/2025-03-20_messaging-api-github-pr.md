@@ -1,6 +1,5 @@
 ---
 title: LINE Messaging APIから自動でGitHubにPRを発行する
-public: true
 date: 2025-03-20
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire/Flat/fire_flat.svg
 slug: messaging-api-github-pr
@@ -14,9 +13,9 @@ description: ポートフォリオの技術記事投稿頻度をあげるため�
 
 ## Cloudflare Workersにサーバを構築する
 
-LINE Messaging APIにリクエストを送信するためのサーバーとして、Cloudflare Workersを利用します。
-Cloudflare Workersは、Cloudflareが提供するサーバーレスプラットフォームであり、エッジ（CDNの拠点）で直接コードを実行できるサービスです。
-このサービスを活用することで、従来のサーバーやクラウドインスタンスを使用する代わりに、Cloudflareのグローバルネットワーク上でコードが動作し、高速かつスケーラブルな処理が可能になります。
+LINE Messaging API にリクエストを送信するためのサーバーとして、Cloudflare Workers を利用します。
+Cloudflare Workers は、Cloudflare が提供するサーバーレスプラットフォームであり、エッジ（CDN の拠点）で直接コードを実行できるサービスです。
+このサービスを活用することで、従来のサーバーやクラウドインスタンスを使用する代わりに、Cloudflare のグローバルネットワーク上でコードが動作し、高速かつスケーラブルな処理が可能になります。
 
 ### 技術選定の理由
 
@@ -24,35 +23,35 @@ Cloudflare Workersは、Cloudflareが提供するサーバーレスプラット�
 コールドスタートとは、サーバーレス環境で初めて関数を呼び出したときに、その関数を実行するために必要なコンテナが起動されるまでに時間がかかる現象です。
 この結果、初回の呼び出しは遅延が発生し、パフォーマンスが低下することがあります。
 
-Cloudflare Workersの最大の利点は、このコールドスタートが発生せず、初回アクセス時でも高速に処理が実行される点にあります。
-この特性は、LINE Messaging APIのような即時応答が求められるサービスに最適です。
+Cloudflare Workers の最大の利点は、このコールドスタートが発生せず、初回アクセス時でも高速に処理が実行される点にあります。
+この特性は、LINE Messaging API のような即時応答が求められるサービスに最適です。
 詳しい解説は以下の記事が参考になります。
 
 https://zenn.dev/msy/articles/4c48d9d9e06147
 
 ## 実装したソースコード
 
-今回の実装では、LINE Messaging APIのWebhook URLとしてエンドポイントを設定しています。
-セキュリティを考慮して、このWorkersは他LINEユーザーやNotionのページURL以外のリクエストを受け付けないよう、必要最低限のバリデーションチェックを実装しています。
+今回の実装では、LINE Messaging API の Webhook URL としてエンドポイントを設定しています。
+セキュリティを考慮して、この Workers は他 LINE ユーザーや Notion のページ URL 以外のリクエストを受け付けないよう、必要最低限のバリデーションチェックを実装しています。
 ソースコードは以下のリポジトリで公開しています。
 
 https://github.com/Suntory-Y-Water/blog-worker
 
 ### メインロジックをctx.waitUntil()でラップ
 
-LINE Messaging APIの仕様上、botからのリクエストから2秒以内を目安にHTTPステータスコード200をレスポンスすることが推奨されています。
-この時間制約を守らない場合、LINE Messaging APIからタイムアウトエラーが返却される可能性があります。
+LINE Messaging API の仕様上、bot からのリクエストから 2 秒以内を目安に HTTP ステータスコード 200 をレスポンスすることが推奨されています。
+この時間制約を守らない場合、LINE Messaging API からタイムアウトエラーが返却される可能性があります。
 
 https://developers.line.biz/ja/docs/partner-docs/development-guidelines/#webhook-flow-image
-通常のWorkers環境では、処理に2秒以上かかるとLINE Messaging
-APIとの通信がタイムアウトするため、エラーが発生します。
+通常の Workers 環境では、処理に 2 秒以上かかると LINE Messaging
+API との通信がタイムアウトするため、エラーが発生します。
 https://developers.line.biz/ja/docs/partner-docs/development-guidelines/#error-notification
 
-この問題を解決するために、重たい非同期処理を`ctx.waitUntil()`でラップしています。これにより、メインの処理フローは即座にレスポンスを返し、バックグラウンドで非同期処理を継続することが可能になります。
+この問題を解決するために、重たい非同期処理を `ctx.waitUntil()` でラップしています。これにより、メインの処理フローは即座にレスポンスを返し、バックグラウンドで非同期処理を継続することが可能になります。
 
 https://developers.cloudflare.com/workers/runtime-apis/context/#waituntil
 
-以下の実装ではNotion APIからのデータ取得、マークダウン変換、MDXファイル作成といった時間のかかる処理を`ctx.waitUntil()`内で実行しています。
+以下の実装では Notion API からのデータ取得、マークダウン変換、MDX ファイル作成といった時間のかかる処理を `ctx.waitUntil()` 内で実行しています。
 
 ```typescript title="index.ts"
 import type { WebhookRequestBody } from '@line/bot-sdk';
@@ -177,12 +176,12 @@ export default {
 
 ### MDXファイル生成とコンポーネント変換
 
-Notionから取得したコンテンツは、そのままではブログに適した形式ではありません。そこで、以下の変換処理を実装しています。
+Notion から取得したコンテンツは、そのままではブログに適した形式ではありません。そこで、以下の変換処理を実装しています。
 
-1. Zenn形式のマークダウンへの変換
+1. Zenn 形式のマークダウンへの変換
 2. リンクカードコンポーネントへの変換
-3. コールアウトブロックの適切な形式への変換
-   これらの処理により、Notionで作成したコンテンツを自動的にブログ用のMDX形式に変換することが可能になりました。
+3. コールアウトブロックのブログ用形式への変換
+   これらの処理により、Notion で作成したコンテンツを自動的にブログ用の MDX 形式に変換することが可能になりました。
 
 ```typescript title="mdx-lib.ts"
 /**
@@ -360,12 +359,12 @@ https://suntory-n-water.com/blog/add-blog-to-portfolio
 
 ## GitHubにPRを発行する
 
-最後に変換したMDXファイルを自動的にGitHubリポジトリにプッシュし、Pull Requestを作成します。この処理には`Octokit`を使用しており、以下の手順で実行しています。
+最後に変換した MDX ファイルを自動的に GitHub リポジトリにプッシュし、Pull Request を作成します。この処理には `Octokit` を使用しており、以下の手順で実行しています。
 
-1. メインブランチの最新コミットSHAを取得
+1. メインブランチの最新コミット SHA を取得
 2. 新しいブランチを作成
-3. MDXファイルをBase64エンコードしてコミット
-4. 変更をプッシュしてPull Requestを準備
+3. MDX ファイルを Base64 エンコードしてコミット
+4. 変更をプッシュして Pull Request を準備
 
 ```typescript title="github-lib.ts"
 import { Octokit } from '@octokit/rest';
@@ -435,9 +434,9 @@ export async function createGithubPr(
 }
 ```
 
-処理が完了すると、作成されたPull RequestのURLを含むメッセージをLINEに返信します。
-これにより、ユーザーはNotionからLINEボットにURLを送信するだけで、ブログ記事の公開準備が整うワークフローが実現しました。
+処理が完了すると、作成された Pull Request の URL を含むメッセージを LINE に返信します。
+これにより、ユーザーは Notion から LINE ボットに URL を送信するだけで、ブログ記事の公開準備が整うワークフローが実現しました。
 
 ## まとめ
 
-今回の実装では、Cloudflare WorkersとLINE Messaging APIを組み合わせることで、記事作成から公開までのワークフローが大幅に効率化され、コンテンツ作成に集中できる環境が整いました。
+今回の実装では、Cloudflare Workers と LINE Messaging API を組み合わせることで、記事作成から公開までのワークフローが効率化され、コンテンツ作成に集中できる環境が整いました。

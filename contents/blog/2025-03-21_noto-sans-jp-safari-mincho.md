@@ -1,6 +1,5 @@
 ---
 title: NotoSansJP使ってるのにSafariのフォントが明朝体になる
-public: true
 date: 2025-03-21
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Pencil/Flat/pencil_flat.svg
 slug: noto-sans-jp-safari-mincho
@@ -13,8 +12,8 @@ description: SafariやiOSのGoogle Chromeだけフォントが明朝体に変わ
 
 ## iOSのSafariだけFontが崩れる
 
-font-familyに何も指定しなかった場合は、OS・ブラウザごとのデフォルトフォントが適用されます。
-大半のブラウザのデフォルトフォントは、ゴシック体ですが、macOSとiOS（iPhone、iPad）の標準ブラウザSafariだけはデフォルトフォントが明朝体になっています。
+font-family に何も指定しなかった場合は、OS・ブラウザごとのデフォルトフォントが適用されます。
+大半のブラウザのデフォルトフォントは、ゴシック体ですが、macOS と iOS（iPhone、iPad）の標準ブラウザ Safari だけはデフォルトフォントが明朝体になっています。
 
 https://qiita.com/ksk1015/items/9d2028454ee144c64c60
 
@@ -98,7 +97,7 @@ export const fontPlemolJP35Console = localFont({
 
 ## 公式ドキュメントを見直してみる
 
-`layout.tsx`でフォントを指定する箇所がbodyではなくhtmlタグに設定する必要があった
+`layout.tsx` でフォントを指定する箇所が body ではなく html タグに設定する必要があった。
 
 https://nextjs.org/docs/app/building-your-application/optimizing/fonts#with-tailwind-css
 
