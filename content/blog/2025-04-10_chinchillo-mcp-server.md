@@ -9,18 +9,19 @@ tags:
 description: Model Context Protocol (MCP) を使うと、AIアシスタントに新しい機能を追加できます。この記事では、サイコロゲーム「チンチロ」を例に、TypeScriptでMCPサーバーを実装し、Claude Desktopで遊ぶ方法を紹介します。AIの進化が進む中、MCPの基本的な仕組みを実際に手を動かして学んでみましょう。
 ---
 
+
 日進月歩でAIの進化が凄まじい日々を過ごしております。
 ここ2週間くらいでMCPに関する記事がかなり増えた印象を持ちましたので、「話題になってるなら実際に触ってみよう！」という単純な動機で手を動かしてみました。
 今回はMCPサーバーを作って、Claude Desktopで遊んでみた過程を記載します。
 
 いつも参考にしているブログで、サイコロを使った記事を発見しました。そのまま真似るのも面白みにかけるので、チンチロというギャンブル要素満載のサイコロゲームができるMCPサーバーを作ってみることにしました。
 
-<LinkPreview url='https://azukiazusa.dev/blog/typescript-mcp-server/' />
+https://azukiazusa.dev/blog/typescript-mcp-server/
 
 MCPの説明は他の人が丁寧に書いているので省略します。
 私は上記のブログとこのあたりの記事を読んでキャッチアップしていました。
 
-<LinkPreview url='https://zenn.dev/smartround_dev/articles/02af1058e9f80f' />
+https://zenn.dev/smartround_dev/articles/02af1058e9f80f
 
 ## ロジックの概要
 
@@ -65,8 +66,8 @@ export const server = new McpServer({
 });
 
 server.tool(
-  TOOL_NAME,
-  TOOL_DESCRIPTION,
+TOOL_NAME,
+TOOL_DESCRIPTION,
   // ツールの引数を定義するスキーマ
   // 1~3までの数値を許容する
   {
@@ -138,12 +139,12 @@ type RollHistory = {
 ```typescript
 // チンチロの役の定義
 const ROLES = {
-  PINZORO: { name: 'ピンゾロ', multiplier: 5 },
-  ARASHI: { name: 'アラシ', multiplier: 3 },
-  SHIGORO: { name: 'シゴロ', multiplier: 2 },
-  NORMAL: { name: '通常役', multiplier: 1 },
-  NOTHING: { name: '役なし', multiplier: -1 },
-  HIFUMI: { name: 'ヒフミ', multiplier: -2 },
+PINZORO: { name: 'ピンゾロ', multiplier: 5 },
+ARASHI: { name: 'アラシ', multiplier: 3 },
+SHIGORO: { name: 'シゴロ', multiplier: 2 },
+NORMAL: { name: '通常役', multiplier: 1 },
+NOTHING: { name: '役なし', multiplier: -1 },
+HIFUMI: { name: 'ヒフミ', multiplier: -2 },
 };
 
 /**
@@ -547,4 +548,4 @@ Claude Desktopを開くとMCPサーバーが使用可能になっています。
 
 今回使用したコードは以下のリポジトリに格納しています。
 
-<LinkPreview url='https://github.com/Suntory-Y-Water/chinchillo-mcp-server' />
+https://github.com/Suntory-Y-Water/chinchillo-mcp-server

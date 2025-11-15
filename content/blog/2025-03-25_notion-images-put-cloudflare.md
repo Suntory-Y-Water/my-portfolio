@@ -10,6 +10,7 @@ tags:
 description: Notionで作成されたマークダウンコンテンツには、Amazon S3に保存された画像へのリンクが含まれています。ブログ記事として公開する際に、これらの画像をCloudflare R2ストレージなどの外部ストレージに移行することで非公開ページの画像も表示することができます。この記事ではNotionのページに添付されている画像をCloudflare R2に格納する処理について解説します。
 ---
 
+
 ## 画像移行処理の概要
 
 NotionからエクスポートされたマークダウンにおいてS3の画像をR2に移行する処理は、以下の4つのステップで行われます。
@@ -262,9 +263,9 @@ await Promise.allSettled(uploadPromises);
 `Promise.all()`ではなく`Promise.allSettled()`を選んだのは、一部の画像処理に失敗があっても他の処理を続行させるためです。
 ブログ記事の場合、一枚の画像が表示できなくても記事全体を表示できないよりはマシです。
 
-<LinkPreview url='https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Promise/all' />
+https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
 
-<LinkPreview url='https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled' />
+https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled
 
 ### 最適な正規表現の活用
 
@@ -295,7 +296,7 @@ const uniqueUrls = [...new Set(urlsToProcess)];
 例えば同じ画像が10回使われていても、ネットワーク転送は1回で済みます。
 特にCloudflareのWorker環境では、CPUリソースよりもネットワークリクエストの方がコストが高いため、この最適化は重要です。
 
-<LinkPreview url='https://developers.cloudflare.com/workers/platform/limits/' />
+https://developers.cloudflare.com/workers/platform/limits/
 
 ### ファイル名の生成
 

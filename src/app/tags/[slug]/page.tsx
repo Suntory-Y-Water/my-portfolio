@@ -2,7 +2,7 @@ import { BlogCard } from '@/components/feature/content/blog-card';
 import { PageHeader } from '@/components/shared/page-header';
 import { siteConfig } from '@/config/site';
 import { getTagNameFromSlug } from '@/config/tag-slugs';
-import { getAllTagSlugs, getBlogPostsByTagSlug } from '@/lib/mdx';
+import { getAllTagSlugs, getBlogPostsByTagSlug } from '@/lib/markdown';
 import { absoluteUrl } from '@/lib/utils';
 
 interface TagPageProps {

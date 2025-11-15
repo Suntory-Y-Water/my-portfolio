@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { siteConfig } from '@/config/site';
-import type { BlogPost } from '@/lib/mdx';
-import { getAllBlogPosts } from '@/lib/mdx';
+import type { BlogPost } from '@/lib/markdown';
+import { getAllBlogPosts } from '@/lib/markdown';
 
 // llms.txt の内容を生成する関数
 const renderLlmsTxt = (posts: BlogPost[]) => `# ${siteConfig.name}

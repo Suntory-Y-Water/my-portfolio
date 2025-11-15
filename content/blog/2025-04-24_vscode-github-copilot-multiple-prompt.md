@@ -4,26 +4,26 @@ public: true
 date: 2025-04-24
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Airplane%20departure/Flat/airplane_departure_flat.svg
 slug: vscode-github-copilot-multiple-prompt
-tags: 
+tags:
   - GitHub
   - GitHub Copilot
   - Visual Studio Code
 description: VSCodeで使えるGitHub Copilotでも Cursorと同じようなルールを設定することができます。この記事では複数のルールを設定して開発を行う方法を解説します。
 ---
 
+
 GitHub Copilotでもカスタムルールを設定して、コード生成の品質を向上させることができます。
 この記事では、Cursorの「Project rules」と同様の機能をGitHub Copilot上で実現する方法を解説します。
 具体的には、複数のルールを設定して体系的に開発を進める手順を紹介します。
 
 
-<Callout type="info" title="">
-  カスタムルールを読み込む設定はパブリックプレビュー段階であり、変更される可能性があります。
-</Callout>
+> [!NOTE]
+> カスタムルールを読み込む設定はパブリックプレビュー段階であり、変更される可能性があります。
 
 
 
 公式ドキュメントを参考に、実践していきましょう。
-<LinkPreview url="https://docs.github.com/ja/enterprise-cloud@latest/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot" />
+https://docs.github.com/ja/enterprise-cloud@latest/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot
 
 ## ベースとなるルールの作成
 
@@ -165,7 +165,7 @@ Follow these instructions carefully to ensure a reliable, high-quality implement
 
 これはGitHub Copilotに限った話ではないですが、ルールが呼ばれるときと、呼ばれているか分からないときがあります。
 そんなときには、ルールの先頭で無意味な言葉を叫ばせる。という方法があります。
-<LinkPreview url="https://docs.cline.bot/improving-your-prompting-skills/prompting#memory-and-confidence-checks" />
+https://docs.cline.bot/improving-your-prompting-skills/prompting#memory-and-confidence-checks
 今回設定したルールでは、ファイルを読み込んだときの冒頭に、読み込んだファイル名を出力させるようにしています。
 
 ## 追加ルール(コーディングルール)の作成
@@ -300,7 +300,7 @@ Example: "Loaded copilot-instructions.md".
 1. 外部リソースへの参照の要望
 2. 回答方法のフォーマット化
 3. 回答時に詳細に出力するよう指示
-<LinkPreview url="https://docs.github.com/ja/enterprise-cloud@latest/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot" />
+https://docs.github.com/ja/enterprise-cloud@latest/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot
 
 また、Cursorと異なり、GitHub Copilotでは`copilot-instructions.md`内から他のファイルをパス指定で読み込むことができません。
 `copilot-instructions.md`から`coding-rules.prompt.md`を読み込むようなプロンプトを入れて試してみると、読み込めないとCopilotからエラーが表示されます。

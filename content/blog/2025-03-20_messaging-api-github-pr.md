@@ -11,6 +11,7 @@ tags:
 description: ポートフォリオの技術記事投稿頻度をあげるためにNotion + Messaging APIでブログ記事を自動でPull Requestを発行できるようにしました。mdxファイルの作成はnotion-markdown-converterを使用しています。
 ---
 
+
 ## Cloudflare Workersにサーバを構築する
 
 LINE Messaging APIにリクエストを送信するためのサーバーとして、Cloudflare Workersを利用します。
@@ -27,7 +28,7 @@ Cloudflare Workersの最大の利点は、このコールドスタートが発�
 この特性は、LINE Messaging APIのような即時応答が求められるサービスに最適です。
 詳しい解説は以下の記事が参考になります。
 
-<LinkPreview url='https://zenn.dev/msy/articles/4c48d9d9e06147' />
+https://zenn.dev/msy/articles/4c48d9d9e06147
 
 ## 実装したソースコード
 
@@ -35,21 +36,21 @@ Cloudflare Workersの最大の利点は、このコールドスタートが発�
 セキュリティを考慮して、このWorkersは他LINEユーザーやNotionのページURL以外のリクエストを受け付けないよう、必要最低限のバリデーションチェックを実装しています。
 ソースコードは以下のリポジトリで公開しています。
 
-<LinkPreview url='https://github.com/Suntory-Y-Water/blog-worker' />
+https://github.com/Suntory-Y-Water/blog-worker
 
 ### メインロジックをctx.waitUntil()でラップ
 
 LINE Messaging APIの仕様上、botからのリクエストから2秒以内を目安にHTTPステータスコード200をレスポンスすることが推奨されています。
 この時間制約を守らない場合、LINE Messaging APIからタイムアウトエラーが返却される可能性があります。
 
-<LinkPreview url='https://developers.line.biz/ja/docs/partner-docs/development-guidelines/#webhook-flow-image' />
+https://developers.line.biz/ja/docs/partner-docs/development-guidelines/#webhook-flow-image
 通常のWorkers環境では、処理に2秒以上かかるとLINE Messaging
 APIとの通信がタイムアウトするため、エラーが発生します。
-<LinkPreview url='https://developers.line.biz/ja/docs/partner-docs/development-guidelines/#error-notification' />
+https://developers.line.biz/ja/docs/partner-docs/development-guidelines/#error-notification
 
 この問題を解決するために、重たい非同期処理を`ctx.waitUntil()`でラップしています。これにより、メインの処理フローは即座にレスポンスを返し、バックグラウンドで非同期処理を継続することが可能になります。
 
-<LinkPreview url='https://developers.cloudflare.com/workers/runtime-apis/context/#waituntil' />
+https://developers.cloudflare.com/workers/runtime-apis/context/#waituntil
 
 以下の実装ではNotion APIからのデータ取得、マークダウン変換、MDXファイル作成といった時間のかかる処理を`ctx.waitUntil()`内で実行しています。
 
@@ -272,7 +273,8 @@ export function convertZennToMdx(markdown: string): string {
       }
 
       // <Callout>コンポーネントを生成
-      return `<Callout type="${calloutType}" title="">\n${indentedContent}\n</Callout>\n`;
+      return `> [!NOTE]
+> \n${indentedContent}\n\n`;
     }
   );
 }
@@ -339,7 +341,7 @@ export function transformLinksToPreviewComponent(markdown: string): string {
     if (isStandaloneUrl(line)) {
       const trimmed = line.trim();
       const url = cleanUrl(trimmed);
-      return `<LinkPreview url="${url}" />`;
+      return `${url}`;
     }
 
     // それ以外の場合は元の行をそのまま返す
@@ -354,7 +356,7 @@ export function transformLinksToPreviewComponent(markdown: string): string {
 既存のライブラリを使用せずに独自の変換処理を実装した理由は、すでにフロントエンドで特定の形式のコンポーネントを用意しているためです。
 作成したブログページの例はこちらでご確認いただけます。
 
-<LinkPreview url='https://suntory-n-water.com/blog/add-blog-to-portfolio' />
+https://suntory-n-water.com/blog/add-blog-to-portfolio
 
 ## GitHubにPRを発行する
 

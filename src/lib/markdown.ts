@@ -4,7 +4,7 @@ import matter from 'gray-matter';
 import { getTagNameFromSlug, getTagSlug } from '@/config/tag-slugs';
 import type { Frontmatter, MDXData } from '@/types/mdx';
 
-const blogDir = path.join(process.cwd(), 'src', 'content', 'blog');
+const blogDir = path.join(process.cwd(), 'content', 'blog');
 
 export type BlogPost = MDXData<{
   thumbnail?: string;
@@ -13,7 +13,7 @@ export type BlogPost = MDXData<{
 }>;
 
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
-  const posts = await getMDXData(blogDir);
+  const posts = await getMarkdownData(blogDir);
   return posts.sort(
     (a, b) =>
       new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime(),
@@ -63,25 +63,29 @@ async function getBlogPost(
   return posts.find(predicate);
 }
 
-async function getMDXData<T>(dir: string): Promise<MDXData<T>[]> {
-  const files = await getMDXFiles(dir);
-  return Promise.all(files.map((file) => readMDXFile<T>(path.join(dir, file))));
-}
-
-async function getMDXFiles(dir: string): Promise<string[]> {
-  return (await fs.readdir(dir)).filter(
-    (file) => path.extname(file) === '.mdx',
+async function getMarkdownData<T>(dir: string): Promise<MDXData<T>[]> {
+  const files = await getMarkdownFiles(dir);
+  return Promise.all(
+    files.map((file) => readMarkdownFile<T>(path.join(dir, file))),
   );
 }
 
-async function readMDXFile<T>(filePath: string): Promise<MDXData<T>> {
+async function getMarkdownFiles(dir: string): Promise<string[]> {
+  return (await fs.readdir(dir)).filter((file) => path.extname(file) === '.md');
+}
+
+async function readMarkdownFile<T>(filePath: string): Promise<MDXData<T>> {
   const rawContent = await fs.readFile(filePath, 'utf-8');
   const { data, content } = matter(rawContent);
   const relativePath = path.relative(process.cwd(), filePath);
 
+  // フロントマターにslugフィールドがあればそれを使用、なければファイル名から抽出
+  const slug = (data as Record<string, unknown>).slug as string | undefined;
+  const filenameSlug = path.basename(filePath, path.extname(filePath));
+
   return {
     metadata: data as Frontmatter<T>,
-    slug: path.basename(filePath, path.extname(filePath)),
+    slug: slug ?? filenameSlug,
     rawContent: content,
     filePath: relativePath,
   };

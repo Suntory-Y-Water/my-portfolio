@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { getBlogPostBySlug } from '@/lib/mdx';
+import { getBlogPostBySlug } from '@/lib/markdown';
 
 type Props = {
   params: Promise<{ slug: string }>;

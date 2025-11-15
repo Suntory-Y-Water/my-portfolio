@@ -1,9 +1,9 @@
-import '@/styles/mdx.css';
+import '@/styles/markdown.css';
 
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { CustomMDX } from '@/components/feature/content/custom-mdx';
+import { CustomMarkdown } from '@/components/feature/content/custom-markdown';
 import { GitHubEditButton } from '@/components/feature/content/github-edit-button';
 import { TableOfContents } from '@/components/feature/content/table-of-contents';
 import { Icons } from '@/components/icons';
@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
 import { getTagSlug } from '@/config/tag-slugs';
-import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/mdx';
+import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/markdown';
 import { extractTOC } from '@/lib/toc';
 import { absoluteUrl, formatDate } from '@/lib/utils';
 
@@ -164,7 +164,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         {/* Article Content */}
         <div className='mt-8'>
-          <CustomMDX source={post.rawContent} />
+          <CustomMarkdown source={post.rawContent} />
         </div>
 
         {/* Footer */}

@@ -11,6 +11,7 @@ tags:
 description: HonoXとCloudflare Workersを活用し、アニメの金髪ヒロインだけを一覧表示するWebサイト「金髪ヒロイン.com」を個人開発した体験と、技術選定や実装の工夫、今後の課題についてまとめました。
 ---
 
+
 ## はじめに
 
 アニメ情報サイトは数多く存在しますが、どれも網羅性を重視しており、特定の趣味やこだわりに特化したサービスは意外と少ないと感じていました。  
@@ -33,13 +34,13 @@ description: HonoXとCloudflare Workersを活用し、アニメの金髪ヒロ�
 
 開発したソースコードは、以下のGitHubリポジトリで公開しています。
 
-<LinkPreview url='https://github.com/Suntory-Y-Water/kinpatsu-heroine-com' />
+https://github.com/Suntory-Y-Water/kinpatsu-heroine-com
 
 ## サイトの使い方
 
 「金髪ヒロイン.com」は実際にデプロイ済みですので、ぜひ一度アクセスして試してみてください。
 
-<LinkPreview url='https://kinpatsu-heroine.com/' />
+https://kinpatsu-heroine.com/
 
 ### トップページ
 
@@ -210,10 +211,10 @@ import { eq } from 'drizzle-orm';
  * @returns 成功時はキャラクターIDの配列、失敗時はエラーオブジェクト
  */
 export async function getCharacterById({
-  DB,
+DB,
   workId,
 }: {
-  DB: D1Database;
+DB: D1Database;
   workId: number;
 }) {
   try {
@@ -497,11 +498,11 @@ Honoをベースにしているため、既存のHonoの知識やエコシステ
 
 ## 参考文献
 
-<LinkPreview url='https://zenn.dev/calloc134/articles/honox-thread-float-bbs' />
-<LinkPreview url='https://zenn.dev/yusukebe/articles/4d6297f3be121a' />
-<LinkPreview url='https://zenn.dev/lifull/articles/86661ce204d665' />
-<LinkPreview url='https://developers.annict.com/' />
-<LinkPreview url='https://orm.drizzle.team/' />
-<LinkPreview url='https://developers.cloudflare.com/workers/' />
-<LinkPreview url='https://developers.cloudflare.com/d1/' />
-<LinkPreview url='https://developers.cloudflare.com/r2/' />
+https://zenn.dev/calloc134/articles/honox-thread-float-bbs
+https://zenn.dev/yusukebe/articles/4d6297f3be121a
+https://zenn.dev/lifull/articles/86661ce204d665
+https://developers.annict.com/
+https://orm.drizzle.team/
+https://developers.cloudflare.com/workers/
+https://developers.cloudflare.com/d1/
+https://developers.cloudflare.com/r2/

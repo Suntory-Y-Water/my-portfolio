@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { siteConfig } from '@/config/site';
-import { getAllBlogPosts } from '@/lib/mdx';
+import { getAllBlogPosts } from '@/lib/markdown';
 
 export async function GET() {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || siteConfig.url;

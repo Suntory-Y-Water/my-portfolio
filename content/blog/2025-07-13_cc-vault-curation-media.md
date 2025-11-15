@@ -4,11 +4,12 @@ public: false
 date: 2025-07-13
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Lemon/Flat/lemon_flat.svg
 slug: cc-vault-curation-media
-tags: 
+tags:
   - Claude
   - ClaudeCode
 description: Claude Codeの新機能が出るたびに色々なサイトを見るのが面倒くさいなと思って、ZennとQiitaのClaude Code記事をまとめるツール「CC-Vault」を作りました。実務でClaude Code使ってて同じような悩みを持つ人に刺さるかもしれません。
 ---
+
 
 
 ## 作成の背景
@@ -17,7 +18,7 @@ description: Claude Codeの新機能が出るたびに色々なサイトを見�
 
 ## 実際にできたもの
 
-<LinkPreview url="https://cc-vault.vercel.app/" />
+https://cc-vault.vercel.app/
 
 CCはClaude Codeの略称です。Vaultはぶっちゃけ適当ですが、保管庫的な意味合いで命名しました。CCレモンって飲み物があったので、CC + ~~が良さそうだな〜くらいの緩い命名です。
 
@@ -27,7 +28,7 @@ Next.jsで作成し、Vercelにデプロイしています。データフェッ�
 キャッシュはISRを使用し、1時間ごとに再設定しています。
 これにより毎回APIを叩かずとも、1時間後に見たときは新しい記事が表示されるようになります。
 
-<LinkPreview url="https://nextjs.org/docs/app/guides/incremental-static-regeneration" />
+https://nextjs.org/docs/app/guides/incremental-static-regeneration
 
 本当はCloudflareへデプロイしたかったのですが、`open-nextjs`のビルド設定が上手くいかなかったのでやめました。うまくいったら変えると思います。
 Claude Codeのキュレーションメディアなので、コードも全部Claude Codeで作成しています。カラーテーマはClaudeの色を尊重しほぼ同様のものにし、UIはとあるメディアを参考にさせていただきました。

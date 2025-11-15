@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
-import type { BlogPost } from '@/lib/mdx';
+import type { BlogPost } from '@/lib/markdown';
 import { cn, formatDate } from '@/lib/utils';
 
 interface BlogCardProps {

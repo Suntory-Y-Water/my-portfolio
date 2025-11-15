@@ -4,7 +4,7 @@ import { PageHeader } from '@/components/shared/page-header';
 import { Card, CardContent } from '@/components/ui/card';
 import { siteConfig } from '@/config/site';
 import { getTagSlug } from '@/config/tag-slugs';
-import { getAllTags } from '@/lib/mdx';
+import { getAllTags } from '@/lib/markdown';
 import { absoluteUrl, cn } from '@/lib/utils';
 
 const PAGE_TITLE = 'すべてのタグ';

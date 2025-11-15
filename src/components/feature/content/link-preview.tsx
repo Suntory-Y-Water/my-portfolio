@@ -5,7 +5,7 @@ import { getOGData } from '@/actions/fetch-og-metadata';
 import { Icons } from '@/components/icons';
 import { ImageWithFallback } from '@/components/shared/image-with-fallback';
 import { siteConfig } from '@/config/site';
-import { getBlogPostBySlug } from '@/lib/mdx';
+import { getBlogPostBySlug } from '@/lib/markdown';
 import { cn } from '@/lib/utils';
 
 interface LinkCardProps {

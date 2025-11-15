@@ -2,11 +2,13 @@
 title: ポートフォリオにブログページを追加しました
 date: 2025-03-17
 description: ポートフォリオサイトにブログページを追加しました。今後はZennやQiitaで投稿していた内容を、こちらに集約する想定です。
-icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Party popper/Flat/party_popper_flat.svg
+icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Party%20popper/Flat/party_popper_flat.svg
 tags:
   - ポートフォリオ
   - ブログ
+slug: add-blog-to-portfolio
 ---
+
 
 ## ブログの作成背景
 
@@ -14,7 +16,7 @@ tags:
 
 このページは、[Next.js Minimal Blog](https://github.com/cakegaly/next-minimal-blog)を使用して作成しました。
 
-<LinkPreview url='https://zenn.dev/cakegaly/articles/next-minimal-blog-20250310' />
+https://zenn.dev/cakegaly/articles/next-minimal-blog-20250310
 
 既存のリポジトリに処理を追加したので、まだ**posts**ページの内容も残っている混沌とした状態ですが、ひとまず動くようになったので公開しています。
 
@@ -37,7 +39,7 @@ tags:
 現在はvercelドメインですが、個人ブログにするので独自ドメインを取得しようと考えてます。
 取得先は未定ですが、Cloudflare Registrarかな？
 
-<LinkPreview url='https://www.cloudflare.com/ja-jp/products/registrar/' />
+https://www.cloudflare.com/ja-jp/products/registrar/
 
 ### notion-md-converterを使ってNotion→mdxへのコンバート
 
