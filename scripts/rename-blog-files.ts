@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync, renameSync, readdirSync } from 'node:fs';
 import { join, basename } from 'node:path';
 import matter from 'gray-matter';
 
-const BLOG_DIR = 'content/blog';
+const BLOG_DIR = 'contents/blog';
 
 /**
  * ブログファイル名を yyyy-mm-dd_slug.md 形式にリネームし、

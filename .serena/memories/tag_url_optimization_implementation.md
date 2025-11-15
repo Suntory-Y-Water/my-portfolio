@@ -233,7 +233,7 @@ $ pnpm build
 - CMSのコンテンツタイプとして定義
 
 **本プロジェクト**:
-- Obsidian運用（content/blog/配下にMDファイル）
+- Obsidian運用（contents/blog/配下にMDファイル）
 - マッピングテーブル + CI/CDチェック
 
 ---
@@ -259,10 +259,10 @@ $ pnpm build
 '新しいタグ': 'new-tag',
 ```
 
-### content/blog/への移行
+### contents/blog/への移行
 
 **現状**: `src/content/blog/`にMDXファイル配置
-**将来**: `content/blog/`へ移行予定（別タスク）
+**将来**: `contents/blog/`へ移行予定（別タスク）
 
 ---
 

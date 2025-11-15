@@ -28,7 +28,7 @@
 
 | 項目 | 移行前（AS-IS） | 移行後（TO-BE） |
 |------|----------------|----------------|
-| **配置** | `src/content/blog/*.mdx` | `content/blog/*.md` |
+| **配置** | `src/content/blog/*.mdx` | `contents/blog/*.md` |
 | **形式** | MDX形式 | プレーンMarkdown |
 | **ファイル名** | `slug.mdx` | `yyyy-mm-dd_slug.md` |
 | **リンクカード** | `<LinkPreview url='...' />` | 単体URL（rehypeプラグインで自動変換） |
@@ -67,7 +67,7 @@
 - [x] 長いURLの改行処理（`word-break`, `overflow-wrap`）
 
 #### ビルドシステム
-- [x] `content/blog/*.md` からの読み込み
+- [x] `contents/blog/*.md` からの読み込み
 - [x] unified/remark/rehype パイプライン構築
 - [x] 型チェック、Lint通過
 - [x] Frontmatterの日付形式保持
@@ -222,7 +222,7 @@ tags:
 **理由**:
 - 既存の画像配信基盤が機能している
 - CDNによる高速配信
-- content/配下に画像を置くとリポジトリが肥大化
+- contents/配下に画像を置くとリポジトリが肥大化
 
 ---
 
@@ -349,7 +349,7 @@ async function readMarkdownFile<T>(filePath: string): Promise<MDXData<T>> {
 1. **ファイル作成**
    ```bash
    # ファイル名: yyyy-mm-dd_slug.md
-   touch content/blog/2025-11-15_new-article.md
+   touch contents/blog/2025-11-15_new-article.md
    ```
 
 2. **フロントマター記載**
@@ -385,7 +385,7 @@ async function readMarkdownFile<T>(filePath: string): Promise<MDXData<T>> {
 
 4. **コミット**
    ```bash
-   git add content/blog/2025-11-15_new-article.md
+   git add contents/blog/2025-11-15_new-article.md
    git commit -m "feat: add new article"
    git push
    ```
@@ -536,7 +536,7 @@ if (
 
 | ファイルパス | 説明 |
 |------------|------|
-| `content/blog/*.md` | ブログ記事（全13記事、yyyy-mm-dd_slug.md形式） |
+| `contents/blog/*.md` | ブログ記事（全13記事、yyyy-mm-dd_slug.md形式） |
 | `src/lib/markdown.ts` | Markdownファイル読み取り、slug管理 |
 | `src/lib/rehype-link-card.ts` | カスタムrehypeプラグイン（リンクカード） |
 | `src/lib/rehype-code-copy-button.ts` | カスタムrehypeプラグイン（コピーボタン） |
