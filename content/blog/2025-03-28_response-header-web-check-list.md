@@ -1,7 +1,7 @@
 ---
 title: 「Webサービス公開前のチェックリスト」にあるレスポンスヘッダの内容を調べてみる
 public: true
-date: 2025-03-28T00:00:00.000Z
+date: 2025-03-28
 icon: >-
   https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ambulance/Flat/ambulance_flat.svg
 slug: response-header-web-check-list

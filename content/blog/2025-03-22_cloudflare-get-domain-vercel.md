@@ -1,7 +1,7 @@
 ---
 title: Vercelで独自ドメインを設定する
 public: true
-date: 2025-03-22T00:00:00.000Z
+date: 2025-03-22
 icon: >-
   https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Water
   wave/Flat/water_wave_flat.svg

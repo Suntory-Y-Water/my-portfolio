@@ -1,7 +1,7 @@
 ---
 title: チンチロをするMCPサーバーを作ってみる
 public: true
-date: 2025-04-10T00:00:00.000Z
+date: 2025-04-10
 icon: >-
   https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Game%20die/Flat/game_die_flat.svg
 slug: chinchillo-mcp-server

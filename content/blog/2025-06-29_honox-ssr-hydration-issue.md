@@ -1,7 +1,7 @@
 ---
 title: HonoXにおけるSSRとクライアントサイドHydrationの同期問題とその解決策
 public: true
-date: 2025-06-29T00:00:00.000Z
+date: 2025-06-29
 icon: >-
   https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Cloud%20with%20rain/Flat/cloud_with_rain_flat.svg
 slug: honox-ssr-hydration-issue

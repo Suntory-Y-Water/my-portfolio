@@ -1,7 +1,7 @@
 ---
 title: iOSでもWindowsと同じ絵文字を表示したい！
 public: true
-date: 2025-03-30T00:00:00.000Z
+date: 2025-03-30
 icon: >-
   https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Smiling%20face%20with%20halo/Flat/smiling_face_with_halo_flat.svg
 slug: ios-kawaii-emoji

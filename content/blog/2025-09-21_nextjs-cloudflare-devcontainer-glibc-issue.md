@@ -1,7 +1,7 @@
 ---
 title: Next.js + OpenNext.js をdevcontainerで起動しようとしたときにハマったこと
 public: false
-date: 2025-09-21T00:00:00.000Z
+date: 2025-09-21
 icon: >-
   https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Wrench/Flat/wrench_flat.svg
 slug: nextjs-cloudflare-devcontainer-glibc-issue

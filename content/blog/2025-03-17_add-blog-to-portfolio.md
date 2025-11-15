@@ -1,6 +1,6 @@
 ---
 title: ポートフォリオにブログページを追加しました
-date: 2025-03-17T00:00:00.000Z
+date: 2025-03-17
 description: ポートフォリオサイトにブログページを追加しました。今後はZennやQiitaで投稿していた内容を、こちらに集約する想定です。
 icon: >-
   https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Party

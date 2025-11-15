@@ -1,7 +1,7 @@
 ---
 title: LINE Messaging APIから自動でGitHubにPRを発行する
 public: true
-date: 2025-03-20T00:00:00.000Z
+date: 2025-03-20
 icon: >-
   https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire/Flat/fire_flat.svg
 slug: messaging-api-github-pr
