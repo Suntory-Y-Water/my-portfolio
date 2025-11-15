@@ -1,4 +1,4 @@
-import type { BlogPost } from '@/lib/mdx';
+import type { BlogPost } from '@/lib/markdown';
 
 export interface PaginationResult<T> {
   items: T[];
