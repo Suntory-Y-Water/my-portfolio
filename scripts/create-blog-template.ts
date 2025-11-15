@@ -67,7 +67,7 @@ title:
 slug: ${slug}
 date: ${dateStr}
 description:
-icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Party popper/Flat/party_popper_flat.svg
+icon:
 tags:
   -
 ---
