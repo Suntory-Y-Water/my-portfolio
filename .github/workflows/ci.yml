@@ -26,7 +26,7 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup
-      - run: pnpm run lint
+      - run: bun run lint
 
   typecheck:
     timeout-minutes: 5
@@ -38,7 +38,7 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup
-      - run: pnpm run typecheck
+      - run: bun run typecheck
 
   check-tags:
     timeout-minutes: 5
@@ -50,4 +50,4 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup
-      - run: pnpm run check:tags
+      - run: bun run check:tags
