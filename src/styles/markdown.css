@@ -75,14 +75,16 @@
   @apply block text-sm leading-relaxed;
 }
 
-/* Inline code - matching mdx-components code styling */
+/* Inline code - GitHub style with clear background */
 .markdown-content :not(pre) > code {
   @apply relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-medium;
-  @apply bg-muted/50 ring-1 ring-border/30 text-foreground;
+  background-color: rgba(175, 184, 193, 0.2);
+  color: #1f2328;
 }
 
 .dark .markdown-content :not(pre) > code {
-  @apply bg-muted/20 ring-border/20;
+  background-color: rgba(110, 118, 129, 0.4);
+  color: #e6edf3;
 }
 
 .markdown-content h2 {
