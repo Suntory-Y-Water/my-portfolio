@@ -1,5 +1,5 @@
 import '@/styles/globals.css';
-import '@/styles/mdx.css';
+import '@/styles/markdown.css';
 
 import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next';

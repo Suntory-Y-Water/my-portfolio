@@ -1,4 +1,4 @@
-import '@/styles/mdx.css';
+import '@/styles/markdown.css';
 
 import Image from 'next/image';
 import Link from 'next/link';
