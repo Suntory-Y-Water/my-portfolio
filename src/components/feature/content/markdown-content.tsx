@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { createRoot, type Root } from 'react-dom/client';
+import { LinkCard } from './link-card';
 
 interface MarkdownContentProps {
   html: string;
@@ -16,9 +18,33 @@ interface MarkdownContentProps {
 export function MarkdownContent({ html }: MarkdownContentProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: html変更時にボタンを再作成する必要がある
+  // biome-ignore lint/correctness/useExhaustiveDependencies: html変更時にボタンとコンポーネントを再作成する必要がある
   useEffect(() => {
     if (!containerRef.current) return;
+
+    // LinkCardコンポーネントのマウント
+    const linkCardContainers =
+      containerRef.current.querySelectorAll<HTMLElement>('[data-link-card]');
+    const linkCardRoots: Root[] = [];
+
+    linkCardContainers.forEach((container) => {
+      try {
+        const propsJson = container.dataset.linkCard;
+        if (!propsJson) return;
+
+        // HTML エンティティをデコード
+        const decodedJson = propsJson
+          .replace(/&quot;/g, '"')
+          .replace(/&#39;/g, "'");
+
+        const props = JSON.parse(decodedJson);
+        const root = createRoot(container);
+        root.render(<LinkCard {...props} />);
+        linkCardRoots.push(root);
+      } catch (error) {
+        console.error('Failed to mount LinkCard:', error);
+      }
+    });
 
     // data-copy-button属性を持つコンテナを検出
     const copyButtonContainers =
@@ -88,6 +114,16 @@ export function MarkdownContent({ html }: MarkdownContentProps) {
 
     // クリーンアップ
     return () => {
+      // LinkCardのアンマウント
+      linkCardRoots.forEach((root) => {
+        try {
+          root.unmount();
+        } catch (error) {
+          console.error('Failed to unmount LinkCard:', error);
+        }
+      });
+
+      // コピーボタンのクリーンアップ
       abortController.abort();
       // 全てのタイムアウトをクリア
       copiedStates.forEach(({ timeoutId }) => {

@@ -106,67 +106,19 @@ async function fetchLinkCardData(url: string): Promise<LinkCardData> {
   }
 }
 
+/**
+ * リンクカードのマーカーHTMLを生成
+ *
+ * クライアント側でLinkCardコンポーネントをマウントするためのマーカー要素を返します。
+ * data-link-card属性にLinkCardコンポーネントのpropsをJSON形式で埋め込みます。
+ */
 function createLinkCardHTML(data: LinkCardData): string {
-  const { url, title, description, image, isInternal, error } = data;
-  const hostname = url.startsWith('http') ? new URL(url).hostname : '';
+  // LinkCardコンポーネントのpropsをJSON文字列化
+  const propsJson = JSON.stringify(data)
+    .replace(/"/g, '&quot;') // ダブルクォートをエスケープ
+    .replace(/'/g, '&#39;'); // シングルクォートをエスケープ
 
-  const cardClasses = `group my-4 flex overflow-hidden rounded-lg border bg-card transition-all duration-200 hover:bg-accent/5 hover:shadow-md ${
-    error ? 'border-border/50 bg-card/50' : ''
-  }`;
-
-  const linkAttrs = isInternal
-    ? `href="${url}" class="${cardClasses}"`
-    : `href="${url}" target="_blank" rel="noopener noreferrer" class="${cardClasses}"`;
-
-  const iconSection = isInternal
-    ? `<span class="flex items-center gap-1.5">
-        <div class="size-4 rounded-full bg-primary/10">
-          <span class="flex size-full items-center justify-center text-[10px] font-bold text-primary">B</span>
-        </div>
-        <span>Blog Post</span>
-      </span>`
-    : `<div class="relative size-4 overflow-hidden rounded-full bg-muted">
-        <img src="https://www.google.com/s2/favicons?domain=${hostname}&sz=32" alt="" class="object-cover" loading="lazy" width="16" height="16" />
-      </div>
-      <span>${hostname.replace(/^www\./, '')}</span>
-      <svg class="size-3 text-muted-foreground/70" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-        <polyline points="15 3 21 3 21 9"></polyline>
-        <line x1="10" y1="14" x2="21" y2="3"></line>
-      </svg>`;
-
-  const imageSection = image
-    ? `<div class="hidden w-[148px] shrink-0 sm:block">
-        <div class="relative size-full">
-          <img src="${image}" alt="${title}" class="size-full object-cover" loading="lazy" />
-        </div>
-      </div>`
-    : `<div class="hidden w-[148px] shrink-0 bg-muted/30 sm:block">
-        <div class="flex size-full items-center justify-center">
-          <span class="text-4xl text-muted-foreground/20">${isInternal ? '📝' : '🔗'}</span>
-        </div>
-      </div>`;
-
-  return `<a ${linkAttrs}>
-    <div class="flex flex-1 flex-col gap-2 p-4">
-      <div class="flex items-center gap-1">
-        <div class="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-          ${iconSection}
-        </div>
-      </div>
-      <div class="flex-1">
-        <h3 class="font-semibold leading-tight text-foreground transition-colors group-hover:text-accent">
-          ${error ? 'Page Not Found' : title}
-        </h3>
-        ${
-          description
-            ? `<p class="mt-1.5 line-clamp-2 text-sm text-muted-foreground">${description}</p>`
-            : ''
-        }
-      </div>
-    </div>
-    ${imageSection}
-  </a>`;
+  return `<div class="link-card-container my-4" data-link-card="${propsJson}"></div>`;
 }
 
 function isPureUrlParagraph(node: Element): boolean {
