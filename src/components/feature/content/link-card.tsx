@@ -61,6 +61,7 @@ export function LinkCard({
                       fill
                       sizes="12px"
                       loading="lazy"
+                      unoptimized
                     />
                   )}
                 </div>

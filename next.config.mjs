@@ -14,17 +14,6 @@ const nextConfig = {
     loaderFile: './src/lib/image-loader.ts',
     domains: ['pub-37c337e4f6b74be784982bc3041040b4.r2.dev'],
     formats: ['image/webp'],
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'www.google.com',
-        pathname: '/s2/favicons/**',
-      },
-      {
-        protocol: 'https',
-        hostname: '**',
-      },
-    ],
   },
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
 
