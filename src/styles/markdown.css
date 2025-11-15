@@ -75,16 +75,14 @@
   @apply block text-sm leading-relaxed;
 }
 
-/* Inline code - GitHub style with clear background */
+/* Inline code - subtle background with emphasized border */
 .markdown-content :not(pre) > code {
   @apply relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-medium;
-  background-color: rgba(175, 184, 193, 0.2);
-  color: #1f2328;
+  @apply bg-muted/50 ring-1 ring-border/50 text-foreground;
 }
 
 .dark .markdown-content :not(pre) > code {
-  background-color: rgba(110, 118, 129, 0.4);
-  color: #e6edf3;
+  @apply bg-muted/20 ring-border/40;
 }
 
 .markdown-content h2 {
