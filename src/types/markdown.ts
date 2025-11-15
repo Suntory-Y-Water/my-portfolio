@@ -4,7 +4,7 @@ export type Frontmatter<T> = {
   description: string;
 } & T;
 
-export type MDXData<T> = {
+export type MarkdownData<T> = {
   metadata: Frontmatter<T>;
   slug: string;
   content?: React.ReactNode;

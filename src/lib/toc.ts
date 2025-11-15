@@ -3,7 +3,7 @@ import type { TOCItem } from '@/components/feature/content/table-of-contents';
 /**
  * MarkdownからH2とH3の見出しを抽出して目次を生成する
  *
- * @param content - MDXの生のコンテンツ
+ * @param content - Markdownの生のコンテンツ
  * @returns 階層構造を持つ目次項目の配列
  */
 export function extractTOC(content: string): TOCItem[] {

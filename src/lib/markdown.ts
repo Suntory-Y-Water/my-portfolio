@@ -2,11 +2,11 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
 import { getTagNameFromSlug, getTagSlug } from '@/config/tag-slugs';
-import type { Frontmatter, MDXData } from '@/types/mdx';
+import type { Frontmatter, MarkdownData } from '@/types/markdown';
 
 const blogDir = path.join(process.cwd(), 'content', 'blog');
 
-export type BlogPost = MDXData<{
+export type BlogPost = MarkdownData<{
   thumbnail?: string;
   tags?: string[];
   icon?: string;
@@ -63,7 +63,7 @@ async function getBlogPost(
   return posts.find(predicate);
 }
 
-async function getMarkdownData<T>(dir: string): Promise<MDXData<T>[]> {
+async function getMarkdownData<T>(dir: string): Promise<MarkdownData<T>[]> {
   const files = await getMarkdownFiles(dir);
   return Promise.all(
     files.map((file) => readMarkdownFile<T>(path.join(dir, file))),
@@ -74,7 +74,7 @@ async function getMarkdownFiles(dir: string): Promise<string[]> {
   return (await fs.readdir(dir)).filter((file) => path.extname(file) === '.md');
 }
 
-async function readMarkdownFile<T>(filePath: string): Promise<MDXData<T>> {
+async function readMarkdownFile<T>(filePath: string): Promise<MarkdownData<T>> {
   const rawContent = await fs.readFile(filePath, 'utf-8');
   const { data, content } = matter(rawContent);
   const relativePath = path.relative(process.cwd(), filePath);

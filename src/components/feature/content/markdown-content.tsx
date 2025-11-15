@@ -25,7 +25,10 @@ export function MarkdownContent({ html }: MarkdownContentProps) {
       containerRef.current.querySelectorAll('[data-copy-button]');
 
     const abortController = new AbortController();
-    const copiedStates = new Map<Element, { button: HTMLButtonElement; timeoutId: NodeJS.Timeout | null }>();
+    const copiedStates = new Map<
+      Element,
+      { button: HTMLButtonElement; timeoutId: NodeJS.Timeout | null }
+    >();
 
     copyButtonContainers.forEach((container) => {
       // コピーボタンを作成
