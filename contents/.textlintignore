@@ -1,0 +1,15 @@
+# 既存のブログファイルをtextlintの対象外にする
+blog/2025-03-17_add-blog-to-portfolio.md
+blog/2025-03-20_messaging-api-github-pr.md
+blog/2025-03-21_noto-sans-jp-safari-mincho.md
+blog/2025-03-22_cloudflare-get-domain-vercel.md
+blog/2025-03-25_notion-images-put-cloudflare.md
+blog/2025-03-28_response-header-web-check-list.md
+blog/2025-03-30_ios-kawaii-emoji.md
+blog/2025-04-10_chinchillo-mcp-server.md
+blog/2025-04-24_vscode-github-copilot-multiple-prompt.md
+blog/2025-05-07_kinpatsu-heroine-honox.md
+blog/2025-06-29_honox-ssr-hydration-issue.md
+blog/2025-07-13_cc-vault-curation-media.md
+blog/2025-09-21_nextjs-cloudflare-devcontainer-glibc-issue.md
+blog/2025-11-15_markdown-migrate-sample-blog.md
