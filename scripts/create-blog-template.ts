@@ -13,13 +13,13 @@
  * ```
  *
  * ## 生成されるファイル
- * content/blog/2025-11-15_my-new-article.md
+ * contents/blog/2025-11-15_my-new-article.md
  */
 
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
-const blogDir = path.join(process.cwd(), 'content', 'blog');
+const blogDir = path.join(process.cwd(), 'contents', 'blog');
 
 async function createBlogTemplate() {
   // コマンドライン引数からslugを取得

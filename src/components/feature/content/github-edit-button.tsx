@@ -16,7 +16,7 @@ const GITHUB_EDIT_URL_BASE = `${siteConfig.links.github}/my-portfolio/blob/${sit
  * クリックするとGitHub上の該当ファイルを開いて修正提案を行えるようにします。
  * filePathが指定されていない場合や、GitHubのURLが設定されていない場合は何も表示されません。
  *
- * @param filePath - GitHubリポジトリ内のファイルパス（任意）。例: 'content/blog/2025-01-15-typescript.md'。指定されていない場合はボタンを表示しません
+ * @param filePath - GitHubリポジトリ内のファイルパス（任意）。例: 'contents/blog/2025-01-15-typescript.md'。指定されていない場合はボタンを表示しません
  * @returns GitHubで編集ボタンコンポーネント。filePathがない場合はnullを返します
  *
  * @example
@@ -24,7 +24,7 @@ const GITHUB_EDIT_URL_BASE = `${siteConfig.links.github}/my-portfolio/blob/${sit
  * import { GitHubEditButton } from '@/components/feature/content/github-edit-button';
  *
  * export default function BlogPost() {
- *   const filePath = 'content/blog/2025-01-15-typescript.md';
+ *   const filePath = 'contents/blog/2025-01-15-typescript.md';
  *
  *   return (
  *     <article>
@@ -35,7 +35,7 @@ const GITHUB_EDIT_URL_BASE = `${siteConfig.links.github}/my-portfolio/blob/${sit
  *   );
  * }
  * // 出力: GitHubのアイコンと「GitHubで修正を提案する」というテキストのボタンが表示されます
- * // クリックすると https://github.com/username/my-portfolio/blob/main/content/blog/2025-01-15-typescript.md が開きます
+ * // クリックすると https://github.com/username/my-portfolio/blob/main/contents/blog/2025-01-15-typescript.md が開きます
  * ```
  */
 export function GitHubEditButton({ filePath }: GitHubEditButtonProps) {

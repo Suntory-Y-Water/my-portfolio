@@ -4,7 +4,7 @@ import matter from 'gray-matter';
 import { getTagNameFromSlug, getTagSlug } from '@/config/tag-slugs';
 import type { Frontmatter, MarkdownData } from '@/types/markdown';
 
-const blogDir = path.join(process.cwd(), 'content', 'blog');
+const blogDir = path.join(process.cwd(), 'contents', 'blog');
 
 /**
  * ブログ記事の型定義
@@ -23,7 +23,7 @@ export type BlogPost = MarkdownData<{
 /**
  * 全ブログ記事を日付降順で取得する
  *
- * content/blog ディレクトリ配下のすべてのMarkdownファイルを読み込み、
+ * contents/blog ディレクトリ配下のすべてのMarkdownファイルを読み込み、
  * 日付が新しい順にソートして返します。
  *
  * @returns ブログ記事の配列（日付降順）

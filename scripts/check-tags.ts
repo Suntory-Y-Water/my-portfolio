@@ -22,7 +22,7 @@ import path from 'node:path';
 import matter from 'gray-matter';
 import { TAG_SLUG_MAP } from '../src/config/tag-slugs';
 
-const blogDir = path.join(process.cwd(), 'content', 'blog');
+const blogDir = path.join(process.cwd(), 'contents', 'blog');
 
 async function checkTags() {
   console.log('🔍 タグ整合性チェックを開始します...\n');
