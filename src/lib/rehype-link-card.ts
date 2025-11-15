@@ -118,7 +118,7 @@ function createLinkCardHTML(data: LinkCardData): string {
     .replace(/"/g, '&quot;') // ダブルクォートをエスケープ
     .replace(/'/g, '&#39;'); // シングルクォートをエスケープ
 
-  return `<div class="link-card-container my-4" data-link-card="${propsJson}"></div>`;
+  return `<div class="link-card-container" data-link-card="${propsJson}"></div>`;
 }
 
 function isPureUrlParagraph(node: Element): boolean {

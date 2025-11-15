@@ -38,6 +38,11 @@ export function MarkdownContent({ html }: MarkdownContentProps) {
           .replace(/&#39;/g, "'");
 
         const props = JSON.parse(decodedJson);
+
+        // マーカーDIVを視覚的に消す（display: contents）
+        // これにより、子要素（<a>）が親の直接の子のように振る舞う
+        container.style.display = 'contents';
+
         const root = createRoot(container);
         root.render(<LinkCard {...props} />);
         linkCardRoots.push(root);
