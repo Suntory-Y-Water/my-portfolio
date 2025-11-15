@@ -14,6 +14,7 @@
     "check": "biome check .",
     "check:fix": "biome check --write .",
     "check:tags": "tsx scripts/check-tags.ts",
+    "new-blog": "tsx scripts/create-blog-template.ts",
     "ci": "biome ci .",
     "clean": "rm -rf .next/ node_modules/",
     "analyze": "ANALYZE=true next build",
