@@ -53,9 +53,12 @@ async function PostsWithData() {
       usernames.map((username) =>
         fetchPosts<QiitaPost[]>({
           apiUrl: `https://qiita.com/api/v2/users/${username}/items?per_page=100`,
-          headers: {
-            Authorization: `Bearer ${apiKey}`,
-          },
+          // 環境変数がない場合はheadersを設定しない
+          ...(apiKey && {
+            headers: {
+              Authorization: `Bearer ${apiKey}`,
+            },
+          }),
         }),
       ),
     ),

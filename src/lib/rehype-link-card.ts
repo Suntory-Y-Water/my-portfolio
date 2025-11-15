@@ -1,5 +1,5 @@
-import { visit } from 'unist-util-visit';
 import type { Element, Root } from 'hast';
+import { visit } from 'unist-util-visit';
 import { getOGData } from '@/actions/fetch-og-metadata';
 import { siteConfig } from '@/config/site';
 import { getBlogPostBySlug } from '@/lib/markdown';
