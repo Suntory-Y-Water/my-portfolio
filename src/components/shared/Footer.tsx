@@ -2,6 +2,28 @@ import Link from 'next/link';
 import { SocialIcons } from '@/components/icons';
 import { siteConfig } from '@/config/site';
 
+/**
+ * アプリケーション全体のフッターコンポーネント
+ *
+ * このコンポーネントはサイトの最下部に表示され、著作権表示とソーシャルメディアリンク（Twitter、GitHub）を含みます。
+ * ソーシャルメディアのURLはsiteConfigから取得され、URLが設定されている場合のみアイコンが表示されます。
+ *
+ * @returns フッターコンポーネント
+ *
+ * @example
+ * ```tsx
+ * import Footer from '@/components/shared/Footer';
+ *
+ * export default function Layout({ children }) {
+ *   return (
+ *     <>
+ *       <main>{children}</main>
+ *       <Footer />
+ *     </>
+ *   );
+ * }
+ * ```
+ */
 export default function Footer() {
   const twitterUrl = siteConfig.links.twitter;
   const githubUrl = siteConfig.links.github;

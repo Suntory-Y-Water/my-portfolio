@@ -5,10 +5,46 @@ import { Badge } from '@/components/ui/badge';
 import type { BlogPost } from '@/lib/markdown';
 import { cn, formatDate } from '@/lib/utils';
 
-interface BlogCardProps {
+type BlogCardProps = {
   data: BlogPost;
-}
+};
 
+/**
+ * ブログ記事のカードを表示するコンポーネント
+ *
+ * このコンポーネントはブログ記事のメタデータを受け取り、カード形式で表示します。
+ * アイコン（絵文字または画像）、タイトル、説明文、日付、タグを含むカードをレンダリングし、
+ * クリックすると記事ページに遷移します。ホバー時にはカードが拡大し、視覚的なフィードバックを提供します。
+ *
+ * @param data - 表示するブログ記事データ。metadata（title、description、date、icon、tagsなど）とslugを含みます
+ * @returns ブログカードコンポーネント
+ *
+ * @example
+ * ```tsx
+ * import { BlogCard } from '@/components/feature/content/blog-card';
+ * import type { BlogPost } from '@/lib/markdown';
+ *
+ * const blogPost: BlogPost = {
+ *   slug: 'typescript-basics',
+ *   metadata: {
+ *     title: 'TypeScriptの基本',
+ *     description: 'TypeScriptの型定義と基本的な使い方を解説します',
+ *     date: '2025-01-15',
+ *     icon: '📝',
+ *     tags: ['TypeScript', 'プログラミング', '入門'],
+ *   },
+ *   content: '...',
+ * };
+ *
+ * export default function BlogList() {
+ *   return (
+ *     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+ *       <BlogCard data={blogPost} />
+ *     </div>
+ *   );
+ * }
+ * ```
+ */
 export function BlogCard({ data }: BlogCardProps) {
   const { metadata, slug } = data;
   const dateISO = new Date(metadata.date).toISOString();

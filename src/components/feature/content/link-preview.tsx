@@ -8,20 +8,37 @@ import { siteConfig } from '@/config/site';
 import { getBlogPostBySlug } from '@/lib/markdown';
 import { cn } from '@/lib/utils';
 
-interface LinkCardProps {
+type LinkCardProps = {
   url: string;
   title?: string;
   description?: string;
   image?: string;
   className?: string;
   error?: boolean;
-}
+};
 
-interface LinkPreviewProps {
+type LinkPreviewProps = {
   url: string;
   className?: string;
-}
+};
 
+/**
+ * URLが内部ブログリンクかどうかを判定
+ *
+ * 指定されたURLが'/blog/'で始まる内部リンクかどうかをチェックします。
+ * 絶対URLと相対URLの両方に対応しています。
+ *
+ * @param url - 判定対象のURL（例: '/blog/typescript', 'https://example.com/blog/react'）
+ * @returns 内部ブログリンクの場合はtrue、それ以外はfalse
+ *
+ * @example
+ * ```tsx
+ * isInternalBlogLink('/blog/typescript');  // true
+ * isInternalBlogLink('https://example.com/blog/react');  // true
+ * isInternalBlogLink('/about');  // false
+ * isInternalBlogLink('https://zenn.dev/article');  // false
+ * ```
+ */
 function isInternalBlogLink(url: string): boolean {
   try {
     const urlObj = new URL(url);
@@ -31,6 +48,22 @@ function isInternalBlogLink(url: string): boolean {
   }
 }
 
+/**
+ * URLからスラッグ（最後のパス部分）を抽出
+ *
+ * URLのパスから最後の部分を抽出してスラッグとして返します。
+ * 絶対URLと相対URLの両方に対応しています。
+ *
+ * @param url - スラッグを抽出するURL（例: '/blog/typescript', 'https://example.com/blog/react'）
+ * @returns 抽出されたスラッグ（例: 'typescript', 'react'）
+ *
+ * @example
+ * ```tsx
+ * getSlugFromUrl('/blog/typescript');  // 'typescript'
+ * getSlugFromUrl('https://example.com/blog/react');  // 'react'
+ * getSlugFromUrl('/blog/nested/path/article');  // 'article'
+ * ```
+ */
 function getSlugFromUrl(url: string): string {
   try {
     const urlObj = new URL(url);
@@ -42,6 +75,37 @@ function getSlugFromUrl(url: string): string {
   }
 }
 
+/**
+ * リンクプレビューカードを表示するコンポーネント
+ *
+ * このコンポーネントは指定されたURLのプレビューカードを表示します。
+ * タイトル、説明文、画像、ファビコンを含むカード形式でリンクを視覚的に表現します。
+ * 内部リンクと外部リンクの両方に対応し、外部リンクの場合は新しいタブで開きます。
+ *
+ * @param url - リンク先のURL
+ * @param title - リンクのタイトル（任意）。指定されていない場合は'Untitled'と表示されます
+ * @param description - リンクの説明文（任意）。指定されている場合は最大2行まで表示されます
+ * @param image - プレビュー画像のURL（任意）。指定されていない場合はプレースホルダーが表示されます
+ * @param className - 追加のCSSクラス名（任意）
+ * @param error - エラー状態かどうか（デフォルト: false）。trueの場合は'Page Not Found'と表示されます
+ * @returns リンクカードコンポーネント
+ *
+ * @example
+ * ```tsx
+ * import { LinkCard } from '@/components/feature/content/link-preview';
+ *
+ * // 外部リンクのプレビュー
+ * <LinkCard
+ *   url='https://zenn.dev/example/articles/typescript'
+ *   title='TypeScriptの型定義について'
+ *   description='TypeScriptの基本的な型定義を解説します'
+ *   image='https://example.com/og-image.png'
+ * />
+ *
+ * // エラー状態
+ * <LinkCard url='https://example.com/404' error={true} />
+ * ```
+ */
 export function LinkCard({
   url,
   title,
@@ -147,6 +211,23 @@ export function LinkCard({
   );
 }
 
+/**
+ * 内部ブログリンクのプレビューカードを表示する非同期コンポーネント
+ *
+ * このコンポーネントは内部ブログ記事のURLからスラッグを抽出し、
+ * ブログ記事のメタデータを取得してLinkCardコンポーネントで表示します。
+ * 記事が見つからない場合はエラー状態のカードを表示します。
+ *
+ * @param url - 内部ブログ記事のURL（例: '/blog/typescript'）
+ * @param className - 追加のCSSクラス名（任意）
+ * @returns 内部リンクカードコンポーネント
+ *
+ * @example
+ * ```tsx
+ * // LinkPreviewコンポーネント内で自動的に使用されます
+ * <InternalLinkCard url='/blog/typescript' />
+ * ```
+ */
 async function InternalLinkCard({
   url,
   className,
@@ -172,6 +253,23 @@ async function InternalLinkCard({
   );
 }
 
+/**
+ * 外部リンクのプレビューカードを表示する非同期コンポーネント
+ *
+ * このコンポーネントは外部URLからOGP（Open Graph Protocol）データを取得し、
+ * LinkCardコンポーネントで表示します。
+ * データ取得に失敗した場合やOGPデータがない場合はエラー状態のカードを表示します。
+ *
+ * @param url - 外部リンクのURL（例: 'https://zenn.dev/example/articles/typescript'）
+ * @param className - 追加のCSSクラス名（任意）
+ * @returns 外部リンクカードコンポーネント
+ *
+ * @example
+ * ```tsx
+ * // LinkPreviewコンポーネント内で自動的に使用されます
+ * <ExternalLinkCard url='https://zenn.dev/example/articles/typescript' />
+ * ```
+ */
 async function ExternalLinkCard({
   url,
   className,
@@ -201,6 +299,42 @@ async function ExternalLinkCard({
   }
 }
 
+/**
+ * リンクプレビューを表示するコンポーネント（メインエクスポート）
+ *
+ * このコンポーネントは指定されたURLが内部リンクか外部リンクかを自動判定し、
+ * 適切なプレビューカードを表示します。データ取得中はローディング状態を表示します。
+ * Markdown記事内で自動的にリンクをカード形式に変換するために使用されます。
+ *
+ * @param url - プレビューを表示するURL（内部: '/blog/typescript', 外部: 'https://zenn.dev/article'）
+ * @param className - 追加のCSSクラス名（任意）
+ * @returns リンクプレビューコンポーネント
+ *
+ * @example
+ * ```tsx
+ * import { LinkPreview } from '@/components/feature/content/link-preview';
+ *
+ * // 内部ブログリンクのプレビュー
+ * export default function Article() {
+ *   return (
+ *     <article>
+ *       <p>関連記事:</p>
+ *       <LinkPreview url='/blog/typescript' />
+ *     </article>
+ *   );
+ * }
+ *
+ * // 外部リンクのプレビュー
+ * export default function References() {
+ *   return (
+ *     <div>
+ *       <h2>参考資料</h2>
+ *       <LinkPreview url='https://zenn.dev/example/articles/react' />
+ *     </div>
+ *   );
+ * }
+ * ```
+ */
 export function LinkPreview({ url, className }: LinkPreviewProps) {
   const isInternal = !url.startsWith('http') && isInternalBlogLink(url);
 

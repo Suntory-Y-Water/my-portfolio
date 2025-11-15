@@ -1,4 +1,4 @@
-import type { ImageLoader, ImageLoaderProps } from 'next/image';
+import type { ImageLoaderProps } from 'next/image';
 
 /**
  * microCMS用の画像最適化ローダー
@@ -11,11 +11,7 @@ import type { ImageLoader, ImageLoaderProps } from 'next/image';
  * const url = microCMSLoader({ src: 'https://images.microcms-assets.io/...', width: 800, quality: 80 });
  * ```
  */
-function microCMSLoader({
-  src,
-  width,
-  quality,
-}: ImageLoaderProps): string {
+function microCMSLoader({ src, width, quality }: ImageLoaderProps): string {
   const url = new URL(src);
   const params = url.searchParams;
 
@@ -60,11 +56,7 @@ function localLoader({ src, width }: ImageLoaderProps): string {
  * const url2 = customLoader({ src: 'https://images.microcms-assets.io/...', width: 800, quality: 80 });
  * ```
  */
-function customLoader({
-  src,
-  width,
-  quality,
-}: ImageLoaderProps): string {
+function customLoader({ src, width, quality }: ImageLoaderProps): string {
   return src.startsWith('/')
     ? localLoader({ src, width, quality })
     : microCMSLoader({ src, width, quality });

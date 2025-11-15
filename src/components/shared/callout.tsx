@@ -1,15 +1,32 @@
 import { Icons } from '@/components/icons';
 import { cn } from '@/lib/utils';
 
+/**
+ * コールアウトの種類
+ *
+ * 表示するコールアウトのスタイルとアイコンを決定します。
+ */
 type CalloutType = 'info' | 'note' | 'warning' | 'danger';
 
-interface CalloutProps {
+/**
+ * コールアウトコンポーネントのProps型定義
+ */
+type CalloutProps = {
+  /** コールアウト内に表示するコンテンツ */
   children?: React.ReactNode;
+  /** コールアウトの種類（デフォルト: 'info'） */
   type?: CalloutType;
+  /** コールアウトのタイトル（指定しない場合は種類に応じたデフォルトタイトル） */
   title?: string;
+  /** カスタムCSSクラス名（オプション） */
   className?: string;
-}
+};
 
+/**
+ * コールアウトスタイル定義
+ *
+ * 各コールアウトタイプに対応するアイコン、タイトル、スタイルクラスを定義します。
+ */
 const calloutStyles: Record<
   CalloutType,
   {
@@ -54,6 +71,23 @@ const calloutStyles: Record<
   },
 };
 
+/**
+ * コールアウトコンポーネント
+ *
+ * 重要な情報や注意事項を強調表示するためのボックスコンポーネント。
+ * 4つのスタイル（info, note, warning, danger）をサポートし、
+ * それぞれ異なる色とアイコンで表示されます。
+ *
+ * @param props - コールアウトのプロパティ
+ * @returns コールアウト要素
+ *
+ * @example
+ * ```tsx
+ * <Callout type="warning" title="注意">
+ *   この機能は現在ベータ版です。
+ * </Callout>
+ * ```
+ */
 export function Callout({
   children,
   type = 'info',

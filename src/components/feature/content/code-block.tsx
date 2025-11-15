@@ -10,10 +10,52 @@ type CodeBlockProps = {
   children: ReactNode;
 };
 
+/**
+ * コードブロックを表示するコンポーネント
+ *
+ * このコンポーネントはシンタックスハイライト付きのコードブロックを表示し、
+ * コピーボタンを提供してユーザーがコードを簡単にクリップボードにコピーできるようにします。
+ * コピーボタンはホバー時に表示され、コピー後は1秒間チェックマークに変わります。
+ *
+ * @param className - 追加のCSSクラス名（任意）。preタグにカスタムスタイルを適用する際に使用します
+ * @param children - コードブロック内に表示する内容。通常はcodeタグでラップされたコード文字列です
+ * @returns コードブロックコンポーネント
+ *
+ * @example
+ * ```tsx
+ * import { CodeBlock } from '@/components/feature/content/code-block';
+ *
+ * export default function Documentation() {
+ *   return (
+ *     <CodeBlock className='language-typescript'>
+ *       <code>
+ *         {`function greet(name: string): string {
+ *   return \`Hello, \${name}!\`;
+ * }`}
+ *       </code>
+ *     </CodeBlock>
+ *   );
+ * }
+ * // 出力: シンタックスハイライト付きのコードブロックと、
+ * // 右上にコピーボタンが表示されます
+ * ```
+ */
 export function CodeBlock({ className, children, ...props }: CodeBlockProps) {
   const [isCopied, setIsCopied] = useState(false);
   const preRef = useRef<HTMLPreElement>(null);
 
+  /**
+   * コードブロックの内容をクリップボードにコピー
+   *
+   * preタグのテキスト内容を取得し、navigator.clipboard APIを使用してクリップボードにコピーします。
+   * コピー成功後、1秒間コピー完了状態を表示します。
+   *
+   * @example
+   * ```tsx
+   * // コピーボタンがクリックされたときに自動的に呼び出されます
+   * // ユーザーが明示的に呼び出す必要はありません
+   * ```
+   */
   function copyToClipboard() {
     // 現在のコンポーネント内のpreタグを参照
     if (!preRef.current) return;

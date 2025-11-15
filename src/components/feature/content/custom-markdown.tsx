@@ -11,9 +11,9 @@ import { rehypeLinkCard } from '@/lib/rehype-link-card';
 import { rehypeCodeCopyButton } from '@/lib/rehype-code-copy-button';
 import { MarkdownContent } from './markdown-content';
 
-interface CustomMarkdownProps {
+type CustomMarkdownProps = {
   source: string;
-}
+};
 
 const rehypePrettyCodeOptions = {
   theme: 'slack-dark',
@@ -22,10 +22,47 @@ const rehypePrettyCodeOptions = {
 };
 
 /**
- * Renders Markdown content with remark/rehype plugins
+ * Markdownコンテンツをremark/rehypeプラグインを使用してレンダリングするコンポーネント
  *
- * This component processes Markdown source content and renders it as HTML.
- * It supports GFM, link cards, and GitHub-style alerts.
+ * このコンポーネントはMarkdownソースを受け取り、HTMLとして処理・表示します。
+ * GFM（GitHub Flavored Markdown）、リンクカード、GitHubスタイルのアラート、
+ * シンタックスハイライト、コードコピーボタンなど、多くの機能をサポートしています。
+ * エラーが発生した場合は、エラーメッセージを表示します。
+ *
+ * @param source - レンダリングするMarkdownソース文字列
+ * @returns レンダリングされたMarkdownコンポーネント。エラー時はエラーメッセージを含むdivを返します
+ *
+ * @example
+ * ```tsx
+ * import { CustomMarkdown } from '@/components/feature/content/custom-markdown';
+ *
+ * export default async function BlogPost() {
+ *   const markdownSource = `
+ * # タイトル
+ *
+ * これは**太字**のテキストです。
+ *
+ * ## コードブロック
+ * \`\`\`typescript
+ * function greet(name: string): string {
+ *   return \`Hello, \${name}!\`;
+ * }
+ * \`\`\`
+ *
+ * ## リンクカード
+ * https://zenn.dev/example/articles/typescript
+ *
+ * > [!NOTE]
+ * > これはGitHubスタイルのアラートです。
+ *   `;
+ *
+ *   return (
+ *     <article>
+ *       <CustomMarkdown source={markdownSource} />
+ *     </article>
+ *   );
+ * }
+ * ```
  */
 export async function CustomMarkdown({ source }: CustomMarkdownProps) {
   try {

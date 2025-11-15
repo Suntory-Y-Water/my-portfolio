@@ -2,16 +2,40 @@
 
 import { useEffect, useRef } from 'react';
 
-interface MarkdownContentProps {
+type MarkdownContentProps = {
   html: string;
-}
+};
 
 /**
- * クライアントコンポーネント：コンパイル済みMarkdown HTMLを表示し、
- * コードブロックにコピーボタンを動的に追加
+ * コンパイル済みMarkdown HTMLを表示するクライアントコンポーネント
+ *
+ * このコンポーネントはサーバーサイドでコンパイルされたMarkdown HTMLを受け取り、
+ * クライアント側でコードブロックにコピーボタンを動的に追加します。
+ * dangerouslySetInnerHTMLを使用してHTMLを直接レンダリングし、
+ * useEffectフックでコードブロックを検出してコピー機能を付与します。
  *
  * 元のCodeBlockコンポーネント（src/components/feature/content/code-block.tsx）と
- * 同じレイアウト・動作を再現
+ * 同じレイアウト・動作を再現しています。
+ *
+ * @param html - サーバーサイドでコンパイルされたHTML文字列。rehypeプラグインで処理されたMarkdownのHTML出力です
+ * @returns Markdownコンテンツコンポーネント
+ *
+ * @example
+ * ```tsx
+ * import { MarkdownContent } from '@/components/feature/content/markdown-content';
+ *
+ * // サーバーコンポーネントでMarkdownをHTMLに変換
+ * export default async function BlogPost() {
+ *   const html = await compileMarkdownToHTML(markdownSource);
+ *
+ *   return (
+ *     <article>
+ *       <h1>記事タイトル</h1>
+ *       <MarkdownContent html={html} />
+ *     </article>
+ *   );
+ * }
+ * ```
  */
 export function MarkdownContent({ html }: MarkdownContentProps) {
   const containerRef = useRef<HTMLDivElement>(null);

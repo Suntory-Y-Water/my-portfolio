@@ -16,6 +16,35 @@ type Props = {
   }[];
 };
 
+/**
+ * モバイル用ハンバーガーメニューコンポーネント
+ *
+ * このコンポーネントはモバイルデバイスで表示されるドロップダウンメニューです。
+ * ハンバーガーアイコンをクリックすると、ナビゲーションリンクの一覧が表示されます。
+ * デスクトップ表示では非表示になります。
+ *
+ * @param params - ナビゲーションリンクの配列。各項目はhref（リンク先）、title（表示テキスト）、icon（アイコン）を含みます
+ * @returns モバイルメニューコンポーネント
+ *
+ * @example
+ * ```tsx
+ * import HamburgerMenu from '@/components/shared/MenuMobile';
+ * import { IoMdHome } from 'react-icons/io';
+ *
+ * const navigationLinks = [
+ *   { href: '/', title: 'Home', icon: <IoMdHome size='1.2em' /> },
+ *   { href: '/posts', title: 'Posts', icon: <MdOutlineArticle size='1.2em' /> },
+ * ];
+ *
+ * export default function Header() {
+ *   return (
+ *     <div className='md:hidden'>
+ *       <HamburgerMenu params={navigationLinks} />
+ *     </div>
+ *   );
+ * }
+ * ```
+ */
 export default function HamburgerMenu({ params }: Props) {
   return (
     <DropdownMenu>

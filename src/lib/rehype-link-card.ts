@@ -4,15 +4,33 @@ import { getOGData } from '@/actions/fetch-og-metadata';
 import { siteConfig } from '@/config/site';
 import { getBlogPostBySlug } from '@/lib/markdown';
 
-interface LinkCardData {
+/**
+ * リンクカード表示用のデータ型
+ *
+ * リンクカードのレンダリングに必要な情報をまとめた型定義。
+ * 内部リンクと外部リンクの両方に対応しています。
+ */
+type LinkCardData = {
+  /** リンク先のURL */
   url: string;
+  /** ページタイトル */
   title: string;
+  /** ページの説明文 */
   description: string;
+  /** OG画像のURL（オプション） */
   image?: string;
+  /** 内部リンク（ブログ記事）かどうか */
   isInternal: boolean;
+  /** データ取得時にエラーが発生したかどうか */
   error: boolean;
-}
+};
 
+/**
+ * URLが内部ブログリンクかどうかを判定する
+ *
+ * @param url - 判定対象のURL
+ * @returns 内部ブログリンク（/blog/で始まる）の場合true
+ */
 function isInternalBlogLink(url: string): boolean {
   try {
     const urlObj = new URL(url);
@@ -22,6 +40,21 @@ function isInternalBlogLink(url: string): boolean {
   }
 }
 
+/**
+ * URLからslugを抽出する
+ *
+ * URLのパス部分から最後のセグメントをslugとして抽出します。
+ * 絶対URL、相対URLの両方に対応しています。
+ *
+ * @param url - slug抽出対象のURL
+ * @returns 抽出されたslug（パスの最後のセグメント）
+ *
+ * @example
+ * ```ts
+ * getSlugFromUrl('https://example.com/blog/my-post') // => 'my-post'
+ * getSlugFromUrl('/blog/my-post') // => 'my-post'
+ * ```
+ */
 function getSlugFromUrl(url: string): string {
   try {
     const urlObj = new URL(url);
@@ -33,6 +66,16 @@ function getSlugFromUrl(url: string): string {
   }
 }
 
+/**
+ * リンクカード表示用のデータを取得する
+ *
+ * 内部ブログリンクの場合はMarkdownファイルから、
+ * 外部リンクの場合はOGデータから情報を取得します。
+ * エラー時はフォールバック情報を返します。
+ *
+ * @param url - データ取得対象のURL
+ * @returns リンクカード表示用のデータ
+ */
 async function fetchLinkCardData(url: string): Promise<LinkCardData> {
   const isInternal = !url.startsWith('http') && isInternalBlogLink(url);
 
@@ -106,6 +149,15 @@ async function fetchLinkCardData(url: string): Promise<LinkCardData> {
   }
 }
 
+/**
+ * リンクカードのHTML文字列を生成する
+ *
+ * LinkCardDataからリンクカードのHTMLを生成します。
+ * 内部リンクと外部リンクで表示内容が異なります。
+ *
+ * @param data - リンクカード表示用のデータ
+ * @returns 生成されたHTMLタグの文字列
+ */
 function createLinkCardHTML(data: LinkCardData): string {
   const { url, title, description, image, isInternal, error } = data;
   const hostname = url.startsWith('http') ? new URL(url).hostname : '';
@@ -169,6 +221,15 @@ function createLinkCardHTML(data: LinkCardData): string {
   </a>`;
 }
 
+/**
+ * 段落ノードが純粋なURLのみを含むかどうかを判定する
+ *
+ * `<p><a href="url">url</a></p>` の形式（URLのみの段落）を検出します。
+ * この形式の段落はリンクカードに変換されます。
+ *
+ * @param node - 判定対象の要素ノード
+ * @returns 純粋なURLのみの段落の場合true
+ */
 function isPureUrlParagraph(node: Element): boolean {
   // <p><a href="url">url</a></p> の形式を検出
   if (node.tagName !== 'p' || !node.children || node.children.length !== 1) {
@@ -196,6 +257,26 @@ function isPureUrlParagraph(node: Element): boolean {
   return false;
 }
 
+/**
+ * Markdown内の単体URLをリンクカードに変換するrehypeプラグイン
+ *
+ * `<p><a href="url">url</a></p>` 形式の段落を検出し、
+ * OGデータを取得してリンクカード表示に変換します。
+ * 内部ブログリンクと外部リンクの両方に対応しています。
+ *
+ * @returns rehypeプラグイン関数
+ *
+ * @example
+ * ```ts
+ * import { unified } from 'unified';
+ * import remarkRehype from 'remark-rehype';
+ * import { rehypeLinkCard } from '@/lib/rehype-link-card';
+ *
+ * const processor = unified()
+ *   .use(remarkRehype, { allowDangerousHtml: true })
+ *   .use(rehypeLinkCard());
+ * ```
+ */
 export function rehypeLinkCard() {
   return async (tree: Root) => {
     const transformations: Array<{

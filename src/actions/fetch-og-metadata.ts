@@ -44,9 +44,7 @@ async function getOGDataImpl(url: string): Promise<Partial<OGData>> {
     return {
       title: getMetaContent('og:title') || titleMatch?.[1] || '',
       description:
-        getMetaContent('og:description') ||
-        getMetaContent('description') ||
-        '',
+        getMetaContent('og:description') || getMetaContent('description') || '',
       image: getMetaContent('og:image') || '',
       url,
     };

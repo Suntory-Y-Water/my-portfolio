@@ -7,6 +7,40 @@ type Props = {
   post: Post;
 };
 
+/**
+ * 個別の投稿カードを表示するコンポーネント
+ *
+ * このコンポーネントは1つの投稿データを受け取り、カード形式で表示します。
+ * 投稿のソース（Zenn、Qiita、note）に応じて異なるアイコンを表示し、
+ * タイトル、作成日、外部リンクを含むカードをレンダリングします。
+ * カードにホバーすると拡大し、外部サイトへのリンクが開きます。
+ *
+ * @param post - 表示する投稿データ。id、title、source、url、createdAt、emoji（Zennの場合）などのプロパティを含みます
+ * @returns 投稿カードコンポーネント
+ *
+ * @example
+ * ```tsx
+ * import PostsInfo from '@/components/feature/posts/PostsInfo';
+ * import type { Post } from '@/types';
+ *
+ * const post: Post = {
+ *   id: '1',
+ *   title: 'TypeScriptの型定義について',
+ *   source: 'Zenn',
+ *   url: 'https://zenn.dev/example/articles/typescript-types',
+ *   createdAt: '2025-01-15',
+ *   emoji: '📝',
+ * };
+ *
+ * export default function PostCard() {
+ *   return (
+ *     <ul className='grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-6'>
+ *       <PostsInfo post={post} />
+ *     </ul>
+ *   );
+ * }
+ * ```
+ */
 export default function PostsInfo({ post }: Props) {
   return (
     <li className='w-full'>
