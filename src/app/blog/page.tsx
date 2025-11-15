@@ -3,11 +3,15 @@ import { BlogCard } from '@/components/feature/content/blog-card';
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { getAllBlogPosts } from '@/lib/markdown';
-import { getPaginatedBlogPosts } from '@/lib/pagination';
+import { paginateItems } from '@/lib/pagination';
 
 export default async function TopPage() {
   const allPosts = await getAllBlogPosts();
-  const { items: paginatedPosts } = getPaginatedBlogPosts(allPosts, 1, 5);
+  const { items: paginatedPosts } = paginateItems({
+    items: allPosts,
+    page: 1,
+    pageSize: 5,
+  });
 
   return (
     <section>

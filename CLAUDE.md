@@ -372,13 +372,13 @@ git diff
 ```
 
 #### 2. コミット作成
-- 適切なコミットメッセージを作成（英語、簡潔に）
+- 適切なコミットメッセージを作成（日本語、簡潔に、作成者とか不要な情報はいれない）
 - コミットメッセージフォーマット：`<type>: <description>`
 - type例：feat, fix, refactor, docs, test, style, chore
 
 ```bash
 git add .
-git commit -m "feat: add new feature description"
+git commit -m "feat: 新機能の概要"
 ```
 
 **完了チェックリスト:**

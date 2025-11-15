@@ -3,7 +3,7 @@ import { BlogCard } from '@/components/feature/content/blog-card';
 import { Pagination } from '@/components/shared/pagination';
 import { postsPerPage } from '@/config/blog';
 import { getAllBlogPosts } from '@/lib/markdown';
-import { getPaginatedBlogPosts } from '@/lib/pagination';
+import { paginateItems } from '@/lib/pagination';
 
 interface BlogListPageProps {
   params: Promise<{ page: string }>;
@@ -33,7 +33,7 @@ export default async function BlogListPage({ params }: BlogListPageProps) {
     items: paginatedPosts,
     currentPage,
     totalPages,
-  } = getPaginatedBlogPosts(allPosts, pageNum, postsPerPage);
+  } = paginateItems({ items: allPosts, page: pageNum, pageSize: postsPerPage });
 
   if (currentPage > totalPages) {
     return notFound();
