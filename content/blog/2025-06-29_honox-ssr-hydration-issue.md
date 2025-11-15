@@ -2,14 +2,12 @@
 title: HonoXにおけるSSRとクライアントサイドHydrationの同期問題とその解決策
 public: true
 date: 2025-06-29
-icon: >-
-  https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Cloud%20with%20rain/Flat/cloud_with_rain_flat.svg
+icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Cloud%20with%20rain/Flat/cloud_with_rain_flat.svg
 slug: honox-ssr-hydration-issue
 tags:
   - HonoX
   - React
-description: >-
-  HonoXのSSRとクライアントHydrationの同期問題を解説。サーバーで正しく描画された表示がクライアントで元に戻る現象の原因を解明し、確実な状態同期を行う実装パターンを紹介します。
+description: HonoXのSSRとクライアントHydrationの同期問題を解説。サーバーで正しく描画された表示がクライアントで元に戻る現象の原因を解明し、確実な状態同期を行う実装パターンを紹介します。
 ---
 
 

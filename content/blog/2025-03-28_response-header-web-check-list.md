@@ -2,13 +2,11 @@
 title: 「Webサービス公開前のチェックリスト」にあるレスポンスヘッダの内容を調べてみる
 public: true
 date: 2025-03-28
-icon: >-
-  https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ambulance/Flat/ambulance_flat.svg
+icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ambulance/Flat/ambulance_flat.svg
 slug: response-header-web-check-list
 tags:
   - セキュリティ
-description: >-
-  Webサービス公開前のチェックリストにあるレスポンスヘッダの意味が全くわからなかったので、どんなリスクから守ってくれるのかを調べてみました。この記事ではWebサービスを公開する前に必要なレスポンスヘッダの内容と設定しなかったときのリスクを知ることができます。
+description: Webサービス公開前のチェックリストにあるレスポンスヘッダの意味が全くわからなかったので、どんなリスクから守ってくれるのかを調べてみました。この記事ではWebサービスを公開する前に必要なレスポンスヘッダの内容と設定しなかったときのリスクを知ることができます。
 ---
 
 

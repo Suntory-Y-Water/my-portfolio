@@ -2,16 +2,13 @@
 title: 『ないなら作ればいいじゃない』HonoXで金髪ヒロインしか乗ってないアニメ専門サイトを作った話
 public: true
 date: 2025-05-07
-icon: >-
-  https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire/Flat/fire_flat.svg
+icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire/Flat/fire_flat.svg
 slug: kinpatsu-heroine-honox
 tags:
   - HonoX
   - Hono
   - Cloudflare Workers
-description: >-
-  HonoXとCloudflare
-  Workersを活用し、アニメの金髪ヒロインだけを一覧表示するWebサイト「金髪ヒロイン.com」を個人開発した体験と、技術選定や実装の工夫、今後の課題についてまとめました。
+description: HonoXとCloudflare Workersを活用し、アニメの金髪ヒロインだけを一覧表示するWebサイト「金髪ヒロイン.com」を個人開発した体験と、技術選定や実装の工夫、今後の課題についてまとめました。
 ---
 
 
@@ -214,10 +211,10 @@ import { eq } from 'drizzle-orm';
  * @returns 成功時はキャラクターIDの配列、失敗時はエラーオブジェクト
  */
 export async function getCharacterById({
-  DB,
+DB,
   workId,
 }: {
-  DB: D1Database;
+DB: D1Database;
   workId: number;
 }) {
   try {

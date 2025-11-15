@@ -2,15 +2,12 @@
 title: CC-VaultというClaude Code専用のキュレーションメディアを作った
 public: false
 date: 2025-07-13
-icon: >-
-  https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Lemon/Flat/lemon_flat.svg
+icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Lemon/Flat/lemon_flat.svg
 slug: cc-vault-curation-media
 tags:
   - Claude
   - ClaudeCode
-description: >-
-  Claude Codeの新機能が出るたびに色々なサイトを見るのが面倒くさいなと思って、ZennとQiitaのClaude
-  Code記事をまとめるツール「CC-Vault」を作りました。実務でClaude Code使ってて同じような悩みを持つ人に刺さるかもしれません。
+description: Claude Codeの新機能が出るたびに色々なサイトを見るのが面倒くさいなと思って、ZennとQiitaのClaude Code記事をまとめるツール「CC-Vault」を作りました。実務でClaude Code使ってて同じような悩みを持つ人に刺さるかもしれません。
 ---
 
 

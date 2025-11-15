@@ -2,15 +2,11 @@
 title: チンチロをするMCPサーバーを作ってみる
 public: true
 date: 2025-04-10
-icon: >-
-  https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Game%20die/Flat/game_die_flat.svg
+icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Game%20die/Flat/game_die_flat.svg
 slug: chinchillo-mcp-server
 tags:
   - MCP
-description: >-
-  Model Context Protocol (MCP)
-  を使うと、AIアシスタントに新しい機能を追加できます。この記事では、サイコロゲーム「チンチロ」を例に、TypeScriptでMCPサーバーを実装し、Claude
-  Desktopで遊ぶ方法を紹介します。AIの進化が進む中、MCPの基本的な仕組みを実際に手を動かして学んでみましょう。
+description: Model Context Protocol (MCP) を使うと、AIアシスタントに新しい機能を追加できます。この記事では、サイコロゲーム「チンチロ」を例に、TypeScriptでMCPサーバーを実装し、Claude Desktopで遊ぶ方法を紹介します。AIの進化が進む中、MCPの基本的な仕組みを実際に手を動かして学んでみましょう。
 ---
 
 
@@ -70,8 +66,8 @@ export const server = new McpServer({
 });
 
 server.tool(
-  TOOL_NAME,
-  TOOL_DESCRIPTION,
+TOOL_NAME,
+TOOL_DESCRIPTION,
   // ツールの引数を定義するスキーマ
   // 1~3までの数値を許容する
   {
@@ -143,12 +139,12 @@ type RollHistory = {
 ```typescript
 // チンチロの役の定義
 const ROLES = {
-  PINZORO: { name: 'ピンゾロ', multiplier: 5 },
-  ARASHI: { name: 'アラシ', multiplier: 3 },
-  SHIGORO: { name: 'シゴロ', multiplier: 2 },
-  NORMAL: { name: '通常役', multiplier: 1 },
-  NOTHING: { name: '役なし', multiplier: -1 },
-  HIFUMI: { name: 'ヒフミ', multiplier: -2 },
+PINZORO: { name: 'ピンゾロ', multiplier: 5 },
+ARASHI: { name: 'アラシ', multiplier: 3 },
+SHIGORO: { name: 'シゴロ', multiplier: 2 },
+NORMAL: { name: '通常役', multiplier: 1 },
+NOTHING: { name: '役なし', multiplier: -1 },
+HIFUMI: { name: 'ヒフミ', multiplier: -2 },
 };
 
 /**
