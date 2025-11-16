@@ -75,7 +75,7 @@ async function updateBlogIconUrl({
   filePath,
 }: BlogFileParams): Promise<string> {
   const content = await fs.readFile(filePath, 'utf-8');
-  const { data: frontmatter, content: body } = matter(content);
+  const { data: frontmatter } = matter(content);
 
   // iconフィールドが存在しない場合はスキップ
   if (!frontmatter.icon) {
@@ -103,11 +103,21 @@ async function updateBlogIconUrl({
     return `⚠️  Warning: ${path.basename(filePath)} (could not convert emoji: ${frontmatter.icon})`;
   }
 
-  // icon_urlフィールドを追加
-  frontmatter.icon_url = iconUrl;
+  // フロントマター内でiconフィールドの次の行にicon_urlを挿入
+  // YAMLフォーマットを保持するため、文字列置換を使用
+  const iconLineRegex = /^(icon:\s*.+)$/m;
+  const match = content.match(iconLineRegex);
+
+  if (!match) {
+    return `⚠️  Warning: ${path.basename(filePath)} (could not find icon field in frontmatter)`;
+  }
+
+  const updatedContent = content.replace(
+    iconLineRegex,
+    `$1\nicon_url: ${iconUrl}`,
+  );
 
   // ファイルに書き戻す
-  const updatedContent = matter.stringify(body, frontmatter);
   await fs.writeFile(filePath, updatedContent, 'utf-8');
 
   return `✅ Updated: ${path.basename(filePath)}`;
