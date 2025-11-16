@@ -89,7 +89,7 @@
   @apply mt-12 scroll-m-20 border-b-2 border-border/50 pb-2 text-2xl font-bold tracking-tight first:mt-0;
 }
 
-.markdown-content h3 {
+.markdown-content h3:not(.group h3) {
   @apply mt-8 scroll-m-20 text-xl font-semibold tracking-tight;
 }
 
@@ -97,14 +97,14 @@
   @apply mt-4 scroll-m-20 text-lg font-semibold tracking-tight;
 }
 
-.markdown-content a {
+.markdown-content a:not(.group) {
   @apply font-medium text-primary decoration-primary/30 underline-offset-4 hover:text-primary/80 hover:underline hover:decoration-primary/50;
   word-break: break-word;
   overflow-wrap: break-word;
 }
 
-.markdown-content p {
-  @apply leading-7 text-foreground/90 [&:not(:first-child)]:mt-6;
+.markdown-content p:not(.group p) {
+  @apply leading-7 text-foreground/90 [&:not(:first-child)]:mt-4;
   word-break: break-word;
   overflow-wrap: break-word;
 }
@@ -125,7 +125,7 @@
   @apply mt-6 border-l-2 border-primary pl-6 italic text-foreground/80;
 }
 
-.markdown-content img {
+.markdown-content img:not(.group img) {
   @apply rounded-md border border-border/50 h-auto max-w-full max-h-[600px] object-contain mx-auto;
 }
 
@@ -160,6 +160,7 @@
 
 .markdown-content .markdown-alert > .markdown-alert-title svg {
   @apply size-4 shrink-0;
+  fill: currentColor;
 }
 
 .markdown-content .markdown-alert-note {

@@ -15,11 +15,23 @@ tags:
 ### 見出し３
 
 見出し３の内容です。
+改行改行
 
 カード形式
 
-https://zenn.dev/sui_water/articles/3cb3bfb88d4832
+https://nextjs.org/docs/app/guides/incremental-static-regeneration
 
 URL
 
-[これはリンクに遷移できるやつ](https://zenn.dev/sui_water/articles/3cb3bfb88d4832)
+[これはリンクに遷移できるやつ](https://nextjs.org/docs/app/guides/incremental-static-regeneration)
+
+
+> [!NOTE]
+> これはノートのプレビューです。
+
+
+エラー
+
+> [!CAUTION]
+> これはエラーのプレビューです。
+
