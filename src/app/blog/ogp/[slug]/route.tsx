@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { ImageResponse } from 'next/og';
 import type { NextRequest } from 'next/server';
 import { siteConfig } from '@/config/site';
@@ -9,6 +11,11 @@ type ImageProps = {
 
 export async function GET(_request: NextRequest, { params }: ImageProps) {
   const { slug } = await params;
+  // フォントファイルを読み込み
+  const fontData = fs.readFileSync(
+    path.join(process.cwd(), 'src/assets/fonts/NotoSansJP-SemiBold.ttf'),
+  );
+
   const post = await getBlogPostBySlug(slug);
 
   const title = post?.metadata.title || 'Blog Post';
@@ -91,6 +98,14 @@ export async function GET(_request: NextRequest, { params }: ImageProps) {
       {
         width: 1200,
         height: 630,
+        fonts: [
+          {
+            name: 'Noto Sans JP',
+            data: fontData,
+            weight: 600,
+            style: 'normal',
+          },
+        ],
       },
     );
   } catch (error) {
