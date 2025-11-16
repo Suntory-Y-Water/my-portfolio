@@ -68,6 +68,7 @@ slug: ${slug}
 date: ${dateStr}
 description:
 icon:
+icon_url:
 tags:
   -
 ---

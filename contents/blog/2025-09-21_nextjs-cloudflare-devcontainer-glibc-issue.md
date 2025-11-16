@@ -2,6 +2,7 @@
 title: Next.js + OpenNext.js をdevcontainerで起動しようとしたときにハマったこと
 date: 2025-09-21
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Wrench/Flat/wrench_flat.svg
+icon_url:
 slug: nextjs-cloudflare-devcontainer-glibc-issue
 tags:
   - Next.js

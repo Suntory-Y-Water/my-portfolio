@@ -82,8 +82,8 @@ async function updateBlogIconUrl({
     return `ℹ️  Skipped: ${path.basename(filePath)} (no icon field)`;
   }
 
-  // icon_urlフィールドが既に存在する場合はスキップ
-  if (frontmatter.icon_url) {
+  // icon_urlフィールドが既に値を持つ場合はスキップ
+  if (frontmatter.icon_url && frontmatter.icon_url.trim() !== '') {
     return `ℹ️  Skipped: ${path.basename(filePath)} (icon_url already exists)`;
   }
 
@@ -103,19 +103,16 @@ async function updateBlogIconUrl({
     return `⚠️  Warning: ${path.basename(filePath)} (could not convert emoji: ${frontmatter.icon})`;
   }
 
-  // フロントマター内でiconフィールドの次の行にicon_urlを挿入
-  // YAMLフォーマットを保持するため、文字列置換を使用
-  const iconLineRegex = /^(icon:\s*.+)$/m;
-  const match = content.match(iconLineRegex);
+  // icon_url:の値を更新（YAMLフォーマットを保持）
+  // mフラグなしで改行の前までマッチ
+  const iconUrlRegex = /icon_url:[^\n]*/;
+  const match = content.match(iconUrlRegex);
 
   if (!match) {
-    return `⚠️  Warning: ${path.basename(filePath)} (could not find icon field in frontmatter)`;
+    return `⚠️  Warning: ${path.basename(filePath)} (could not find icon_url field)`;
   }
 
-  const updatedContent = content.replace(
-    iconLineRegex,
-    `$1\nicon_url: ${iconUrl}`,
-  );
+  const updatedContent = content.replace(iconUrlRegex, `icon_url: ${iconUrl}`);
 
   // ファイルに書き戻す
   await fs.writeFile(filePath, updatedContent, 'utf-8');
