@@ -2,7 +2,7 @@
 title: GitHub Copilotもルールを強制させる
 date: 2025-04-24
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Airplane%20departure/Flat/airplane_departure_flat.svg
-icon_url:
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Airplane%20departure/Flat/airplane_departure_flat.svg
 slug: vscode-github-copilot-multiple-prompt
 tags:
   - GitHub

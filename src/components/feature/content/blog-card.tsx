@@ -50,6 +50,11 @@ export function BlogCard({ data }: BlogCardProps) {
   const dateISO = new Date(metadata.date).toISOString();
   const formattedDate = formatDate(metadata.date);
 
+  // icon_urlを優先、なければiconのURLを使用
+  const displayUrl =
+    metadata.icon_url ||
+    (metadata.icon?.startsWith('https://') ? metadata.icon : null);
+
   return (
     <Link
       href={`/blog/${slug}`}
@@ -62,10 +67,10 @@ export function BlogCard({ data }: BlogCardProps) {
       <div className='flex flex-row items-start gap-4'>
         {/* Icon Section */}
         <div className='shrink-0'>
-          {metadata.icon?.startsWith('https://') ? (
+          {displayUrl ? (
             <Image
               className='size-[60px] object-cover p-1'
-              src={metadata.icon}
+              src={displayUrl}
               alt={metadata.title}
               width={60}
               height={60}

@@ -16,8 +16,10 @@ export type BlogPost = MarkdownData<{
   thumbnail?: string;
   /** 記事に付与されたタグの配列 */
   tags?: string[];
-  /** 記事のアイコン画像のURL */
+  /** 記事のアイコン（絵文字またはURL） */
   icon?: string;
+  /** 絵文字変換後のアイコンURL（FluentUI Emoji） */
+  icon_url?: string;
 }>;
 
 /**
