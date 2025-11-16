@@ -43,20 +43,25 @@ function localLoader({ src, width }: ImageLoaderProps): string {
 }
 
 /**
- * カスタム画像ローダー（ローカル/microCMSの自動振り分け）
+ * カスタム画像ローダー（ローカル/microCMS/FluentUI Emojiの自動振り分け）
  *
  * @param props - ImageLoaderProps (src, width, quality)
- * @returns ローカルまたはmicroCMS用に最適化された画像URL
+ * @returns ローカル、microCMS、またはFluentUI Emoji用に最適化された画像URL
  *
  * @example
  * ```ts
  * // ローカル画像の場合
  * const url1 = customLoader({ src: '/images/sample.png', width: 800 });
- * // microCMS画像の場合
- * const url2 = customLoader({ src: 'https://images.microcms-assets.io/...', width: 800, quality: 80 });
+ * // FluentUI Emoji画像の場合（最適化をスキップ）
+ * const url3 = customLoader({ src: 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/...', width: 80 });
  * ```
  */
 function customLoader({ src, width, quality }: ImageLoaderProps): string {
+  // FluentUI Emoji URLはそのまま返す（最適化をスキップ）
+  if (src.includes('raw.githubusercontent.com/microsoft/fluentui-emoji')) {
+    return src;
+  }
+
   return src.startsWith('/')
     ? localLoader({ src, width, quality })
     : microCMSLoader({ src, width, quality });

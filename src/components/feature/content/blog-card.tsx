@@ -7,6 +7,8 @@ import { cn, formatDate } from '@/lib/utils';
 
 type BlogCardProps = {
   data: BlogPost;
+  /** 最初の記事かどうか（priority設定用） */
+  isFirst?: boolean;
 };
 
 /**
@@ -45,7 +47,7 @@ type BlogCardProps = {
  * }
  * ```
  */
-export function BlogCard({ data }: BlogCardProps) {
+export function BlogCard({ data, isFirst = false }: BlogCardProps) {
   const { metadata, slug } = data;
   const dateISO = new Date(metadata.date).toISOString();
   const formattedDate = formatDate(metadata.date);
@@ -74,7 +76,7 @@ export function BlogCard({ data }: BlogCardProps) {
               alt={metadata.title}
               width={60}
               height={60}
-              priority={false}
+              priority={isFirst}
             />
           ) : (
             <div className='flex size-[60px] items-center justify-center rounded-full border bg-secondary p-2 text-3xl'>

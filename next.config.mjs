@@ -14,6 +14,13 @@ const nextConfig = {
     loaderFile: './src/lib/image-loader.ts',
     domains: ['pub-37c337e4f6b74be784982bc3041040b4.r2.dev'],
     formats: ['image/webp'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+        pathname: '/microsoft/fluentui-emoji/main/assets/**',
+      },
+    ],
   },
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
 

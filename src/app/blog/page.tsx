@@ -16,8 +16,8 @@ export default async function TopPage() {
   return (
     <section>
       <div className='space-y-6'>
-        {paginatedPosts.map((blog) => (
-          <BlogCard key={blog.slug} data={blog} />
+        {paginatedPosts.map((blog, index) => (
+          <BlogCard key={blog.slug} data={blog} isFirst={index === 0} />
         ))}
       </div>
 
