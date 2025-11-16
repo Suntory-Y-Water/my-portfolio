@@ -35,6 +35,8 @@ export const TAG_SLUG_MAP: Record<string, string> = {
   ブログ: 'blog',
   ポートフォリオ: 'portfolio',
   絵文字: 'emoji',
+  Obsidian: 'obsidian',
+  Markdown: 'markdown',
 } as const;
 
 /**

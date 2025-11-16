@@ -30,10 +30,18 @@ if [ -n "$STAGED_BLOG_FILES" ]; then
       exit 1
     }
 
+    # 修正後、再度lintチェックを実行
+    echo "🔍 自動修正後の再チェック中..."
+    echo "$STAGED_BLOG_FILES" | sed 's|contents/||g' | xargs bun run lint:textlint || {
+      cd ..
+      echo "❌ 自動修正後もLintエラーが残っています。手動で修正してからコミットしてください。"
+      exit 1
+    }
+
     cd ..
     # 修正されたファイルを再度ステージング
     echo "$STAGED_BLOG_FILES" | xargs git add
-    echo "✅ Lintエラーを自動修正し、再ステージングしました。"
+    echo "✅ Lintエラーを自動修正し、再チェックに合格しました。"
   }
 
   cd ..
