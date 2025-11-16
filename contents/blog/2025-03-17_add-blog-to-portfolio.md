@@ -3,6 +3,7 @@ title: ポートフォリオにブログページを追加しました
 date: 2025-03-17
 description: ポートフォリオサイトにブログページを追加しました。今後はZennやQiitaで投稿していた内容を、こちらに集約する想定です。
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Party%20popper/Flat/party_popper_flat.svg
+icon_url:
 tags:
   - ポートフォリオ
   - ブログ

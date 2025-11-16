@@ -15,11 +15,13 @@
     "check:fix": "biome check --write .",
     "check:tags": "bun run scripts/check-tags.ts",
     "new-blog": "bun run scripts/create-blog-template.ts",
+    "update-blog-icon": "bun run scripts/update-blog-icon.ts",
     "ci": "biome ci .",
     "clean": "rm -rf .next/ node_modules/",
     "analyze": "ANALYZE=true next build",
     "typecheck": "tsc --noEmit",
-    "ai-check": "bun run typecheck && bun run check"
+    "ai-check": "bun run typecheck && bun run check",
+    "prepare": "husky"
   },
   "dependencies": {
     "@next/third-parties": "^16.0.3",
@@ -45,6 +47,7 @@
     "remark-rehype": "^11.1.2",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
+    "unicode-emoji-json": "^0.8.0",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.0.0"
   },
@@ -58,6 +61,7 @@
     "@types/web": "^0.0.294",
     "autoprefixer": "^10.4.22",
     "depcheck": "^1.4.7",
+    "husky": "^9.1.7",
     "postcss": "^8.5.6",
     "rehype-pretty-code": "^0.14.1",
     "remark-gfm": "^4.0.1",

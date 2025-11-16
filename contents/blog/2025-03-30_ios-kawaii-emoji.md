@@ -2,6 +2,7 @@
 title: iOSでもWindowsと同じ絵文字を表示したい！
 date: 2025-03-30
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Smiling%20face%20with%20halo/Flat/smiling_face_with_halo_flat.svg
+icon_url:
 slug: ios-kawaii-emoji
 tags:
   - 絵文字

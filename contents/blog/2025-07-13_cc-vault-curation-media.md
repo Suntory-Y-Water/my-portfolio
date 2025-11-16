@@ -2,6 +2,7 @@
 title: CC-VaultというClaude Code専用のキュレーションメディアを作った
 date: 2025-07-13
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Lemon/Flat/lemon_flat.svg
+icon_url:
 slug: cc-vault-curation-media
 tags:
   - Claude

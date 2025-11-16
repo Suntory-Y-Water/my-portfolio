@@ -2,6 +2,7 @@
 title: NotoSansJP使ってるのにSafariのフォントが明朝体になる
 date: 2025-03-21
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Pencil/Flat/pencil_flat.svg
+icon_url:
 slug: noto-sans-jp-safari-mincho
 tags:
   - Tailwind CSS
