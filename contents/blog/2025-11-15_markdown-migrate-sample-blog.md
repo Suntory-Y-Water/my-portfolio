@@ -18,8 +18,8 @@ tags:
 
 カード形式
 
-https://zenn.dev/sui_water/articles/3cb3bfb88d4832
+https://nextjs.org/docs/app/guides/incremental-static-regeneration
 
 URL
 
-[これはリンクに遷移できるやつ](https://zenn.dev/sui_water/articles/3cb3bfb88d4832)
+[これはリンクに遷移できるやつ](https://nextjs.org/docs/app/guides/incremental-static-regeneration)
