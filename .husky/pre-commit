@@ -1,13 +1,49 @@
 #!/usr/bin/env sh
 
-# ブログアイコンの自動変換
+# ブログアイコンの自動変換とタグチェック
 # ステージングされたブログファイルのみを処理
 STAGED_BLOG_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep 'contents/blog/.*\.md$' || true)
 
 if [ -n "$STAGED_BLOG_FILES" ]; then
-  echo "🔄 Converting blog icons..."
+  echo "🔄 ブログアイコンを変換中..."
   bun run scripts/update-blog-icon.ts $STAGED_BLOG_FILES
 
   # 変更されたファイルを再度ステージング
   echo "$STAGED_BLOG_FILES" | xargs git add
+
+  echo "🔍 タグ整合性をチェック中..."
+  bun run check:tags || {
+    echo "❌ タグチェックに失敗しました。未登録のタグを修正してからコミットしてください。"
+    exit 1
+  }
+
+  echo "📒 ブログ記事の文章構成をチェック中..."
+
+  # textlintチェックを実行（contents/ディレクトリで実行）
+  cd contents && echo "$STAGED_BLOG_FILES" | sed 's|contents/||g' | xargs bun run lint:textlint || {
+    echo "⚠️  Lintエラーを検出。自動修正を試みます..."
+
+    # Lintエラーを自動修正
+    echo "$STAGED_BLOG_FILES" | sed 's|contents/||g' | xargs bun run lint:textlint:fix || {
+      cd ..
+      echo "❌ Lintエラーを自動修正できませんでした。手動で修正してからコミットしてください。"
+      exit 1
+    }
+
+    # 修正後、再度lintチェックを実行
+    echo "🔍 自動修正後の再チェック中..."
+    echo "$STAGED_BLOG_FILES" | sed 's|contents/||g' | xargs bun run lint:textlint || {
+      cd ..
+      echo "❌ 自動修正後もLintエラーが残っています。手動で修正してからコミットしてください。"
+      exit 1
+    }
+
+    cd ..
+    # 修正されたファイルを再度ステージング
+    echo "$STAGED_BLOG_FILES" | xargs git add
+    echo "✅ Lintエラーを自動修正し、再チェックに合格しました。"
+  }
+
+  cd ..
+
 fi

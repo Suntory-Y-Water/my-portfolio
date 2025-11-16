@@ -3,6 +3,7 @@ title:
 date: <% tp.date.now("YYYY-MM-DD") %>
 description: 
 icon: 
+icon_url:
 tags: 
   - 
 slug: 
