@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# ブログアイコンの自動変換
+# ステージングされたブログファイルのみを処理
+STAGED_BLOG_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep 'contents/blog/.*\.md$' || true)
+
+if [ -n "$STAGED_BLOG_FILES" ]; then
+  echo "🔄 Converting blog icons..."
+  bun run scripts/update-blog-icon.ts $STAGED_BLOG_FILES
+
+  # 変更されたファイルを再度ステージング
+  echo "$STAGED_BLOG_FILES" | xargs git add
+fi

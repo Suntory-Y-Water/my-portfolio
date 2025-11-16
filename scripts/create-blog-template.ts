@@ -84,10 +84,12 @@ tags:
   console.log(`📂 パス: ${filePath}\n`);
   console.log('次のステップ:');
   console.log('  1. タイトル、説明、タグを記入');
-  console.log('  2. 本文を執筆');
-  console.log('  3. 新規タグを追加した場合は src/config/tag-slugs.ts に登録');
-  console.log('  4. pnpm run check:tags でタグをチェック');
-  console.log('  5. git commit & push\n');
+  console.log('  2. iconフィールドに絵文字を入力（例: 🔥, 😎）');
+  console.log('     → コミット時に自動でFluentUI EmojiのURLに変換されます');
+  console.log('  3. 本文を執筆');
+  console.log('  4. 新規タグを追加した場合は src/config/tag-slugs.ts に登録');
+  console.log('  5. bun run check:tags でタグをチェック');
+  console.log('  6. git commit & push\n');
 }
 
 // スクリプト実行
