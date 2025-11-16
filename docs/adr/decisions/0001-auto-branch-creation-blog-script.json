@@ -1,0 +1,98 @@
+{
+  "id": "ADR-0001",
+  "timestamp": "2025-11-16T00:00:00Z",
+  "title": "ブログ記事作成スクリプトでの自動ブランチ作成",
+  "status": "accepted",
+  "context": {
+    "problem": "ブログ記事作成時に手動でGitブランチを作成する必要があり、作業フローに手間が発生していた",
+    "constraints": [
+      "Git環境でのブランチ操作が可能であること",
+      "スクリプト実行時にブランチ作成が失敗してもテンプレート作成は継続できること"
+    ],
+    "requirements": [
+      "ブログ記事ごとに個別のブランチで作業するワークフロー",
+      "ブランチ名の一貫性を保つこと",
+      "作業効率の向上"
+    ]
+  },
+  "decision": {
+    "summary": "ブログ記事作成スクリプト実行時に、blog-{slug}形式のGitブランチを自動作成する",
+    "details": "スクリプト（scripts/create-blog-template.ts）実行時に、入力されたスラッグを使用してblog-{slug}形式のブランチを自動作成する。ブランチ作成に失敗した場合でも、エラーメッセージを表示してテンプレート作成処理は継続する。",
+    "alternatives": [
+      {
+        "option": "手動でブランチを作成",
+        "pros": ["柔軟性が高い", "追加の実装が不要"],
+        "cons": ["手間がかかる", "ブランチ名の一貫性が保証されない"],
+        "rejected": true,
+        "reason": "作業効率が悪く、命名規則の統一が困難なため"
+      },
+      {
+        "option": "コミット時にフックで作成",
+        "pros": ["スクリプト側の実装が不要"],
+        "cons": ["タイミングが遅い", "Git設定が必要"],
+        "rejected": true,
+        "reason": "ブランチ作成のタイミングが遅すぎるため"
+      },
+      {
+        "option": "blog/{slug}形式の命名",
+        "pros": ["階層的な整理が可能"],
+        "cons": ["スラッシュ区切りは扱いづらい"],
+        "rejected": true,
+        "reason": "ハイフン区切りの方がシンプルで扱いやすいため"
+      }
+    ],
+    "rationale": "スクリプト実行と同時にブランチを作成することで、手動操作を削減し、作業フローを効率化できる。また、blog-{slug}形式で統一することで、ブランチ名の一貫性を確保できる。",
+    "consequences": [
+      "ブログ記事作成時の手動操作が削減される",
+      "ブランチ名が統一され、管理が容易になる",
+      "スクリプト実行時にGit操作が行われるため、エラーハンドリングが必要",
+      "ブランチ作成失敗時もテンプレート作成は継続される"
+    ]
+  },
+  "implementation": {
+    "affected_files": [
+      "scripts/create-blog-template.ts"
+    ],
+    "affected_components": [
+      "ブログ記事作成スクリプト"
+    ],
+    "code_patterns": [
+      "execSync('git checkout -b ...')によるブランチ作成",
+      "try-catchによるエラーハンドリング"
+    ],
+    "examples": [
+      {
+        "file": "scripts/create-blog-template.ts",
+        "line_start": 1,
+        "line_end": 100,
+        "description": "ブログ記事作成スクリプトでの自動ブランチ作成実装例"
+      }
+    ]
+  },
+  "metadata": {
+    "tags": [
+      "git",
+      "automation",
+      "blog",
+      "workflow",
+      "scripting"
+    ],
+    "related_adrs": [],
+    "supersedes": null,
+    "superseded_by": null,
+    "author": "AIアシスタント",
+    "reviewers": []
+  },
+  "search_keywords": [
+    "ブランチ作成",
+    "自動化",
+    "ブログ",
+    "スクリプト",
+    "Git",
+    "branch",
+    "automation",
+    "blog-slug",
+    "create-blog-template"
+  ],
+  "vector_embedding": null
+}

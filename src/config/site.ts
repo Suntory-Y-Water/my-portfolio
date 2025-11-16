@@ -6,6 +6,7 @@ export const siteConfig: SiteConfig = {
   name: 'sui-portfolio',
   description:
     'スイのポートフォリオです。簡単な自己紹介と今まで投稿してきた記事のリンクや、Web開発に関する学習記録をブログとしてまとめています。',
+  blogDescription: 'Web開発に関する学習記録をまとめたブログです。',
   url: url,
   ogImage: `${url}/opengraph-image.png`,
   links: {
