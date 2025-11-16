@@ -63,7 +63,7 @@
   @apply bg-muted/30 ring-border/20;
 }
 
-/* Markdown Content Styles - matching mdx-components.tsx */
+/* Markdown Content Styles */
 
 /* Code blocks - matching CodeBlock component */
 .markdown-content pre {

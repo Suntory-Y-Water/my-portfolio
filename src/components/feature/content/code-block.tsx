@@ -64,7 +64,7 @@ export function CodeBlock({ className, children, ...props }: CodeBlockProps) {
     navigator.clipboard.writeText(textContent);
 
     setIsCopied(true);
-    setTimeout(() => setIsCopied(false), 1000); // 1秒後にPOPUPを閉じる
+    setTimeout(() => setIsCopied(false), 1 * 1000); // 1秒後にPOPUPを閉じる
   }
 
   return (
