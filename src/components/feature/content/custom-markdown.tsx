@@ -1,4 +1,4 @@
-import rehypePrettyCode from 'rehype-pretty-code';
+import rehypePrettyCode, { type Options } from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import remarkBreaks from 'remark-breaks';
@@ -15,10 +15,31 @@ type CustomMarkdownProps = {
   source: string;
 };
 
-const rehypePrettyCodeOptions = {
+const rehypePrettyCodeOptions: Options = {
   theme: 'slack-dark',
   keepBackground: true,
   defaultLang: 'plaintext',
+  // ファイル名をtitle属性に変換
+  // 例: utils.ts -> title="utils.ts"
+  // 例: utils.ts {1-3} -> title="utils.ts" {1-3}
+  filterMetaString: (meta: string) => {
+    if (!meta) return meta;
+
+    // すでにtitle属性がある場合はそのまま返す
+    if (meta.includes('title=')) {
+      return meta;
+    }
+
+    // ファイル名っぽい文字列（拡張子を含む）を検出
+    // 例: utils.ts, index.js, main.py など
+    const match = meta.match(/^([^\s{]+\.\w+)(.*)$/);
+    if (match) {
+      const [, filename, rest] = match;
+      return `title="${filename}"${rest}`;
+    }
+
+    return meta;
+  },
 };
 
 /**
@@ -32,37 +53,6 @@ const rehypePrettyCodeOptions = {
  * @param source - レンダリングするMarkdownソース文字列
  * @returns レンダリングされたMarkdownコンポーネント。エラー時はエラーメッセージを含むdivを返します
  *
- * @example
- * ```tsx
- * import { CustomMarkdown } from '@/components/feature/content/custom-markdown';
- *
- * export default async function BlogPost() {
- *   const markdownSource = `
- * # タイトル
- *
- * これは**太字**のテキストです。
- *
- * ## コードブロック
- * \`\`\`typescript
- * function greet(name: string): string {
- *   return \`Hello, \${name}!\`;
- * }
- * \`\`\`
- *
- * ## リンクカード
- * https://zenn.dev/example/articles/typescript
- *
- * > [!NOTE]
- * > これはGitHubスタイルのアラートです。
- *   `;
- *
- *   return (
- *     <article>
- *       <CustomMarkdown source={markdownSource} />
- *     </article>
- *   );
- * }
- * ```
  */
 export async function CustomMarkdown({ source }: CustomMarkdownProps) {
   try {
@@ -74,7 +64,6 @@ export async function CustomMarkdown({ source }: CustomMarkdownProps) {
       .use(remarkRehype, { allowDangerousHtml: true })
       .use(rehypeSlug)
       .use(rehypeLinkCard)
-      // @ts-expect-error: rehypePrettyCode type mismatch
       .use(rehypePrettyCode, rehypePrettyCodeOptions)
       .use(rehypeCodeCopyButton)
       .use(rehypeStringify, { allowDangerousHtml: true })

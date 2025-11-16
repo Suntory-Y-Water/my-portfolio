@@ -35,3 +35,28 @@ URL
 > [!CAUTION]
 > これはエラーのプレビューです。
 
+
+## コードベースのタイトルテスト
+コードベーステスト
+```ts
+// これはタイトルなし
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+タイトルありで`title="utils.ts"`
+```ts title="utils.ts"
+// これはタイトルあり
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+タイトルありで`ts utils.ts`
+```ts utils.ts
+// これはタイトルあり
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
