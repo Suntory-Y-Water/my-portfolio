@@ -63,17 +63,15 @@ async function createBlogTemplate() {
 
   // テンプレート生成
   const template = `---
-title:
+title: 
 slug: ${slug}
 date: ${dateStr}
-description:
-icon:
-icon_url:
+description: 
+icon: 
+icon_url: 
 tags:
   -
 ---
-
-##
 
 `;
 
