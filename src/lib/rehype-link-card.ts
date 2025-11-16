@@ -178,7 +178,7 @@ function createLinkCardHTML(data: LinkCardData): string {
         <span>Blog Post</span>
       </span>`
     : `<div class="relative size-4 overflow-hidden rounded-full bg-muted">
-        <img src="https://www.google.com/s2/favicons?domain=${hostname}&sz=32" alt="" class="object-cover" loading="lazy" width="16" height="16" />
+        <img src="https://www.google.com/s2/favicons?domain=${hostname}&sz=32" alt="" class="object-cover" loading="lazy" width="16" height="16" style="width: 16px; height: 16px;" />
       </div>
       <span>${hostname.replace(/^www\./, '')}</span>
       <svg class="size-3 text-muted-foreground/70" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -190,7 +190,7 @@ function createLinkCardHTML(data: LinkCardData): string {
   const imageSection = image
     ? `<div class="hidden w-[148px] shrink-0 sm:block">
         <div class="relative size-full">
-          <img src="${image}" alt="${title}" class="size-full object-cover" loading="lazy" />
+          <img src="${image}" alt="${title}" class="object-cover" loading="lazy" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;" />
         </div>
       </div>`
     : `<div class="hidden w-[148px] shrink-0 bg-muted/30 sm:block">
