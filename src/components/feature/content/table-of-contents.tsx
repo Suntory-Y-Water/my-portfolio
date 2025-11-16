@@ -15,11 +15,11 @@ type TableOfContentsProps = {
 /**
  * 記事の目次を表示するコンポーネント
  *
- * このコンポーネントはh2とh3要素から階層構造を持った目次を生成し、記事の上部に表示します。
+ * このコンポーネントはh2要素から目次を生成し、記事の上部に表示します。
  * 目次項目をクリックすると、通常のアンカータグを使用してNext.jsのルーターを介さずに該当セクションに直接ジャンプします。
  * 目次が空の場合は何も表示されません。
  *
- * @param items - 目次項目の配列。各項目にはid（見出しのID）、text（見出しテキスト）、level（見出しレベル）、items（サブ項目）が含まれます
+ * @param items - 目次項目の配列。各項目にはid（見出しのID）、text（見出しテキスト）、level（見出しレベル）が含まれます
  * @param className - 追加のCSSクラス名（任意）。ボーダーやパディングなどのスタイルをカスタマイズする際に使用します
  * @returns 目次コンポーネント。項目が空の場合はnullを返します
  *
@@ -33,10 +33,6 @@ type TableOfContentsProps = {
  *     id: 'introduction',
  *     text: '概要',
  *     level: 2,
- *     items: [
- *       { id: 'what-is-react', text: 'Reactとは', level: 3 },
- *       { id: 'why-react', text: 'なぜReactを使うのか', level: 3 },
- *     ],
  *   },
  *   {
  *     id: 'installation',
@@ -85,10 +81,10 @@ type TableOfContentsItemProps = {
 /**
  * 目次の個別項目を表示する内部コンポーネント
  *
- * このコンポーネントは目次の1つの項目（見出し）を表示し、サブ項目がある場合は再帰的に表示します。
+ * このコンポーネントは目次の1つの項目（見出し）を表示します。
  * 項目番号を表示し、クリックすると該当セクションにスクロールします。
  *
- * @param item - 表示する目次項目。id、text、levelプロパティと、任意でサブ項目（items）を含みます
+ * @param item - 表示する目次項目。id、text、levelプロパティを含みます
  * @param index - 項目の番号（1から始まる）。目次のナンバリングに使用されます
  * @returns 目次項目コンポーネント
  *
@@ -99,14 +95,10 @@ type TableOfContentsItemProps = {
  *   id: 'introduction',
  *   text: '概要',
  *   level: 2,
- *   items: [
- *     { id: 'what-is-react', text: 'Reactとは', level: 3 },
- *   ],
  * };
  *
  * <TableOfContentsItem item={item} index={1} />
  * // 出力: 1. 概要
- * //       1.1. Reactとは
  * ```
  */
 function TableOfContentsItem({ item, index }: TableOfContentsItemProps) {
@@ -118,23 +110,6 @@ function TableOfContentsItem({ item, index }: TableOfContentsItemProps) {
           {item.text}
         </a>
       </div>
-      {item.items && item.items.length > 0 && (
-        <ol className='mt-2 list-inside space-y-1 pl-6 text-sm'>
-          {item.items.map((child, childIndex) => (
-            <li key={child.id} className='flex items-start'>
-              <span className='mr-2 text-muted-foreground'>
-                {index}.{childIndex + 1}.
-              </span>
-              <a
-                href={`#${child.id}`}
-                className='hover:text-primary hover:underline'
-              >
-                {child.text}
-              </a>
-            </li>
-          ))}
-        </ol>
-      )}
     </li>
   );
 }
