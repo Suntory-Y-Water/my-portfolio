@@ -89,8 +89,18 @@
   @apply mt-12 scroll-m-20 border-b-2 border-border/50 pb-2 text-2xl font-bold tracking-tight first:mt-0;
 }
 
+.markdown-content h2::before {
+  content: "## ";
+  @apply text-muted-foreground/60;
+}
+
 .markdown-content h3:not(.group h3) {
   @apply mt-8 scroll-m-20 text-xl font-semibold tracking-tight;
+}
+
+.markdown-content h3:not(.group h3)::before {
+  content: "### ";
+  @apply text-muted-foreground/60;
 }
 
 .markdown-content h4 {

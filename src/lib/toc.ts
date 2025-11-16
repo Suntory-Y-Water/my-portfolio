@@ -1,19 +1,16 @@
 import type { TOCItem } from '@/components/feature/content/table-of-contents';
 
 /**
- * MarkdownからH2とH3の見出しを抽出して目次を生成する
+ * MarkdownからH2の見出しを抽出して目次を生成する
  *
  * @param content - Markdownの生のコンテンツ
- * @returns 階層構造を持つ目次項目の配列
+ * @returns 目次項目の配列
  */
 export function extractTOC(content: string): TOCItem[] {
   // 改行でコンテンツを分割
   const lines = content.split('\n');
 
   const result: TOCItem[] = [];
-
-  // 現在処理中のh2要素（親要素）
-  let currentH2: TOCItem | null = null;
 
   // 各行を走査
   for (const line of lines) {
@@ -23,29 +20,10 @@ export function extractTOC(content: string): TOCItem[] {
       // 見出しをIDとして使用
       const id = generateSlug(text);
 
-      currentH2 = {
+      result.push({
         id,
         text,
         level: 2,
-        items: [],
-      };
-
-      result.push(currentH2);
-    }
-    // ### から始まる行はh3要素
-    else if (line.startsWith('### ') && currentH2) {
-      const text = line.replace('### ', '').trim();
-      // 見出しをIDとして使用
-      const id = generateSlug(text);
-
-      if (!currentH2.items) {
-        currentH2.items = [];
-      }
-
-      currentH2.items.push({
-        id,
-        text,
-        level: 3,
       });
     }
   }
