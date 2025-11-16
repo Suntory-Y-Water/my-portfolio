@@ -4,6 +4,7 @@
  *
  * 新規ブログ記事のテンプレートファイルを生成します。
  * ファイル名は yyyy-mm-dd_slug.md 形式で自動生成されます。
+ * また、blog-<slug> という名前のブランチを自動作成します。
  *
  * ## 実行方法
  * ```bash
@@ -14,10 +15,17 @@
  *
  * ## 生成されるファイル
  * contents/blog/2025-11-15_my-new-article.md
+ *
+ * ## 作成されるブランチ
+ * blog-my-new-article
  */
 
+import { exec } from 'node:child_process';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
+import { promisify } from 'node:util';
+
+const execAsync = promisify(exec);
 
 const blogDir = path.join(process.cwd(), 'contents', 'blog');
 
@@ -78,9 +86,29 @@ tags:
   // ファイル書き込み
   await fs.writeFile(filePath, template, 'utf-8');
 
+  // ブランチ作成
+  const branchName = `blog-${slug}`;
+  try {
+    // ブランチが既に存在するか確認
+    try {
+      await execAsync(`git rev-parse --verify ${branchName}`);
+      console.log(`⚠️  警告: ブランチ "${branchName}" は既に存在します`);
+      console.log('   既存のブランチを使用します\n');
+    } catch {
+      // ブランチが存在しない場合は作成
+      await execAsync(`git checkout -b ${branchName}`);
+      console.log(`🌿 ブランチを作成しました: ${branchName}\n`);
+    }
+  } catch (error) {
+    console.error('⚠️  警告: ブランチの作成に失敗しました');
+    console.error(`   エラー: ${error instanceof Error ? error.message : String(error)}`);
+    console.error('   手動でブランチを作成してください\n');
+  }
+
   console.log('✅ ブログテンプレートを作成しました！\n');
   console.log(`📝 ファイル: ${filename}`);
-  console.log(`📂 パス: ${filePath}\n`);
+  console.log(`📂 パス: ${filePath}`);
+  console.log(`🌿 ブランチ: ${branchName}\n`);
   console.log('次のステップ:');
   console.log('  1. タイトル、説明、タグを記入');
   console.log('  2. iconフィールドに絵文字を入力（例: 🔥, 😎）');
