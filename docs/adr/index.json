@@ -1,0 +1,63 @@
+{
+  "version": "1.0",
+  "last_updated": "2025-11-16T00:00:00Z",
+  "adrs": [
+    {
+      "id": "ADR-0001",
+      "title": "ブログ記事作成スクリプトでの自動ブランチ作成",
+      "status": "accepted",
+      "timestamp": "2025-11-16T00:00:00Z",
+      "tags": [
+        "git",
+        "automation",
+        "blog",
+        "workflow",
+        "scripting"
+      ],
+      "keywords": [
+        "ブランチ作成",
+        "自動化",
+        "ブログ",
+        "スクリプト",
+        "Git",
+        "branch",
+        "automation",
+        "blog-slug",
+        "create-blog-template"
+      ],
+      "affected_components": [
+        "ブログ記事作成スクリプト"
+      ],
+      "file_path": "docs/adr/decisions/0001-auto-branch-creation-blog-script.json"
+    }
+  ],
+  "indices": {
+    "by_tag": {
+      "git": [
+        "ADR-0001"
+      ],
+      "automation": [
+        "ADR-0001"
+      ],
+      "blog": [
+        "ADR-0001"
+      ],
+      "workflow": [
+        "ADR-0001"
+      ],
+      "scripting": [
+        "ADR-0001"
+      ]
+    },
+    "by_component": {
+      "ブログ記事作成スクリプト": [
+        "ADR-0001"
+      ]
+    },
+    "by_status": {
+      "accepted": [
+        "ADR-0001"
+      ]
+    }
+  }
+}
