@@ -131,8 +131,18 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Right side elements: Theme toggle and Mobile Menu */}
+        {/* Right side elements: RSS, Theme toggle and Mobile Menu */}
         <div className='flex items-center gap-2'>
+          {/* RSS Feed Link - Desktop only */}
+          <Link
+            href='/rss.xml'
+            className='hidden text-foreground transition-opacity hover:opacity-70 md:block'
+            aria-label='RSSフィードを購読'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <Icons.rss className='size-5' />
+          </Link>
           <ModeToggle />
           {/* Pass updated links to mobile menu */}
           <div className='md:hidden'>

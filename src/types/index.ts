@@ -1,6 +1,7 @@
 export type SiteConfig = {
   name: string;
   description: string;
+  blogDescription: string;
   url: string;
   ogImage: string;
   links: {
