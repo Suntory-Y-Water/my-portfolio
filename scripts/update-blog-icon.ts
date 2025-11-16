@@ -87,20 +87,22 @@ async function updateBlogIconUrl({
     return `ℹ️  Skipped: ${path.basename(filePath)} (icon_url already exists)`;
   }
 
-  // iconフィールドが既にURLの場合はスキップ
+  let iconUrl: string;
+
+  // iconフィールドが既にURLの場合はそのまま使用
   if (
     typeof frontmatter.icon === 'string' &&
     frontmatter.icon.startsWith('http')
   ) {
-    return `ℹ️  Skipped: ${path.basename(filePath)} (icon is already a URL)`;
-  }
+    iconUrl = frontmatter.icon;
+  } else {
+    // 絵文字をFluentUI EmojiのURLに変換
+    iconUrl = convertEmojiToFluentUrl({ icon: frontmatter.icon });
 
-  // 絵文字をFluentUI EmojiのURLに変換
-  const iconUrl = convertEmojiToFluentUrl({ icon: frontmatter.icon });
-
-  // 変換できなかった場合（絵文字データが見つからない）はスキップ
-  if (iconUrl === frontmatter.icon) {
-    return `⚠️  Warning: ${path.basename(filePath)} (could not convert emoji: ${frontmatter.icon})`;
+    // 変換できなかった場合（絵文字データが見つからない）はスキップ
+    if (iconUrl === frontmatter.icon) {
+      return `⚠️  Warning: ${path.basename(filePath)} (could not convert emoji: ${frontmatter.icon})`;
+    }
   }
 
   // icon_url:の値を更新（YAMLフォーマットを保持）

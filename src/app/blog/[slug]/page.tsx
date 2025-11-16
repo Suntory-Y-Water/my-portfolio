@@ -76,6 +76,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   // 目次を生成
   const tableOfContents = extractTOC(post.rawContent);
 
+  // icon_urlを優先、なければiconのURLを使用
+  const displayUrl =
+    post.metadata.icon_url ||
+    (post.metadata.icon?.startsWith('https://') ? post.metadata.icon : null);
+
   // 構造化データ (JSON-LD) の生成
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -114,14 +119,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
       <article className='min-h-[500px]'>
         {/* Icon */}
-        {post.metadata.icon && (
+        {(displayUrl || post.metadata.icon) && (
           <div className='mb-6 flex justify-center'>
-            <Image
-              src={post.metadata.icon}
-              alt={`Icon for ${post.metadata.title}`}
-              width={80}
-              height={80}
-            />
+            {displayUrl ? (
+              <Image
+                src={displayUrl}
+                alt={`Icon for ${post.metadata.title}`}
+                width={80}
+                height={80}
+              />
+            ) : (
+              <div className='text-6xl'>{post.metadata.icon}</div>
+            )}
           </div>
         )}
 

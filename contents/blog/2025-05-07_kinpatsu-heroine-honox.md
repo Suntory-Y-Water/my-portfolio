@@ -2,7 +2,7 @@
 title: 『ないなら作ればいいじゃない』HonoXで金髪ヒロインしか乗ってないアニメ専門サイトを作った話
 date: 2025-05-07
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire/Flat/fire_flat.svg
-icon_url:
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire/Flat/fire_flat.svg
 slug: kinpatsu-heroine-honox
 tags:
   - HonoX
