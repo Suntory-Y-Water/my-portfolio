@@ -63,7 +63,7 @@ export default function RootLayout({
           media='(prefers-color-scheme: dark)'
         />
       </head>
-      <body>
+      <body className='flex min-h-screen flex-col'>
         <ThemeProvider
           attribute='class'
           defaultTheme='system'
@@ -71,7 +71,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main className='mx-auto w-[calc(100%-32px)] max-w-screen-lg py-4 md:w-[calc(100%-100px)] md:py-8'>
+          <main className='mx-auto w-[calc(100%-32px)] max-w-screen-lg flex-1 py-4 md:w-[calc(100%-100px)] md:py-8'>
             {children}
           </main>
           <Footer />
