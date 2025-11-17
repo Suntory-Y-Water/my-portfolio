@@ -21,11 +21,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: 'daily' as const,
     },
-    {
-      url: `${baseUrl}/posts`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-    },
   ];
 
   // ブログ記事
