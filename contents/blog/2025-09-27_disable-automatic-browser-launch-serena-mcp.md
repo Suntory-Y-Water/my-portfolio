@@ -4,7 +4,7 @@ slug: disable-automatic-browser-launch-serena-mcp
 date: 2025-09-27
 description:
 icon: 🙆‍♀️
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Woman%20gesturing%20OK/Default/Flat/woman_gesturing_ok_flat_default.svg
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Woman%20gesturing%20ok/Default/Flat/woman_gesturing_ok_flat_default.svg
 tags:
   - MCP
   - DevContainer

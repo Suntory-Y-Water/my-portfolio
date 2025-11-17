@@ -4,7 +4,7 @@ slug: i-want-make-easier-use-branded
 date: 2025-01-11
 description:
 icon: 🆗
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/OK%20button/Flat/ok_button_flat.svg
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ok%20button/Flat/ok_button_flat.svg
 tags:
   - TypeScript
 ---

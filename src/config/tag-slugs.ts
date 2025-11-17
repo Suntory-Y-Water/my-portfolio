@@ -74,7 +74,7 @@ export const TAG_SLUG_MAP: Record<string, string> = {
   絵文字: 'emoji',
   オブジェクト指向プログラミング: 'object-oriented-programming',
   クリーンアーキテクチャ: 'clean-architecture',
-  'SOLID原則': 'solid-principles',
+  SOLID原則: 'solid-principles',
   テスト: 'test',
   データベース: 'database',
   ヘルスケア: 'healthcare',
