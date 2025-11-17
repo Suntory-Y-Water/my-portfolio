@@ -78,7 +78,7 @@ XML を見たところ、`HKCategoryValueSleepAnalysisInBed`(ユーザーはベ�
 
 まずは平均睡眠時間と、睡眠時間の中央値を出力していきます。
 
-```python:data_processor.py
+```python data_processor.py
 import pandas as pd
 
 def calculate_sleep_metrics(df, start_date, end_date):
@@ -100,7 +100,7 @@ def calculate_sleep_metrics(df, start_date, end_date):
     return mean_duration, median_duration
 ```
 
-```python:data_loader.py
+```python data_loader.py
 import pandas as pd
 import xml.etree.ElementTree as ET
 
@@ -124,7 +124,7 @@ def load_sleep_data(file_path):
     return df
 ```
 
-```python:sleep_analysis.py
+```python sleep_analysis.py
 from analysis.data_loader import load_sleep_data
 from analysis.data_processor import calculate_sleep_metrics
 import pandas as pd

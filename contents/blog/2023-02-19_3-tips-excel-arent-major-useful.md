@@ -1,0 +1,62 @@
+---
+title: Excel メジャーじゃないけど知っておくと便利な小技3選
+slug: 3-tips-excel-arent-major-useful
+date: 2023-02-19
+description: 職場でExcelを使う際によく使うショートカットキーやコマンドを紹介。
+icon: 📊
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Bar%20chart/Flat/bar_chart_flat.svg
+tags:
+  - Excel
+---
+## 目的
+
+職場でExcelをこねこねしているときによく使うショートカットキーやコマンドを紹介します。
+
+## alt + ~~
+## alt + アンダーライン付きローマ字
+
+検索と置換を例にあげますが、**alt + D**で検索へ**alt + T**でオプション画面へ遷移することができます。
+アンダーラインが引いてあるローマ字系はalt + xxxで操作可能です。
+
+
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/1c59a7bc-9024-f4e7-3a1f-21e2dac345d7.png)
+
+## ctrl + A → alt + H + O + I
+
+こんなシートがあったとします。
+
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/9bed1833-97bf-7168-de1a-37808cbb1727.png)
+
+
+極端ですがこんなに無駄があるシートでもctrl + Aで全選択を実施後に、**alt + H + O + I**で列の幅を自動調整することができます。
+
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/e5ebd735-fad2-233e-44bc-44659ef8ba48.png)
+
+## 3D集計
+
+下記のように複数のシートの同じセルに値が入っているファイルがあったとします。
+今回は20枚同じ内容のシートを作成しました。
+
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/7b168e0e-dfb0-3e5d-fbd6-6d8f87aec794.png)
+
+全シートのC3セルに入力された値を合計したいときに3D集計を利用します。
+
+SUM関数で計算したいシートの最初(sheet2と仮定)を選択し、SHIFTを押しながら計算したい最後のシートを選択します(画像ではsheet0)。
+
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/a15a1f93-5712-5062-e5ea-547830c07190.png)
+
+上記の例では **=SUM(Sheet2:Sheet0!C3)** と入力するだけで指定したセルの値の合計を表示できます。
+
+### シートが増えた時
+
+- 計算したい最初のシートの前に**START**
+- 計算したい最後のシートの後に**END**
+
+このように上記のSTARTとEND内でシートを追加していき、計算式を以下のように書き換えます。
+
+**=SUM(START:END!C3)**
+
+実際に97枚シートを作成しましたが、STARTとENDの範囲内なので計算できています。
+
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/635b140d-beeb-c33c-f7ef-f912585b7cf5.png)
+

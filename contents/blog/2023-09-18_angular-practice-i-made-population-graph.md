@@ -1,0 +1,51 @@
+---
+title: Angularの練習ということで船橋市の人口推移グラフを作ってみた
+slug: angular-practice-i-made-population-graph
+date: 2023-09-18
+description: Angularの練習として船橋市の人口推移グラフを作成。
+icon: 📈
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Chart%20increasing/Flat/chart_increasing_flat.svg
+tags:
+  - TypeScript
+  - Angular
+  - chart.js
+---
+## 経緯
+
+現在関わっているプロジェクトでAngularを使うのが決定しており、何も知らないのはアカンと思い手軽に作れるアプリケーションを探していた。
+
+たまたまQiitaとgithubを漁っていたら[こちらが参考になる](https://github.com/limoza/population_change_graph)と感じ、練習も兼ねてWebアプリを作成した。
+
+## 作成したもの
+
+船橋市の人口推移グラフ
+Github : https://github.com/Suntory-Y-Water/funabashi-population-trends
+URL : https://funabashi-population-trends.vercel.app/
+
+## 使用技術
+
+フロントエンド : Angular
+ホスティング : Vercel
+
+## 感想
+
+## 難しかったところ
+
+- Chart.jsとng2-chartsを理解するのに時間がかかった
+- ChatGPTに終始頼りきりだった
+    - 特にService, TypeScriptの文法…
+- レスポンシブデザイン、いまだにちゃんと分かってない
+
+**💡ブルーベリー本あるのでもう一周しましょうね！**
+
+## 個人的に良かったところ
+
+- UIはデジタル庁を参考にしたけど、結構楽しい
+- Angular…ｺﾜｲがなくなったこと
+- 可視化すると人気な町とほどほどな町が一瞬で分かって楽しい
+    - 老人も減っている町は先が心配だなと
+
+## その他
+
+工数（要件定義 ~ 簡単なテスト迄）: 17時間
+
