@@ -1,10 +1,10 @@
 ---
 title: Anthropic公式のMCPによるコード実行をserena MCPで試してみたけど無理だった件
-slug: anthropicmcpserena-mcp
+slug: i-tried-running-code-using-official
 date: 2025-11-09
-description: 
+description:
 icon: 🤮
-icon_url: 
+icon_url:
 tags:
   - mcp
   - claudecode

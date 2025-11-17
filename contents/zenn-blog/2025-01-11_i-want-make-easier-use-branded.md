@@ -1,10 +1,10 @@
 ---
 title: もう少し楽にBranded Typeを使えるようにしたい
-slug: branded-type
+slug: i-want-make-easier-use-branded
 date: 2025-01-11
-description: 
+description:
 icon: 🆗
-icon_url: 
+icon_url:
 tags:
   - typescript
 ---

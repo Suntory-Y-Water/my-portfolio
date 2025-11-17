@@ -1,10 +1,10 @@
 ---
 title: Hono Service bindings入門
-slug: hono-service-bindings
+slug: introduction-hono-service-bindings
 date: 2024-07-08
-description: 
+description:
 icon: 📡
-icon_url: 
+icon_url:
 tags:
   - cloudflare
   - cloudflareworkers

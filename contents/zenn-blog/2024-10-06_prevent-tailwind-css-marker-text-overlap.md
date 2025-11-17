@@ -1,10 +1,10 @@
 ---
 title: Tailwind CSS マーカーとテキストの重なりを防ぐ方法
-slug: tailwind-css
+slug: prevent-tailwind-css-marker-text-overlap
 date: 2024-10-06
-description: 
+description:
 icon: 😊
-icon_url: 
+icon_url:
 tags:
   - css
   - tailwindcss

@@ -1,10 +1,10 @@
 ---
 title: API叩くときはしっかりデコードしよう
-slug: api
+slug: sure-decode-properly-calling-api
 date: 2024-08-12
-description: 
+description:
 icon: 😥
-icon_url: 
+icon_url:
 tags:
   - html
   - decode
