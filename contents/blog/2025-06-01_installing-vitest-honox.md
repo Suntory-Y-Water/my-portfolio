@@ -220,7 +220,9 @@ Action required Migrate from @cloudflare/workers-types to generated runtime type
 You should now uninstall @cloudflare/workers-types and remove it from your tsconfig.json.
 
 📖 Read about runtime types
+
 https://developers.cloudflare.com/workers/languages/typescript/#generate-types
+
 📣 Remember to rerun 'wrangler types' after you change your wrangler.json file.
 ```
 ## テスト環境の設定

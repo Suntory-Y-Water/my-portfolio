@@ -31,6 +31,7 @@ tags:
 https://liff.line.me/1645278921-kWRPP32q/?accountId=462wexvg
 
 ### リポジトリ(README編集中)
+
 https://github.com/Suntory-Y-Water/I-scream
 
 
@@ -93,6 +94,7 @@ https://github.com/Suntory-Y-Water/I-scream
 朝からアイスクリームを食べる人は少ないであろう読みで、毎週火曜日午前 7 時にアイスクリームの情報洗い替えすることで、最新のアイスクリーム情報を提供できる仕組みを作成したい。
 
 こちらが参考になると思い進めているが、なぜか `kv_namespaces` の値が取得できず詰まってしまったので、定期実行は一度保留にしてリリースすることを優先させた。
+
 https://zenn.dev/toraco/articles/55f359cbf94862
 
 
@@ -166,9 +168,17 @@ CMJ を越えるアイスクリームを見つけられますように🍨
 ## 参考にした記事など
 
 https://developers.line.biz/ja/docs/messaging-api/sending-messages/
+
+
 https://github.com/YuheiNakasaka/line-bot-cf-worker-sample
+
+
 https://zenn.dev/toraco/articles/55f359cbf94862
+
+
 https://zenn.dev/azukiazusa/articles/hono-cloudflare-workers-rest-api
+
+
 https://qiita.com/TellMin/items/62893ec24f8e90a18dec
 
 # 補足(2024年4月20日更新)

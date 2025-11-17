@@ -13,6 +13,7 @@ tags:
 ---
 
 # 元ネタ
+
 https://www.youtube.com/watch?v=sK3HqLwag_w&list=WL&index=38
 
 見てておもろそうだなーと思ったので、FastAPI の復習も兼ねて作ってみました。
@@ -21,6 +22,7 @@ https://www.youtube.com/watch?v=sK3HqLwag_w&list=WL&index=38
 # できたもの
 
 https://github.com/Suntory-Y-Water/word-vectors-api
+
 API にして公開したら面白そうだな～と思いましたが、Render だと学習データの容量が重くて NG な点とできる限り無料で運用したかったのでやめました🤔
 学習させた model データもありますのでぜひ遊んでみてください。
 :::message

@@ -149,7 +149,9 @@ export default app;
 ```
 
 rpc-service では Service Binding を介して、同じ Cloudflare アカウント上の他の worker から呼び出すことができる method を実装します。
+
 https://developers.cloudflare.com/workers/runtime-apis/rpc#class-instances
+
 WorkerEntrypoint を継承した RpcService を Export します。
 
 ```tsx:rpc-service/src/index.ts
@@ -169,7 +171,9 @@ export default RpcService;
 ```
 
 webhook/src/index.ts で Export した Service Binding を型安全に使用します。
+
 https://hono.dev/docs/getting-started/cloudflare-workers#bindings
+
 Bindings という型を定義して、Hono の Generics に渡します。
 
 このとき、`Bindings` のキーは `wrangler.toml` の `services` フィールドに設定した `binding` の値と同じにしておきます。
@@ -232,6 +236,12 @@ https://developers.cloudflare.com/workers/runtime-apis/rpc#all-calls-are-asynchr
 # 参考
 
 https://zenn.dev/monica/articles/feff72caee5e6b
+
+
 https://zenn.dev/sh1n4ps/articles/062d5b51bf75ad
+
+
 https://developers.cloudflare.com/workers/runtime-apis/bindings/service-bindings/
+
+
 https://github.com/cloudflare/js-rpc-and-entrypoints-demo

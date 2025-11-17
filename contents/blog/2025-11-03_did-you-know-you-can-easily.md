@@ -15,12 +15,16 @@ tags:
 ## はじめに
 
 2025 年 11 月現在、Gemini を使用して Google Slides を作成する「まじん式」プロンプトが話題です。
+
 https://note.com/majin_108/n/n11fc2f2190e9
+
 こちらの記事で初めて知りましたが、どうやら Google Apps Script(GAS)を使うと、社内限定で使える Web アプリケーションを簡単に構築できるそうです。
 GAS 自体は使ったことはありますが、Web アプリケーションを作ったことはありませんでした。
 本記事では、**実践的なサンプルプロジェクトとして**GoogleDrive にあるファイルを検索するアプリケーション(Drive 検索ビューア)を構築していきます。
 開発には clasp と TypeScript を使用します。clasp は Command Line Apps Script Projects の略称で、Apps Script プロジェクトをローカルで開発できる OSS です。
+
 https://github.com/google/clasp
+
 また、従来の GAS エディタではなく、使い慣れた VS Code で開発を進めていきます。
 GAS エディタでは困難だった Claude Code などの AI エージェントを組み合わせることで、モダンな開発環境で GAS 製の Web アプリケーションを作成していきましょう。
 
@@ -35,12 +39,15 @@ GAS エディタでは困難だった Claude Code などの AI エージェン�
 このアプリの特徴は、**社内ドメイン限定で公開できる**点です。Google Workspace を利用している企業であれば、追加のインフラ構築なしで社内向けの Web ツールを提供できます。
 
 本プロジェクトでは以下のサンプルリポジトリを元に作成しています。
+
 https://github.com/cristobalgvera/ez-clasp
 
 サンプルプロジェクトを作成後、少し設定をいじった状態の branch がこちらです。
+
 https://github.com/Suntory-Y-Water/clasp-gas-webapp-demo/tree/init
 
 作成したすべてのコードはこちらです。
+
 https://github.com/Suntory-Y-Water/clasp-gas-webapp-demo
 
 ## なぜclaspを使うのか
@@ -549,7 +556,7 @@ GAS エディタ(https://script.google.com/)を開き、デプロイボタンか
 ![image](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/1b71e182e10648cb05faf1cbd02dc884.png)
 
 
-## 社内公開に向けて：実践的な考慮事項
+## 社内公開に向けて:実践的な考慮事項
 
 このプロジェクトは、あくまで clasp を用いた Web アプリ開発の第一歩です。社内ツールだとしても、セキュリティへの配慮はより一層重要になります。
 特に社内データを取り扱う場合は、以下の点に確認が必要です。
@@ -582,5 +589,7 @@ GAS が元来持つ「サーバーインフラ不要で、Google Workspace と�
 ## 参考リンク
 
 https://github.com/google/clasp
+
 https://developers.google.com/apps-script/guides/clasp
+
 https://developers.google.com/identity/protocols/oauth2/scopes

@@ -219,4 +219,5 @@ export async function GET(request: NextRequest) {
 ただ個人規模の超ミニマルなものであればストレージを使用せずともバリデーション + αだけしていれば良さそう。
 
 # 参考
+
 https://www.2riniar.com/pages/c_waup6uzi4

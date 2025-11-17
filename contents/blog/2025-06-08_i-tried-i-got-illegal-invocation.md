@@ -237,6 +237,7 @@ Cloudflare Workers の公式エラードキュメントを調査したところ�
 > In practice, this is often seen when destructuring runtime provided Javascript objects that have functions that rely on the presence of `this`, such as `ctx`.
 
 https://developers.cloudflare.com/workers/observability/errors/#illegal-invocation-errors
+
 ### Supabaseでの類似事例
 
 さらに調査を進めると、Supabase クライアントでも同じ問題が発生しており、`fetch.bind(globalThis)` を使用する解決策が提示されていることを発見しました。
@@ -248,6 +249,7 @@ const supabase = createClient('https://xyzcompany.supabase.co', 'public-anon-key
 ```
 
 https://github.com/supabase/supabase/issues/4417
+
 ### 解決策の実装
 
 Supabase の事例を参考に、Notion クライアントでも同様の対処を実装しました。
@@ -326,4 +328,6 @@ Cloudflare Workers 環境での Notion API クライアント使用時に発生�
 ## 参考資料
 
 https://developers.cloudflare.com/workers/observability/errors/
+
+
 https://github.com/supabase/supabase/issues/4417

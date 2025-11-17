@@ -587,6 +587,7 @@ pnpm deploy
 独自ドメインを取得していないので URL が長いですが、機能としては成立しています✨️
 
 以下は Google で `HonoX` と検索したときの URL を短縮したものです。
+
 https://u-shorten.ayasnppk00.workers.dev/k5rDTn
 
 # おわりに
@@ -603,4 +604,5 @@ HonoX も含め Cloudflare 製品の良いところは、デプロイやリリ�
 インタラクティブな動作が多くないサイトであれば、また使ってみようと思います🔥✨️
 
 ## 最終的なソースコード
+
 https://github.com/Suntory-Y-Water/honox-url-app

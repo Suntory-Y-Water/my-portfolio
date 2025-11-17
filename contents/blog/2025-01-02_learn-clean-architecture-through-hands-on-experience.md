@@ -105,9 +105,11 @@ https://zenn.dev/sre_holdings/articles/a57f088e9ca07d
 ブログ投稿サイトの簡易 API で、json-server を使い TypeScript(Hono)で作成していきます。
 
 元
+
 https://github.com/Suntory-Y-Water/di-lesson-with-hono/tree/branded-type-lesson
 
 クリーンアーキテクチャ後
+
 https://github.com/Suntory-Y-Water/hono-clean-architecture
 
 ## フォルダ構成

@@ -205,12 +205,14 @@ if __name__ == "__main__":
 
 # その他
 ## 参考資料
+
 https://qiita.com/onodes/items/5720518939e55dc05b18
 
 https://developer.apple.com/documentation/healthkit
 
 
 ## 使用したソースコード
+
 https://github.com/Suntory-Y-Water/healthcare-sleep-analysis
 
 

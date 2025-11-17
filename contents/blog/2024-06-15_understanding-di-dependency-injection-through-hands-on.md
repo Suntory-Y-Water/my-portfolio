@@ -37,12 +37,14 @@ tags:
 - **保守性の向上**: 依存関係が明示的に管理されるため、コードの変更が他の部分に与える影響を最小限に抑えられます。
 
 正直私がここで解説するよりも、こちらの記事がかなり網羅性高く書かれており参考になりました。
+
 https://zenn.dev/nuits_jp/articles/2024-05-22-why-dependency-injection
 
 # 実装
 
 今後 DI を Hono で実装してみたいので、Hono を使っていきます。
 既に実装している人がいらっしゃったので、そちらを参考に作成していきます。
+
 https://blog.70-10.net/posts/hono-dependency-injection/
 
 ## ベースクラスの作成
@@ -208,9 +210,11 @@ diContainer.register('PostService', PostService, diContainer.get('PostRepository
 
 DIContainer を Hono で使えるようにします。
 このあたりの説明は、以下の記事通りの内容になります。
+
 https://blog.70-10.net/posts/hono-dependency-injection/
 
 Context の set()/get() を通じて DIContainer へアクセスします。
+
 https://hono.dev/api/context#set-get
 
 ## Variables に DIContainer を指定する
@@ -352,4 +356,5 @@ JSON Placeholder の公式ドキュメントを見たところ、id は勝手に
 初めての DI ということでなんとなくイメージが掴めたところで、今回は終了しようと思います。
 
 # ソースコード
+
 https://github.com/Suntory-Y-Water/di-lesson-with-hono

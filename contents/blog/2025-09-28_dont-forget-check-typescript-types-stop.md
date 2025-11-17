@@ -18,6 +18,8 @@ tags:
 Claude Code は、処理の開始や終了時に特定のコードを実行できる「Hooks」という仕組みがあります。
 
 https://docs.claude.com/en/docs/claude-code/hooks-guide
+
+
 https://docs.claude.com/en/docs/claude-code/hooks
 
 今回は、TypeScript で出力が終わった後に型チェックを実行する Hooks を実装し、Claude Code に特段指示をしなくてもいいように効率化した事象を紹介します。
@@ -53,6 +55,7 @@ Claude Code などの AI エージェントは import 文を追加してから�
 	- 編集していなければ、型チェックは実行しない。
 
 今回の Claude Code の Hooks を TypeScript で実装できる `cc-hooks-ts` を使用しました。
+
 https://github.com/sushichan044/cc-hooks-ts
 
 Hooks は shell で書かれるのが一般的なイメージですが、個人的な意見としては TypeScript と比較して可読性が低いと考えています。

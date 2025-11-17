@@ -108,6 +108,7 @@ jobs:
 https://github.com/TheDoctor0/zip-release
 
 修正したところ、無事 Release Note にファイルを添付できました。
+
 https://github.com/Suntory-Y-Water/flea-assist-plus/releases/tag/0.0.3
 
 ```yaml

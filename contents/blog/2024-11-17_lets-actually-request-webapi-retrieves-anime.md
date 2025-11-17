@@ -74,9 +74,11 @@ https://anime-api.deno.dev/anime/v1/master/2023/1 で 2023 年 1 期(冬期) の
 ```
 
 検索で一番上に出てくるのは `http` ですが、制作者の方が Deno に移行したと発表しています。
+
 https://note.com/akb428/n/n2362a0e1b6af
 
 現在はこちらのリポジトリで稼働しています。
+
 https://github.com/Project-ShangriLa/anime_api_deno
 
 # Annict API
@@ -330,6 +332,7 @@ API はベータ版ですが提供していました。
 ## 認証情報を取得する
 
 MyAnimeList API の認証ドキュメントを確認して、手順に沿ってアクセストークンを発行します。
+
 https://myanimelist.net/apiconfig/references/authorization
 
 `Step 2: Client requests OAuth 2.0 authentication` でクライアントが OAuth 2.0 認証を要求します。

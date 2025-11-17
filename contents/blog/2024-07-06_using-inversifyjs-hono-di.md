@@ -36,6 +36,7 @@ InversifyJS は、TypeScript および JavaScript 用に依存性の注入(Depen
 
 次に現在実装中のソースコードを ChatGPT に読み込んでもらい、問題点を洗い出します。
 `no-InversifyJS` ブランチが本記事の実装をするまえのブランチです。
+
 https://github.com/Suntory-Y-Water/di-lesson-with-hono/tree/no-InversifyJS
 
 ### 現在の実装(`diConfig.ts`、`diContainer.ts`)の問題点

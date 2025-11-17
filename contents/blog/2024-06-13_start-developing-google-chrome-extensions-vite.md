@@ -646,6 +646,7 @@ https://qiita.com/sasao3/items/0606b67da01948ae58b7
 
 この記事を公開したとき `@crxjs/vite-plugin` のバージョンが `2.0.0-beta.23` でした。
 下記 issue でもある通り、拡張機能が動かなくなってしまいます。
+
 https://github.com/crxjs/chrome-extension-tools/issues/946
 
 同様の事象が起きているのであれば、パッケージのバージョンを `^2.0.0-beta.28` にすることで解消できます。

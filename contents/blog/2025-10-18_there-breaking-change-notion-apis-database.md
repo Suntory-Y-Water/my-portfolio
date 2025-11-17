@@ -77,6 +77,7 @@ const response = await notion.dataSources.query({
 - `database_id` パラメータは `data_source_id` に置き換える必要がある
 
 ## 参考資料
+
 https://developers.notion.com/docs/upgrade-guide-2025-09-03
 
 https://developers.notion.com/docs/upgrade-faqs-2025-09-03

@@ -748,6 +748,7 @@ Your Worker has access to the following bindings:
   - OBSIDIAN_PLUGIN_STORE: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 Uploaded obsidian-hono-api (X.XX sec)
 Deployed obsidian-hono-api triggers (X.XX sec)
+
   https://obsidian-hono-api.your-username.workers.dev
 ```
 
@@ -768,4 +769,6 @@ Deployed obsidian-hono-api triggers (X.XX sec)
 ## 参考資料
 
 https://github.com/onikun94/line_to_obsidian
+
+
 https://github.com/obsidianmd/obsidian-sample-plugin

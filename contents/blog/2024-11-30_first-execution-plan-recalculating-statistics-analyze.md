@@ -22,6 +22,7 @@ tags:
 本記事では、`EXPLAIN ANALYZE` を用いて問題のある SQL を改善し、統計情報のリセットによる実行計画の変化を観察します。
 
 使用した SQL や DB の環境構築に使用した Dockerfile はこちらです。
+
 https://github.com/Suntory-Y-Water/explain-analyze-lesson
 
 # 環境構築
