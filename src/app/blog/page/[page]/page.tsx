@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { BlogCard } from '@/components/feature/content/blog-card';
 import { Pagination } from '@/components/shared/pagination';
-import { postsPerPage } from '@/config/blog';
+import { BLOG_CONSTANTS } from '@/constants';
 import { getAllBlogPosts } from '@/lib/markdown';
 import { paginateItems } from '@/lib/pagination';
 
@@ -11,7 +11,9 @@ interface BlogListPageProps {
 
 export async function generateStaticParams() {
   const allPosts = await getAllBlogPosts();
-  const totalPages = Math.ceil(allPosts.length / postsPerPage);
+  const totalPages = Math.ceil(
+    allPosts.length / BLOG_CONSTANTS.TOP_PAGE_POSTS_COUNT,
+  );
 
   return await Promise.all(
     Array.from({ length: totalPages }, (_, i) => ({
@@ -33,7 +35,11 @@ export default async function BlogListPage({ params }: BlogListPageProps) {
     items: paginatedPosts,
     currentPage,
     totalPages,
-  } = paginateItems({ items: allPosts, page: pageNum, pageSize: postsPerPage });
+  } = paginateItems({
+    items: allPosts,
+    page: pageNum,
+    pageSize: BLOG_CONSTANTS.TOP_PAGE_POSTS_COUNT,
+  });
 
   if (currentPage > totalPages) {
     return notFound();
