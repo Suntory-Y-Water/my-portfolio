@@ -23,7 +23,8 @@
     "analyze": "ANALYZE=true next build",
     "typecheck": "tsc --noEmit",
     "ai-check": "bun run typecheck && bun run check",
-    "prepare": "husky"
+    "prepare": "husky",
+    "kiri": "kiri --repo . --db .kiri/index.duckdb --watch"
   },
   "dependencies": {
     "@next/third-parties": "^16.0.3",

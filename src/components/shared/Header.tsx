@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { ReactElement } from 'react';
 import { IoMdHome } from 'react-icons/io';
-import { MdOutlineArticle, MdOutlineBook } from 'react-icons/md';
+import { MdOutlineBook } from 'react-icons/md';
 import { Icons } from '@/components/icons';
 import HamburgerMenu from '@/components/shared/MenuMobile';
 import { Button } from '@/components/ui/button';
@@ -23,11 +23,6 @@ const NAVIGATION_LINKS: MenuItemLinkProps[] = [
     href: '/',
     title: 'Home',
     icon: <IoMdHome size='1.2em' />,
-  },
-  {
-    href: '/posts',
-    title: 'Posts',
-    icon: <MdOutlineArticle size='1.2em' />,
   },
   {
     href: '/blog',

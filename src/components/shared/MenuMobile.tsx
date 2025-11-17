@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import type { ReactElement } from 'react';
 import { FiMenu } from 'react-icons/fi';
-import { Icons } from '@/components/icons';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -67,17 +66,6 @@ export default function HamburgerMenu({ params }: Props) {
           </Link>
         ))}
         <DropdownMenuSeparator />
-        <Link
-          className='w-full items-center py-1'
-          href='/rss.xml'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <DropdownMenuItem className='flex w-full gap-2 py-2'>
-            <Icons.rss className='size-5' />
-            RSS
-          </DropdownMenuItem>
-        </Link>
       </DropdownMenuContent>
     </DropdownMenu>
   );
