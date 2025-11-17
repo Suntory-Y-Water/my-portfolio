@@ -1,169 +1,79 @@
-📝 ブログ記事のタイトルとファイル名を一覧出力します...
-
-対象ファイル数: 76件
-
-ファイル名,現在のslug,タイトル,推奨slug
----
-2021-12-11_seven-elevenoptimalfoodlinear-programming.md,seven-elevenoptimalfoodlinear-programming,"セブンイレブンで最適な食品を線形計画法を用いて決めたい",
-2022-01-27_reiwa-3-yearfall-fundamental-information-technology-engineer-passexperience.md,reiwa-3-yearfall-fundamental-information-technology-engineer-passexperience,"令和3年度秋 基本情報技術者試験 合格体験記",
-2022-11-11_mysqlcsvfiledbimportdo.md,mysqlcsvfiledbimportdo,"【MySQL】CSVファイルをDBにインポートする",
-2022-11-12_python-beautifulsoup-findfind-all.md,python-beautifulsoup-findfind-all,"Python BeautifulSoup find()を呼び出すつもりが、find_all()を呼び出してしまったのでしょうか？",
-2022-11-23_java-compilenot.md,java-compilenot,"Java コンパイルができない",
-2022-11-28_pyautogui-image-recognitionscale-ratio.md,pyautogui-image-recognitionscale-ratio,"PyAutoGUI 画像認識と拡大比率の問題",
-2022-12-03_readable-code.md,readable-code,"リーダブルコードの個人的重要部分をざっくりまとめてみた",
-2022-12-23_2022-yearfall-applied-information-technology-engineernonpassexperience.md,2022-yearfall-applied-information-technology-engineernonpassexperience,"2022年秋 応用情報技術者試験""不""合格体験記",
-2023-01-22_notehealthstresslightwake-up.md,notehealthstresslightwake-up,"【雑記】これ以上心臓に負荷をかけるな【光で目覚めよう】",
-2023-02-06_tech-bookreading-technique.md,tech-bookreading-technique,"技術書の読書術をざっくり読んで個人的に重要な部分をまとめてみた。",
-2023-02-15_django-templatetagwhitespace.md,django-templatetagwhitespace,"Django テンプレートタグに空白を入れると認識してくれません",
-2023-02-19_excel-notusefultips-3.md,excel-notusefultips-3,"Excel メジャーじゃないけど知っておくと便利な小技3選",
-2023-03-27_pythonpyautogui-routine-workautomationtry.md,pythonpyautogui-routine-workautomationtry,"【Python】pyautogui入門 -定型作業を自動化してみる-",
-2023-04-01_anacondasystem-environment-variablessettingsbecome.md,anacondasystem-environment-variablessettingsbecome,"Anacondaはシステム環境変数の設定方法が異なるらしい",
-2023-04-02_pythonnlpdiscord-pynegativeworddobot.md,pythonnlpdiscord-pynegativeworddobot,"【Python】初めての自然言語処理？discord.pyでネガティブな単語に反応するbotを作ってみた。",
-2023-04-23_pythonpyautogui-kindlehighlightdeletetry.md,pythonpyautogui-kindlehighlightdeletetry,"【Python】pyautogui入門 -Kindleのハイライトを削除してみる-",
-2023-05-02_mercarishopsrelistefficiency.md,mercarishopsrelistefficiency,"メルカリShopsの再出品があまりにもだるすぎたので効率化してみた",
-2023-05-28_chatgptsummarize.md,chatgptsummarize,"【ChatGPT】今更だけど本を要約してもらった",
-2023-06-10_reactfrontendrandomramen-jiro.md,reactfrontendrandomramen-jiro,"【React】初めてのフロントエンド〜ランダムで今日行くラーメン二郎を決めてもらう〜",
-2023-07-01_react-flaskintegrationtry.md,react-flaskintegrationtry,"React + Flaskを連携させてみる",
-2023-07-09_reactflaskintegrationtry-part-2.md,reactflaskintegrationtry-part-2,"ReactとFlaskを連携させてみる part2",
-2023-08-11_typescript-interfacetypeuse.md,typescript-interfacetypeuse,"TypeScript interfaceとtypeどっち使うんですか？",
-2023-08-12_seleniumdetection.md,seleniumdetection,"Seleniumが本当にバレバレなのか試してみた",
-2023-08-18_tight-couplingloose-couplingunderstanding.md,tight-couplingloose-couplingunderstanding,"密結合と疎結合の理解を深める",
-2023-08-20_typescriptcallbackfunctionknow.md,typescriptcallbackfunctionknow,"TypeScriptでコールバック関数を知る",
-2023-08-26_ramen-jirolearngoodalgorithmgptteachertry.md,ramen-jirolearngoodalgorithmgptteachertry,"ラーメン二郎のコールで学ぶ良いアルゴリズムとは何かをGPT先生に聞いてみる",
-2023-08-27_postman-localhostrequestsendnot.md,postman-localhostrequestsendnot,"Postman localhostにリクエストが送信できない",
-2023-09-18_angularpracticefunabashipopulation-transitiongraph.md,angularpracticefunabashipopulation-transitiongraph,"Angularの練習ということで船橋市の人口推移グラフを作ってみた",
-2023-10-09_booknotiongreat-app-1.md,booknotiongreat-app-1,"BookNotionを更に神アプリにしたい その１",
-2023-10-14_booknotionbirth.md,booknotionbirth,"自分だけのBookNotionを爆誕させた",
-2023-10-29_personal-developmentminase-inorilivenotsonglist-displaydo.md,personal-developmentminase-inorilivenotsonglist-displaydo,"【個人開発】水瀬いのりさんのライブで聴いたことのない曲を一覧表示するぞ",
-2023-12-23_10-％probabilitydohnotpokemongeneratesite.md,10-％probabilitydohnotpokemongeneratesite,"１０％の確率でドオーしか表示されないポケモン生成サイトを作った",
-2023-12-29_・dark-patternshadcn-uicreatedo.md,・dark-patternshadcn-uicreatedo,"ザ・ダークパターンをshadcn/uiで作成する",
-2024-01-03_nextjs-13-deployapipathdynamic.md,nextjs-13-deployapipathdynamic,"Next.js13 デプロイ時にAPIのパスを動的に変えるやり方",
-2024-01-07_nonsensetextgeneratedoapp.md,nonsensetextgeneratedoapp,"支離滅裂な文章を生成するアプリ",
-2024-01-21_fastapiiduuidsettingsdotype-definition.md,fastapiiduuidsettingsdotype-definition,"【FastAPI】idをuuidで設定するときは型定義に気をつけたい",
-2024-02-23_google-places-api-newlanguage-codesettingstrouble.md,google-places-api-newlanguage-codesettingstrouble,"Google Places API (New)で言語コードを設定せず沼りかけた",
-2024-03-17_sqlalchemy-pytestruntime-error:-event-loop-is-closed.md,sqlalchemy-pytestruntime-error:-event-loop-is-closed,"SQLAlchemy + pytestでRuntimeError: Event loop is closedが起きたときにやったこと",
-2024-04-08_real-estateinformationliveapitry.md,real-estateinformationliveapitry,"不動産情報ライブラリAPIを使ってみる！",
-2024-04-27_convenience-storesweetsrandomdoline-bot.md,convenience-storesweetsrandomdoline-bot,"コンビニスイーツをランダムに表示するLINE BOTをつくる",
-2025-01-03_2025-yeardailybed-making.md,2025-yeardailybed-making,"2025年は毎日ベッドメイキングだけやればいい。",
-2024-04-18_honorandomdoline-botmake.md,honorandomdoline-botmake,"Honoでランダムにアイスクリームを提案するLINE BOTを作る",
-2024-06-13_vitegooglechromedevelopment.md,vitegooglechromedevelopment,"Viteで始めるGoogleChrome拡張機能開発",
-2024-06-15_understandingdodi.md,understandingdodi,"手を動かして理解しようとするDI（依存性の注入）",
-2024-07-06_hono-diinversifyjsdo.md,hono-diinversifyjsdo,"Hono + DIでInversifyJSを使用する",
-2024-07-08_hono-service-bindings.md,hono-service-bindings,"Hono Service bindings入門",
-2024-07-18_docker-postgresqlenvironment-setuplearn.md,docker-postgresqlenvironment-setuplearn,"Docker + PostgreSQLで環境構築して、パーティションについて学ぶ",
-2024-07-28_markdownpowerpointcreatemarptry.md,markdownpowerpointcreatemarptry,"今更だけどMarkdownでPowerPointが作成できるMarpに入門してみる",
-2024-08-08_neet→working-adultsleepqualitychange.md,neet→working-adultsleepqualitychange,"ニート→社会人になって睡眠の質は変化したのか調べてみた",
-2024-08-12_api.md,api,"API叩くときはしっかりデコードしよう",
-2024-09-13_github-actionsfiledo.md,github-actionsfiledo,"GitHub Actionsでビルドしたファイルをリリースノートに格納する",
-2024-09-21_nextjs-approuterdynamicogpcreatedo.md,nextjs-approuterdynamicogpcreatedo,"Next.js AppRouterで動的OGP画像を作成する",
-2024-09-26_playwrightbeurldo.md,playwrightbeurldo,"Playwrightでクエリパラメータが付与されているページのURLを取得する",
-2024-10-06_tailwind-css.md,tailwind-css,"Tailwind CSS マーカーとテキストの重なりを防ぐ方法",
-2024-11-09_wikipediatry.md,wikipediatry,"Wikipediaの全記事を学習させて、日本語で遊んでみる",
-2024-11-16_bewebsite.md,bewebsite,"住んでいる地域の人口増減を一目でわかるWebサイトをつくった",
-2024-11-17_informationdowebapirequesttry.md,informationdowebapirequesttry,"アニメ情報を取得するWebAPIを実際にリクエストして、比較してみる",
-2024-11-30_analyzeinformation.md,analyzeinformation,"初めての実行計画と「ANALYZE」で統計情報の再計算を行う",
-2024-12-31_understandingdobranded-type.md,understandingdobranded-type,"手を動かして理解するBranded Type",
-2025-01-02_understandingdocleanarchitecture.md,understandingdocleanarchitecture,"手を動かして理解するクリーンアーキテクチャ",
-2025-01-11_branded-type.md,branded-type,"もう少し楽にBranded Typeを使えるようにしたい",
-2025-02-08_marpslidecreatedo.md,marpslidecreatedo,"Marpで企業ロゴが入ったスライドを作成する",
-2025-02-22_podfromnotfrom.md,podfromnotfrom,"Podがなにか分からないから弁当ケースで表現してもらう",
-2025-03-03_honoxurlcreatesite.md,honoxurlcreatesite,"HonoXで短縮URL作成サイトをつくる",
-2025-04-11_chinchirodomcpservertry.md,chinchirodomcpservertry,"チンチロをするMCPサーバーを作ってみる",
-2025-05-06_nothonoxblondeheroinenotwebsite.md,nothonoxblondeheroinenotwebsite,"「ないなら作ればよくね？」HonoXで金髪ヒロインしか乗ってないWebサイトを作った話",
-2025-05-11_hono-obsidianhands-ondevelopmenttry.md,hono-obsidianhands-ondevelopmenttry,"Hono + Obsidianプラグインをハンズオン形式で開発してみる",
-2025-05-18_dependabotsettings.md,dependabotsettings,"dependabotによる依存関係更新の集約設定",
-2025-06-01_honoxvitestdo.md,honoxvitestdo,"HonoXにVitestを導入する",
-2025-06-08_cloudflare-workersillegal-invocationerror.md,cloudflare-workersillegal-invocationerror,"Cloudflare Workers環境で「Illegal invocation」エラーが起きたときに試したこと",
-2025-08-28_pretoolusefailed-status-code-127.md,pretoolusefailed-status-code-127,"PreToolUseがfailed with non-blocking status code 127になったときにやったこと",
-2025-09-27_dev-containerserena-mcpdo.md,dev-containerserena-mcpdo,"Dev Container環境でSerena MCPのブラウザ自動起動を無効化する",
-2025-09-28_dostop-hooksnottypescript.md,dostop-hooksnottypescript,"仕組みでカバーするStop Hooksで忘れないTypeScriptの型チェック",
-2025-10-18_notion-apidatabaseapitry.md,notion-apidatabaseapitry,"Notion APIのデータベース操作APIに破壊的変更があったので、実装を修正してみる",
-2025-11-03_gasusewebsite.md,gasusewebsite,"GASを使うと社内だけで使えるWebサイトが簡単に作れるの知ってました？",
-2025-11-09_anthropicmcpserena-mcp.md,anthropicmcpserena-mcp,"Anthropic公式のMCPによるコード実行をserena MCPで試してみたけど無理だった件",
-
-
-## Markdown形式
-
-| ファイル名 | 現在のslug | タイトル | 推奨slug |
-|-----------|-----------|---------|---------|
-| 2021-12-11_seven-elevenoptimalfoodlinear-programming.md | seven-elevenoptimalfoodlinear-programming | セブンイレブンで最適な食品を線形計画法を用いて決めたい | (ここに記入) |
-| 2022-01-27_reiwa-3-yearfall-fundamental-information-technology-engineer-passexperience.md | reiwa-3-yearfall-fundamental-information-technology-engineer-passexperience | 令和3年度秋 基本情報技術者試験 合格体験記 | (ここに記入) |
-| 2022-11-11_mysqlcsvfiledbimportdo.md | mysqlcsvfiledbimportdo | 【MySQL】CSVファイルをDBにインポートする | (ここに記入) |
-| 2022-11-12_python-beautifulsoup-findfind-all.md | python-beautifulsoup-findfind-all | Python BeautifulSoup find()を呼び出すつもりが、find_all()を呼び出してしまったのでしょうか？ | (ここに記入) |
-| 2022-11-23_java-compilenot.md | java-compilenot | Java コンパイルができない | (ここに記入) |
-| 2022-11-28_pyautogui-image-recognitionscale-ratio.md | pyautogui-image-recognitionscale-ratio | PyAutoGUI 画像認識と拡大比率の問題 | (ここに記入) |
-| 2022-12-03_readable-code.md | readable-code | リーダブルコードの個人的重要部分をざっくりまとめてみた | (ここに記入) |
-| 2022-12-23_2022-yearfall-applied-information-technology-engineernonpassexperience.md | 2022-yearfall-applied-information-technology-engineernonpassexperience | 2022年秋 応用情報技術者試験""不""合格体験記 | (ここに記入) |
-| 2023-01-22_notehealthstresslightwake-up.md | notehealthstresslightwake-up | 【雑記】これ以上心臓に負荷をかけるな【光で目覚めよう】 | (ここに記入) |
-| 2023-02-06_tech-bookreading-technique.md | tech-bookreading-technique | 技術書の読書術をざっくり読んで個人的に重要な部分をまとめてみた。 | (ここに記入) |
-| 2023-02-15_django-templatetagwhitespace.md | django-templatetagwhitespace | Django テンプレートタグに空白を入れると認識してくれません | (ここに記入) |
-| 2023-02-19_excel-notusefultips-3.md | excel-notusefultips-3 | Excel メジャーじゃないけど知っておくと便利な小技3選 | (ここに記入) |
-| 2023-03-27_pythonpyautogui-routine-workautomationtry.md | pythonpyautogui-routine-workautomationtry | 【Python】pyautogui入門 -定型作業を自動化してみる- | (ここに記入) |
-| 2023-04-01_anacondasystem-environment-variablessettingsbecome.md | anacondasystem-environment-variablessettingsbecome | Anacondaはシステム環境変数の設定方法が異なるらしい | (ここに記入) |
-| 2023-04-02_pythonnlpdiscord-pynegativeworddobot.md | pythonnlpdiscord-pynegativeworddobot | 【Python】初めての自然言語処理？discord.pyでネガティブな単語に反応するbotを作ってみた。 | (ここに記入) |
-| 2023-04-23_pythonpyautogui-kindlehighlightdeletetry.md | pythonpyautogui-kindlehighlightdeletetry | 【Python】pyautogui入門 -Kindleのハイライトを削除してみる- | (ここに記入) |
-| 2023-05-02_mercarishopsrelistefficiency.md | mercarishopsrelistefficiency | メルカリShopsの再出品があまりにもだるすぎたので効率化してみた | (ここに記入) |
-| 2023-05-28_chatgptsummarize.md | chatgptsummarize | 【ChatGPT】今更だけど本を要約してもらった | (ここに記入) |
-| 2023-06-10_reactfrontendrandomramen-jiro.md | reactfrontendrandomramen-jiro | 【React】初めてのフロントエンド〜ランダムで今日行くラーメン二郎を決めてもらう〜 | (ここに記入) |
-| 2023-07-01_react-flaskintegrationtry.md | react-flaskintegrationtry | React + Flaskを連携させてみる | (ここに記入) |
-| 2023-07-09_reactflaskintegrationtry-part-2.md | reactflaskintegrationtry-part-2 | ReactとFlaskを連携させてみる part2 | (ここに記入) |
-| 2023-08-11_typescript-interfacetypeuse.md | typescript-interfacetypeuse | TypeScript interfaceとtypeどっち使うんですか？ | (ここに記入) |
-| 2023-08-12_seleniumdetection.md | seleniumdetection | Seleniumが本当にバレバレなのか試してみた | (ここに記入) |
-| 2023-08-18_tight-couplingloose-couplingunderstanding.md | tight-couplingloose-couplingunderstanding | 密結合と疎結合の理解を深める | (ここに記入) |
-| 2023-08-20_typescriptcallbackfunctionknow.md | typescriptcallbackfunctionknow | TypeScriptでコールバック関数を知る | (ここに記入) |
-| 2023-08-26_ramen-jirolearngoodalgorithmgptteachertry.md | ramen-jirolearngoodalgorithmgptteachertry | ラーメン二郎のコールで学ぶ良いアルゴリズムとは何かをGPT先生に聞いてみる | (ここに記入) |
-| 2023-08-27_postman-localhostrequestsendnot.md | postman-localhostrequestsendnot | Postman localhostにリクエストが送信できない | (ここに記入) |
-| 2023-09-18_angularpracticefunabashipopulation-transitiongraph.md | angularpracticefunabashipopulation-transitiongraph | Angularの練習ということで船橋市の人口推移グラフを作ってみた | (ここに記入) |
-| 2023-10-09_booknotiongreat-app-1.md | booknotiongreat-app-1 | BookNotionを更に神アプリにしたい その１ | (ここに記入) |
-| 2023-10-14_booknotionbirth.md | booknotionbirth | 自分だけのBookNotionを爆誕させた | (ここに記入) |
-| 2023-10-29_personal-developmentminase-inorilivenotsonglist-displaydo.md | personal-developmentminase-inorilivenotsonglist-displaydo | 【個人開発】水瀬いのりさんのライブで聴いたことのない曲を一覧表示するぞ | (ここに記入) |
-| 2023-12-23_10-％probabilitydohnotpokemongeneratesite.md | 10-％probabilitydohnotpokemongeneratesite | １０％の確率でドオーしか表示されないポケモン生成サイトを作った | (ここに記入) |
-| 2023-12-29_・dark-patternshadcn-uicreatedo.md | ・dark-patternshadcn-uicreatedo | ザ・ダークパターンをshadcn/uiで作成する | (ここに記入) |
-| 2024-01-03_nextjs-13-deployapipathdynamic.md | nextjs-13-deployapipathdynamic | Next.js13 デプロイ時にAPIのパスを動的に変えるやり方 | (ここに記入) |
-| 2024-01-07_nonsensetextgeneratedoapp.md | nonsensetextgeneratedoapp | 支離滅裂な文章を生成するアプリ | (ここに記入) |
-| 2024-01-21_fastapiiduuidsettingsdotype-definition.md | fastapiiduuidsettingsdotype-definition | 【FastAPI】idをuuidで設定するときは型定義に気をつけたい | (ここに記入) |
-| 2024-02-23_google-places-api-newlanguage-codesettingstrouble.md | google-places-api-newlanguage-codesettingstrouble | Google Places API (New)で言語コードを設定せず沼りかけた | (ここに記入) |
-| 2024-03-17_sqlalchemy-pytestruntime-error:-event-loop-is-closed.md | sqlalchemy-pytestruntime-error:-event-loop-is-closed | SQLAlchemy + pytestでRuntimeError: Event loop is closedが起きたときにやったこと | (ここに記入) |
-| 2024-04-08_real-estateinformationliveapitry.md | real-estateinformationliveapitry | 不動産情報ライブラリAPIを使ってみる！ | (ここに記入) |
-| 2024-04-27_convenience-storesweetsrandomdoline-bot.md | convenience-storesweetsrandomdoline-bot | コンビニスイーツをランダムに表示するLINE BOTをつくる | (ここに記入) |
-| 2025-01-03_2025-yeardailybed-making.md | 2025-yeardailybed-making | 2025年は毎日ベッドメイキングだけやればいい。 | (ここに記入) |
-| 2024-04-18_honorandomdoline-botmake.md | honorandomdoline-botmake | Honoでランダムにアイスクリームを提案するLINE BOTを作る | (ここに記入) |
-| 2024-06-13_vitegooglechromedevelopment.md | vitegooglechromedevelopment | Viteで始めるGoogleChrome拡張機能開発 | (ここに記入) |
-| 2024-06-15_understandingdodi.md | understandingdodi | 手を動かして理解しようとするDI（依存性の注入） | (ここに記入) |
-| 2024-07-06_hono-diinversifyjsdo.md | hono-diinversifyjsdo | Hono + DIでInversifyJSを使用する | (ここに記入) |
-| 2024-07-08_hono-service-bindings.md | hono-service-bindings | Hono Service bindings入門 | (ここに記入) |
-| 2024-07-18_docker-postgresqlenvironment-setuplearn.md | docker-postgresqlenvironment-setuplearn | Docker + PostgreSQLで環境構築して、パーティションについて学ぶ | (ここに記入) |
-| 2024-07-28_markdownpowerpointcreatemarptry.md | markdownpowerpointcreatemarptry | 今更だけどMarkdownでPowerPointが作成できるMarpに入門してみる | (ここに記入) |
-| 2024-08-08_neet→working-adultsleepqualitychange.md | neet→working-adultsleepqualitychange | ニート→社会人になって睡眠の質は変化したのか調べてみた | (ここに記入) |
-| 2024-08-12_api.md | api | API叩くときはしっかりデコードしよう | (ここに記入) |
-| 2024-09-13_github-actionsfiledo.md | github-actionsfiledo | GitHub Actionsでビルドしたファイルをリリースノートに格納する | (ここに記入) |
-| 2024-09-21_nextjs-approuterdynamicogpcreatedo.md | nextjs-approuterdynamicogpcreatedo | Next.js AppRouterで動的OGP画像を作成する | (ここに記入) |
-| 2024-09-26_playwrightbeurldo.md | playwrightbeurldo | Playwrightでクエリパラメータが付与されているページのURLを取得する | (ここに記入) |
-| 2024-10-06_tailwind-css.md | tailwind-css | Tailwind CSS マーカーとテキストの重なりを防ぐ方法 | (ここに記入) |
-| 2024-11-09_wikipediatry.md | wikipediatry | Wikipediaの全記事を学習させて、日本語で遊んでみる | (ここに記入) |
-| 2024-11-16_bewebsite.md | bewebsite | 住んでいる地域の人口増減を一目でわかるWebサイトをつくった | (ここに記入) |
-| 2024-11-17_informationdowebapirequesttry.md | informationdowebapirequesttry | アニメ情報を取得するWebAPIを実際にリクエストして、比較してみる | (ここに記入) |
-| 2024-11-30_analyzeinformation.md | analyzeinformation | 初めての実行計画と「ANALYZE」で統計情報の再計算を行う | (ここに記入) |
-| 2024-12-31_understandingdobranded-type.md | understandingdobranded-type | 手を動かして理解するBranded Type | (ここに記入) |
-| 2025-01-02_understandingdocleanarchitecture.md | understandingdocleanarchitecture | 手を動かして理解するクリーンアーキテクチャ | (ここに記入) |
-| 2025-01-11_branded-type.md | branded-type | もう少し楽にBranded Typeを使えるようにしたい | (ここに記入) |
-| 2025-02-08_marpslidecreatedo.md | marpslidecreatedo | Marpで企業ロゴが入ったスライドを作成する | (ここに記入) |
-| 2025-02-22_podfromnotfrom.md | podfromnotfrom | Podがなにか分からないから弁当ケースで表現してもらう | (ここに記入) |
-| 2025-03-03_honoxurlcreatesite.md | honoxurlcreatesite | HonoXで短縮URL作成サイトをつくる | (ここに記入) |
-| 2025-04-11_chinchirodomcpservertry.md | chinchirodomcpservertry | チンチロをするMCPサーバーを作ってみる | (ここに記入) |
-| 2025-05-06_nothonoxblondeheroinenotwebsite.md | nothonoxblondeheroinenotwebsite | 「ないなら作ればよくね？」HonoXで金髪ヒロインしか乗ってないWebサイトを作った話 | (ここに記入) |
-| 2025-05-11_hono-obsidianhands-ondevelopmenttry.md | hono-obsidianhands-ondevelopmenttry | Hono + Obsidianプラグインをハンズオン形式で開発してみる | (ここに記入) |
-| 2025-05-18_dependabotsettings.md | dependabotsettings | dependabotによる依存関係更新の集約設定 | (ここに記入) |
-| 2025-06-01_honoxvitestdo.md | honoxvitestdo | HonoXにVitestを導入する | (ここに記入) |
-| 2025-06-08_cloudflare-workersillegal-invocationerror.md | cloudflare-workersillegal-invocationerror | Cloudflare Workers環境で「Illegal invocation」エラーが起きたときに試したこと | (ここに記入) |
-| 2025-08-28_pretoolusefailed-status-code-127.md | pretoolusefailed-status-code-127 | PreToolUseがfailed with non-blocking status code 127になったときにやったこと | (ここに記入) |
-| 2025-09-27_dev-containerserena-mcpdo.md | dev-containerserena-mcpdo | Dev Container環境でSerena MCPのブラウザ自動起動を無効化する | (ここに記入) |
-| 2025-09-28_dostop-hooksnottypescript.md | dostop-hooksnottypescript | 仕組みでカバーするStop Hooksで忘れないTypeScriptの型チェック | (ここに記入) |
-| 2025-10-18_notion-apidatabaseapitry.md | notion-apidatabaseapitry | Notion APIのデータベース操作APIに破壊的変更があったので、実装を修正してみる | (ここに記入) |
-| 2025-11-03_gasusewebsite.md | gasusewebsite | GASを使うと社内だけで使えるWebサイトが簡単に作れるの知ってました？ | (ここに記入) |
-| 2025-11-09_anthropicmcpserena-mcp.md | anthropicmcpserena-mcp | Anthropic公式のMCPによるコード実行をserena MCPで試してみたけど無理だった件 | (ここに記入) |
-
-✅ 完了しました！
-
-上記の出力をコピーして、推奨slugを記入してください。
-記入後、別のスクリプトで一括更新します。
+```tsv
+ファイル名	現在のslug	タイトル	翻訳結果
+2021-12-11_seven-elevenoptimalfoodlinear-programming.md	seven-elevenoptimalfoodlinear-programming	セブンイレブンで最適な食品を線形計画法を用いて決めたい	I want to use linear programming to determine the best food items at 7-Eleven.
+2022-01-27_reiwa-3-yearfall-fundamental-information-technology-engineer-passexperience.md	reiwa-3-yearfall-fundamental-information-technology-engineer-passexperience	令和3年度秋 基本情報技術者試験 合格体験記	Fall 2021 Fundamental Information Technology Engineer Examination Passing Experience
+2022-11-11_mysqlcsvfiledbimportdo.md	mysqlcsvfiledbimportdo	【MySQL】CSVファイルをDBにインポートする	[MySQL] Importing a CSV file into a database
+2022-11-12_python-beautifulsoup-findfind-all.md	python-beautifulsoup-findfind-all	Python BeautifulSoup find()を呼び出すつもりが、find_all()を呼び出してしまったのでしょうか？	Python BeautifulSoup Did you mean to call find() but end up calling find_all() instead?
+2022-11-23_java-compilenot.md	java-compilenot	Java コンパイルができない	Unable to compile Java
+2022-11-28_pyautogui-image-recognitionscale-ratio.md	pyautogui-image-recognitionscale-ratio	PyAutoGUI 画像認識と拡大比率の問題	PyAutoGUI Image recognition and magnification ratio issue
+2022-12-03_readable-code.md	readable-code	リーダブルコードの個人的重要部分をざっくりまとめてみた	A rough summary of the important parts of readable code for me
+2022-12-23_2022-yearfall-applied-information-technology-engineernonpassexperience.md	2022-yearfall-applied-information-technology-engineernonpassexperience	2022年秋 応用情報技術者試験"不"合格体験記	Fall 2022 Applied Information Technology Engineer Examination "Fail" Pass Experience
+2023-01-22_notehealthstresslightwake-up.md	notehealthstresslightwake-up	【雑記】これ以上心臓に負荷をかけるな【光で目覚めよう】	[Miscellaneous] Don't put any more strain on your heart [Wake up with the light]
+2023-02-06_tech-bookreading-technique.md	tech-bookreading-technique	技術書の読書術をざっくり読んで個人的に重要な部分をまとめてみた。	I quickly read through the book on how to read technical books and summarized the parts that I personally found important.
+2023-02-15_django-templatetagwhitespace.md	django-templatetagwhitespace	Django テンプレートタグに空白を入れると認識してくれません	Django template tags are not recognized if they contain spaces
+2023-02-19_excel-notusefultips-3.md	excel-notusefultips-3	Excel メジャーじゃないけど知っておくと便利な小技3選	3 Tips for Excel that aren't major but are useful to know
+2023-03-27_pythonpyautogui-routine-workautomationtry.md	pythonpyautogui-routine-workautomationtry	【Python】pyautogui入門 -定型作業を自動化してみる-	[Python] Introduction to pyautogui - Automating routine tasks -
+2023-04-01_anacondasystem-environment-variablessettingsbecome.md	anacondasystem-environment-variablessettingsbecome	Anacondaはシステム環境変数の設定方法が異なるらしい	Anaconda seems to have a different way of setting system environment variables
+2023-04-02_pythonnlpdiscord-pynegativeworddobot.md	pythonnlpdiscord-pynegativeworddobot	【Python】初めての自然言語処理？discord.pyでネガティブな単語に反応するbotを作ってみた。	[Python] My first natural language processing? I created a bot that responds to negative words using discord.py.
+2023-04-23_pythonpyautogui-kindlehighlightdeletetry.md	pythonpyautogui-kindlehighlightdeletetry	【Python】pyautogui入門 -Kindleのハイライトを削除してみる-	[Python] Introduction to pyautogui - Trying to remove highlights from Kindle -
+2023-05-02_mercarishopsrelistefficiency.md	mercarishopsrelistefficiency	メルカリShopsの再出品があまりにもだるすぎたので効率化してみた	Relisting items on Mercari Shops was so tedious, I tried to streamline it.
+2023-05-28_chatgptsummarize.md	chatgptsummarize	【ChatGPT】今更だけど本を要約してもらった	[ChatGPT] It's a little late, but I got a summary of the book
+2023-06-10_reactfrontendrandomramen-jiro.md	reactfrontendrandomramen-jiro	【React】初めてのフロントエンド〜ランダムで今日行くラーメン二郎を決めてもらう〜	[React] My first frontend: Randomly decide which Ramen Jiro to go to today
+2023-07-01_react-flaskintegrationtry.md	react-flaskintegrationtry	React + Flaskを連携させてみる	Let's integrate React and Flask
+2023-07-09_reactflaskintegrationtry-part-2.md	reactflaskintegrationtry-part-2	ReactとFlaskを連携させてみる part2	Integrating React and Flask part 2
+2023-08-11_typescript-interfacetypeuse.md	typescript-interfacetypeuse	TypeScript interfaceとtypeどっち使うんですか？	TypeScript: Which should I use, interface or type?
+2023-08-12_seleniumdetection.md	seleniumdetection	Seleniumが本当にバレバレなのか試してみた	I tried to see if Selenium is really obvious.
+2023-08-18_tight-couplingloose-couplingunderstanding.md	tight-couplingloose-couplingunderstanding	密結合と疎結合の理解を深める	Deepen your understanding of tight and loose coupling
+2023-08-20_typescriptcallbackfunctionknow.md	typescriptcallbackfunctionknow	TypeScriptでコールバック関数を知る	Learn about callback functions in TypeScript
+2023-08-26_ramen-jirolearngoodalgorithmgptteachertry.md	ramen-jirolearngoodalgorithmgptteachertry	ラーメン二郎のコールで学ぶ良いアルゴリズムとは何かをGPT先生に聞いてみる	Asking GPT Sensei what a good algorithm is to learn from Ramen Jiro's call
+2023-08-27_postman-localhostrequestsendnot.md	postman-localhostrequestsendnot	Postman localhostにリクエストが送信できない	Postman unable to send request to localhost
+2023-09-18_angularpracticefunabashipopulation-transitiongraph.md	angularpracticefunabashipopulation-transitiongraph	Angularの練習ということで船橋市の人口推移グラフを作ってみた	As an Angular practice, I made a population graph for Funabashi City.
+2023-10-09_booknotiongreat-app-1.md	booknotiongreat-app-1	BookNotionを更に神アプリにしたい その１	I want to make BookNotion an even better app. Part 1
+2023-10-14_booknotionbirth.md	booknotionbirth	自分だけのBookNotionを爆誕させた	I created my own BookNotion
+2023-10-29_personal-developmentminase-inorilivenotsonglist-displaydo.md	personal-developmentminase-inorilivenotsonglist-displaydo	【個人開発】水瀬いのりさんのライブで聴いたことのない曲を一覧表示するぞ	[Personal Development] List of songs you haven't heard at Minase Inori's concerts
+2023-12-23_10-％probabilitydohnotpokemongeneratesite.md	10-％probabilitydohnotpokemongeneratesite	１０％の確率でドオーしか表示されないポケモン生成サイトを作った	I made a Pokemon generator that has a 10% chance of only displaying Doo.
+2023-12-29_・dark-patternshadcn-uicreatedo.md	・dark-patternshadcn-uicreatedo	ザ・ダークパターンをshadcn/uiで作成する	Creating The Dark Pattern with shadcn/ui
+2024-01-03_nextjs-13-deployapipathdynamic.md	nextjs-13-deployapipathdynamic	Next.js13 デプロイ時にAPIのパスを動的に変えるやり方	Next.js13 How to dynamically change API path during deployment
+2024-01-07_nonsensetextgeneratedoapp.md	nonsensetextgeneratedoapp	支離滅裂な文章を生成するアプリ	An app that generates incoherent sentences
+2024-01-21_fastapiiduuidsettingsdotype-definition.md	fastapiiduuidsettingsdotype-definition	【FastAPI】idをuuidで設定するときは型定義に気をつけたい	[FastAPI] When setting id as uuid, be careful of type definition
+2024-02-23_google-places-api-newlanguage-codesettingstrouble.md	google-places-api-newlanguage-codesettingstrouble	Google Places API (New)で言語コードを設定せず沼りかけた	I almost got stuck without setting the language code in Google Places API (New)
+2024-03-17_sqlalchemy-pytestruntime-error:-event-loop-is-closed.md	sqlalchemy-pytestruntime-error:-event-loop-is-closed	SQLAlchemy + pytestでRuntimeError: Event loop is closedが起きたときにやったこと	What I did when I got RuntimeError: Event loop is closed in SQLAlchemy + pytest
+2024-04-08_real-estateinformationliveapitry.md	real-estateinformationliveapitry	不動産情報ライブラリAPIを使ってみる！	Try using the Real Estate Information Library API!
+2024-04-27_convenience-storesweetsrandomdoline-bot.md	convenience-storesweetsrandomdoline-bot	コンビニスイーツをランダムに表示するLINE BOTをつくる	Create a LINE BOT that randomly displays convenience store sweets
+2025-01-03_2025-yeardailybed-making.md	2025-yeardailybed-making	2025年は毎日ベッドメイキングだけやればいい。	In 2025, all you need to do is make your bed every day.
+2024-04-18_honorandomdoline-botmake.md	honorandomdoline-botmake	Honoでランダムにアイスクリームを提案するLINE BOTを作る	Create a LINE BOT that randomly suggests ice cream using Hono
+2024-06-13_vitegooglechromedevelopment.md	vitegooglechromedevelopment	Viteで始めるGoogleChrome拡張機能開発	Start developing Google Chrome extensions with Vite
+2024-06-15_understandingdodi.md	understandingdodi	手を動かして理解しようとするDI（依存性の注入）	Understanding DI (Dependency Injection) through hands-on experience
+2024-07-06_hono-diinversifyjsdo.md	hono-diinversifyjsdo	Hono + DIでInversifyJSを使用する	Using InversifyJS with Hono + DI
+2024-07-08_hono-service-bindings.md	hono-service-bindings	Hono Service bindings入門	Introduction to Hono Service bindings
+2024-07-18_docker-postgresqlenvironment-setuplearn.md	docker-postgresqlenvironment-setuplearn	Docker + PostgreSQLで環境構築して、パーティションについて学ぶ	Build an environment with Docker + PostgreSQL and learn about partitions
+2024-07-28_markdownpowerpointcreatemarptry.md	markdownpowerpointcreatemarptry	今更だけどMarkdownでPowerPointが作成できるMarpに入門してみる	It's a little late, but I'll introduce Marp, which allows you to create PowerPoint using Markdown
+2024-08-08_neet→working-adultsleepqualitychange.md	neet→working-adultsleepqualitychange	ニート→社会人になって睡眠の質は変化したのか調べてみた	I investigated whether the quality of sleep changed after going from NEET to working adult.
+2024-08-12_api.md	api	API叩くときはしっかりデコードしよう	Be sure to decode properly when calling the API
+2024-09-13_github-actionsfiledo.md	github-actionsfiledo	GitHub Actionsでビルドしたファイルをリリースノートに格納する	Include build files in release notes with GitHub Actions
+2024-09-21_nextjs-approuterdynamicogpcreatedo.md	nextjs-approuterdynamicogpcreatedo	Next.js AppRouterで動的OGP画像を作成する	Creating dynamic OGP images with Next.js AppRouter
+2024-09-26_playwrightbeurldo.md	playwrightbeurldo	Playwrightでクエリパラメータが付与されているページのURLを取得する	Get the URL of a page with query parameters in Playwright
+2024-10-06_tailwind-css.md	tailwind-css	Tailwind CSS マーカーとテキストの重なりを防ぐ方法	How to prevent Tailwind CSS marker and text overlap
+2024-11-09_wikipediatry.md	wikipediatry	Wikipediaの全記事を学習させて、日本語で遊んでみる	Learn all Wikipedia articles and have fun with them in Japanese
+2024-11-16_bewebsite.md	bewebsite	住んでいる地域の人口増減を一目でわかるWebサイトをつくった	We created a website that lets you see at a glance the population increase or decrease in your area.
+2024-11-17_informationdowebapirequesttry.md	informationdowebapirequesttry	アニメ情報を取得するWebAPIを実際にリクエストして、比較してみる	Let's actually request a WebAPI that retrieves anime information and compare them.
+2024-11-30_analyzeinformation.md	analyzeinformation	初めての実行計画と「ANALYZE」で統計情報の再計算を行う	First execution plan and recalculating statistics with "ANALYZE"
+2024-12-31_understandingdobranded-type.md	understandingdobranded-type	手を動かして理解するBranded Type	Branded Type: Learn by doing
+2025-01-02_understandingdocleanarchitecture.md	understandingdocleanarchitecture	手を動かして理解するクリーンアーキテクチャ	Learn Clean Architecture through hands-on experience
+2025-01-11_branded-type.md	branded-type	もう少し楽にBranded Typeを使えるようにしたい	I want to make it easier to use Branded Type.
+2025-02-08_marpslidecreatedo.md	marpslidecreatedo	Marpで企業ロゴが入ったスライドを作成する	Create a slide with your company logo using Marp
+2025-02-22_podfromnotfrom.md	podfromnotfrom	Podがなにか分からないから弁当ケースで表現してもらう	I don't know what a Pod is, so I'll use a lunch box to represent it.
+2025-03-03_honoxurlcreatesite.md	honoxurlcreatesite	HonoXで短縮URL作成サイトをつくる	Create a URL shortening site with HonoX
+2025-04-11_chinchirodomcpservertry.md	chinchirodomcpservertry	チンチロをするMCPサーバーを作ってみる	Creating an MCP server for playing Chinchiro
+2025-05-06_nothonoxblondeheroinenotwebsite.md	nothonoxblondeheroinenotwebsite	「ないなら作ればよくね？」HonoXで金髪ヒロインしか乗ってないWebサイトを作った話	"If it doesn't exist, why not just make one?" How I created a website with only blonde heroines using HonoX
+2025-05-11_hono-obsidianhands-ondevelopmenttry.md	hono-obsidianhands-ondevelopmenttry	Hono + Obsidianプラグインをハンズオン形式で開発してみる	Hands-on development of Hono + Obsidian plugins
+2025-05-18_dependabotsettings.md	dependabotsettings	dependabotによる依存関係更新の集約設定	Aggregating dependency updates with dependabot
+2025-06-01_honoxvitestdo.md	honoxvitestdo	HonoXにVitestを導入する	Installing Vitest on HonoX
+2025-06-08_cloudflare-workersillegal-invocationerror.md	cloudflare-workersillegal-invocationerror	Cloudflare Workers環境で「Illegal invocation」エラーが起きたときに試したこと	What I tried when I got the "Illegal invocation" error in a Cloudflare Workers environment
+2025-08-28_pretoolusefailed-status-code-127.md	pretoolusefailed-status-code-127	PreToolUseがfailed with non-blocking status code 127になったときにやったこと	What I did when PreToolUse failed with non-blocking status code 127
+2025-09-27_dev-containerserena-mcpdo.md	dev-containerserena-mcpdo	Dev Container環境でSerena MCPのブラウザ自動起動を無効化する	Disable automatic browser launch for Serena MCP in Dev Container environment
+2025-09-28_dostop-hooksnottypescript.md	dostop-hooksnottypescript	仕組みでカバーするStop Hooksで忘れないTypeScriptの型チェック	Don't forget to check TypeScript types with Stop Hooks
+2025-10-18_notion-apidatabaseapitry.md	notion-apidatabaseapitry	Notion APIのデータベース操作APIに破壊的変更があったので、実装を修正してみる	There was a breaking change in the Notion API's database operation API, so I'm going to fix the implementation.
+2025-11-03_gasusewebsite.md	gasusewebsite	GASを使うと社内だけで使えるWebサイトが簡単に作れるの知ってました？	Did you know that you can easily create a website that can only be used within your company using GAS?
+2025-11-09_anthropicmcpserena-mcp.md	anthropicmcpserena-mcp	Anthropic公式のMCPによるコード実行をserena MCPで試してみたけど無理だった件	I tried running code using the official Anthropic MCP with Serena MCP, but it didn't work.
+```
