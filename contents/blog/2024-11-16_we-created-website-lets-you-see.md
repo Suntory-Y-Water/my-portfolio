@@ -4,7 +4,7 @@ slug: we-created-website-lets-you-see
 date: 2024-11-16
 description:
 icon: 🗾
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Map%20of%20Japan/Flat/map_of_japan_flat.svg
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Map%20of%20japan/Flat/map_of_japan_flat.svg
 tags:
   - Next.js
   - 個人開発
