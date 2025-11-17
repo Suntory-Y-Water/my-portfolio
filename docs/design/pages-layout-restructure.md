@@ -76,6 +76,19 @@
 
 ## 実装の詳細
 
+### 重要: 定数管理について
+
+**ADR-0002「定数とURL設定の一元化」に従い、すべての定数は `src/constants/index.ts` で一元管理されています。**
+
+ページネーション関連の定数:
+- `BLOG_CONSTANTS.TOP_PAGE_POSTS_COUNT`: トップページに表示する記事数（5件）
+- `BLOG_CONSTANTS.POSTS_PER_PAGE`: ページネーションページの1ページあたりの記事数（10件）
+
+実装時の注意:
+- 定数をハードコーディングせず、必ず `@/constants` からインポートして使用する
+- `paginateItems()` 関数の `pageSize` パラメータには、適切な定数を渡す
+- 詳細は `docs/adr/decisions/0002-constants-centralization.json` を参照
+
 ### 1. 新規作成するファイル
 
 #### `src/app/about/page.tsx`
@@ -90,10 +103,12 @@
 - `getAllBlogPosts()` と `paginateItems()` をそのまま使用
 - `BlogCard` コンポーネントをそのまま使用
 - 「すべての投稿を見る」リンクを `/blog/page/1` → `/page/1` に変更
+- **定数管理**: `import { BLOG_CONSTANTS } from '@/constants'` を追加し、`pageSize: BLOG_CONSTANTS.TOP_PAGE_POSTS_COUNT` を使用
 
 #### `src/app/blog/page/[page]/page.tsx` → `src/app/page/[page]/page.tsx`
 - ファイルを移動
 - 内部のリンク参照を更新（`/blog/` → `/`）
+- **定数管理**: `import { BLOG_CONSTANTS } from '@/constants'` を使用し、`pageSize: BLOG_CONSTANTS.POSTS_PER_PAGE` でページネーション
 
 #### `src/app/blog/[slug]/page.tsx` → `src/app/[slug]/page.tsx`
 - ファイルを移動
@@ -210,7 +225,9 @@ async rewrites() {
 ### Phase 2: 内容更新
 7. `src/app/page.tsx` をブログ一覧の内容で上書き（現在の `/blog/page.tsx` の内容）
    - リンク `/blog/page/1` → `/page/1` に変更
+   - **定数管理**: `import { BLOG_CONSTANTS } from '@/constants'` を追加し、`pageSize: BLOG_CONSTANTS.TOP_PAGE_POSTS_COUNT` を使用
 8. `src/app/page/[page]/page.tsx` 内のリンク更新（`/blog/` → `/`）
+   - **定数管理**: `import { BLOG_CONSTANTS } from '@/constants'` を使用し、`pageSize: BLOG_CONSTANTS.POSTS_PER_PAGE` でページネーション
 9. `src/app/[slug]/page.tsx` 内のリンク・メタデータ更新
    - メタデータ内の `/blog/${slug}` → `/${slug}`
    - 戻るリンク `/blog` → `/`
