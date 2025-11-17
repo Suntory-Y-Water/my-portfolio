@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import { SocialIcons } from '@/components/icons';
+import { Icons, SocialIcons } from '@/components/icons';
 import { siteConfig } from '@/config/site';
 
 /**
  * アプリケーション全体のフッターコンポーネント
  *
- * このコンポーネントはサイトの最下部に表示され、著作権表示とソーシャルメディアリンク（Twitter、GitHub）を含みます。
+ * このコンポーネントはサイトの最下部に表示され、著作権表示とソーシャルメディアリンク（Twitter、GitHub）、RSSフィードリンクを含みます。
  * ソーシャルメディアのURLはsiteConfigから取得され、URLが設定されている場合のみアイコンが表示されます。
  *
  * @returns フッターコンポーネント
@@ -38,7 +38,7 @@ export default function Footer() {
           © {new Date().getFullYear()} {copyrightName}. All Rights Reserved.
         </p>
 
-        {/* Social media links */}
+        {/* Social media links and RSS feed */}
         <div className='flex items-center gap-4'>
           {twitterUrl && ( // Render only if URL exists
             <Link
@@ -64,6 +64,16 @@ export default function Footer() {
               <span className='sr-only'>GitHub</span>
             </Link>
           )}
+          <Link
+            href='/rss.xml'
+            target='_blank'
+            rel='noopener noreferrer'
+            aria-label='RSSフィードを購読'
+            className='text-muted-foreground transition-colors hover:text-foreground'
+          >
+            <Icons.rss className='size-5' />
+            <span className='sr-only'>RSS</span>
+          </Link>
         </div>
       </div>
     </footer>
