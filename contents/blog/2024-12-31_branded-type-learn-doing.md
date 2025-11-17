@@ -136,7 +136,7 @@ export function createPostId(id: number): PostId {
 
 `IPostRepository` の `findPost` を Branded 化します。
 
-```diff tsx:postRepository.ts
+```diff postRepository.ts
  import 'reflect-metadata';
  import { injectable } from 'inversify';
 -import { Post, PostCreate } from './post';
@@ -173,7 +173,7 @@ export function createPostId(id: number): PostId {
 
 レポジトリと同様に修正し、引数と返却値を Branded Type 対応にします。
 
-```diff tsx:postService.ts
+```diff postService.ts
  import 'reflect-metadata';
  import { injectable, inject } from 'inversify';
 -import { Post, PostCreate } from './post';
@@ -204,7 +204,7 @@ export function createPostId(id: number): PostId {
 
 最後に、API の呼び出し元となる `index.ts` でクエリパラメータから受け取った値を `PostId` に変換して `postService` に渡すようにします。
 
-```diff tsx:index.ts
+```diff index.ts
  import { Hono } from 'hono';
  import { diContainer } from './diConfig';
 -import { PostCreate } from './post';

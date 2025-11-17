@@ -156,7 +156,7 @@ export { diContainer };
 
 既存のサービスとリポジトリを InversifyJS に対応させていきます。
 
-```diff ts
+```diff
 // postService.ts
 +import 'reflect-metadata';
 +import { injectable, inject } from 'inversify';
@@ -203,7 +203,7 @@ export interface IPostService {
 }
 ```
 
-```diff ts
+```diff
 // postRepositoryts
 +import 'reflect-metadata';
 +import { injectable } from 'inversify';
@@ -260,7 +260,7 @@ export interface IPostRepository {
 
 今回は Post しか依存関係がないため、ミドルウェア上で依存関係を解決します。
 
-```diff ts
+```diff
 import { Hono } from 'hono';
 -import { DIContainer } from './di-container';
 -import { DependencyTypes, diContainer } from './di-config';

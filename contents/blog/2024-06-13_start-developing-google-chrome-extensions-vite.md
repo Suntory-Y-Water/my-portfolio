@@ -276,7 +276,7 @@ link🔗 : https://zenn.dev/sui_water/articles/fac4334293a1c0
 
 今回は Zenn の topics ページが対象です。
 
-```diff tsx:vite.config.ts
+```diff vite.config.ts
 import { defineConfig } from 'vite';
 import { crx, defineManifest } from '@crxjs/vite-plugin';
 
