@@ -37,6 +37,7 @@ export const TAG_SLUG_MAP: Record<string, string> = {
   絵文字: 'emoji',
   Obsidian: 'obsidian',
   Markdown: 'markdown',
+  GitHubActions: 'github-actions',
 } as const;
 
 /**
