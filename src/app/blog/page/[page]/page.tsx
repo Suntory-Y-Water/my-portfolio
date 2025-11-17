@@ -38,7 +38,7 @@ export default async function BlogListPage({ params }: BlogListPageProps) {
   } = paginateItems({
     items: allPosts,
     page: pageNum,
-    pageSize: BLOG_CONSTANTS.TOP_PAGE_POSTS_COUNT,
+    pageSize: BLOG_CONSTANTS.POSTS_PER_PAGE,
   });
 
   if (currentPage > totalPages) {
