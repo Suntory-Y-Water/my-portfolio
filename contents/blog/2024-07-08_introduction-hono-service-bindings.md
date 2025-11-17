@@ -37,7 +37,7 @@ https://github.com/Suntory-Y-Water/hono-service-binding
 複数の Cloudflare Workers を 1 つのリポジトリで管理するために、Monorepo を作成し、turborepo で環境構築します。
 パッケージ共通のツールはプロジェクトルートにインストールしておきます。
 
-```json:package.json
+```json package.json
 {
   "devDependencies": {
     "turbo": "^1.10.9",
@@ -51,7 +51,7 @@ https://github.com/Suntory-Y-Water/hono-service-binding
 
 `pnpm run dev` でパッケージを平行に起動するために、turborepo を設定します。
 
-```json:turbo.json
+```json turbo.json
 {
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {

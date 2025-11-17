@@ -46,7 +46,7 @@ parseName(text: string): string {
 
 正常終了したセブンイレブンのリクエストボディとローソンのリクエストボディを比較して見ると、明らかにおかしい文字(`&eacute;`)がいますね..。
 
-```json:セブンイレブン.json
+```json セブンイレブン.json
 [
   {
     "id": "SevenEleven109ace55-73dd-4d84-8a3e-17df30884325",
@@ -75,7 +75,7 @@ parseName(text: string): string {
 ]
 ```
 
-```json:ローソン.json
+```json ローソン.json
 [
   {
     "id": "Lawson0c75b876-b3d1-4c5a-8d03-3cf9b2c1b5c3",

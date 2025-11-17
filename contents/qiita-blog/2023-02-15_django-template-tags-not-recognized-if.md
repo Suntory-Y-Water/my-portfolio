@@ -51,7 +51,7 @@ You’re seeing this error because you have DEBUG = True in your Django settings
 
 スペルミスはパッと見ないと思ったのが、もう一度書いたコードを確認してみる。
 
-``` html:book_detail.html
+``` html book_detail.html
 {% extends 'base.html'%}
 
 {% block title %} {{object.title}} {% endblock %}

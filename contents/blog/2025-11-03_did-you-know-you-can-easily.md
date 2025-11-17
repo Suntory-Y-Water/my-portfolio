@@ -118,7 +118,7 @@ Checked 1 file in 947µs. Fixed 1 file.
 必要な型定義や実装を追加していきます。
 今回の実装はテンプレートリポジトリの実装手法を真似て作成しています。
 
-```typescript:src/features/drive-search/drive-search.type.ts
+```ts src/features/drive-search/drive-search.type.ts
 /**
  * Drive検索結果の単一ファイル情報
  */
@@ -135,7 +135,7 @@ export type DriveFileInfo = {
 export type DriveSearchResult = DriveFileInfo[];
 ```
 
-```typescript:src/features/drive-search/drive-search.service.ts
+```ts src/features/drive-search/drive-search.service.ts
 import type { DriveSearchResult } from './drive-search.type';
 
 /**
@@ -179,7 +179,7 @@ export const DriveSearchService = {
 
 `src/index.ts` で Web アプリのエントリーポイントを定義します。
 
-```typescript:src/index.ts
+```ts src/index.ts
 import { DriveSearchService } from '@features/drive-search/drive-search.service';
 
 // @ts-expect-error GASのグローバル関数
@@ -211,7 +211,7 @@ function searchFiles(keyword: string) {
 
 実装は `google.script.run` で `src/index.ts` で Web アプリのエントリーポイントで定義した `searchFiles()` を呼び出すことで、HTML ファイルから GoogleDrive 検索の処理を実行することが可能です。
 
-```html:app/index.html
+```html app/index.html
 <!DOCTYPE html>
 <html lang="ja">
 <head>

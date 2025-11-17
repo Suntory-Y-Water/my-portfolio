@@ -251,7 +251,7 @@ link🔗 : https://zenn.dev/sui_water/articles/fac4334293a1c0
 
 まずは大元の html である `index.html` を修正していきます
 
-```html:index.html
+```html index.html
 <!DOCTYPE html>
 <html lang="ja">
   <head>

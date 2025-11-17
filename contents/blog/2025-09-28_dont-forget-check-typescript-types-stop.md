@@ -288,7 +288,7 @@ type ContentElement = {
 
 ```
 
-```json:.claude/settings.local.json
+```json .claude/settings.local.json
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "hooks": {

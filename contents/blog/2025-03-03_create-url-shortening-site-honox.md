@@ -60,7 +60,7 @@ app/
 
 Cloudflare の KV を使用するために `global.d.ts` を更新して、環境変数の型定義を追加します。
 
-```typescript:global.d.ts
+```ts global.d.ts
 import type {} from 'hono';
 
 declare module 'hono' {
@@ -75,7 +75,7 @@ declare module 'hono' {
 
 `wrangler.jsonc` にも KV 名前空間の設定を有効化します。
 
-```json:wrangler.jsonc
+```json wrangler.jsonc
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "u-shorten",
@@ -107,7 +107,7 @@ URL 短縮やバリデーションチェックに必要な以下機能を作成�
 - Cloudflare KV への URL 保存と取得
 - KV ストアキーの生成
 
-```typescript:url-utils.ts
+```ts url-utils.ts
 import { nanoid } from 'nanoid';
 import { z } from 'zod';
 
@@ -166,7 +166,7 @@ export function validateUrl(url: string): boolean {
 - 生成された短縮 URL の表示
 - クリップボードへのコピー機能
 
-```typescript:url-form.tsx
+```ts url-form.tsx
 // app/islands/url-form.tsx
 import { useState } from 'hono/jsx';
 
@@ -275,7 +275,7 @@ export default function UrlForm({ params }: Props) {
 
 `app/routes/index.tsx` を更新して、URL フォームを表示します。
 
-```typescript:index.tsx
+```ts index.tsx
 import { createRoute } from 'honox/factory';
 import UrlForm from '../islands/url-form';
 
@@ -326,7 +326,7 @@ export default createRoute((c) => {
 
 フォームからのデータを処理して、短縮 URL を生成する API エンドポイントを作成します。
 
-```typescript:/api/shorten.ts
+```ts /api/shorten.ts
 import { zValidator } from '@hono/zod-validator';
 import { createRoute } from 'honox/factory';
 import { z } from 'zod';
@@ -390,7 +390,7 @@ export const POST = createRoute(
 
 短縮 URL からオリジナル URL へのリダイレクト機能を実装します。
 
-```typescript:[shortId].tsx
+```ts [shortId].tsx
 // app/routes/[shortId].tsx
 import { createRoute } from 'honox/factory';
 import { getOriginalUrl } from '../lib/url-utils';
@@ -456,7 +456,7 @@ export default createRoute(async (c) => {
 
 初期設定のままだと少し物足りないので、エラーページと 404 ページのレイアウトを修正します。
 
-```typescript:/routes/_404.tsx
+```ts /routes/_404.tsx
 // app/routes/_404.tsx
 import type { NotFoundHandler } from 'hono';
 
@@ -480,7 +480,7 @@ const handler: NotFoundHandler = (c) => {
 export default handler;
 ```
 
-```typescript:/routes/_error.tsx
+```ts /routes/_error.tsx
 // app/routes/_error.tsx
 import type { ErrorHandler } from 'hono';
 
@@ -513,7 +513,7 @@ export default handler;
 
 レスポンシブデザインで実装していきます。
 
-```typescript:/routes/_renderer.tsx
+```ts /routes/_renderer.tsx
 // app/routes/_renderer.tsx
 import { jsxRenderer } from 'hono/jsx-renderer';
 import { Link, Script } from 'honox/server';
@@ -556,7 +556,7 @@ export default jsxRenderer(({ children }) => {
 
 色々やってもいいですが、シンプルにロギングだけミドルウェアを追加します。
 
-```typescript:_middleware.ts
+```ts _middleware.ts
 // app/routes/_middleware.ts
 import { logger } from 'hono/logger';
 import { createRoute } from 'honox/factory';
