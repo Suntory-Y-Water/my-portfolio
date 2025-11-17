@@ -1,0 +1,606 @@
+---
+title: HonoXで短縮URL作成サイトをつくる
+slug: create-url-shortening-site-honox
+date: 2025-03-03
+description:
+icon: 🔗
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Link/Flat/link_flat.svg
+tags:
+  - Hono
+  - HonoX
+---
+
+# はじめに
+
+HonoX で簡単な Web サイト(短縮 URL 作成サイト)を作成します。
+基本的な環境構築が終わっている `setup` ブランチから始めて、完成版(`main` ブランチ)までの変化を追っていきましょう。
+
+https://github.com/Suntory-Y-Water/honox-url-app/tree/setup
+
+https://github.com/Suntory-Y-Water/honox-url-app
+
+
+# 1. プロジェクト概要と技術スタック
+
+## URL短縮サービスとは？
+
+URL 短縮サービスは、長い URL を短く変換し、より共有しやすくするサービスです。
+例えば、`https://example.com/very/long/path/with/parameters?id=123&session=abc` のような長い URL を `https://short.url/a1b2c3` のように短縮します。
+
+## 使用技術
+
+- **HonoX**: Hono ベースのメタフレームワーク
+- **Tailwind CSS**: スタイリング
+- **Cloudflare Workers**: デプロイ先（KV Storage を利用）
+
+# 2. 初期環境の確認
+
+初期環境では、以下のような基本的なファイル構成が用意されています。
+
+```bash
+app/
+  ├── client.ts          - クライアントサイドエントリーポイント
+  ├── islands/
+  │   ├── counter.tsx    - カウンターコンポーネント（サンプル）
+  │   └── input.tsx      - 入力コンポーネント（サンプル）
+  ├── routes/
+  │   ├── _404.tsx       - 404ページ
+  │   ├── _error.tsx     - エラーページ
+  │   ├── _renderer.tsx  - HTMLのレンダリング設定
+  │   └── index.tsx      - トップページ
+  ├── server.ts          - サーバーサイドエントリーポイント
+  └── style.css          - スタイル設定
+```
+
+現段階では、基本的な HonoX の構造が整っていますが、URL 短縮に関する機能はまだ実装されていません。
+
+# 3. URL短縮機能の実装
+
+## 3.1 プロジェクト設定の更新
+
+Cloudflare の KV を使用するために `global.d.ts` を更新して、環境変数の型定義を追加します。
+
+```typescript:global.d.ts
+import type {} from 'hono';
+
+declare module 'hono' {
+  interface Env {
+    Bindings: {
+      URL_STORE: KVNamespace;
+    };
+  }
+}
+
+```
+
+`wrangler.jsonc` にも KV 名前空間の設定を有効化します。
+
+```json:wrangler.jsonc
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "u-shorten",
+  "main": "./dist/index.js",
+  "compatibility_date": "2025-02-28",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./dist"
+  },
+  "kv_namespaces": [
+    {
+      "binding": "URL_STORE",
+      "id": "e0186b6cb7f244faa605d45c5c0be905"
+    }
+  ]
+}
+```
+
+
+KV store のセットアップ方法は、こちらを参照して下さい。
+
+https://developers.cloudflare.com/kv/get-started/
+
+## 3.2 URL操作ユーティリティの作成
+
+URL 短縮やバリデーションチェックに必要な以下機能を作成します。
+- nanoid を使用した短縮 ID の生成
+- zod を使用した URL のバリデーション
+- Cloudflare KV への URL 保存と取得
+- KV ストアキーの生成
+
+```typescript:url-utils.ts
+import { nanoid } from 'nanoid';
+import { z } from 'zod';
+
+// URL検証のためのZodスキーマ
+export const urlSchema = z.string().url().min(1);
+
+// URLストアのキー接頭辞
+const URL_PREFIX = 'url:';
+
+// 短縮IDを生成する関数
+export function generateShortId(): string {
+  return nanoid(6);
+}
+
+// KVストアのキーを生成する関数
+export function getUrlKey(shortId: string): string {
+  return `${URL_PREFIX}${shortId}`;
+}
+
+// URL保存関数
+export async function saveUrl(
+  kv: KVNamespace,
+  shortId: string,
+  originalUrl: string,
+): Promise<void> {
+  const key = getUrlKey(shortId);
+  await kv.put(key, originalUrl);
+}
+
+// URL取得関数
+export async function getOriginalUrl(kv: KVNamespace, shortId: string): Promise<string | null> {
+  const key = getUrlKey(shortId);
+  return await kv.get(key);
+}
+
+// URLバリデーション関数
+export function validateUrl(url: string): boolean {
+  try {
+    urlSchema.parse(url);
+    return true;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+      return false;
+    }
+    return false;
+  }
+}
+```
+
+## 3.3 URL入力フォームの作成
+
+必要最低限の機能として以下の 4 つを作成します。
+- URL 入力フォーム
+- エラー表示
+- 生成された短縮 URL の表示
+- クリップボードへのコピー機能
+
+```typescript:url-form.tsx
+// app/islands/url-form.tsx
+import { useState } from 'hono/jsx';
+
+type Props = {
+  params: {
+    initialUrl?: string;
+    initialError?: string;
+    initialShortUrl?: string;
+  };
+};
+
+// URL短縮フォームのコンポーネント
+export default function UrlForm({ params }: Props) {
+  const { initialUrl = '', initialError = '', initialShortUrl = '' } = params;
+  const [url, setUrl] = useState(initialUrl);
+  const [error] = useState(initialError);
+  const [shortUrl] = useState(initialShortUrl);
+  const [copied, setCopied] = useState(false);
+
+  // 入力フィールド変更ハンドラー
+  const handleInputChange = (e: Event) => {
+    const target = e.target as HTMLInputElement;
+    setUrl(target.value);
+  };
+
+  // クリップボードにコピーする関数
+  const copyToClipboard = async () => {
+    if (!shortUrl) return;
+
+    try {
+      await navigator.clipboard.writeText(shortUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  // 選択ハンドラー
+  const handleSelect = (e: Event) => {
+    const target = e.currentTarget as HTMLInputElement;
+    target.select();
+  };
+
+  return (
+    <div className='w-full max-w-md mx-auto'>
+      <form action='/api/shorten' method='post' className='mb-6'>
+        <div className='mb-4'>
+          <label htmlFor='originalUrl' className='block text-sm font-medium text-gray-700 mb-1'>
+            短縮したいURL
+          </label>
+          <input
+            type='url'
+            id='originalUrl'
+            name='originalUrl'
+            value={url}
+            onChange={handleInputChange}
+            placeholder='https://example.com/long/url'
+            className='w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+            required
+          />
+        </div>
+        <button
+          type='submit'
+          className='w-full px-4 py-2 text-white font-medium rounded-md bg-blue-600 hover:bg-blue-700'
+        >
+          短縮URL生成
+        </button>
+      </form>
+
+      {error && (
+        <div className='mb-6 p-3 bg-red-100 border border-red-300 text-red-700 rounded'>
+          {error}
+        </div>
+      )}
+
+      {shortUrl && (
+        <div className='p-4 bg-gray-100 border border-gray-300 rounded-md'>
+          <div className='flex justify-between items-center mb-2'>
+            <span className='block text-sm font-medium text-gray-700'>短縮されたURL:</span>
+            <button
+              type='button'
+              onClick={copyToClipboard}
+              className='text-xs px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded'
+            >
+              {copied ? 'コピーしました!' : 'コピー'}
+            </button>
+          </div>
+          <div className='flex items-center'>
+            <input
+              type='text'
+              readOnly
+              value={shortUrl}
+              className='w-full px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none'
+              onClick={handleSelect}
+            />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+## 3.4 トップページの更新
+
+`app/routes/index.tsx` を更新して、URL フォームを表示します。
+
+```typescript:index.tsx
+import { createRoute } from 'honox/factory';
+import UrlForm from '../islands/url-form';
+
+export default createRoute((c) => {
+  // クエリパラメータから情報を取得
+  const error = c.req.query('error');
+  const url = c.req.query('url') || '';
+  const shortId = c.req.query('shortId');
+
+  // 現在のリクエストURLから基本URLを取得
+  const currentUrl = new URL(c.req.url);
+  const origin = currentUrl.origin;
+  const shortUrl = shortId ? `${origin}/${shortId}` : '';
+
+  const params = {
+    initialUrl: url,
+    initialError: error,
+    initialShortUrl: shortUrl,
+  };
+
+  return c.render(
+    <div className='max-w-2xl mx-auto py-8'>
+      <div className='text-center mb-8'>
+        <h2 className='text-3xl font-bold mb-2'>URLを短縮する</h2>
+        <p className='text-gray-600'>長いURLを入力して、共有しやすい短いURLを生成しましょう。</p>
+      </div>
+
+      <div className='bg-white p-6 rounded-lg shadow-md'>
+        <UrlForm params={params} />
+      </div>
+
+      <div className='mt-8 bg-blue-50 p-6 rounded-lg border border-blue-200'>
+        <h3 className='text-xl font-semibold mb-3'>使い方</h3>
+        <ol className='list-decimal pl-5 space-y-2'>
+          <li>上のフォームに短縮したいURLを入力します</li>
+          <li>「短縮URL生成」ボタンをクリックするか、Enterキーを押します</li>
+          <li>生成された短縮URLをコピーして使用します</li>
+          <li>短縮URLにアクセスすると、元のURLにリダイレクトされます</li>
+        </ol>
+      </div>
+    </div>,
+  );
+});
+
+```
+
+## 3.5 URL短縮APIエンドポイントの作成
+
+フォームからのデータを処理して、短縮 URL を生成する API エンドポイントを作成します。
+
+```typescript:/api/shorten.ts
+import { zValidator } from '@hono/zod-validator';
+import { createRoute } from 'honox/factory';
+import { z } from 'zod';
+import { generateShortId, saveUrl, validateUrl } from '../../lib/url-utils';
+
+// フォームデータスキーマ
+const formSchema = z.object({
+  originalUrl: z.string().url('有効なURLを入力してください'),
+});
+
+export default createRoute((c) => {
+  // GETリクエストの場合はトップページにリダイレクト
+  return c.redirect('/');
+});
+
+// フォーム送信処理
+export const POST = createRoute(
+  zValidator('form', formSchema, (result, c) => {
+    if (!result.success) {
+      const { originalUrl } = result.data;
+      return c.redirect(
+        `/?error=${encodeURIComponent(result.error.flatten().fieldErrors.originalUrl?.[0] || '入力エラーがあります')}&url=${encodeURIComponent(originalUrl || '')}`,
+        303,
+      );
+    }
+  }),
+  async (c) => {
+    const { originalUrl } = c.req.valid('form');
+
+    // URLの検証
+    if (!validateUrl(originalUrl)) {
+      return c.redirect(
+        `/?error=${encodeURIComponent('無効なURLです。正しいURLを入力してください。')}&url=${encodeURIComponent(originalUrl)}`,
+        303,
+      );
+    }
+
+    try {
+      // 短縮IDの生成
+      const shortId = generateShortId();
+
+      await saveUrl(c.env.URL_STORE, shortId, originalUrl);
+
+      // 成功情報を持ってリダイレクト
+      return c.redirect(`/?shortId=${shortId}&url=${encodeURIComponent(originalUrl)}`, 303);
+    } catch (error) {
+      console.error('URL保存エラー:', error);
+
+      // エラー情報を持ってリダイレクト
+      return c.redirect(
+        `/?error=${encodeURIComponent('URL短縮サービスでエラーが発生しました。後ほど再試行してください。')}&url=${encodeURIComponent(originalUrl)}`,
+        303,
+      );
+    }
+  },
+);
+
+```
+
+## 3.6 短縮URLリダイレクト機能の作成
+
+短縮 URL からオリジナル URL へのリダイレクト機能を実装します。
+
+```typescript:[shortId].tsx
+// app/routes/[shortId].tsx
+import { createRoute } from 'honox/factory';
+import { getOriginalUrl } from '../lib/url-utils';
+
+// 短縮URLのリダイレクト処理
+export default createRoute(async (c) => {
+  // URLパラメータから短縮IDを取得
+  const shortId = c.req.param('shortId');
+
+  if (!shortId) {
+    return c.notFound();
+  }
+
+  try {
+    // 元のURLをKVストアから取得
+    const originalUrl = await getOriginalUrl(c.env.URL_STORE, shortId);
+
+    if (!originalUrl) {
+      return c.render(
+        <div className='max-w-lg mx-auto my-12 p-6 bg-white rounded-lg shadow-md'>
+          <h2 className='text-2xl font-bold text-red-600 mb-4'>リンクが見つかりません</h2>
+          <p className='text-gray-700 mb-4'>
+            このURLは存在しないか、期限切れになった可能性があります。
+          </p>
+          <div className='mt-6'>
+            <a
+              href='/'
+              className='inline-block px-4 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700'
+            >
+              トップページに戻る
+            </a>
+          </div>
+        </div>,
+      );
+    }
+
+    // 元のURLにリダイレクト
+    return c.redirect(originalUrl, 302);
+  } catch (error) {
+    console.error('リダイレクト処理エラー:', error);
+
+    return c.render(
+      <div className='max-w-lg mx-auto my-12 p-6 bg-white rounded-lg shadow-md'>
+        <h2 className='text-2xl font-bold text-red-600 mb-4'>エラーが発生しました</h2>
+        <p className='text-gray-700 mb-4'>
+          リダイレクト処理中にエラーが発生しました。後ほど再試行してください。
+        </p>
+        <div className='mt-6'>
+          <a
+            href='/'
+            className='inline-block px-4 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700'
+          >
+            トップページに戻る
+          </a>
+        </div>
+      </div>,
+    );
+  }
+});
+```
+
+## 3.7 エラーページとNotFoundページの改善
+
+初期設定のままだと少し物足りないので、エラーページと 404 ページのレイアウトを修正します。
+
+```typescript:/routes/_404.tsx
+// app/routes/_404.tsx
+import type { NotFoundHandler } from 'hono';
+
+const handler: NotFoundHandler = (c) => {
+  c.status(404);
+  return c.render(
+    <div className='max-w-lg mx-auto my-12 p-6 bg-white rounded-lg shadow-md'>
+      <h2 className='text-2xl font-bold text-gray-800 mb-4'>ページが見つかりません</h2>
+      <p className='text-gray-700 mb-4'>お探しのURLは存在しないか、削除された可能性があります。</p>
+      <div className='mt-6'>
+        <a
+          href='/'
+          className='inline-block px-4 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700'
+        >
+          トップページに戻る
+        </a>
+      </div>
+    </div>,
+  );
+};
+export default handler;
+```
+
+```typescript:/routes/_error.tsx
+// app/routes/_error.tsx
+import type { ErrorHandler } from 'hono';
+
+const handler: ErrorHandler = (e, c) => {
+  if ('getResponse' in e) {
+    return e.getResponse();
+  }
+  console.error(e.message);
+  c.status(500);
+  return c.render(
+    <div className='max-w-lg mx-auto my-12 p-6 bg-white rounded-lg shadow-md'>
+      <h2 className='text-2xl font-bold text-red-600 mb-4'>エラーが発生しました</h2>
+      <p className='text-gray-700 mb-4'>{e.message}</p>
+      <div className='mt-6'>
+        <a
+          href='/'
+          className='inline-block px-4 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700'
+        >
+          トップページに戻る
+        </a>
+      </div>
+    </div>,
+  );
+};
+
+export default handler;
+```
+
+## 3.8 レンダラーの更新
+
+レスポンシブデザインで実装していきます。
+
+```typescript:/routes/_renderer.tsx
+// app/routes/_renderer.tsx
+import { jsxRenderer } from 'hono/jsx-renderer';
+import { Link, Script } from 'honox/server';
+
+export default jsxRenderer(({ children }) => {
+  return (
+    <html lang='ja'>
+      <head>
+        <meta charset='UTF-8' />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <meta name='description' content='シンプルなURL短縮サービス' />
+        <title>URL短縮サービス</title>
+        <Link href='/app/style.css' rel='stylesheet' />
+        <Script src='/app/client.ts' async />
+      </head>
+      <body>
+        <div className='min-h-screen flex flex-col'>
+          <header className='bg-blue-600 text-white p-4 shadow-md'>
+            <div className='container mx-auto'>
+              <a href='/' aria-label='最初の画面に戻る'>
+                <h1 className='text-2xl font-bold'>URL短縮サービス</h1>
+              </a>
+            </div>
+          </header>
+          <main className='flex-grow container mx-auto p-4'>{children}</main>
+          <footer className='bg-gray-100 p-4 border-t'>
+            <div className='container mx-auto text-center text-gray-600'>
+              &copy; {new Date().getFullYear()} URL短縮サービス
+            </div>
+          </footer>
+        </div>
+      </body>
+    </html>
+  );
+});
+
+```
+
+## 3.9 ミドルウェアの追加
+
+色々やってもいいですが、シンプルにロギングだけミドルウェアを追加します。
+
+```typescript:_middleware.ts
+// app/routes/_middleware.ts
+import { logger } from 'hono/logger';
+import { createRoute } from 'honox/factory';
+
+export default createRoute(logger());
+```
+
+# 4. アプリケーションの実行とテスト
+
+アプリケーションの開発が完了したら、以下のコマンドで実行します。
+
+```bash
+pnpm dev
+```
+
+開発サーバーが起動し、`http://localhost:5173` でアプリケーションにアクセスできます。
+
+# 5. デプロイ
+
+アプリケーションが完成したら、Cloudflare Workers にデプロイしていきましょう。
+以下コマンドを実行しアプリケーションをデプロイします。
+
+```bash
+pnpm deploy
+```
+
+これにより、アプリケーションが Cloudflare Workers にデプロイされます。
+独自ドメインを取得していないので URL が長いですが、機能としては成立しています✨️
+
+以下は Google で `HonoX` と検索したときの URL を短縮したものです。
+https://u-shorten.ayasnppk00.workers.dev/k5rDTn
+
+# おわりに
+HonoX も含め Cloudflare 製品の良いところは、デプロイやリリースの気軽さにあると思っています。
+
+1. HonoX、おもろそうだしなんか作るか
+2. 短縮 URL 作成サイトならインタラクティブな動作多くないしちょうどいいっしょＷ！
+3. AI に壁投げして要件と実装パターンを作成
+4. HonoX の `README.md` と `HonoX Examples` にあるコードを AI に食わせて生成
+5. 細かいところを直してデプロイ
+
+こんな感じで案だしからリリースまで数時間で終わっています。
+アイディアは形にしないとすぐ消えていってしまうので、速度を意識している私にとってはスピード感ある開発ができてとても良かったです。
+インタラクティブな動作が多くないサイトであれば、また使ってみようと思います🔥✨️
+
+## 最終的なソースコード
+https://github.com/Suntory-Y-Water/honox-url-app

@@ -5,7 +5,7 @@ icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Pen
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Pencil/Flat/pencil_flat.svg
 slug: noto-sans-jp-safari-mincho
 tags:
-  - Tailwind CSS
+  - TailwindCSS
   - Next.js
 description: SafariやiOSのGoogle Chromeだけフォントが明朝体に変わってしまっている件。
 ---

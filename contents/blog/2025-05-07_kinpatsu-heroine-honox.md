@@ -7,7 +7,7 @@ slug: kinpatsu-heroine-honox
 tags:
   - HonoX
   - Hono
-  - Cloudflare Workers
+  - CloudflareWorkers
 description: HonoXとCloudflare Workersを活用し、アニメの金髪ヒロインだけを一覧表示するWebサイト「金髪ヒロイン.com」を個人開発した体験と、技術選定や実装の工夫、今後の課題についてまとめました。
 ---
 

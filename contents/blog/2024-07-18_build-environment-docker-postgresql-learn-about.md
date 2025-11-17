@@ -1,0 +1,358 @@
+---
+title: Docker + PostgreSQLで環境構築して、パーティションについて学ぶ
+slug: build-environment-docker-postgresql-learn-about
+date: 2024-07-18
+description:
+icon: 🛢️
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Oil%20drum/Flat/oil_drum_flat.svg
+tags:
+  - Docker
+  - PostgreSQL
+  - データベース
+---
+
+# はじめに
+
+実務で n 千万から n 億レコードのテーブルがあり、その過程でパーティション構成について考える機会がありました。
+パーティションって単語は知っているけど、実際なんなん？というふわっとした理解だったので改めて内容をまとめてアウトプットするのが目的です。
+
+テーブルは PostgreSQL を使用し Docker で環境構築します。
+
+# 環境構築
+
+※Docker は既にインストール済みのため省略します。
+
+公式ドキュメントに従い、PostgreSQL のイメージを使用します。
+
+[postgres - Official Image | Docker Hub](https://hub.docker.com/_/postgres)
+
+公式ドキュメントから 2024/07/11 時点の最新である 16 を選択します。
+
+https://github.com/docker-library/postgres/blob/d08757ccb56ee047efd76c41dbc148e2e2c4f68f/16/bookworm/Dockerfile
+
+`compose.yml` も一緒に作成します。
+
+```yaml
+version: '3.9'
+
+services:
+
+  db:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+```
+
+`docker compose up -d` で起動します。
+
+```bash
+User@MyDesktopPC MINGW64 ~/Documents/dev/db/db-partition-lesson
+$ docker compose up -d
+[+] Running 23/2
+ ✔ adminer 7 layers [⣿⣿⣿⣿⣿⣿⣿]      0B/0B      Pulled                                                                                                                                            11.3s 
+ ✔ db 14 layers [⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿]      0B/0B      Pulled                                                                                                                                         16.6s 
+[+] Running 3/3
+ ✔ Network db-partition-lesson_default      Created                                                                                                                                              0.0s 
+ ✔ Container db-partition-lesson-db-1       Started                                                                                                                                              0.2s 
+ ✔ Container db-partition-lesson-adminer-1  Started   
+```
+
+# パーティションの基本概念
+
+パーティションとは、データベース内の大規模なテーブルを複数の小さなテーブルに分割する技術です。
+
+これにより、データ管理やクエリ性能が向上し、特定の条件に基づいてデータの格納とアクセスが効率化されます。
+
+## パーティションのメリットとデメリット
+
+### メリット
+
+- **性能向上**
+    - 大きなテーブルを小さなパーティションに分割することで、クエリの実行速度が向上します。特に、パーティションキーに基づくクエリでは顕著な効果を発揮します。
+- **管理の容易になる**
+    - 各パーティションは独立したテーブルとして管理できるため、特定のパーティションのみをバックアップやリストアすることが可能です。
+- **メンテナンスの簡便化できる**
+    - 古いデータを含むパーティションを簡単に削除したり、アーカイブでき、テーブル全体の管理が容易になります。
+
+### デメリット
+
+- 適切なパーティションキーの選定: 適切なパーティションキーを選ばないと、パフォーマンスの低下や管理の難しさが発生します。
+
+# 実装上の注意点
+
+## パフォーマンスの最適化
+
+- インデックスを適切に設定することで、パーティション全体の検索性能を向上させる
+- パーティションが均等にデータを分散するように設計する
+
+## 適切なパーティションキーの選び方
+
+- データのアクセスパターンを理解し、それに基づいてパーティションキーを選定する
+- パーティションキーがデータを均等に分割することを確認する
+
+# パーティションの種類
+
+## リストパーティション
+
+リストパーティションは、特定の値リストに基づいてデータを分割します。各パーティションは特定の値のセットに対応しています。
+
+実装例: 地域ごとで分割
+
+```sql
+DROP TABLE IF EXISTS sales CASCADE;
+-- メインテーブルの作成
+CREATE TABLE sales (
+    id SERIAL,
+    region TEXT,
+    amount DECIMAL,
+    PRIMARY KEY (id, region)
+) PARTITION BY LIST (region);
+
+-- テーブルの論理名設定
+COMMENT ON TABLE sales IS '売上情報';
+
+-- 各カラムの論理名設定
+COMMENT ON COLUMN sales.id IS 'ID';
+COMMENT ON COLUMN sales.region IS '地域';
+COMMENT ON COLUMN sales.amount IS '金額';
+
+-- 各パーティションの作成
+CREATE TABLE sales_north PARTITION OF sales FOR VALUES IN ('North');
+CREATE TABLE sales_south PARTITION OF sales FOR VALUES IN ('South');
+CREATE TABLE sales_east PARTITION OF sales FOR VALUES IN ('East');
+CREATE TABLE sales_west PARTITION OF sales FOR VALUES IN ('West');
+
+-- パーティションの論理名設定
+COMMENT ON TABLE sales_north IS '北部地域の売上';
+COMMENT ON TABLE sales_south IS '南部地域の売上';
+COMMENT ON TABLE sales_east IS '東部地域の売上';
+COMMENT ON TABLE sales_west IS '西部地域の売上';
+
+-- データ挿入
+INSERT INTO sales (region, amount) VALUES ('North', 1000);
+INSERT INTO sales (region, amount) VALUES ('South', 1500);
+
+-- クエリ例
+SELECT * FROM sales_north;
+SELECT * FROM sales;
+```
+
+## リストパーティションの特徴
+
+- 固定値のリストに基づいてデータを分割
+- 特定のカテゴリやグループごとにデータを管理するのに適している
+
+### メリット
+
+- 明確なカテゴリごとのデータ分割が可能
+- 特定のカテゴリに関するクエリの効率が向上
+
+### デメリット
+
+- カテゴリが変更される場合の管理が難しい
+- リストが増えるとパーティションの数が多くなりすぎる可能性
+
+## ハッシュパーティション
+
+ハッシュパーティションは、ハッシュ関数を使用してデータを均等に分割します。これは、データの均等分布が求められる場合に有効です。
+
+実装例: ユーザーID ごとで分割
+
+```sql
+DROP TABLE IF EXISTS users CASCADE;
+-- メインテーブルの作成
+CREATE TABLE users (
+    id SERIAL,
+    name TEXT,
+    email TEXT,
+    PRIMARY KEY (id)
+) PARTITION BY HASH (id);
+
+-- テーブルの論理名設定
+COMMENT ON TABLE users IS 'ユーザー情報';
+
+-- 各カラムの論理名設定
+COMMENT ON COLUMN users.id IS 'ID';
+COMMENT ON COLUMN users.name IS '名前';
+COMMENT ON COLUMN users.email IS 'メールアドレス';
+
+-- 各パーティションの作成
+CREATE TABLE users_p0 PARTITION OF users FOR VALUES WITH (MODULUS 4, REMAINDER 0);
+CREATE TABLE users_p1 PARTITION OF users FOR VALUES WITH (MODULUS 4, REMAINDER 1);
+CREATE TABLE users_p2 PARTITION OF users FOR VALUES WITH (MODULUS 4, REMAINDER 2);
+CREATE TABLE users_p3 PARTITION OF users FOR VALUES WITH (MODULUS 4, REMAINDER 3);
+
+-- パーティションの論理名設定
+COMMENT ON TABLE users_p0 IS 'ハッシュパーティション 0';
+COMMENT ON TABLE users_p1 IS 'ハッシュパーティション 1';
+COMMENT ON TABLE users_p2 IS 'ハッシュパーティション 2';
+COMMENT ON TABLE users_p3 IS 'ハッシュパーティション 3';
+
+-- データ挿入
+INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com');
+INSERT INTO users (name, email) VALUES ('Bob', 'bob@example.com');
+
+-- クエリ例
+SELECT * FROM users_p0;
+SELECT * FROM users;
+```
+
+## ハッシュパーティションの特徴
+
+- ハッシュ関数を使用してデータを均等に分割
+- データの均等な分散が求められる場合に適している
+
+### メリット
+
+- データの均等な分散が可能
+- 特定の値に依存しないデータ分割ができる
+
+### デメリット
+
+- データの分布が変わる場合に再パーティションが必要
+- ハッシュ関数の選定が重要
+
+## レンジパーティション
+
+レンジパーティションは、指定された範囲に基づいてデータを分割します。時間や数値の範囲でデータを分けるのに適しています。
+
+実装例: 四半期ごとで分割
+
+```sql
+DROP TABLE IF EXISTS orders CASCADE;
+-- メインテーブルの作成
+CREATE TABLE orders (
+    order_id SERIAL,
+    order_date DATE,
+    amount DECIMAL,
+    PRIMARY KEY (order_id, order_date)
+) PARTITION BY RANGE (order_date);
+
+-- テーブルの論理名設定
+COMMENT ON TABLE orders IS '注文情報';
+
+-- 各カラムの論理名設定
+COMMENT ON COLUMN orders.order_id IS '注文ID';
+COMMENT ON COLUMN orders.order_date IS '注文日';
+COMMENT ON COLUMN orders.amount IS '金額';
+
+-- 各パーティションの作成
+CREATE TABLE orders_q1 PARTITION OF orders FOR VALUES FROM ('2023-01-01') TO ('2023-03-31');
+CREATE TABLE orders_q2 PARTITION OF orders FOR VALUES FROM ('2023-04-01') TO ('2023-06-30');
+CREATE TABLE orders_q3 PARTITION OF orders FOR VALUES FROM ('2023-07-01') TO ('2023-09-30');
+CREATE TABLE orders_q4 PARTITION OF orders FOR VALUES FROM ('2023-10-01') TO ('2023-12-31');
+
+-- パーティションの論理名設定
+COMMENT ON TABLE orders_q1 IS '第1四半期の注文';
+COMMENT ON TABLE orders_q2 IS '第2四半期の注文';
+COMMENT ON TABLE orders_q3 IS '第3四半期の注文';
+COMMENT ON TABLE orders_q4 IS '第4四半期の注文';
+
+-- データ挿入
+INSERT INTO orders (order_date, amount) VALUES ('2023-01-15', 250);
+INSERT INTO orders (order_date, amount) VALUES ('2023-04-10', 300);
+
+-- クエリ例
+SELECT * FROM orders_q1;
+SELECT * FROM orders;
+```
+
+## レンジパーティションの特徴
+
+- 指定された範囲に基づいてデータを分割
+- 時間や数値の範囲でデータを分けるのに適している
+
+### メリット
+
+- 時系列データや連続する数値データの管理が容易
+- 範囲に基づくクエリの効率が向上
+
+### デメリット
+
+- 範囲の設定が不適切だとデータの偏りが生じる
+- パーティションの数が多くなりすぎる可能性
+
+# 実際に行ったケース
+
+## パーティションの切り離し
+
+パーティションの切り離しとは、特定のパーティションをメインテーブルから分離する操作です。
+特定の範囲のデータを効率的に管理し、必要に応じてアーカイブや削除を行うことができます。
+
+以下は、実際に行ったパーティションの切り離しの手順とその結果について説明します。
+
+1. データの準備
+
+まず、テストデータを準備します。`orders` テーブルにサンプルデータを挿入します。
+
+```sql
+DELETE FROM orders; -- 一度テーブル内をきれいにするため実行
+INSERT INTO orders (order_date, amount) VALUES
+('2023-01-15', 100.00), -- 第1四半期
+('2023-02-10', 150.00), -- 第1四半期
+('2023-03-05', 200.00), -- 第1四半期
+('2023-04-20', 250.00),
+('2023-05-15', 300.00),
+('2023-06-10', 350.00),
+('2023-07-25', 400.00),
+('2023-08-30', 450.00),
+('2023-09-15', 500.00),
+('2023-10-05', 550.00),
+('2023-11-20', 600.00),
+('2023-12-10', 650.00);
+```
+
+2. パーティションの切り離し
+
+次に、`orders` テーブルの第 1 四半期(2023 年 1 月 1 日から 2023 年 3 月 31 日まで)のデータを含むパーティションを切り離します。
+
+```sql
+-- 第1四半期のパーティションを切り離す
+ALTER TABLE orders DETACH PARTITION orders_q1;
+```
+
+3. 結果の確認
+
+パーティションを切り離した後、`orders` テーブルと切り離されたパーティションのデータを確認します。
+
+```sql
+-- 全件取得すると、9件だけ取得できる
+SELECT * FROM orders;
+```
+`orders` テーブルには第 1 四半期のデータが含まれなくなり、9 件取得できます。
+
+```sql
+-- 切り離されたパーティションのデータを確認すると、パーティションから外した3件が取得できる
+SELECT * FROM orders_q1;
+```
+`orders_q1` パーティションには第 1 四半期のデータが保持されており、3 件取得できます。
+
+```sql
+-- メインテーブルから切り離されたことを確認するとnullで帰ってくる。
+SELECT * FROM orders WHERE order_date < '2023-04-01';
+```
+第 1 四半期のデータがメインテーブルから切り離されているため、結果は空(null)になります。
+
+## パーティションの切り離しの利点
+
+パーティションを切り離すことで、以下の利点があります
+- 古いデータをアーカイブして、メインテーブルのサイズを縮小できる
+- 特定のパーティションのみをバックアップまたは削除できる
+
+## おわりに
+
+この記事では、パーティションの基本概念から具体的な実装方法までを詳細に説明しました。
+大規模なデータを扱う際に、適切なパーティション戦略を採用することで、データベースのパフォーマンスを向上させ、管理の効率化を図ることができます。
+
+パーティションの選定や実装には、データの特性やアクセスパターンを理解することが重要です。
+本記事を通じて、パーティションの利点と実装方法を少しでも理解していただければ幸いです。

@@ -5,8 +5,8 @@ icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fir
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire/Flat/fire_flat.svg
 slug: messaging-api-github-pr
 tags:
-  - LINE Messaging API
-  - Cloudflare Workers
+  - LineMessagingAPI
+  - CloudflareWorkers
   - Notion
 description: ポートフォリオの技術記事投稿頻度をあげるためにNotion + Messaging APIでブログ記事を自動でPull Requestを発行できるようにしました。mdxファイルの作成はnotion-markdown-converterを使用しています。
 ---
