@@ -83,7 +83,7 @@ type TableOfContentsItemProps = {
  *
  * このコンポーネントは目次の1つの項目（見出し）を表示します。
  * 項目番号を表示し、クリックすると該当セクションにスクロールします。
- * H3項目がある場合は、1.1, 1.2のような形式でネスト表示されます。
+ * H3項目がある場合は、1., 2.のような形式でネスト表示されます。
  *
  * @param item - 表示する目次項目。id、text、level、items?プロパティを含みます
  * @param index - 項目の番号（1から始まる）。目次のナンバリングに使用されます
@@ -105,8 +105,8 @@ type TableOfContentsItemProps = {
  * <TableOfContentsItem item={item} index={1} />
  * // 出力:
  * // 1. 概要
- * //   1.1 サブ項目1
- * //   1.2 サブ項目2
+ * //   1. サブ項目1
+ * //   2. サブ項目2
  * ```
  */
 function TableOfContentsItem({ item, index }: TableOfContentsItemProps) {
@@ -125,7 +125,7 @@ function TableOfContentsItem({ item, index }: TableOfContentsItemProps) {
             <li key={subItem.id}>
               <div className='flex items-start'>
                 <span className='mr-2 text-muted-foreground'>
-                  {index}.{subIndex + 1}
+                  {subIndex + 1}.
                 </span>
                 <a
                   href={`#${subItem.id}`}
