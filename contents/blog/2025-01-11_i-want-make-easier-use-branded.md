@@ -9,7 +9,7 @@ tags:
   - TypeScript
 ---
 
-# もう少し楽にBranded Typeを使えるようにしたい
+## もう少し楽にBranded Typeを使えるようにしたい
 と感じたので「Branded Type」を簡単に生成できるツールを作成しました。
 
 https://branded-type-generator.pages.dev/
@@ -41,7 +41,7 @@ CSV 形式以外でタブ形式でも生成できるようにしたのは、現�
 
 https://qiita.com/uhyo/items/de4cb2085fdbdf484b83
 
-# 生成例
+## 生成例
 
 どちらの値でも同じ結果を出力できます。
 
@@ -89,7 +89,7 @@ export function createBody(p: string): Body {
 }
 ```
 
-# ソースコード
+## ソースコード
 
 このツールのソースコードは GitHub で公開しています。
 

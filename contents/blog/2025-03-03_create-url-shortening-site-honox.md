@@ -10,7 +10,7 @@ tags:
   - HonoX
 ---
 
-# はじめに
+## はじめに
 
 HonoX で簡単な Web サイト(短縮 URL 作成サイト)を作成します。
 基本的な環境構築が終わっている `setup` ブランチから始めて、完成版(`main` ブランチ)までの変化を追っていきましょう。
@@ -20,7 +20,7 @@ https://github.com/Suntory-Y-Water/honox-url-app/tree/setup
 https://github.com/Suntory-Y-Water/honox-url-app
 
 
-# 1. プロジェクト概要と技術スタック
+## 1. プロジェクト概要と技術スタック
 
 ## URL短縮サービスとは？
 
@@ -33,7 +33,7 @@ URL 短縮サービスは、長い URL を短く変換し、より共有しや�
 - **Tailwind CSS**: スタイリング
 - **Cloudflare Workers**: デプロイ先（KV Storage を利用）
 
-# 2. 初期環境の確認
+## 2. 初期環境の確認
 
 初期環境では、以下のような基本的なファイル構成が用意されています。
 
@@ -54,7 +54,7 @@ app/
 
 現段階では、基本的な HonoX の構造が整っていますが、URL 短縮に関する機能はまだ実装されていません。
 
-# 3. URL短縮機能の実装
+## 3. URL短縮機能の実装
 
 ## 3.1 プロジェクト設定の更新
 
@@ -564,7 +564,7 @@ import { createRoute } from 'honox/factory';
 export default createRoute(logger());
 ```
 
-# 4. アプリケーションの実行とテスト
+## 4. アプリケーションの実行とテスト
 
 アプリケーションの開発が完了したら、以下のコマンドで実行します。
 
@@ -574,7 +574,7 @@ pnpm dev
 
 開発サーバーが起動し、`http://localhost:5173` でアプリケーションにアクセスできます。
 
-# 5. デプロイ
+## 5. デプロイ
 
 アプリケーションが完成したら、Cloudflare Workers にデプロイしていきましょう。
 以下コマンドを実行しアプリケーションをデプロイします。
@@ -590,7 +590,7 @@ pnpm deploy
 
 https://u-shorten.ayasnppk00.workers.dev/k5rDTn
 
-# おわりに
+## おわりに
 HonoX も含め Cloudflare 製品の良いところは、デプロイやリリースの気軽さにあると思っています。
 
 1. HonoX、おもろそうだしなんか作るか

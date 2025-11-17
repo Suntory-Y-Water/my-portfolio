@@ -11,14 +11,14 @@ tags:
   - AppRouter
 ---
 
-# 概要
+## 概要
 
 1. OG 画像を作成するエンドポイントを Next.js 内で作成
 2. `ImageResponse()` で返却する画像のレイアウトを作成
 3. 画面から `generateMetadata()` の openGraph.Images にエンドポイントの URL を設定（`searchParams` で受け取ったパラメータをよしなに解釈して API を実行している）
 4. og:image に API のエンドポイントを設定すれば、画像が表示される
 
-# 実装例
+## 実装例
 
 画面
 ```ts page.tsx
@@ -214,10 +214,10 @@ export async function GET(request: NextRequest) {
 - 曲の総数 > count > 0
 - 0（全ての曲をライブで聞いた状態）ならメッセージの文言を変更する
 
-# 感想
+## 感想
 あるべき姿だけど、動的 og 画像はストレージサービスに画像を保存したほうが良い気がする。
 ただ個人規模の超ミニマルなものであればストレージを使用せずともバリデーション + αだけしていれば良さそう。
 
-# 参考
+## 参考
 
 https://www.2riniar.com/pages/c_waup6uzi4

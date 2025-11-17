@@ -11,7 +11,7 @@ tags:
   - E2E
 ---
 
-# 結論
+## 結論
 `page.on()` メソッドでネットワークを監視して、特定の URL だけを取得すれば可能です。
 
 ```tsx
@@ -23,7 +23,7 @@ tags:
   });
 ```
 
-# 確認方法
+## 確認方法
 `response.url` の内容は Chrome DevTools のリクエスト URL を見れば確認できます。
 
 ![](https://storage.googleapis.com/zenn-user-upload/d221c61acde1-20240926.png)
@@ -57,6 +57,6 @@ tags:
   });
 ```
 
-# 参考
+## 参考
 
 https://zenn.dev/masa5714/articles/12c917e065a108

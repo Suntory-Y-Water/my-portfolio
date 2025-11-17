@@ -357,7 +357,7 @@ description: MCP ツールを TypeScript コードとして実行し、トーク
 allowed-tools: Read, Write, Bash, Glob, Grep
 ---
 
-# MCP コード実行
+## MCP コード実行
 
 ## 概要
 
@@ -392,8 +392,8 @@ MCP ツールを TypeScript コードとして実行し、トークン消費を�
 **プロジェクトルートは自動検出されます**。環境変数の設定は不要です。
 
 ```bash
-# プロジェクト内のスキル
-# .claude/skills/mcp-code-execution から自動的に ../../../../ でプロジェクトルートを検出
+## プロジェクト内のスキル
+## .claude/skills/mcp-code-execution から自動的に ../../../../ でプロジェクトルートを検出
 bun run src/your-script.ts
 ```
 
@@ -416,10 +416,10 @@ SERENA_PROJECT_ROOT=/path/to/your/project
 
 **異なるプロジェクトでの使用例**:
 ```bash
-# test-parser プロジェクト
+## test-parser プロジェクト
 SERENA_PROJECT_ROOT=/Users/user/dev/test-parser bun run src/analyze-parser.ts
 
-# testA プロジェクト
+## testA プロジェクト
 SERENA_PROJECT_ROOT=/Users/user/dev/testA bun run src/analyze-testA.ts
 ```
 
@@ -595,7 +595,7 @@ try {
 ## 付録B: TOOLS.md
 
 ````md:TOOLS.md
-# 利用可能なツール
+## 利用可能なツール
 
 自動生成された TypeScript ラッパーを通じて、全 20 の Serena MCP ツールが利用可能です。
 

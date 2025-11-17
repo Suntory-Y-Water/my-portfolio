@@ -40,7 +40,7 @@ pnpm workspace を初期化します。
 プロジェクトのルートに `pnpm-workspace.yaml` を作成し、パッケージの配置場所を指定します。
 
 ```yaml
-# pnpm-workspace.yaml
+## pnpm-workspace.yaml
 packages:
   - 'packages/*'
 ```

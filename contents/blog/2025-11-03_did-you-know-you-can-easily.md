@@ -69,15 +69,15 @@ JavaScript(ないしは GAS)でも開発は可能ですが、やはり型があ�
 先述した通り、EZ CLASP というテンプレートを使用します。このテンプレートは、TypeScript の型補完、自動テスト、コードフォーマットなど、モダンな開発環境が整っています。
 
 ```bash
-# テンプレートを使用してプロジェクト作成
+## テンプレートを使用してプロジェクト作成
 pnpx tiged cristobalgvera/ez-clasp clasp-gas-webapp-demo
 cd clasp-gas-webapp-demo
 
-# Git初期化とパッケージインストール
+## Git初期化とパッケージインストール
 git init
 pnpm install
 
-# claspにログイン
+## claspにログイン
 pnpm clasp:login
 ```
 

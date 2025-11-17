@@ -12,7 +12,7 @@ tags:
   - Vite
 ---
 
-# はじめに
+## はじめに
 
 都内の SES 企業で勤務しているスイと申します。
 
@@ -20,11 +20,11 @@ tags:
 
 今回は Google Chrome の拡張機能を Vite + TypeScript を使用して開発したので、初めて拡張機能を開発する人の第一歩になればよいなと思い書いていきます。
 
-# この記事で話すこと
+## この記事で話すこと
 
 - TypeScript + Vite を使って拡張機能を開発する方法
 
-# なぜJavaScriptで開発しない？
+## なぜJavaScriptで開発しない？
 
 Google Chrome 拡張機能を開発するには `manifest.json` と `content_script` として必要な JavaScript ファイルのみで実行できます。
 
@@ -81,7 +81,7 @@ const getProductData = (element: Element, count: number): ProductData => {
 
 今回は CRXJS Vite plugin を使うことで、コードを保存するたびに拡張機能が再読み込みされるため、更新ボタンを手動で押す手間が省けます。
 
-# 拡張機能開発のおさらい(contents,popup,backgroundの役割)
+## 拡張機能開発のおさらい(contents,popup,backgroundの役割)
 
 Google Chrome 拡張機能には、3 つの役割を持った JavaScript があります。
 (ご存知の人は「導入」までスキップして OK です)
@@ -140,7 +140,7 @@ Google Chrome 拡張機能には、3 つの役割を持った JavaScript があ�
 - **ページの直接操作**：バックグラウンドスクリプトはウェブページの DOM に直接アクセスすることはできません。これはコンテンツスクリプトの担当です。
 - **ユーザーインターフェースの提供**：ポップアップやオプションページを持つことはできますが、バックグラウンドスクリプト自体は UI を持ちません。
 
-# 導入
+## 導入
 
 ## 必要なパッケージのインストール
 
@@ -235,7 +235,7 @@ pnpm run dev
 
 ここまでで拡張機能を動かすことは確認できました。
 
-# 簡単な拡張機能を作ってみる
+## 簡単な拡張機能を作ってみる
 
 拡張機能が動くことを確認できたので、`popup.ts`,`content.ts` を使って拡張機能を作成していきましょう。
 Zenn の topics ページから記事の一覧を取得して、Markdown 形式に変換する拡張機能を作成してきます。
@@ -479,7 +479,7 @@ const createArticleMarkdown = (articles: ZennArticleData[]) => {
 
 実装は以上になります！
 
-# ビルド
+## ビルド
 
 dist フォルダの内容が開発環境用になっているため、一度フォルダごと削除しましょう。
 
@@ -624,7 +624,7 @@ dist/assets/index.html-_Dl5P9dK.js                                 1.29 kB │ g
 
 [Chrome拡張機能の申請手順 - Qiita](https://qiita.com/sasao3/items/0606b67da01948ae58b7)
 
-# 終わりに
+## 終わりに
 
 今回のソースコードや参考になった記事を掲載します。
 
@@ -642,7 +642,7 @@ https://github.com/crxjs/chrome-extension-tools/issues/846
 
 https://qiita.com/sasao3/items/0606b67da01948ae58b7
 
-# 追記(2024/11/09)
+## 追記(2024/11/09)
 
 この記事を公開したとき `@crxjs/vite-plugin` のバージョンが `2.0.0-beta.23` でした。
 下記 issue でもある通り、拡張機能が動かなくなってしまいます。

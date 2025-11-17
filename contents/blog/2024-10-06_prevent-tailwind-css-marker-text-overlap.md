@@ -13,7 +13,7 @@ tags:
 React を使ってリストを表示する際、ul タグのリストアイテムが長くなった場合、次の行のテキストがリストのマーカー（点や番号）と重なってしまうことがあります。
 ここでは解決案の一例を解説します。
 
-# 問題の概要
+## 問題の概要
 以下のようにリストを生成するコードがあります。
 ```jsx
 <ul className='list-disc list-inside'>
@@ -29,7 +29,7 @@ React を使ってリストを表示する際、ul タグのリストアイテ�
 ![](https://storage.googleapis.com/zenn-user-upload/73fc21072d92-20241006.png)
 *モバイル表示でリストアイテムが複数行に渡ると、2行目以降のテキストがマーカーと重なっています。*
 
-# 解決案
+## 解決案
 ```jsx
 <ul className='list-disc list-outside ml-6'>
   {liveNames.map((liveName) => (

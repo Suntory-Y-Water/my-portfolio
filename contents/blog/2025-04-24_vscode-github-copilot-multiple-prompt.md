@@ -40,20 +40,20 @@ https://docs.github.com/ja/enterprise-cloud@latest/copilot/customizing-copilot/a
 
 
 ```markdown
-# `.github/copilot-instructions.md` Structured Outline
+## `.github/copilot-instructions.md` Structured Outline
 
-# Precondition
+## Precondition
 
 - Once you have loaded this file, output the file name at the beginning of the text.
 
-# Role and Assumptions
+## Role and Assumptions
 
 - You are an AI assistant with advanced problem-solving abilities.
 - Follow instructions efficiently and accurately to complete your tasks.
 
 ---
 
-# Step 1: Analyze and Plan the Instruction
+## Step 1: Analyze and Plan the Instruction
 
 - Briefly summarize the major tasks.
 - Check the **Rules to Follow Directory/Files**.
@@ -62,7 +62,7 @@ https://docs.github.com/ja/enterprise-cloud@latest/copilot/customizing-copilot/a
 - Break down the execution steps in detail.
 - Determine the optimal order for executing those steps.
 
-# Prevent Duplicate Implementations
+## Prevent Duplicate Implementations
 
 Before proceeding, check for:
 
@@ -75,7 +75,7 @@ Before proceeding, check for:
 
 ---
 
-# Step 2: Task Execution
+## Step 2: Task Execution
 
 - Execute the identified steps one at a time.
 - After each step, provide a brief progress report.
@@ -86,7 +86,7 @@ Before proceeding, check for:
 
 ---
 
-# Step 3: Quality Control and Problem Handling
+## Step 3: Quality Control and Problem Handling
 
 - Promptly verify the results of each execution step.
 - If errors or inconsistencies occur, follow this procedure:
@@ -103,7 +103,7 @@ Before proceeding, check for:
 
 ---
 
-# Step 4: Final Confirmation
+## Step 4: Final Confirmation
 
 - After all tasks are complete:
   - Evaluate the final deliverables
@@ -112,35 +112,35 @@ Before proceeding, check for:
 
 ---
 
-# Step 5: Report of Results
+## Step 5: Report of Results
 
 Provide the final results in the following format:
 
 ```markdown
-# Execution Result Report
+## Execution Result Report
 
-# Summary
+## Summary
 
 [Brief overview of the task and results.]
 
-# Execution Steps
+## Execution Steps
 
 1. [Step 1 description and result]
 2. [Step 2 description and result]
    ...
 
-# Final Deliverables
+## Final Deliverables
 
 [Details and links to deliverables, if applicable]
 
-# Issue Response (if applicable)
+## Issue Response (if applicable)
 
 - Issues encountered and response actions
 - Future considerations
 
 ---
 
-# Important Notes
+## Important Notes
 
 - **Always respond in Japanese.**
 - If any uncertainties arise, obtain confirmation before proceeding.
@@ -184,45 +184,45 @@ https://docs.cline.bot/improving-your-prompting-skills/prompting#memory-and-conf
 ```markdown
 <!-- .github/prompts/coding-rules.prompt.md -->
 
-# Clean Code Guidelines
+## Clean Code Guidelines
 
 First, when referencing this file, say the name of this file.
 
 Example: "Loaded copilot-instructions.md".
 
-# TypeScript coding rules
+## TypeScript coding rules
 
-# Constants over magic numbers
+## Constants over magic numbers
 
 - Replace hard-coded numbers with named constants
 - Use clear constant names that explain the purpose of the values
 - Place constants at the top of the file or in a dedicated constants file
 
-# Meaningful names
+## Meaningful names
 
 - Give variables, functions, and classes clear names
 - Names should explain why they exist and how they are used
 - Avoid abbreviations that are not commonly understood
 
-# Smart comments
+## Smart comments
 
 - Don't write comments that explain what the code does - Make the code itself easy to understand
 - Use comments to explain why you chose to implement it the way you did
 - Provide documentation comments for APIs, complex algorithms, and non-obvious side effects
 
-# Single responsibility
+## Single responsibility
 
 - Each function does only one thing
 - Keep functions small and focused
 - Split up functions when comments explaining what they do are needed
 
-# DRY (Don't Repeat Yourself)
+## DRY (Don't Repeat Yourself)
 
 - Extract repetitive code into reusable functions
 - Share common logic through appropriate abstractions
 - Have a single source of truth for each piece of information
 
-# Clean structure
+## Clean structure
 
 - Group related code together
 - Organize code in a logical hierarchy
@@ -230,14 +230,14 @@ Example: "Loaded copilot-instructions.md".
 - Use early returns instead of if-else chains
 - For processes with low chances of exceptions, such as fetching and file conversion, use proper error handling rather than overusing try-catch
 
-# Encapsulation
+## Encapsulation
 
 - Hide implementation details
 - Expose clear interfaces
 - Prefer type over interface when defining types
 - Extract complex conditional branching into appropriately named functions
 
-# Use TypeScript types
+## Use TypeScript types
 
 - Avoid using any types, and use unknown types when necessary
 - Use generics to write type-safe, reusable code
@@ -247,17 +247,17 @@ Example: "Loaded copilot-instructions.md".
 
 - Use Readonly to represent immutable data
 
-# Asynchronous processing
+## Asynchronous processing
 
 - Use Promise.all to run multiple asynchronous processes in parallel and optimize them
 - Prefer async/await over .then()/.catch() to avoid callback hell
 - Always implement proper error handling in asynchronous processing
 
-# Performance optimization
+## Performance optimization
 
 - When updating large objects, use immutable methods (such as the spread operator) appropriately
 
-# Security
+## Security
 
 - Always validate user input and sanitize data appropriately
 - Do not write secret information such as API keys and passwords directly in code
@@ -265,7 +265,7 @@ Example: "Loaded copilot-instructions.md".
 - Minimize type coercion (use of the as keyword)
 - Regularly check the security of external libraries
 
-# Maintainability and scalability
+## Maintainability and scalability
 
 - Use linters and formatters to maintain a consistent code style
 - Monitor code complexity and refactor overly complex functions
@@ -273,14 +273,14 @@ Example: "Loaded copilot-instructions.md".
 - Clearly separate business logic from display logic
 - Design to minimize the impact of adding new features on existing code
 
-# Error handling
+## Error handling
 
 - Consider type-safe error handling patterns (such as Either and Result, if implemented) over exception handling
 - Provide clear error messages for users
 - Log errors appropriately and notify monitoring systems as needed
 - Keep try-catch blocks to a minimum and catch specific exception types
 
-# Code quality and review
+## Code quality and review
 
 - Manage technical debt by leaving "TODO" comments for code that should be improved later
 ```

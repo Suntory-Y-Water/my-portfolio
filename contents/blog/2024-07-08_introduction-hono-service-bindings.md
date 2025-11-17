@@ -11,7 +11,7 @@ tags:
   - Hono
 ---
 
-# はじめに
+## はじめに
 
 Cloudflare Workers にはパブリックにアクセス可能な URL を経由せず別の Workers を呼び出すことができます。
 
@@ -23,15 +23,15 @@ Cloudflare Workers にはパブリックにアクセス可能な URL を経由�
 
 https://zenn.dev/monica/articles/feff72caee5e6b
 
-# この記事の対象者
+## この記事の対象者
 
 Hono で別の Workers を連携したい人
 
-# 成果物
+## 成果物
 
 https://github.com/Suntory-Y-Water/hono-service-binding
 
-# Monorepo環境を構築
+## Monorepo環境を構築
 
 参考にさせていただいた記事と同じ構成のほうが、誤ったときに原因をつきとめやすいので同じ構成にさせていただきます。
 複数の Cloudflare Workers を 1 つのリポジトリで管理するために、Monorepo を作成し、turborepo で環境構築します。
@@ -74,7 +74,7 @@ node_modules
 .turbo
 ```
 
-# webhook アプリを作成
+## webhook アプリを作成
 
 クライアントからのリクエストを想定した webhook アプリを作成します。
 他の内部プライベートサービスと通信する役割を担っています。
@@ -84,7 +84,7 @@ cd workers/
 create hono@latest
 ```
 
-# Service Bindingの設定を行う
+## Service Bindingの設定を行う
 
 ## webhookのService Binding設定
 
@@ -132,7 +132,7 @@ compatibility_date = "2024-07-01"
 port = 9999
 ```
 
-# ロジックの作成
+## ロジックの作成
 
 各 worker のロジックを書いていきます。どの worker が動いているか分かれば良いので、内容は適当です。
 
@@ -217,7 +217,7 @@ export default app;
 
 https://developers.cloudflare.com/workers/runtime-apis/rpc#all-calls-are-asynchronous
 
-# デプロイする
+## デプロイする
 
 各 worker を `pnpm run deploy` します。
 
@@ -227,13 +227,13 @@ https://developers.cloudflare.com/workers/runtime-apis/rpc#all-calls-are-asynchr
 
 実運用のするときは参考にさせていただいた記事のようなトークンの検証などを設けたほうが良いですね。
 
-# おわりに
+## おわりに
 いかがでしたでしょうか。
 既にこのテーマで記事を書いている人や、公式ドキュメントが丁寧に書かれているのもあり開発体験がとても良かったです。
 次作成するアプリの規模によりますが取り入れてみたいですね！
 以上になります！
 
-# 参考
+## 参考
 
 https://zenn.dev/monica/articles/feff72caee5e6b
 

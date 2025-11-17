@@ -31,11 +31,11 @@ tags:
 ですが、当たり前のように設定されており実行できなかったため困りました。。。
 
 ```bash
-# ファイルの存在と権限を確認
+## ファイルの存在と権限を確認
 $ ls -la /home/sui/.claude/scripts/hook_stop_words.sh
 -rwxr-xr-x 1 sui sui 245 Dec 15 10:30 /home/sui/.claude/scripts/hook_stop_words.sh
 
-# shebang行も正しい
+## shebang行も正しい
 $ head -n 1 /home/sui/.claude/scripts/hook_stop_words.sh
 #!/bin/bash
 ```

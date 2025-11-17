@@ -11,11 +11,11 @@ tags:
   - Hono
 ---
 
-# 概要
+## 概要
 
 以前 Hono + DI で実装したアプリケーションに InversifyJS を使用して改修する
 
-# InversifyJSとはなにか
+## InversifyJSとはなにか
 
 InversifyJS は、TypeScript および JavaScript 用に依存性の注入(Dependency Injection)をサポートする軽量の IoC(Inversion of Control)コンテナです。
 
@@ -32,7 +32,7 @@ InversifyJS は、TypeScript および JavaScript 用に依存性の注入(Depen
 5. **コンテナの管理**
     - 開発者は InversifyJS のコンテナを使用して、依存関係を登録、解決、管理します。コンテナに依存関係を登録し、必要な場所で解決することで、柔軟な依存関係管理が可能です。
 
-# 現在実装されているソースコードの問題点
+## 現在実装されているソースコードの問題点
 
 次に現在実装中のソースコードを ChatGPT に読み込んでもらい、問題点を洗い出します。
 `no-InversifyJS` ブランチが本記事の実装をするまえのブランチです。
@@ -94,7 +94,7 @@ register<Key extends keyof DependencyTypes, Args extends unknown[]>(
 2. **デコレーターによる宣言的な依存関係管理**:
     - InversifyJS はデコレーターを使用して依存関係を宣言的に管理します。これにより、依存関係がクラスの宣言部分で明示され、コードの見通しが良くなります。
 
-# InversifyJSの実装
+## InversifyJSの実装
 
 公式リポジトリを参考にして実装を進めていきます。
 
@@ -351,7 +351,7 @@ export const injectDependencies: MiddlewareHandler = async (c, next) => {
 };
 ```
 
-# 改善点
+## 改善点
 
 InversifyJS を使用することで使用前となにが変化したのかを説明します。
 
@@ -539,7 +539,7 @@ export { diContainer };
 
 - Service 層のビジネスロジックは、外部依存が少なく、独立してテスト可能な場合が多いため、直接テストを行います。
 
-# テストの実施
+## テストの実施
 
 テストライブラリには Vitest を使用します。
 
@@ -725,7 +725,7 @@ describe('PostService', () => {
 
 ```
 
-# おわりに
+## おわりに
 最初 `InversifyJS` の読み方が分かりませんでした…初見で読める人あまり多くないのではないでしょうか。
 InversifyJS がどのように依存性の注入を簡単かつ効率的に実現するかをご理解いただけたら幸いです。
 まだほんの一部しか使えていませんが、私も DIﾁｮｯﾄﾜｶｯﾀｶﾓに近づくために頑張ります。

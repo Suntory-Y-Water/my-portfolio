@@ -11,7 +11,7 @@ tags:
   - アニメ
 ---
 
-# 話すこと
+## 話すこと
 
 アニメに関連した Web サイトを作成しようと思うので、前情報としてアニメ情報を取得する API を実際にリクエストして、API ごとにどんな差があるかを検証する試みです。
 今回比較するのは下記 3API です。
@@ -23,7 +23,7 @@ tags:
 他にも API はありましたが、有名どころと手軽に実施できるものを独断と偏見で選択しました。
 もしこの投稿を見た人で「こんなのもあるぜ！」と教えていただける人がいらっしゃったら、ぜひコメントにてお伝え下さい🙌
 
-# ShangriLa Anime API
+## ShangriLa Anime API
 
 クールごとのアニメ情報を返却してくれる API
 
@@ -81,7 +81,7 @@ https://note.com/akb428/n/n2362a0e1b6af
 
 https://github.com/Project-ShangriLa/anime_api_deno
 
-# Annict API
+## Annict API
 
 Annict はアニメ視聴記録サービスで、開発者向けに GraphQL API を提供しています。
 作品情報、エピソード情報、ユーザーの視聴状況などを取得できます。
@@ -316,7 +316,7 @@ https://api.annict.com/graphql
 
 ```
 
-# MyAnimeList API
+## MyAnimeList API
 
 MyAnimeList(MAL)は 2004 年、米国人のギャレット・ギスラーというアニメ好きの若者が創設した米国の法人名でもあり、同氏がネット上に立ち上げた日本アニメの英語データベースのサイト名です。
 API はベータ版ですが提供していました。
@@ -427,7 +427,7 @@ https://api.myanimelist.net/v2/anime/52481?fields=id,title,main_picture,alternat
 }
 ```
 
-# APIの比較表
+## APIの比較表
 
 紹介した各アニメ情報 API の比較表を作成しました。
 
@@ -471,7 +471,7 @@ https://api.myanimelist.net/v2/anime/52481?fields=id,title,main_picture,alternat
 
 API のレスポンスボディには Wikipedia の URL も提供されているため、不明な情報があったとしてもすぐに調べられるのも良い点です。
 
-# おわりに
+## おわりに
 一部の API しか試していませんが、網羅性という観点では `Annict API` が一強のように感じました。
 MAL は API はベータ版ということもあり基本的な情報しか返却されませんでしたが、歴史あるサイトなので情報量も膨大です。
 いずれ開発が進むと嬉しいですね😃

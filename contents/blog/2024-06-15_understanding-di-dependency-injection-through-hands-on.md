@@ -12,16 +12,16 @@ tags:
   - Hono
 ---
 
-# はじめに
+## はじめに
 
 依存性の注入という単語をよく見るが、読んでもよく分からなかったので手を動かしながら理解する
 
-# やること
+## やること
 
 - DI とはなにかを手を動かして理解する
 - 実装を通じてﾅﾝﾓﾜｶﾗﾝからﾁｮｯﾄﾜｶｯﾀｶﾓになる
 
-# そもそもDIとはなに
+## そもそもDIとはなに
 
 振り返りとして簡単に概要を掲載します。
 
@@ -40,7 +40,7 @@ tags:
 
 https://zenn.dev/nuits_jp/articles/2024-05-22-why-dependency-injection
 
-# 実装
+## 実装
 
 今後 DI を Hono で実装してみたいので、Hono を使っていきます。
 既に実装している人がいらっしゃったので、そちらを参考に作成していきます。
@@ -206,7 +206,7 @@ diContainer.register('PostService', PostService, diContainer.get('PostRepository
 - `register` メソッドは、サービスのキー（ここでは `PostService`）、クラスのコンストラクタ、およびコンストラクタ引数（ここでは `PostRepository` のインスタンス）を受け取ります。
 - これにより、DI コンテナは `PostService` のインスタンスを管理し、必要な依存関係を注入できるようになります。
 
-# Hono で使う
+## Hono で使う
 
 DIContainer を Hono で使えるようにします。
 このあたりの説明は、以下の記事通りの内容になります。
@@ -355,6 +355,6 @@ JSON Placeholder の公式ドキュメントを見たところ、id は勝手に
 
 初めての DI ということでなんとなくイメージが掴めたところで、今回は終了しようと思います。
 
-# ソースコード
+## ソースコード
 
 https://github.com/Suntory-Y-Water/di-lesson-with-hono

@@ -11,16 +11,16 @@ tags:
   - Hono
 ---
 
-# はじめに
+## はじめに
 コンビニのアイスクリームで CMJ(チョコモナカジャンボ)が味、食感、満足感など様々な点で最強すぎることに気づいた。
 アイスクリームを食べるときはほぼ必ず CMJ しか食べなくなってしまったため、今回は新しい最強のアイスクリームを見つけるをコンセプトに、ランダムでアイスクリームを提案してくれる LINE BOT を作成する。
 
-# コンセプト
+## コンセプト
 - CMJ に変わる新しい最強のアイスクリームを見つける
 - 熱いと話題の Hono を触ってみる
 - ついでに Hono と相性が良い Cloudflare Workers も使って API サーバーを構築する
 
-# できたもの
+## できたもの
 
 ### デモ
 ![](https://storage.googleapis.com/zenn-user-upload/7b84bafc78ef-20240418.gif)
@@ -36,11 +36,11 @@ https://github.com/Suntory-Y-Water/I-scream
 
 
 
-# フロー
+## フロー
 1. ユーザーが「今日のアイスクリーム」と送信
 2. アイスクリーム情報(商品画像、商品名、商品価格)を返却
 
-# 観点
+## 観点
 まず終わらせろの精神にもとづき、必要最低限の実装をした。
 - セブンイレブンで提供されている商品かつ関東地方
 - 特定のメッセージに対してのみ返信
@@ -84,7 +84,7 @@ https://github.com/Suntory-Y-Water/I-scream
 
 
 
-# 作成後の感想
+## 作成後の感想
 
 ## 追加で実装したい部分
 
@@ -161,7 +161,7 @@ export const doSomeTaskOnASchedule = async (apiUrl: string, token: string) => {
 
 
 
-# おわりに
+## おわりに
 
 CMJ を越えるアイスクリームを見つけられますように🍨
 
@@ -181,7 +181,7 @@ https://zenn.dev/azukiazusa/articles/hono-cloudflare-workers-rest-api
 
 https://qiita.com/TellMin/items/62893ec24f8e90a18dec
 
-# 補足(2024年4月20日更新)
+## 補足(2024年4月20日更新)
 以下の内容を追加
 - cron triggers を使ったデータの自動更新
 - リッチメニューの追加

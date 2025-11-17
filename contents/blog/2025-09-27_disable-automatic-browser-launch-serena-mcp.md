@@ -83,10 +83,10 @@ Dev Container 環境でブラウザの自動起動を無効にする方法は 2 
 ```yaml
 node ➜ /workspaces/cc-vault (feature-subdomain-routing) $ cat /home/node/.cache/uv/archive-v0/pv_EtR2hKCenH4xUkANAy/lib/python3.11/serena_config.docker.yml
 gui_log_window: false
-# [コメント部分は省略]
+## [コメント部分は省略]
 
 web_dashboard: false
-# [以下省略]
+## [以下省略]
 ```
 
 この設定を `web_dashboard: false` に変更することで、ブラウザの自動起動が止まることを確認しました🎉

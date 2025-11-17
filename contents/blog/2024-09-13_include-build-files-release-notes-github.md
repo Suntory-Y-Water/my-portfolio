@@ -9,7 +9,7 @@ tags:
   - GitHubActions
 ---
 
-# 背景
+## 背景
 
 最近、友人と自分用に Google Chrome の拡張機能を開発しています。
 
@@ -21,7 +21,7 @@ tags:
 
 https://zenn.dev/sui_water/articles/7d7daef8f4d057
 
-# 実装の流れ
+## 実装の流れ
 
 自動化のフローは以下のような感じです。
 
@@ -174,7 +174,7 @@ jobs:
           prerelease: false
 ```
 
-# 最後に
+## 最後に
 
 最終的には、GitHub Actions を活用した自動更新フローを構築できました。
 
@@ -182,6 +182,6 @@ jobs:
 
 技術的な部分も少しずつ改善しながら、今後もさらに使いやすい形にしていきたいと思います。
 
-# 参考
+## 参考
 
 https://qiita.com/0kq/items/f32e70899c0e9c33cfdd
