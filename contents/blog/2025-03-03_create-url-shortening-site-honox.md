@@ -20,7 +20,7 @@ https://github.com/Suntory-Y-Water/honox-url-app/tree/setup
 https://github.com/Suntory-Y-Water/honox-url-app
 
 
-## 1. プロジェクト概要と技術スタック
+## プロジェクト概要と技術スタック
 
 ## URL短縮サービスとは？
 
@@ -33,7 +33,7 @@ URL 短縮サービスは、長い URL を短く変換し、より共有しや�
 - **Tailwind CSS**: スタイリング
 - **Cloudflare Workers**: デプロイ先（KV Storage を利用）
 
-## 2. 初期環境の確認
+## 初期環境の確認
 
 初期環境では、以下のような基本的なファイル構成が用意されています。
 
@@ -54,9 +54,9 @@ app/
 
 現段階では、基本的な HonoX の構造が整っていますが、URL 短縮に関する機能はまだ実装されていません。
 
-## 3. URL短縮機能の実装
+## URL短縮機能の実装
 
-## 3.1 プロジェクト設定の更新
+## プロジェクト設定の更新
 
 Cloudflare の KV を使用するために `global.d.ts` を更新して、環境変数の型定義を追加します。
 
@@ -99,7 +99,7 @@ KV store のセットアップ方法は、こちらを参照して下さい。
 
 https://developers.cloudflare.com/kv/get-started/
 
-## 3.2 URL操作ユーティリティの作成
+## URL操作ユーティリティの作成
 
 URL 短縮やバリデーションチェックに必要な以下機能を作成します。
 - nanoid を使用した短縮 ID の生成
@@ -158,7 +158,7 @@ export function validateUrl(url: string): boolean {
 }
 ```
 
-## 3.3 URL入力フォームの作成
+## URL入力フォームの作成
 
 必要最低限の機能として以下の 4 つを作成します。
 - URL 入力フォーム
@@ -271,7 +271,7 @@ export default function UrlForm({ params }: Props) {
 }
 ```
 
-## 3.4 トップページの更新
+## トップページの更新
 
 `app/routes/index.tsx` を更新して、URL フォームを表示します。
 
@@ -322,7 +322,7 @@ export default createRoute((c) => {
 
 ```
 
-## 3.5 URL短縮APIエンドポイントの作成
+## URL短縮APIエンドポイントの作成
 
 フォームからのデータを処理して、短縮 URL を生成する API エンドポイントを作成します。
 
@@ -386,7 +386,7 @@ export const POST = createRoute(
 
 ```
 
-## 3.6 短縮URLリダイレクト機能の作成
+## 短縮URLリダイレクト機能の作成
 
 短縮 URL からオリジナル URL へのリダイレクト機能を実装します。
 
@@ -452,7 +452,7 @@ export default createRoute(async (c) => {
 });
 ```
 
-## 3.7 エラーページとNotFoundページの改善
+## エラーページとNotFoundページの改善
 
 初期設定のままだと少し物足りないので、エラーページと 404 ページのレイアウトを修正します。
 
@@ -509,7 +509,7 @@ const handler: ErrorHandler = (e, c) => {
 export default handler;
 ```
 
-## 3.8 レンダラーの更新
+## レンダラーの更新
 
 レスポンシブデザインで実装していきます。
 
@@ -552,7 +552,7 @@ export default jsxRenderer(({ children }) => {
 
 ```
 
-## 3.9 ミドルウェアの追加
+## ミドルウェアの追加
 
 色々やってもいいですが、シンプルにロギングだけミドルウェアを追加します。
 
@@ -564,7 +564,7 @@ import { createRoute } from 'honox/factory';
 export default createRoute(logger());
 ```
 
-## 4. アプリケーションの実行とテスト
+## アプリケーションの実行とテスト
 
 アプリケーションの開発が完了したら、以下のコマンドで実行します。
 
@@ -574,7 +574,7 @@ pnpm dev
 
 開発サーバーが起動し、`http://localhost:5173` でアプリケーションにアクセスできます。
 
-## 5. デプロイ
+## デプロイ
 
 アプリケーションが完成したら、Cloudflare Workers にデプロイしていきましょう。
 以下コマンドを実行しアプリケーションをデプロイします。

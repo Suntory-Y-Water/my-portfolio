@@ -112,7 +112,7 @@ https://github.com/Suntory-Y-Water/di-lesson-with-hono
 
 ---
 
-## 1. `PostId` の定義を確認
+## `PostId` の定義を確認
 
 まず、`post.ts` にある Branded Type を追加します。
 
@@ -132,7 +132,7 @@ export function createPostId(id: number): PostId {
 
 ---
 
-## 2. `postRepository.ts` の修正
+## `postRepository.ts` の修正
 
 `IPostRepository` の `findPost` を Branded 化します。
 
@@ -162,7 +162,7 @@ export function createPostId(id: number): PostId {
 
 ---
 
-## 3. `postService.ts` の修正
+## `postService.ts` の修正
 
 `postService.ts` でも `getPost(id: number)` の定義を修正して、`getPost(id: PostId)` に対応させます。
 
@@ -200,7 +200,7 @@ export function createPostId(id: number): PostId {
 
 ---
 
-## 4. `index.ts` での利用
+## `index.ts` での利用
 
 最後に、API の呼び出し元となる `index.ts` でクエリパラメータから受け取った値を `PostId` に変換して `postService` に渡すようにします。
 

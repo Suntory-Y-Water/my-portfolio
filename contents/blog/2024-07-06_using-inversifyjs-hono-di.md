@@ -355,7 +355,7 @@ export const injectDependencies: MiddlewareHandler = async (c, next) => {
 
 InversifyJS を使用することで使用前となにが変化したのかを説明します。
 
-## 1. 依存関係の自動解決
+## 依存関係の自動解決
 
 ### 修正前
 
@@ -387,7 +387,7 @@ export { diContainer };
 
 ```
 
-## 2. デコレータの使用
+## デコレータの使用
 
 ### 修正前
 
@@ -422,7 +422,7 @@ export class PostService implements IPostService {
 
 ```
 
-## 3. 保守性の向上
+## 保守性の向上
 
 ### 修正前
 
@@ -497,7 +497,7 @@ export { diContainer };
 
 ```
 
-## 4. テストの容易さ
+## テストの容易さ
 
 - InversifyJS のコンテナを使用することで、テスト時に依存関係を簡単にモックに置き換えられます。
 - 依存関係の登録と解決が自動化されているため、モックの設定も簡単になります。
@@ -543,7 +543,7 @@ export { diContainer };
 
 テストライブラリには Vitest を使用します。
 
-## 1.モック用のContainerを作成
+## モック用のContainerを作成
 
 Repository 層のテストを実行してしまうと現時点の実装では外部 API を実行してしまうため、モック用の DIContainer を定義します。
 
@@ -561,7 +561,7 @@ mockDiContainer.bind<IPostRepository>(TYPES.PostRepository).to(MockPostRepositor
 export { mockDiContainer };
 ```
 
-## 2.モックレポジトリの作成
+## モックレポジトリの作成
 
 実際の postRepository.ts では[`https://jsonplaceholder.typicode.com/posts`](https://jsonplaceholder.typicode.com/posts)へ API を実行していますが、モック化していきます。
 
@@ -597,7 +597,7 @@ export class MockPostRepository implements IPostRepository {
 }
 ```
 
-## 3.テスト実施
+## テスト実施
 
 作成したモックリポジトリをインポートして、Repository 層、Service 層のテストを行います。
 
