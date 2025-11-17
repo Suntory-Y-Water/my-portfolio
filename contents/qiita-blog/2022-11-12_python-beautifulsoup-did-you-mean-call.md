@@ -2,9 +2,9 @@
 title: Python BeautifulSoup find()を呼び出すつもりが、find_all()を呼び出してしまったのでしょうか？
 slug: python-beautifulsoup-did-you-mean-call
 date: 2022-11-12
-description:
-icon:
-icon_url:
+description: Pythonでスクレイピングする際に何度も遭遇したfind()とfind_all()の使い分けエラーについての備忘録。
+icon: 🕷️
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Spider%20web/Flat/spider_web_flat.svg
 tags:
   - Python
   - スクレイピング

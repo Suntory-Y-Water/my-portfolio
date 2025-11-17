@@ -2,9 +2,9 @@
 title: Angularの練習ということで船橋市の人口推移グラフを作ってみた
 slug: angular-practice-i-made-population-graph
 date: 2023-09-18
-description:
-icon:
-icon_url:
+description: Angularの練習として船橋市の人口推移グラフを作成。
+icon: 📈
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Chart%20increasing/Flat/chart_increasing_flat.svg
 tags:
   - TypeScript
   - Angular

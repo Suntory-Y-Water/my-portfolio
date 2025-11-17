@@ -2,9 +2,9 @@
 title: ザ・ダークパターンをshadcn/uiで作成する
 slug: creating-dark-pattern-shadcn-ui
 date: 2023-12-29
-description:
-icon:
-icon_url:
+description: shadcn/uiを使ってダークパターンを実装する例。
+icon: 🌑
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/New%20moon/Flat/new_moon_flat.svg
 tags:
   - UI
   - Design

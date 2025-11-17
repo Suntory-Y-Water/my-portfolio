@@ -2,9 +2,9 @@
 title: ラーメン二郎のコールで学ぶ良いアルゴリズムとは何かをGPT先生に聞いてみる
 slug: asking-gpt-sensei-good-algorithm-learn
 date: 2023-08-26
-description:
-icon:
-icon_url:
+description: ラーメン二郎のコールシステムを例に、良いアルゴリズムとは何かを学ぶ。
+icon: 🍜
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Steaming%20bowl/Flat/steaming_bowl_flat.svg
 tags:
   - アルゴリズム
   - 初心者

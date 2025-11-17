@@ -2,9 +2,9 @@
 title: 【雑記】これ以上心臓に負荷をかけるな【光で目覚めよう】
 slug: dont-put-any-more-strain-your
 date: 2023-01-22
-description:
-icon:
-icon_url:
+description: アラーム音による心臓への負担を軽減するため、光で目覚める方法を提案する雑記。
+icon: ☀️
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Sun/Flat/sun_flat.svg
 tags:
   - 雑記
   - ライフハック

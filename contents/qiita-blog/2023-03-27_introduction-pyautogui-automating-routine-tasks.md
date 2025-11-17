@@ -2,9 +2,9 @@
 title: 【Python】pyautogui入門 -定型作業を自動化してみる-
 slug: introduction-pyautogui-automating-routine-tasks
 date: 2023-03-27
-description:
-icon:
-icon_url:
+description: PyAutoGUIとOpenCVを使ってメルカリの定型作業を自動化する方法について。
+icon: 🤖
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Robot/Flat/robot_flat.svg
 tags:
   - Python
   - OpenCV

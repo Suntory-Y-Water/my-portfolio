@@ -2,9 +2,9 @@
 title: 密結合と疎結合の理解を深める
 slug: deepen-your-understanding-tight-loose-coupling
 date: 2023-08-18
-description:
-icon:
-icon_url:
+description: 密結合と疎結合の違いと、コードの品質への影響について。
+icon: 🔗
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Link/Flat/link_flat.svg
 tags:
   - TypeScript
   - 疎結合

@@ -2,9 +2,9 @@
 title: 【MySQL】CSVファイルをDBにインポートする
 slug: importing-csv-file-into-database
 date: 2022-11-11
-description:
-icon:
-icon_url:
+description: MySQLにCSVファイルをインポートする際に躓いた点と解決方法をまとめた備忘録。データベース、テーブル、権限設定について。
+icon: 💾
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Floppy%20disk/Flat/floppy_disk_flat.svg
 tags:
   - MySQL
   - CSV

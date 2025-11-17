@@ -2,9 +2,9 @@
 title: 【ChatGPT】今更だけど本を要約してもらった
 slug: little-late-i-got-summary-book
 date: 2023-05-28
-description:
-icon:
-icon_url:
+description: ChatGPTを使って読んだ本を要約してもらった実験記録。
+icon: 🤖
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Robot/Flat/robot_flat.svg
 tags:
   - 睡眠
   - 要約

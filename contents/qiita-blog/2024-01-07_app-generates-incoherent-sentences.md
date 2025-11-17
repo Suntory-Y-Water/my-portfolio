@@ -2,9 +2,9 @@
 title: 支離滅裂な文章を生成するアプリ
 slug: app-generates-incoherent-sentences
 date: 2024-01-07
-description:
-icon:
-icon_url:
+description: GASのLanguageAppクラスを使って支離滅裂な文章を生成するアプリ。
+icon: 🎭
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Performing%20arts/Flat/performing_arts_flat.svg
 tags:
   - GAS
   - Next.js
