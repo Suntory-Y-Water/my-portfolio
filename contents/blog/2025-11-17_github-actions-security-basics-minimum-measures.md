@@ -256,6 +256,7 @@ aqua g -i suzuki-shunsuke/pinact
 ```
 作成後は `aqua i` で CLI ツールをインストールします。エラーがなければインストール成功です！
 その他、詳しい情報については公式ドキュメントまたは Zenn Book をご確認ください。
+
 https://aquaproj.github.io/
 
 https://zenn.dev/shunsuke_suzuki/books/aqua-handbook

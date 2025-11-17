@@ -23,6 +23,7 @@ GitHub Copilot でもカスタムルールを設定して、コード生成の�
 
 
 公式ドキュメントを参考に、実践していきましょう。
+
 https://docs.github.com/ja/enterprise-cloud@latest/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot
 
 ## ベースとなるルールの作成
@@ -165,7 +166,9 @@ Follow these instructions carefully to ensure a reliable, high-quality implement
 
 これは GitHub Copilot に限った話ではないですが、ルールが呼ばれるときと、呼ばれているか分からないときがあります。
 そんなときには、ルールの先頭で無意味な言葉を叫ばせる。という方法があります。
+
 https://docs.cline.bot/improving-your-prompting-skills/prompting#memory-and-confidence-checks
+
 今回設定したルールでは、ファイルを読み込んだときの冒頭に、読み込んだファイル名を出力させるようにしています。
 
 ## 追加ルール(コーディングルール)の作成
@@ -300,6 +303,7 @@ Example: "Loaded copilot-instructions.md".
 1. 外部リソースへの参照の要望
 2. 回答方法のフォーマット化
 3. 回答時に詳細に出力するよう指示
+
 https://docs.github.com/ja/enterprise-cloud@latest/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot
 
 また、Cursor と異なり、GitHub Copilot では `copilot-instructions.md` 内から他のファイルをパス指定で読み込むことができません。

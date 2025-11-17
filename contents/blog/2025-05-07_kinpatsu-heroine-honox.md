@@ -497,10 +497,24 @@ Hono をベースにしているため、既存の Hono の知識やエコシス
 ## 参考文献
 
 https://zenn.dev/calloc134/articles/honox-thread-float-bbs
+
+
 https://zenn.dev/yusukebe/articles/4d6297f3be121a
+
+
 https://zenn.dev/lifull/articles/86661ce204d665
+
+
 https://developers.annict.com/
+
+
 https://orm.drizzle.team/
+
+
 https://developers.cloudflare.com/workers/
+
+
 https://developers.cloudflare.com/d1/
+
+
 https://developers.cloudflare.com/r2/
