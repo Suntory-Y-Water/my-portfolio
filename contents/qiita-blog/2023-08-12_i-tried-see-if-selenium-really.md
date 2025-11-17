@@ -10,17 +10,17 @@ tags:
   - Selenium
   - スクレイピング
 ---
-# 目的
+## 目的
 
 [以前こちらの記事](https://qiita.com/MOSO1409/items/f5eba26a1cd893626bc7)にてスクレイピングはすぐにバレることを知った
 本当にそうなのか試してみたくなったので、実際に試してみた
 
-# 確認手順
+## 確認手順
 
 - 適当にWebページをつくる
 - スクレイピングをして挙動を確認する
 
-# 環境構築
+## 環境構築
 
 なんでもいいんですが、試しにReactで環境構築します
 
@@ -53,7 +53,7 @@ function App() {
 export default App;
 ```
 
-# 実際にスクレイピングする
+## 実際にスクレイピングする
 
 Anacondaに以前使っていたソースコードが残っていたのでそちらを利用します
 
@@ -72,14 +72,14 @@ if __name__ == '__main__':
     main()
 ```
 
-# 結果
+## 結果
 
 ちゃんと検出してくれました
 
 ふつーにスクレイピングしたら一瞬でバレますね
 ![a.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3351724/7844a64e-993c-092f-0f52-14c2af45cf5d.png)
 
-# おまけ
+## おまけ
 
 `--disable-blink-features=AutomationControlled`を追加することでwindow.navigator.webdriverプロパティを無効にすることができるそうですね。
 知らなかったので補足しておきます。（使用時はサイトの利用規約を守ってください）

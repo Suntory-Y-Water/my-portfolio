@@ -11,7 +11,7 @@ tags:
   - JSON
   - 不動産情報ライブラリ
 ---
-# はじめに
+## はじめに
 
 不動産情報ライブラリをご存知ですか？
 
@@ -27,11 +27,10 @@ APIも提供しているので、試し打ちして遊んでいきたいと思�
 APIのアクセスキーはこちらのお問い合わせから申請することで、通常5営業日以内に対応していただけるそうです。
 [不動産情報ライブラリ](https://www.reinfolib.mlit.go.jp/api/request/)
 
-:::note warn
-2024年4月8日現在、APIキーが５営業日以内に発行できない場合があるそうです。
-:::
+> [!WARNING]
+> 2024年4月8日現在、APIキーが５営業日以内に発行できない場合があるそうです。
 
-# 実際に遊んでみる
+## 実際に遊んでみる
 ## 前準備
 Postmanを使用してAPIを叩いていきます。
 Postmanの使用方法は調べたらいくらでも出てくると思うので、そちらをご確認ください。
@@ -280,17 +279,17 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator
 import numpy as np
 
-# CSVファイルの読み込み
+## CSVファイルの読み込み
 df = pd.read_csv('data.csv')
 
-# 年齢グループと年でデータを整理
+## 年齢グループと年でデータを整理
 age_groups = df['age'].unique()
 years = df['year'].unique()
 
-# 年ごとに色を割り当てるための準備
+## 年ごとに色を割り当てるための準備
 colors = plt.cm.viridis(np.linspace(0, 1, len(years)))
 
-# グラフの描画、ここで figsize の横幅を20に変更
+## グラフの描画、ここで figsize の横幅を20に変更
 fig, ax1 = plt.subplots(figsize=(20, 8))
 
 for year, color in zip(years, colors):
@@ -299,22 +298,22 @@ for year, color in zip(years, colors):
     # x軸に年齢グループ、y軸に人数、年ごとに色分けしてプロット
     ax1.plot(subset['age'], subset['people'], label=year, color=color, marker='o', linestyle='-')
 
-# x軸（年齢）の設定
+## x軸（年齢）の設定
 ax1.set_xlabel('Age Group', fontsize=14)
 ax1.set_xticks(np.arange(len(age_groups)))
 ax1.set_xticklabels(age_groups, rotation=45, ha='right')
 
-# 左側のy軸（人数）の設定
+## 左側のy軸（人数）の設定
 ax1.set_ylabel('People (thousands)', fontsize=14)
 ax1.tick_params(axis='y')
 
-# 凡例の設定
+## 凡例の設定
 ax1.legend(title='Year', bbox_to_anchor=(1.15, 1), loc='upper left')
 
-# タイトルの設定
+## タイトルの設定
 plt.title('Estimated future population around Tsudanuma Station', fontsize=14)
 
-# グリッドを追加
+## グリッドを追加
 ax1.grid(True, which='both', linestyle='--', linewidth=0.5)
 
 plt.tight_layout()
@@ -327,7 +326,7 @@ plt.show()
 グラフを見ると分かる通り、どの年代も緩やかに減少していく予想が出ています。
 本当はもう少しこねてみたいですが、試し打ちだったのでこれで〆ます。
 
-# まとめ
+## まとめ
 
 ドキュメントを見ると様々な情報があり、次はこのあたりのAPIで実際にアプリとか作ってみたいですね。
 
@@ -337,7 +336,7 @@ plt.show()
 - 国土数値情報（災害危険区域）API
 - 国土数値情報（自然公園地域）API
 
-# おまけ
+## おまけ
 
 <details><summary>CSVファイル</summary>
 

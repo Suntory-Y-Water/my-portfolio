@@ -8,7 +8,7 @@ icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets
 tags:
   - ポエム
 ---
-# 世界を変えたいならベッドメイキングから始めましょう
+## 世界を変えたいならベッドメイキングから始めましょう
 
 この言葉は、私がよく視聴しているYouTubeチャンネル「もりおルーティーン」で初めて知りました。
 
@@ -28,7 +28,7 @@ https://youtu.be/UgSu9Z6O8tw?feature=shared
 本を読み続けたり、転職活動、仕事、プライベートなど、多くのことに手を付けた結果、どれも中途半端に終わってしまったことがあります。
 そのため自分で決めたタスクに対しても「めんどくせぇ...」と思いながら取り組んでいました。
 
-# Shut the Fuck Up and Write Some Code
+## Shut the Fuck Up and Write Some Code
 
 そんな中、Twitterである言葉を見つけました。  
 **「Shut the fuck up and write some code」**  (訳: 黙ってコードを書け)

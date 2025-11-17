@@ -9,7 +9,7 @@ tags:
   - LINEmessagingAPI
   - CloudflareWorkers
 ---
-# はじめに
+## はじめに
 
 以前CloudflareWorkers + Hono + LINE Messaging APIでセブンイレブンのアイスクリームをランダムに提案するLINE BOTを作りました。
 
@@ -17,14 +17,14 @@ https://zenn.dev/sui_water/articles/fac4334293a1c0
 
 同じ要領で「コンビニスイーツをランダムに提案する」LINE BOTも作れるんじゃね？と思ったので作成していきます。
 
-# 要件
+## 要件
 
 - Flex Messageでスイーツの画像、名称、価格を表示して画像をタップすると商品ページへアクセスできる
 - リッチメニューでセブンイレブンのスイーツ、ローソンのスイーツ、ファミリーマートのスイーツを押すと、対象のスイーツを取得できる
 - 毎週火曜日にCron Triggersを使用して最新のスイーツ情報へ更新する
     - セブンイレブンの新商品が更新されているタイミング
 
-# 実際に作成したもの
+## 実際に作成したもの
 
 ## QR
 
@@ -39,7 +39,7 @@ https://lin.ee/ANONJtN
 
 https://github.com/Suntory-Y-Water/convenience-store-sweets-bot
 
-# 感想
+## 感想
 
 アイスクリームを返すLINE BOTを作ったときと同じ要領で作成したのでスピード感ある開発ができた
 

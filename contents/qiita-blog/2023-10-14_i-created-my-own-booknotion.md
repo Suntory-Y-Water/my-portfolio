@@ -10,13 +10,13 @@ tags:
   - Notion
   - NotionAPI
 ---
-# まえおき
+## まえおき
 
 こちら参照
 
 https://qiita.com/Guz9N9KLASTt/items/06dbf9967be9c7155bfd
 
-# 経緯
+## 経緯
 
 ソースコード内で本のタイトルを入力してデータベースへアクセスし、突合させることでしかハイライトとコメントを取得できていなかった
 
@@ -26,14 +26,14 @@ https://qiita.com/Guz9N9KLASTt/items/06dbf9967be9c7155bfd
 
 と感じ自分だけのBookNotionを爆誕させた
 
-# 要件
+## 要件
 - どこでもハイライトとコメントをページにまとめることができる
 - それっぽいデザインで実装する
 - 自分だけしか実装させない都合上、ログイン機能を設ける
 - 最低限の機能から実装していき、徐々に拡張していく
 - 誰でもできるようにはしない(めんどうだから)
 
-# 技術系
+## 技術系
 
 ## 使用技術
 フロントエンド：Next.js
@@ -46,7 +46,7 @@ https://qiita.com/Guz9N9KLASTt/items/06dbf9967be9c7155bfd
 
 https://github.com/Suntory-Y-Water/my-notion-manager
 
-# レイアウト
+## レイアウト
 
 ## ログイン画面
 
@@ -65,11 +65,10 @@ https://github.com/Suntory-Y-Water/my-notion-manager
 ### SP
 ![IMG_5622.PNG](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3351724/5843b4d8-abaa-d2ed-baaa-85641befdb85.png)
 
-# 実装手順
+## 実装手順
 
-:::note warn
-BookNotionでNotionにハイライトを登録していると前提
-:::
+> [!WARNING]
+> BookNotionでNotionにハイライトを登録していると前提
 
 ## APIキーの設定
 
@@ -113,7 +112,7 @@ PAGE_URL=作成後のページが追加されるページのID
 パスワードを平文で保存するのは良くないと怒られたのでハッシュ化します。
 このあたりはご自身で調べたものを実行してください。
 
-# 実際にやってみよう
+## 実際にやってみよう
 
 左から、本アプリ、貼り付け先のページ、BookNotionのデータベースがあります。
 
@@ -127,11 +126,10 @@ PAGE_URL=作成後のページが追加されるページのID
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3351724/ad3fac1e-2c3b-2e41-7dbc-cdbdbaa61845.png)
 
-:::note warn
-本の内容を掲載する許可は取っていないため、黄色く塗りつぶしています。
-:::
+> [!WARNING]
+> 本の内容を掲載する許可は取っていないため、黄色く塗りつぶしています。
 
-# 感想
+## 感想
 
 - JWTを調べながら実装した
     - なんとなく認証に対する理解が深まった
@@ -141,7 +139,7 @@ PAGE_URL=作成後のページが追加されるページのID
 - Web APIに対する理解を深めたい
 - App Routerﾅﾝﾓﾜｶﾗﾝから体系的にまとまった教材を探したい
 
-# 今後の方針
+## 今後の方針
 
 - アプリ側から BookNotion で登録したテーブルを項目を削除する機能
 - 本の予測表示？機能

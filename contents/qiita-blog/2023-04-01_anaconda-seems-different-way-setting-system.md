@@ -10,34 +10,33 @@ tags:
   - Anaconda
   - ChatGPT
 ---
-# 目的
+## 目的
 
 皆様の時間を奪わないようにする。
 
-# 経緯
+## 経緯
 
 discord.pyでシステム環境変数にDISCORD_BOT_TOKENとしてTOKENを設定したが、なぜかエラーになる。
 
 調べたところ、Anacondaとcmdでは環境変数の設定が異なることを知った。
 
-# 該当のソース(一部抜粋)
+## 該当のソース(一部抜粋)
 
 ``` python
-import os
+import osZ
 import discord
 
-# Bot のアクセストークン
+## Bot のアクセストークン
 DISCORD_BOT_TOKEN = os.environ.get("DISCORD_BOT_TOKEN")
 ```
 
 システム環境変数にはTOKENの値が設定してある状態で、エラーが発生した。
 
-# 解決法
+## 解決法
 
 🤔「せや！Chat GPTに聞いたろ！」
 
-``` cmd
-
+```bash
 Anacondaを使用している場合、環境変数を設定する方法が異なります。次の手順に従って、Anaconda環境に環境変数を設定してください。
 まず、Anaconda Promptを開きます。
 現在の環境に環境変数を追加するには、次のコマンドを実行します

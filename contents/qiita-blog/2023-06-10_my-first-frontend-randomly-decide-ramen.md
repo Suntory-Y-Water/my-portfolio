@@ -11,17 +11,17 @@ tags:
   - Firebase
   - React
 ---
-# はじめに
+## はじめに
 
 ぼく「フロントエンドなんもわからん🤮」
 ということでJavaScriptすら怪しい身ですが、Reactで簡単なアプリケーションをつくってみました。
 
-# 成果物案
+## 成果物案
 
 - ボタン押下で東京都・神奈川県のラーメン二郎の店舗情報をランダムで表示する
     - 店舗情報は店舗名・住所・営業時間・定休日とする
 
-# 作成手順
+## 作成手順
 
 ## とりあえずJavaScriptの基礎を知る
 
@@ -68,7 +68,7 @@ CSSはこちらを参考にしました。
 
 firebase.jsはもろもろの情報があるため、割愛します。
 
-``` jsx:App.js
+``` jsx App.js
 import { useEffect, useState } from 'react';
 import './App.css';
 import db from './firebase';
@@ -159,7 +159,7 @@ function App() {
 export default App;
 ```
 
-``` css:App.css
+``` css App.css
 :root {
   --main-background-color: #1e2739;
   --main-color: white;
@@ -282,7 +282,7 @@ export default App;
 ![React-App-Google-Chrome-2023-06-10-19-38-39-Trim.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/2f926575-2a2c-8858-f601-69ea3087c307.gif)
 
 
-# 感想
+## 感想
 
 html, css, javascriptあたりをもう一度復習かな…
 特にjavascriptの文法が実際に扱ってみてもまだ理解していない部分が多いので、今後とも学びつつ作成していきます。

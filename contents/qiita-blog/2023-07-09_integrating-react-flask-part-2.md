@@ -11,7 +11,7 @@ tags:
   - API
   - React
 ---
-# 目的
+## 目的
 
 前に書いた記事ではFlask→Reactは実施しても、React→Flask→Reactは実施できていなかったのでやってみる
 
@@ -20,7 +20,7 @@ tags:
 https://qiita.com/Suntory_N_Water/items/03ea848848cdc434181f
 
 
-# 実際にやってみた
+## 実際にやってみた
 
 ## フロー
 

@@ -4,22 +4,22 @@ slug: setting-id-uuid-careful-type-definition
 date: 2024-01-21
 description: FastAPIでidをuuidで設定する際の型定義の注意点。
 icon: 🆔
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/ID%20button/Flat/id_button_flat.svg
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Id%20button/Flat/id_button_flat.svg
 tags:
   - Python
   - FastAPI
 ---
-# 概要
+## 概要
 
 FastAPIで遊んでいたときDBから情報を取得できなくなってしまったので、内容を共有しておきたい。
 原因を明確にできてはいないが、対応策はあるためご容赦いただきたい。
 
-# 流れ
+## 流れ
 
 APIを作成しているとき、ブログのid(uuid)をエンドポイントにしている。
 
 ```python
-# router/blog.py
+## router/blog.py
 @router.get("/blog/{blog_id}", response_model=schema.Blog)
 async def read_blog(blog_id: UUID, db: AsyncSession = Depends(get_db)):
     """個別のブログを取得する"""
@@ -43,7 +43,7 @@ mysql> select * from blog;
 ```
 
 ```python
-# cruds/blog.py
+## cruds/blog.py
 async def get_blog_by_id(db: AsyncSession, blog_id: UUID) -> blog_model.Blog | None:
     """ブログを取得する。"""
     result: Result = await db.execute(select(blog_model.Blog).filter(blog_model.Blog.id == blog_id))
@@ -78,7 +78,7 @@ async def get_blog_by_id(db: AsyncSession, blog_id: UUID) -> blog_model.Blog | N
 2024-01-21 09:22:14 fast-api-1  | INFO:     192.168.32.1:47126 - "GET /blog/ecde0849-980a-4932-a9ef-52443ad7a740 HTTP/1.1" 404 Not Found
 ```
 
-# 解決策
+## 解決策
 
 `read_blog`の型を`UUID`ではなく`str`で受け取れば解決する。
 

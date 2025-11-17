@@ -10,7 +10,7 @@ tags:
   - Eclipse
   - コンパイル
 ---
-# 目的
+## 目的
 Javaを勉強中にコンパイルができず無駄に時間を浪費したので、備忘録として投稿します。
 
 ## 流れ
@@ -19,7 +19,7 @@ Javaを勉強中にコンパイルができず無駄に時間を浪費したの�
 - 発生したエラー
 - 解消法
 
-# 階層構造
+## 階層構造
 Eclipseを使用
 
 `tree /f`にて階層を確認
@@ -59,7 +59,7 @@ cmdからコンパイルをしようと下記の階層に移動し実行
 C:\ocjp\workspace\CoffeeChoiceApp\src\main>javac BestCoffeeChoiceApp.java
 ```
 
-# エラー内容
+## エラー内容
 コンパイルしようとすると以下のようなエラーが発生した
 
 ```terminal

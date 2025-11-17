@@ -10,24 +10,24 @@ tags:
   - Angular
   - chart.js
 ---
-# 経緯
+## 経緯
 
 現在関わっているプロジェクトでAngularを使うのが決定しており、何も知らないのはアカンと思い手軽に作れるアプリケーションを探していた。
 
 たまたまQiitaとgithubを漁っていたら[こちらが参考になる](https://github.com/limoza/population_change_graph)と感じ、練習も兼ねてWebアプリを作成した。
 
-# 作成したもの
+## 作成したもの
 
 船橋市の人口推移グラフ
 Github : https://github.com/Suntory-Y-Water/funabashi-population-trends
 URL : https://funabashi-population-trends.vercel.app/
 
-# 使用技術
+## 使用技術
 
 フロントエンド : Angular
 ホスティング : Vercel
 
-# 感想
+## 感想
 
 ## 難しかったところ
 
@@ -45,7 +45,7 @@ URL : https://funabashi-population-trends.vercel.app/
 - 可視化すると人気な町とほどほどな町が一瞬で分かって楽しい
     - 老人も減っている町は先が心配だなと
 
-# その他
+## その他
 
 工数（要件定義 ~ 簡単なテスト迄）: 17時間
 

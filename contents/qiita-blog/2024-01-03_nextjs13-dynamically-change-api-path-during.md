@@ -10,28 +10,28 @@ tags:
   - Next.js
   - Vercel
 ---
-# 経緯
+## 経緯
 
 Next.js13でAPIを取得したときにパスの関係で手こずったこと体験から、同じようなことを防ぐための備忘録。
 
-# 目標
+## 目標
 
 本番環境と開発環境でAPIのエンドポイントを動的に設定できるようにしたい。
 
-# 環境
+## 環境
 
 フロントエンド, バックエンド: Next.js
 ホスティング: vercel
 
-# 実践
+## 実践
 
 ## よくある例
 
 画面起動時にSSGやSSRでAPIを発火して取得することだと思っています。
 
-以下の画面では環境変数`API_URL`で[`http://localhost:3000`](http://localhost:3000/)を定義���、取得したデータをmap関数で展開しています。
+以下の画面では環境変数`API_URL`で[`http://localhost:3000`](http://localhost:3000/)を定義し、取得したデータをmap関数で展開しています。
 
-``` app/bad/page.tsx
+```tsx app/bad/page.tsx
 import Link from 'next/link';
 
 export default async function Bad() {
@@ -57,7 +57,7 @@ export default async function Bad() {
 }
 ```
 
-``` app/api/bad/route.ts
+``` tsx app/api/bad/route.ts
 import { NextResponse } from 'next/server';
 
 export const GET = async () => {
@@ -116,7 +116,7 @@ GPT先生に聞いたところ以下の回答をもらった。
 - `next/headers`を使用して現在のURLを動的に取得する。
 - `next/headers`ではプロトコル部分(`http://`)を取得できないため、環境変数で設定しておきデプロイ後`https://`に変更する。
 
-``` app/good/page.tsx
+``` tsx app/good/page.tsx
 import Link from 'next/link';
 import { headers } from 'next/headers';
 import { config } from '@/app/lib/config';
@@ -164,7 +164,7 @@ export const config = {
 API_PREFIX=http://
 ```
 
-# おわりに
+## おわりに
 ## 参考にした記事など
 
 [Mastering Next.js: Getting the Absolute URL in Nextjs Application](https://maxgadget.dev/article/nextjs-get-absolute-url)

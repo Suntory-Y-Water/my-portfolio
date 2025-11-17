@@ -9,7 +9,7 @@ tags:
   - Python
   - 線形計画法
 ---
-# 背景
+## 背景
 
 基本情報技術者試験に合格後、新しく勉強する内容を決めたいと思い大学時代に1mmだけ触れたpythonの勉強を始めた。
 
@@ -86,7 +86,7 @@ import pulp
 本来スクレイピングした部分のコードも掲載したいところだが、投稿内容が長くなってしまうことや、とても汚いコードだと自覚しているので省略します。
 
 ```python
-# CSVをダウンロードする
+## CSVをダウンロードする
 with open("./result.csv") as f:
     reader = csv.reader(f)
     l = [row for row in reader]
@@ -163,8 +163,8 @@ for row in Products_Data:
 今回は最適な食品選ぶ観点から、価格を最小にすることが目的なので`Minimize`を選択し、最大化をする場合はコメントアウトしてある`Maxmize`を選択します。
 
 ```python
-# 問題の定義
-# 最小化か、最大化か、どちらかを指定
+## 問題の定義
+## 最小化か、最大化か、どちらかを指定
 problem = pulp.LpProblem(name="セブンイレブン", sense=pulp.LpMinimize)
 #problem = pulp.LpProblem(name="セブンイレブン", sense=pulp.LpMaximize)
 ```
@@ -179,7 +179,7 @@ problem = pulp.LpProblem(name="セブンイレブン", sense=pulp.LpMinimize)
 最小値は非負整数なので0とします。
 
 ```python
-# 変数の定義
+## 変数の定義
 xs = [pulp.LpVariable(x, cat='Integer', lowBound=0, upBound=100) for x in name]
 ```
 
@@ -188,8 +188,8 @@ xs = [pulp.LpVariable(x, cat='Integer', lowBound=0, upBound=100) for x in name]
 先述通り価格を最小化するため`price`を設定します。
 
 ```python
-# 目的関数（最小or最大にすべき関数）
-# 価格を最小化する
+## 目的関数（最小or最大にすべき関数）
+## 価格を最小化する
 problem += pulp.lpDot(price, xs)
 ```
 
@@ -200,7 +200,7 @@ problem += pulp.lpDot(price, xs)
 無駄なカロリーを消費したくないため熱量、脂質、炭水化物、糖質、食塩相当量は以下に設定します。
 
 ```python
-# 制約条件の定義
+## 制約条件の定義
 problem += pulp.lpDot(price, xs) >= one_da_nutrition_dict["価格(円)"]
 problem += pulp.lpDot(calorie, xs) <= one_da_nutrition_dict["熱量(kcal)"]
 problem += pulp.lpDot(protein, xs) >= one_da_nutrition_dict["たんぱく質(g)"]
@@ -218,7 +218,7 @@ problem += pulp.lpDot(salt_equivalent, xs) <= one_da_nutrition_dict["食塩相�
 ```python
 status = problem.solve()
 print("Status", pulp.LpStatus[status])
-# ※「Optimal」であることを確認すること。
+## ※「Optimal」であることを確認すること。
 ```
 
 ### 結果を出力する
@@ -227,7 +227,7 @@ print("Status", pulp.LpStatus[status])
 
 ```python
 
-# 各種値を初期化
+## 各種値を初期化
 price_lists,calorie_lists,protein_lists,fat_lists,carbohydrates_lists,sugar_lists,dietary_Fiber_lists,salt_equivalent_lists = 0,0,0,0,0,0,0,0
 
 for i in range(len(name)):

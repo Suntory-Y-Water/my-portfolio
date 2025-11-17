@@ -11,18 +11,18 @@ tags:
   - 自動化
   - pyautogui
 ---
-# 概要
+## 概要
 
 メルカリで行う定型作業の自動化をする際にSeleniumを用いた自動化を行おうとした。
 しかし規約違反スレスレの行為でもあり、WebDriverからのアクセスは0秒でバレることを知ったため断念。
 
 そこで普段の定型作業がキーボードとマウスをいじるだけの簡単なものだったため、opencvによる画像認識とpyautoguiを用いて作業の自動化を試みた。
 
-# 目的
+## 目的
 
 - pyautoguiで定型作業を自動化する
 
-# 対象の動作
+## 対象の動作
 ## 動作内容
 
 商品を値上げした後、値段を戻すことでタイムライン上部に表示させる。
@@ -47,20 +47,20 @@ tags:
 
 投稿者の画面解像度が4Kなので、他の画面解像度では正しく動作しない可能性があります。
 
-# コード
+## コード
 
-``` source.py
+``` python source.py
 import time
 import pyautogui as pgui
 
-# Google Chromeへ移動する
+## Google Chromeへ移動する
 def go_page() -> None:
     pgui.keyDown('alt')
     pgui.press('tab')
     pgui.keyUp('alt')
 
 
-# 指定した画像をクリックする
+## 指定した画像をクリックする
 def click_image(image_path: str) -> tuple:
 
     try:
@@ -72,7 +72,7 @@ def click_image(image_path: str) -> tuple:
         pgui.alert(text='画像が見つかりません', title='エラー', button='OK')
 
 
-# main
+## main
 def main():
 
     # 編集画面へ遷移する
@@ -116,9 +116,9 @@ if __name__ == '__main__':
 
 ```
 
-# ファイル構成
+## ファイル構成
 
-``` cmd
+```bash
 
 │   source.py
 │   
@@ -128,7 +128,7 @@ if __name__ == '__main__':
 
 ```
 
-# その他
+## その他
 
 > github → https://github.com/Suntory-Y-Water/start_pyautogui
 

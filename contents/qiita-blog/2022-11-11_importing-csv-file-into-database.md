@@ -9,7 +9,7 @@ tags:
   - MySQL
   - CSV
 ---
-# 目的
+## 目的
 MySQLにCSVファイルをインポートするときに少々躓いたので、解決方法を備忘録として投稿します。
 
 ## 流れ
@@ -123,11 +123,11 @@ Records: 300  Deleted: 0  Skipped: 0  Warnings: 0
 
 できた！
 
-# 結論
+## 結論
 
 - csvファイルをインポートするときはログイン時に`--enable-local-infile`を忘れない
 
-# 参考資料
+## 参考資料
 
 - [MySQL ユーザを作成して権限を設定・削除する](https://qiita.com/miriwo/items/899c06fdc91beb2f6d62)
 - [【MySQL】csvファイルをDBにインポートする方法](https://qiita.com/oden141/items/239a7ce3cfe3197a3ba7)

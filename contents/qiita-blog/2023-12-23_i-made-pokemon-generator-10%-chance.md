@@ -1,6 +1,6 @@
 ---
 title: １０％の確率でドオーしか表示されないポケモン生成サイトを作った
-slug: i-made-pokemon-generator-10%-chance
+slug: i-made-pokemon-generator-10percent-chance
 date: 2023-12-23
 description: PokeAPIを使って10%の確率でドオーしか表示されないポケモン生成サイトを作成。
 icon: 🎮
@@ -11,7 +11,7 @@ tags:
   - Next.js
   - PokeAPI
 ---
-# 背景
+## 背景
 
 PokeAPIを使ってみた一心から始まり、ポケモンをランダムに6匹表示するサイトを考え始めた。
 
@@ -20,18 +20,18 @@ PokeAPIを使ってみた一心から始まり、ポケモンをランダムに6
 可愛くないですか？？？
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3351724/792ada1d-8e6f-c016-e326-0db65cc2f079.png)
 
-# 目的
+## 目的
 - PokeAPIを使ってみる
 - Next.jsの勉強を軽くしたので、AppRouterを使用してAPIを叩く
 - なんちゃってレスポンシブデザインを実現する
 
-# できたもの
+## できたもの
 
 poketter(https://poketter.vercel.app/)
 
 https://github.com/Suntory-Y-Water/poketter
 
-# 感想と考慮したところ
+## 感想と考慮したところ
 
 ## ポケモンSVで内定しているポケモンに絞った
 なにかのバグで`ランダムでポケモン育成してみようぜ!!!`みたいなことが起きたとき、内定しているポケモンだと決めるのが楽かなと思った。
@@ -56,7 +56,7 @@ https://github.com/Suntory-Y-Water/poketter
 
 https://coolors.co/
 
-# 最後に
+## 最後に
 
 本当はドオーしか出なかったときにアニメーションをつけようと思ったけど、画面負荷が高くなるとのいい感じのアニメーションが思いつかなかったのでボツになりました。
 

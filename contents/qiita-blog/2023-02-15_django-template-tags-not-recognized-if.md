@@ -10,12 +10,12 @@ tags:
   - HTML
   - Django
 ---
-# 目的
+## 目的
 
 こんなことで時間を使わないようにしましょう。という意味合いで投稿します。
 この投稿の内容は **Djangoのツボとコツがゼッタイにわかる本［第2版］** を元に作成しています。
 
-# 画面遷移がうまくいかない
+## 画面遷移がうまくいかない
 
 本書では本棚アプリ作成することを目標としています。
 個別に用意された本のページから一覧、編集、削除画面へ遷移することができる。
@@ -28,7 +28,7 @@ tags:
 
 個別ページにて各ボタンを押下してもPage not found (404)が発生
 
-``` console
+``` bash
 Page not found (404)
 Request Method:	GET
 Request URL:	http://127.0.0.1:8000/book/1/detail/%7B%25%20url%20'delete-book'%20object.pk%20%25%20%7D
@@ -47,7 +47,7 @@ You’re seeing this error because you have DEBUG = True in your Django settings
 
 要するにページが見つからんと怒られてしまった。
 
-# コードを見てみる
+## コードを見てみる
 
 スペルミスはパッと見ないと思ったのが、もう一度書いたコードを確認してみる。
 
@@ -79,7 +79,7 @@ You’re seeing this error because you have DEBUG = True in your Django settings
 🤔「他の人が書いたコードを見てみよう」
 🤔「！！」
 
-# 解決
+## 解決
 
 どうやら **{% xxx %}** のようなテンプレートタグは空白が入っていると認識してくれていないことが原因でした。
 

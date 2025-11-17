@@ -12,56 +12,56 @@ tags:
   - 形態素解析
   - discord.py
 ---
-# まえがき
+## まえがき
 
 自然言語処理、形態素解析について理解できていない部分が多いです。
 
 誤った解釈をしていたら、ご指摘ください。
 
-# 目的
+## 目的
 
 友人同士でTwitterのように使っているdiscord鯖で「**ネガティブな発言って、自分にも周りにも良くないよな**」といった話になった。
 
 私が以前からdiscordのbotと自然言語処理に興味があったので、ネガティブな単語に反応し気づきを得てもらう目的でbotを作成した。
 
-# 実施方法
+## 実施方法
 
 Pythonでdiscord.pyを用いてbotを作成し、文体を形態素解析してネガティブな単語を発見したら反応させるようにした。
 
 ネガティブな単語の要件として、日本語評価極性辞書を用いる。
 
-# ソースコード
+## ソースコード
 
-``` python:source.py
+``` python source.py
 import os
 import discord
 import MeCab
 from collections import defaultdict
 
-# 日本語評価極性辞書の読み込み 
+## 日本語評価極性辞書の読み込み 
 polarity_dict = defaultdict(lambda: 0)
 with open('pn_ja_dic.txt', 'r', encoding='utf-8') as f:
     for line in f:
         word, _, _, polarity = line.strip().split(':')
         polarity_dict[word] = float(polarity)
 
-# MeCabの設定
+## MeCabの設定
 tagger = MeCab.Tagger()
 
-# Bot のアクセストークン
+## Bot のアクセストークン
 DISCORD_BOT_TOKEN = os.environ.get("MY_DISCORD_BOT_TOKEN")
 
-# 接続に必要な設定/オブジェクト
+## 接続に必要な設定/オブジェクト
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
 
-# 起動時に動作する処理
+## 起動時に動作する処理
 @client.event
 async def on_ready():
     # 起動したらターミナルに通知する
     print("YOUR DISCORD BOT is ACTIVE now!")
 
-# メッセージ受信時に動作する処理
+## メッセージ受信時に動作する処理
 @client.event
 async def on_message(message):
     print(f"Received message: {message.content}")  # Debug message
@@ -82,7 +82,7 @@ async def on_message(message):
     if sentiment < -0.7:  
         await message.channel.send("ピピーっ！👮👮ネガティブ警察です🚨🚨🚨🙅🙅🙅🙅\nそのつぶやきは❗❗❗ネガティブな考えになるゾ😤😤😤💢💢💢")
 
-# Bot の起動と Discord サーバーへの接続
+## Bot の起動と Discord サーバーへの接続
 client.run(DISCORD_BOT_TOKEN)
 ```
 
@@ -102,7 +102,7 @@ client.run(DISCORD_BOT_TOKEN)
 悪い:わるい:形容詞:-1
 ```
 
-# 実際の挙動と課題
+## 実際の挙動と課題
 
 ![ネガちゃん.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/e633dc31-2147-4557-ad5a-1a430bfc3da4.png)
 
@@ -163,7 +163,7 @@ Received message: ピピーっ！👮👮ネガティブ警察です🚨🚨🚨
 そのつぶやきは❗❗❗ネガティブな考えになるゾ😤😤😤💢💢💢
 ```
 
-# 今後の改善
+## 今後の改善
 
 - 極性値を判定する品詞を限定する
 - どうにかこうにかして、文体からネガティブ要素を抜き出して反映させる
@@ -172,7 +172,7 @@ Received message: ピピーっ！👮👮ネガティブ警察です🚨🚨🚨
 
 日本語って難しい…
 
-# その他
+## その他
 
 github → https://github.com/Suntory-Y-Water/NegativeCommentsCheck
 

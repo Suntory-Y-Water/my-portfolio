@@ -10,7 +10,7 @@ tags:
   - スクレイピング
   - BeautifulSoup
 ---
-# 目的
+## 目的
 
 Pythonでスクレイピングをするときに何回もやらかしたので、今後も無駄な時間を使わないためにも備忘録として投稿します。
 
@@ -20,11 +20,11 @@ Pythonでスクレイピングをするときに何回もやらかしたので�
 - エラー文
 - 解決策
 
-# コードの内容
+## コードの内容
 
 関東圏にあるAppleStoreの店舗名と営業時間を取得し`print()`で記述するプログラムを書きたかった。
 
-```Python:エラー吐きます
+```python
 import requests
 from bs4 import BeautifulSoup
 from pprint import pprint
@@ -72,7 +72,7 @@ if __name__ == '__main__':
 
 **AttributeError: ResultSetオブジェクトには'text'属性がありません。おそらく、要素のリストを単一の要素のように扱っているのでしょう。find()を呼び出すつもりが、find_all()を呼び出してしまったのでしょうか？**
 
-# 解決策
+## 解決策
 
 `find_all()`を使う場合その結果はリストで得られるため、`.text()`などを用いる場合は繰り返し処理で記述する。
 
@@ -116,7 +116,7 @@ if __name__ == '__main__':
     getStoreInformation()
 ```
 
-# 参考資料
+## 参考資料
 
 [BeautifulSoupで要素内の要素を取得したい](https://ja.stackoverflow.com/questions/62793/beautifulsoup%E3%81%A7%E8%A6%81%E7%B4%A0%E5%86%85%E3%81%AE%E8%A6%81%E7%B4%A0%E3%82%92%E5%8F%96%E5%BE%97%E3%81%97%E3%81%9F%E3%81%84)
 

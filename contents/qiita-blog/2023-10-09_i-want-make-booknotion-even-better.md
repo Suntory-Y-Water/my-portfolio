@@ -10,7 +10,7 @@ tags:
   - Notion
   - NotionAPI
 ---
-# はじめに
+## はじめに
 [BookNotion](https://booknotion.site/)というアプリをご存知ですか？
 > KindleのハイライトをかんたんにNotionに保存できる読書記録アプリ(公式サイトより)
 
@@ -32,7 +32,7 @@ tags:
 NotionにはAPIが提供されているということで作ってみることにします。
 アプリにする気はないので、とりあえず自分用にページ単位でまとめることができればOKとします。
 
-# 実際にやってみた
+## 実際にやってみた
 
 フローとしては以下のようになると思っています。
 1. BookNotionで追加したデータベースから本のタイトルを取得する
@@ -172,7 +172,7 @@ getBookProperties(selectBookName).then((properties: BookProperties | {}) => {
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3351724/f79e2da0-c590-e82a-6c59-af9d1525cfe5.png)
 
-# 次回
+## 次回
 
 ハイライトとコメントを全部取得できるようにします。
 

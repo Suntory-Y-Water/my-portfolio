@@ -9,16 +9,16 @@ tags:
   - GoogleMapsAPI
   - GoogleCloud
 ---
-# 結論
+## 結論
 
 - 言語コードを設定する
 - 公式ドキュメントをしっかり読む
 
-# 経緯
+## 経緯
 
 Next.jsでAPIからGoogle Places API (New)を叩こうとしたら、400番エラーになったので沼りかけた
 
-# 実際にやったこと
+## 実際にやったこと
 
 curlでAPIを叩いたときの例が掲載されており、`"X-Goog-Api-Key: API_KEY"`のAPI_KEYを正しく設定すれば情報を取得できる。
 

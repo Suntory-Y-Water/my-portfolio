@@ -12,7 +12,7 @@ tags:
 フロントエンド勉強中です。
 ブルーベリー本とChatGPT、サバイバルTypeScriptとともに学んでいます。
 
-# ざっくりとしたまとめ
+## ざっくりとしたまとめ
 
 ## **interface：拡張可能**
 
@@ -22,7 +22,7 @@ tags:
 
 `type`を使用すると、Intersection型など、より複雑な型の操作を表現することができる。
 
-``` typescript
+```ts
 interface PersonInterface {
   name: string;
   age: number;

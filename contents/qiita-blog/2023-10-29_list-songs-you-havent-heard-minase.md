@@ -9,11 +9,11 @@ tags:
   - 個人開発
   - Next.js
 ---
-# 目的
+## 目的
 
 水瀬いのりさんのライブで自分が聴いたことのない曲を一覧で表示する
 
-# 経緯
+## 経緯
 
 [水瀬いのりさん](https://www.inoriminase.com/)、ご存知ですか？
 
@@ -24,13 +24,13 @@ tags:
 
 ということは**ライブ名と会場名から歌った曲を検索し、そのあと全曲から検索で取得した曲を引けば良い**のでは？と思ったのが出発点になります。
 
-# 成果物
+## 成果物
 
 ## URL
 
 [https://inori-track-suntory-y-water.vercel.app](https://inori-track-suntory-y-water.vercel.app/)
 
-# 機能説明
+## 機能説明
 
 ## ライブ選択画面
 
@@ -44,7 +44,7 @@ tags:
 
 会場選択画面で選択した会場から歌唱曲を検索し、検索結果からまだ聴いたことがない曲を表示する画面
 
-# 使用技術
+## 使用技術
 
 フロントエンド: Next.js 13
 バックエンド: Node.js
@@ -57,14 +57,14 @@ ORM: Prisma
 
 https://github.com/Suntory-Y-Water/inori-track
 
-# 実際に使ってみる
+## 実際に使ってみる
 
 初参加が2019年なので、少し前の曲は聴けてない印象ですね、、、
 
 ![IMG_5864.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3351724/097b4130-f971-4e15-9e8b-ca7a5b4d8d01.png)
 
 
-# 今後
+## 今後
 
 ## 改善すること
 
@@ -101,7 +101,7 @@ ChatGPTとペアプロしていましたが、彼はNext.js 12までしか知り
 
 一部のライブは選択対象にしていないため、注意書きとして画面を用意する
 
-# なんでバグあるのにデプロイしてんの？
+## なんでバグあるのにデプロイしてんの？
 
 投稿当日が「Inori Minase LIVE TOUR 2023 SCRAP ART」の神奈川公演2日目(千秋楽)だからです！！
 

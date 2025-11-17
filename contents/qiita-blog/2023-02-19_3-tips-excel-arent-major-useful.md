@@ -8,11 +8,11 @@ icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets
 tags:
   - Excel
 ---
-# 目的
+## 目的
 
 職場でExcelをこねこねしているときによく使うショートカットキーやコマンドを紹介します。
 
-# alt + ~~
+## alt + ~~
 ## alt + アンダーライン付きローマ字
 
 検索と置換を例にあげますが、**alt + D**で検索へ**alt + T**でオプション画面へ遷移することができます。
