@@ -2,9 +2,9 @@
 title: 令和3年度秋 基本情報技術者試験 合格体験記
 slug: fall-2021-fundamental-information-technology-engineer
 date: 2022-01-27
-description:
-icon:
-icon_url:
+description: 基本情報技術者試験に合格するまでに使用した参考書やWebサイト、午前免除試験での合格経験をまとめた体験記。
+icon: 🎓
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Graduation%20cap/Flat/graduation_cap_flat.svg
 tags:
   - 資格
   - 基本情報技術者試験

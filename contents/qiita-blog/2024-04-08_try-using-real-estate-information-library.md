@@ -2,9 +2,9 @@
 title: 不動産情報ライブラリAPIを使ってみる！
 slug: try-using-real-estate-information-library
 date: 2024-04-08
-description:
-icon:
-icon_url:
+description: 国土交通省の不動産情報ライブラリAPIを使ってみた体験記。
+icon: 🏠
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/House/Flat/house_flat.svg
 tags:
   - Python
   - API

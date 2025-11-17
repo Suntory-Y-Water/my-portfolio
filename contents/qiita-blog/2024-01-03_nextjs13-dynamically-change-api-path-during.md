@@ -2,9 +2,9 @@
 title: Next.js13 デプロイ時にAPIのパスを動的に変えるやり方
 slug: nextjs13-dynamically-change-api-path-during
 date: 2024-01-03
-description:
-icon:
-icon_url:
+description: Next.js13でデプロイ時にAPIのパスを動的に変更する方法。
+icon: 🔗
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Link/Flat/link_flat.svg
 tags:
   - API
   - Next.js

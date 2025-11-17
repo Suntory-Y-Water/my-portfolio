@@ -2,9 +2,9 @@
 title: Excel メジャーじゃないけど知っておくと便利な小技3選
 slug: 3-tips-excel-arent-major-useful
 date: 2023-02-19
-description:
-icon:
-icon_url:
+description: 職場でExcelを使う際によく使うショートカットキーやコマンドを紹介。
+icon: 📊
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Bar%20chart/Flat/bar_chart_flat.svg
 tags:
   - Excel
 ---

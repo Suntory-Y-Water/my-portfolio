@@ -2,9 +2,9 @@
 title: TypeScriptでコールバック関数を知る
 slug: learn-about-callback-functions-typescript
 date: 2023-08-20
-description:
-icon:
-icon_url:
+description: TypeScriptでコールバック関数について学習した備忘録。
+icon: 🔄
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Counterclockwise%20arrows%20button/Flat/counterclockwise_arrows_button_flat.svg
 tags:
   - TypeScript
   - コールバック

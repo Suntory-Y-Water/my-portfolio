@@ -2,9 +2,9 @@
 title: Java コンパイルができない
 slug: unable-compile-java
 date: 2022-11-23
-description:
-icon:
-icon_url:
+description: Java学習中にコンパイルができず無駄に時間を浪費した経験からの備忘録。Eclipseを使用したコンパイルエラーの解決方法。
+icon: ☕
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Hot%20beverage/Flat/hot_beverage_flat.svg
 tags:
   - Java
   - Eclipse

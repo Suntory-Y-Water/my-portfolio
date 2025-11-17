@@ -2,9 +2,9 @@
 title: Postman localhostにリクエストが送信できない
 slug: postman-unable-send-request-localhost
 date: 2023-08-27
-description:
-icon:
-icon_url:
+description: Postmanでlocalhostにリクエストを送信できない問題の解決方法。
+icon: 📮
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Postbox/Flat/postbox_flat.svg
 tags:
   - API
   - Postman

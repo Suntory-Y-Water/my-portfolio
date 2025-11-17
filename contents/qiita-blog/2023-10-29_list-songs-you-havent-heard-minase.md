@@ -2,9 +2,9 @@
 title: 【個人開発】水瀬いのりさんのライブで聴いたことのない曲を一覧表示するぞ
 slug: list-songs-you-havent-heard-minase
 date: 2023-10-29
-description:
-icon:
-icon_url:
+description: 水瀬いのりさんのライブで聴いたことのない曲を一覧表示するアプリの開発。
+icon: 🎵
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Musical%20note/Flat/musical_note_flat.svg
 tags:
   - 個人開発
   - Next.js

@@ -2,9 +2,9 @@
 title: Anacondaはシステム環境変数の設定方法が異なるらしい
 slug: anaconda-seems-different-way-setting-system
 date: 2023-04-01
-description:
-icon:
-icon_url:
+description: Anacondaとcmdでは環境変数の設定方法が異なるという発見についての備忘録。
+icon: 🐍
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Snake/Flat/snake_flat.svg
 tags:
   - cmd
   - Anaconda

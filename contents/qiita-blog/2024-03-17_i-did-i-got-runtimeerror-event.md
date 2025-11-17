@@ -2,9 +2,9 @@
 title: SQLAlchemy + pytestでRuntimeError: Event loop is closedが起きたときにやったこと
 slug: i-did-i-got-runtimeerror-event
 date: 2024-03-17
-description:
-icon:
-icon_url:
+description: SQLAlchemyとpytestでRuntimeError: Event loop is closedエラーが発生した際の対処法。
+icon: 🐛
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Bug/Flat/bug_flat.svg
 tags:
   - MySQL
   - sqlalchemy

@@ -2,9 +2,9 @@
 title: TypeScript interfaceとtypeどっち使うんですか？
 slug: typescript-should-i-use-interface-or
 date: 2023-08-11
-description:
-icon:
-icon_url:
+description: TypeScriptでinterfaceとtypeのどちらを使うべきかについての解説。
+icon: 📘
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Blue%20book/Flat/blue_book_flat.svg
 tags:
   - JavaScript
   - TypeScript

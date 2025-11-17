@@ -2,9 +2,9 @@
 title: Google Places API (New)で言語コードを設定せず沼りかけた
 slug: i-almost-got-stuck-without-setting
 date: 2024-02-23
-description:
-icon:
-icon_url:
+description: Google Places API (New)で言語コードを設定せず沼りかけた経験。
+icon: 🗺️
+icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/World%20map/Flat/world_map_flat.svg
 tags:
   - GoogleMapsAPI
   - GoogleCloud
