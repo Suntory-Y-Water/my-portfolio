@@ -2,12 +2,13 @@ import Link from 'next/link';
 import { SocialIcons } from '@/components/icons/social-icons';
 import { Button } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
+import { REPOSITORY_CONSTANTS } from '@/constants';
 
 type GitHubEditButtonProps = {
   filePath?: string;
 };
 
-const GITHUB_EDIT_URL_BASE = `${siteConfig.links.github}/my-portfolio/blob/${siteConfig.repository?.branch ?? 'main'}/`;
+const GITHUB_EDIT_URL_BASE = `${siteConfig.links.github}/${REPOSITORY_CONSTANTS.NAME}/blob/${siteConfig.repository?.branch ?? 'main'}/`;
 
 /**
  * GitHubで記事の修正を提案するボタンコンポーネント
@@ -35,7 +36,7 @@ const GITHUB_EDIT_URL_BASE = `${siteConfig.links.github}/my-portfolio/blob/${sit
  *   );
  * }
  * // 出力: GitHubのアイコンと「GitHubで修正を提案する」というテキストのボタンが表示されます
- * // クリックすると https://github.com/username/my-portfolio/blob/main/contents/blog/2025-01-15-typescript.md が開きます
+ * // クリックすると https://github.com/Suntory-Y-Water/my-portfolio/blob/main/contents/blog/2025-01-15-typescript.md が開きます
  * ```
  */
 export function GitHubEditButton({ filePath }: GitHubEditButtonProps) {

@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2025-11-16T00:00:00Z",
+  "last_updated": "2025-11-17T00:00:00Z",
   "adrs": [
     {
       "id": "ADR-0001",
@@ -29,6 +29,43 @@
         "ブログ記事作成スクリプト"
       ],
       "file_path": "docs/adr/decisions/0001-auto-branch-creation-blog-script.json"
+    },
+    {
+      "id": "ADR-0002",
+      "title": "定数とURL設定の一元化",
+      "status": "accepted",
+      "timestamp": "2025-11-17T00:00:00Z",
+      "tags": [
+        "constants",
+        "configuration",
+        "url",
+        "maintenance",
+        "type-safety"
+      ],
+      "keywords": [
+        "定数",
+        "一元化",
+        "centralization",
+        "constants",
+        "URL",
+        "設定",
+        "configuration",
+        "型安全",
+        "type-safety",
+        "as const",
+        "メンテナンス",
+        "maintenance",
+        "保守性"
+      ],
+      "affected_components": [
+        "定数管理",
+        "サイト設定",
+        "トップページ",
+        "ブログ詳細ページ",
+        "ブログ一覧ページ",
+        "GitHubリンクコンポーネント"
+      ],
+      "file_path": "docs/adr/decisions/0002-constants-centralization.json"
     }
   ],
   "indices": {
@@ -47,16 +84,50 @@
       ],
       "scripting": [
         "ADR-0001"
+      ],
+      "constants": [
+        "ADR-0002"
+      ],
+      "configuration": [
+        "ADR-0002"
+      ],
+      "url": [
+        "ADR-0002"
+      ],
+      "maintenance": [
+        "ADR-0002"
+      ],
+      "type-safety": [
+        "ADR-0002"
       ]
     },
     "by_component": {
       "ブログ記事作成スクリプト": [
         "ADR-0001"
+      ],
+      "定数管理": [
+        "ADR-0002"
+      ],
+      "サイト設定": [
+        "ADR-0002"
+      ],
+      "トップページ": [
+        "ADR-0002"
+      ],
+      "ブログ詳細ページ": [
+        "ADR-0002"
+      ],
+      "ブログ一覧ページ": [
+        "ADR-0002"
+      ],
+      "GitHubリンクコンポーネント": [
+        "ADR-0002"
       ]
     },
     "by_status": {
       "accepted": [
-        "ADR-0001"
+        "ADR-0001",
+        "ADR-0002"
       ]
     }
   }

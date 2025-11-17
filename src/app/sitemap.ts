@@ -1,10 +1,10 @@
 import type { MetadataRoute } from 'next';
-import { postsPerPage } from '@/config/blog';
 import { siteConfig } from '@/config/site';
+import { BLOG_CONSTANTS } from '@/constants';
 import { getAllBlogPosts, getAllTagSlugs } from '@/lib/markdown';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || siteConfig.url;
+  const baseUrl = siteConfig.url;
 
   const posts = await getAllBlogPosts();
   const tagSlugs = await getAllTagSlugs();
@@ -43,7 +43,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // ページネーション
-  const totalPages = Math.ceil(posts.length / postsPerPage);
+  const totalPages = Math.ceil(
+    posts.length / BLOG_CONSTANTS.TOP_PAGE_POSTS_COUNT,
+  );
   const paginationEntries = Array.from({ length: totalPages }, (_, i) => ({
     url: `${baseUrl}/blog/page/${i + 1}`,
     lastModified: new Date(),
