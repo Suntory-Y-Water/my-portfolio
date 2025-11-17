@@ -1,18 +1,22 @@
-import { REPOSITORY, SITE, SOCIAL } from '@/constants';
+import {
+  REPOSITORY_CONSTANTS,
+  SITE_CONSTANTS,
+  SOCIAL_CONSTANTS,
+} from '@/constants';
 import type { SiteConfig } from '@/types';
 
 export const siteConfig: SiteConfig = {
-  name: SITE.NAME,
-  description: SITE.DESCRIPTION,
-  blogDescription: SITE.BLOG_DESCRIPTION,
-  url: SITE.URL,
-  ogImage: SITE.OG_IMAGE,
+  name: SITE_CONSTANTS.NAME,
+  description: SITE_CONSTANTS.DESCRIPTION,
+  blogDescription: SITE_CONSTANTS.BLOG_DESCRIPTION,
+  url: SITE_CONSTANTS.URL,
+  ogImage: SITE_CONSTANTS.OG_IMAGE,
   links: {
-    twitter: SOCIAL.TWITTER,
-    github: SOCIAL.GITHUB,
+    twitter: SOCIAL_CONSTANTS.TWITTER,
+    github: SOCIAL_CONSTANTS.GITHUB,
   },
   repository: {
-    branch: REPOSITORY.BRANCH,
+    branch: REPOSITORY_CONSTANTS.BRANCH,
   },
-  copyRight: SITE.COPYRIGHT,
+  copyRight: SITE_CONSTANTS.COPYRIGHT,
 };

@@ -12,7 +12,7 @@ const url = process.env.NEXT_PUBLIC_APP_URL || 'https://suntory-n-water.com';
 /**
  * サイト基本情報
  */
-export const SITE = {
+export const SITE_CONSTANTS = {
   /** サイト名 */
   NAME: 'sui-portfolio',
   /** サイトの説明 */
@@ -31,7 +31,7 @@ export const SITE = {
 /**
  * ソーシャルメディアリンク
  */
-export const SOCIAL = {
+export const SOCIAL_CONSTANTS = {
   /** Twitter/X アカウントURL */
   TWITTER: 'https://x.com/Suntory_N_Water',
   /** GitHub アカウントURL */
@@ -41,7 +41,7 @@ export const SOCIAL = {
 /**
  * GitHubリポジトリ情報
  */
-export const REPOSITORY = {
+export const REPOSITORY_CONSTANTS = {
   /** リポジトリオーナー */
   OWNER: 'Suntory-Y-Water',
   /** リポジトリ名 */
@@ -53,7 +53,7 @@ export const REPOSITORY = {
 /**
  * ブログ設定
  */
-export const BLOG = {
+export const BLOG_CONSTANTS = {
   /** ブログページのページネーション: 1ページあたりの記事数 */
   POSTS_PER_PAGE: 10,
   /** トップページに表示する記事数 */

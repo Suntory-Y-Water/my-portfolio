@@ -2,13 +2,13 @@ import Link from 'next/link';
 import { SocialIcons } from '@/components/icons/social-icons';
 import { Button } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
-import { REPOSITORY } from '@/constants';
+import { REPOSITORY_CONSTANTS } from '@/constants';
 
 type GitHubEditButtonProps = {
   filePath?: string;
 };
 
-const GITHUB_EDIT_URL_BASE = `${siteConfig.links.github}/${REPOSITORY.NAME}/blob/${siteConfig.repository?.branch ?? 'main'}/`;
+const GITHUB_EDIT_URL_BASE = `${siteConfig.links.github}/${REPOSITORY_CONSTANTS.NAME}/blob/${siteConfig.repository?.branch ?? 'main'}/`;
 
 /**
  * GitHubで記事の修正を提案するボタンコンポーネント
