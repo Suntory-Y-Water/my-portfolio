@@ -2,7 +2,7 @@
 title: HonoXにVitestを導入する
 slug: installing-vitest-honox
 date: 2025-06-01
-description:
+description: HonoXアプリケーションにVitestを導入する方法を解説します。Cloudflare WorkersのバインディングD1を利用するHonoXアプリケーションのテスト環境構築ガイドです。
 icon: 😀
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Grinning%20face/Flat/grinning_face_flat.svg
 tags:

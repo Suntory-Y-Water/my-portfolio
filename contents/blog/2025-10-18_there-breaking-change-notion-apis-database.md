@@ -2,7 +2,7 @@
 title: Notion APIのデータベース操作APIに破壊的変更があったので、実装を修正してみる
 slug: there-breaking-change-notion-apis-database
 date: 2025-10-18
-description:
+description: Notion APIのバージョン2025-09-03における破壊的変更について解説します。単一データベースモデルからマルチソースデータベースモデルへの移行に伴う実装修正方法を紹介します。
 icon: 🚜
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Tractor/Flat/tractor_flat.svg
 tags:

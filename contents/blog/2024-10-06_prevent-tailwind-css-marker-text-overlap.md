@@ -2,7 +2,7 @@
 title: Tailwind CSS マーカーとテキストの重なりを防ぐ方法
 slug: prevent-tailwind-css-marker-text-overlap
 date: 2024-10-06
-description:
+description: Tailwind CSSでリストアイテムが長くなった場合に、テキストがマーカーと重なってしまう問題の解決方法を解説します。
 icon: 😊
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Smiling%20face%20with%20smiling%20eyes/Flat/smiling_face_with_smiling_eyes_flat.svg
 tags:

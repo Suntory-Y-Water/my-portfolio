@@ -2,7 +2,7 @@
 title: GASを使うと社内だけで使えるWebサイトが簡単に作れるの知ってました？
 slug: did-you-know-you-can-easily
 date: 2025-11-03
-description:
+description: Google Apps Script（GAS）を使うと社内限定で使えるWebアプリケーションを簡単に構築できます。claspとTypeScriptを使ってGoogleDriveのファイルを検索するアプリケーションを作成します。
 icon: 👀
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Eyes/Flat/eyes_flat.svg
 tags:

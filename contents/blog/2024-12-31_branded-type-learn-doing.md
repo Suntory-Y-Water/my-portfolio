@@ -2,7 +2,7 @@
 title: 手を動かして理解するBranded Type
 slug: branded-type-learn-doing
 date: 2024-12-31
-description:
+description: Branded Typeの概要と実装方法を手を動かして理解します。プリミティブ型に目印を付与して型安全性を高めるテクニックを、既存リポジトリへの適用を通じて学びます。
 icon: 🫠
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Melting%20face/Flat/melting_face_flat.svg
 tags:

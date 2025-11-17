@@ -2,7 +2,7 @@
 title: Viteで始めるGoogleChrome拡張機能開発
 slug: start-developing-google-chrome-extensions-vite
 date: 2024-06-13
-description:
+description: Vite + TypeScriptを使用してGoogle Chrome拡張機能を開発する方法を解説します。初めて拡張機能を開発する方の第一歩になる記事です。
 icon: ⚡
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/High%20voltage/Flat/high_voltage_flat.svg
 tags:
