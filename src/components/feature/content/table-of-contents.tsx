@@ -83,8 +83,9 @@ type TableOfContentsItemProps = {
  *
  * このコンポーネントは目次の1つの項目（見出し）を表示します。
  * 項目番号を表示し、クリックすると該当セクションにスクロールします。
+ * H3項目がある場合は、1.1, 1.2のような形式でネスト表示されます。
  *
- * @param item - 表示する目次項目。id、text、levelプロパティを含みます
+ * @param item - 表示する目次項目。id、text、level、items?プロパティを含みます
  * @param index - 項目の番号（1から始まる）。目次のナンバリングに使用されます
  * @returns 目次項目コンポーネント
  *
@@ -95,10 +96,17 @@ type TableOfContentsItemProps = {
  *   id: 'introduction',
  *   text: '概要',
  *   level: 2,
+ *   items: [
+ *     { id: 'intro-1', text: 'サブ項目1', level: 3 },
+ *     { id: 'intro-2', text: 'サブ項目2', level: 3 },
+ *   ],
  * };
  *
  * <TableOfContentsItem item={item} index={1} />
- * // 出力: 1. 概要
+ * // 出力:
+ * // 1. 概要
+ * //   1.1 サブ項目1
+ * //   1.2 サブ項目2
  * ```
  */
 function TableOfContentsItem({ item, index }: TableOfContentsItemProps) {
@@ -110,6 +118,26 @@ function TableOfContentsItem({ item, index }: TableOfContentsItemProps) {
           {item.text}
         </a>
       </div>
+      {/* H3項目（子項目）がある場合はネスト表示 */}
+      {item.items && item.items.length > 0 && (
+        <ol className='ml-6 mt-1 list-inside space-y-1'>
+          {item.items.map((subItem, subIndex) => (
+            <li key={subItem.id}>
+              <div className='flex items-start'>
+                <span className='mr-2 text-muted-foreground'>
+                  {index}.{subIndex + 1}
+                </span>
+                <a
+                  href={`#${subItem.id}`}
+                  className='hover:text-primary hover:underline'
+                >
+                  {subItem.text}
+                </a>
+              </div>
+            </li>
+          ))}
+        </ol>
+      )}
     </li>
   );
 }
