@@ -2,7 +2,7 @@
 title: Next.js AppRouterで動的OGP画像を作成する
 slug: creating-dynamic-ogp-images-nextjs-approuter
 date: 2024-09-21
-description:
+description: Next.js AppRouterでImageResponse()を使用して動的OGP画像を作成する方法を解説します。エンドポイント作成から画像レイアウトの実装までを紹介します。
 icon: 📷
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Camera/Flat/camera_flat.svg
 tags:

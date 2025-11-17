@@ -2,7 +2,7 @@
 title: 手を動かして理解しようとするDI（依存性の注入）
 slug: understanding-di-dependency-injection-through-hands-on
 date: 2024-06-15
-description:
+description: 依存性の注入(DI)という概念を手を動かしながら理解します。読んでもよく分からなかったので、実装を通じてナンモワカランからチョットワカッタカモになることを目指します。
 icon: 💉
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Syringe/Flat/syringe_flat.svg
 tags:

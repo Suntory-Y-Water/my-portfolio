@@ -2,7 +2,7 @@
 title: API叩くときはしっかりデコードしよう
 slug: sure-decode-properly-calling-api
 date: 2024-08-12
-description:
+description: Hono + LINE Messaging APIを使ったコンビニスイーツ提供BOTで、HTMLエンティティのデコードを忘れたことで発生したエラーと、その解決方法を解説します。APIを叩く際のデータ処理の重要性を学びます。
 icon: 😥
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Sad%20but%20relieved%20face/Flat/sad_but_relieved_face_flat.svg
 tags:

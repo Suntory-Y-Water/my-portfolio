@@ -2,7 +2,7 @@
 title: 今更だけどMarkdownでPowerPointが作成できるMarpに入門してみる
 slug: little-late-ill-introduce-marp-allows
 date: 2024-07-28
-description:
+description: MarkdownでPowerPointスライドが作成できるMarpに入門します。ハンズオン形式でMarpの環境構築から実際のスライド作成までを解説します。
 icon: 📺
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Television/Flat/television_flat.svg
 tags:

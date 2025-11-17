@@ -2,7 +2,7 @@
 title: Podがなにか分からないから弁当ケースで表現してもらう
 slug: i-dont-know-pod-so-ill
 date: 2025-02-22
-description:
+description: KubernetesのPodとは何かを弁当ケースに例えて理解します。1つ以上のコンテナをまとめたものであるPodの概念を、実務で遭遇した場面から学んだことをまとめました。
 icon: 📦
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Package/Flat/package_flat.svg
 tags:

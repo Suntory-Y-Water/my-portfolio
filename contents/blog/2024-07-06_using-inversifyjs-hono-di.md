@@ -2,7 +2,7 @@
 title: Hono + DIでInversifyJSを使用する
 slug: using-inversifyjs-hono-di
 date: 2024-07-06
-description:
+description: HonoとDIで実装したアプリケーションにInversifyJSを使用して改修します。依存性の注入をサポートする軽量のIoCコンテナであるInversifyJSの使い方を解説します。
 icon: 🧨
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Firecracker/Flat/firecracker_flat.svg
 tags:

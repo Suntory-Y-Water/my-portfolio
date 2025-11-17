@@ -2,7 +2,7 @@
 title: もう少し楽にBranded Typeを使えるようにしたい
 slug: i-want-make-easier-use-branded
 date: 2025-01-11
-description:
+description: Branded Typeを簡単に生成できるツールを作成しました。似たような名前のIDやデータを扱う際の型安全性を高め、間違った型を使う可能性を減らすことができます。
 icon: 🆗
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ok%20button/Flat/ok_button_flat.svg
 tags:

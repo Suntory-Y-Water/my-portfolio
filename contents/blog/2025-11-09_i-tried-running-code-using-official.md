@@ -2,7 +2,7 @@
 title: Anthropic公式のMCPによるコード実行をserena MCPで試してみたけど無理だった件
 slug: i-tried-running-code-using-official
 date: 2025-11-09
-description:
+description: AnthropicのMCPコード実行手法をSerena MCPで試しましたが、ツール数が多く型定義が複雑なMCPではうまくいきませんでした。シンプルなMCPでの検証が必要という学びを共有します。
 icon: 🤮
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Face%20vomiting/Flat/face_vomiting_flat.svg
 tags:
