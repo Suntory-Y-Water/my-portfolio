@@ -6,9 +6,7 @@ description: Anacondaとcmdでは環境変数の設定方法が異なるとい�
 icon: 🐍
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Snake/Flat/snake_flat.svg
 tags:
-  - cmd
   - Anaconda
-  - ChatGPT
 ---
 ## 目的
 

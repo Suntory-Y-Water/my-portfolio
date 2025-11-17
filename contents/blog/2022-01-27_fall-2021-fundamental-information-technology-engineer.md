@@ -7,7 +7,6 @@ icon: 🎓
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Graduation%20cap/Flat/graduation_cap_flat.svg
 tags:
   - 資格
-  - 基本情報技術者試験
 ---
 ## はじめに
 

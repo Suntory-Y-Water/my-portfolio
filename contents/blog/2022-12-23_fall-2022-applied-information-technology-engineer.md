@@ -6,8 +6,7 @@ description: 応用情報技術者試験の不合格体験をもとに、なぜ�
 icon: 😅
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Grinning%20face%20with%20sweat/Flat/grinning_face_with_sweat_flat.svg
 tags:
-  - 雑記
-  - 応用情報技術者試験
+  - 資格
 ---
 ## ジョブチューンの解説風 「不合格ぅ～～」
 ## 目的

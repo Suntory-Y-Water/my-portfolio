@@ -7,8 +7,6 @@ icon: 🔄
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Counterclockwise%20arrows%20button/Flat/counterclockwise_arrows_button_flat.svg
 tags:
   - TypeScript
-  - コールバック
-  - コールバック関数
 ---
 ## 目的
 

@@ -7,8 +7,6 @@ icon: 🔗
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Link/Flat/link_flat.svg
 tags:
   - TypeScript
-  - 疎結合
-  - 密結合
 ---
 ## 目的
 

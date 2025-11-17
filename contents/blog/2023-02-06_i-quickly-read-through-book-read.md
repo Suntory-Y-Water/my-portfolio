@@ -6,10 +6,7 @@ description: 技術書の読書術の重要な部分をまとめた備忘録。�
 icon: 📚
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Books/Flat/books_flat.svg
 tags:
-  - 本
-  - 技術書
-  - アウトプット
-  - 技術書の読書術
+  - 読書
 ---
 ## 一章
 

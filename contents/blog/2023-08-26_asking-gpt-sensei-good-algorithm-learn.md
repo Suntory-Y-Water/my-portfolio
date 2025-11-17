@@ -9,8 +9,6 @@ tags:
   - アルゴリズム
   - 初心者
   - TypeScript
-  - if文
-  - ChatGPT
 ---
 ## きっかけ
 

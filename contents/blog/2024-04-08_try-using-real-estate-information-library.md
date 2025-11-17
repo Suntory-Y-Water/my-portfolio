@@ -8,8 +8,6 @@ icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets
 tags:
   - Python
   - API
-  - JSON
-  - 不動産情報ライブラリ
 ---
 ## はじめに
 

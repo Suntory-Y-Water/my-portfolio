@@ -6,7 +6,7 @@ description: CloudflareWorkersとHonoを使ってコンビニスイーツをラ�
 icon: 🍰
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Shortcake/Flat/shortcake_flat.svg
 tags:
-  - LINEmessagingAPI
+  - LineMessagingAPI
   - CloudflareWorkers
 ---
 ## はじめに

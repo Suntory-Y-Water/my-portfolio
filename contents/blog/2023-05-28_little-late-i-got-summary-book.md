@@ -6,8 +6,6 @@ description: ChatGPTを使って読んだ本を要約してもらった実験記
 icon: 🤖
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Robot/Flat/robot_flat.svg
 tags:
-  - 睡眠
-  - 要約
   - ChatGPT
 ---
 ## 目的

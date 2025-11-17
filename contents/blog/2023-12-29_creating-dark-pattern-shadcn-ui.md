@@ -6,10 +6,9 @@ description: shadcn/uiを使ってダークパターンを実装する例。
 icon: 🌑
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/New%20moon/Flat/new_moon_flat.svg
 tags:
-  - UI
   - Design
   - Next.js
-  - shadcn
+  - shadcn/ui
 ---
 ## 目的
 デザインダークパターンを読んで特に印象に残ったものをshadcn/uiで試してみる

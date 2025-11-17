@@ -6,7 +6,6 @@ description: リーダブルコードの重要な部分をざっくりまとめ�
 icon: 📖
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Open%20book/Flat/open_book_flat.svg
 tags:
-  - リーダブルコード
   - 初心者
 ---
 ## 目的

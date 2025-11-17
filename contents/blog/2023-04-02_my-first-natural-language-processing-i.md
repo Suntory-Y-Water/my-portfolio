@@ -10,7 +10,7 @@ tags:
   - mecab
   - 自然言語処理
   - 形態素解析
-  - discord.py
+  - Discord
 ---
 ## まえがき
 

@@ -7,7 +7,6 @@ icon: ☀️
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Sun/Flat/sun_flat.svg
 tags:
   - 雑記
-  - ライフハック
 ---
 ## はじめに
 
