@@ -21,7 +21,7 @@ tags:
 # 実装例
 
 画面
-```ts:page.tsx
+```ts page.tsx
 import ResultInfo from '@/components/features/result/ResultInfo';
 import songs from '@/data/songs.json';
 import songsSung from '@/data/soungsSong.json';
@@ -87,7 +87,7 @@ export function generateMetadata({ searchParams }: Props) {
 ```
 
 `ImageResponse` を生成するエンドポイント
-```ts:route.tsx
+```ts route.tsx
 import { ImageResponse } from 'next/og';
 import type { NextRequest } from 'next/server';
 import songs from '@/data/songs.json';

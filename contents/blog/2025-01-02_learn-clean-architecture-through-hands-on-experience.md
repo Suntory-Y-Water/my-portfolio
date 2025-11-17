@@ -166,7 +166,7 @@ https://github.com/Suntory-Y-Water/hono-clean-architecture
 
 依存先がインタフェースであるため、`PostRepository` の実装が変わったとしても、`GetAllPostsUseCase` は影響を最小限に抑えられます。
 
-```tsx:i-post-repository.ts
+```tsx i-post-repository.ts
 import type { Message, Post, PostId } from '../../domain/models/Post';
 
 export interface IPostRepository {
@@ -176,7 +176,7 @@ export interface IPostRepository {
 }
 ```
 
-```tsx:post-repository.ts
+```tsx post-repository.ts
 import { injectable } from 'inversify';
 import type { Message, Post, PostId } from '../../domain/models/Post';
 import type { IPostRepository } from './IPostRepository';
@@ -243,7 +243,7 @@ https://zenn.dev/yoshinani_dev/articles/c743a3d046fa78
 
 下記は DB から posts を全件取得する `GetAllPostsUseCase` です。
 
-```tsx:get-all-posts.usecase.ts
+```tsx get-all-posts.usecase.ts
 import { inject, injectable } from 'inversify';
 import type { IPostRepository } from '../../../infrastructure/repositories/IPostRepository';
 import { REPOSITORY_BINDINGS } from '../../../keys';
@@ -262,7 +262,7 @@ export class GetAllPostsUseCase {
 }
 ```
 
-```tsx:get-all-post.model.ts
+```tsx get-all-post.model.ts
 export class GetAllPostsUseCaseOutputDto {
   constructor(public posts: PostDto[]) {}
 }
@@ -306,7 +306,7 @@ DTO を使ってデータを変換することで、プレゼンテーション�
 
 https://github.com/kbkn3/hono-bun-cleanArchitecture
 
-```tsx:base.controller.ts
+```tsx base.controller.ts
 import type { Context } from 'hono';
 
 export type Route = {
@@ -328,7 +328,7 @@ export interface BaseController {
 }
 ```
 
-```tsx:get-all-post.controller.ts
+```tsx get-all-post.controller.ts
 import type { Context } from 'hono';
 import { inject, injectable } from 'inversify';
 import type { GetAllPostsUseCase } from '../../application/usecases/post/get-all-posts.usecase';
@@ -370,7 +370,7 @@ export class GetAllPostsController implements BaseController {
 
 ### ルーティング設定 (routing.config.ts)
 
-```tsx:routing.config.ts
+```tsx routing.config.ts
 import type { Route } from '../infrastructure/controllers/base.controller';
 import { CONTROLLER_BINDINGS } from '../keys';
 
@@ -401,7 +401,7 @@ export const routingConfig: Route[] = [
 
 ### ルーター起動部 (routing.ts)
 
-```tsx:routing.ts
+```tsx routing.ts
 import { Hono } from 'hono';
 import type { BaseController } from '../infrastructure/controllers/base.controller';
 import { createContainer } from '../infrastructure/di/container';
@@ -425,9 +425,8 @@ export default app;
 
 Controller インスタンスは DI コンテナから取得し、その `main()` メソッドを実行するだけ、というシンプルな仕組みです。
 
-:::message
-参考にしたソースコードは GET メソッドしかなかったので、不用意にエンドポイントが作成されてしまっていますが対処法を思いつかなかったのでこのまま運用しています。
-:::
+> [!NOTE]
+> 参考にしたソースコードは GET メソッドしかなかったので、不用意にエンドポイントが作成されてしまっていますが対処法を思いつかなかったのでこのまま運用しています。
 
 今回次のようなメリットを意図してこの構造を採用しています。
 
@@ -444,7 +443,7 @@ Controller インスタンスは DI コンテナから取得し、その `main()
 Value Object(値オブジェクト) として、タイトル文字数制限などのビジネスルールを閉じ込めています。
 今回は 36 文字を超えるタイトルはエラーにするという仕様により、ドメインルールを明示的に表現しています。
 
-```tsx:post-title.ts
+```tsx post-title.ts
 export class PostTitle {
   private readonly _value: string;
   public static lengthErrorMessage = 'Title must be 36 characters or less.';
@@ -468,7 +467,7 @@ export class PostTitle {
 
 json-server を使っているので本物としてテストしてもよいのですが、実際は DB 接続や外部 API との通信が発生すると思うのでリポジトリ層はモック化し、各ユースケースはスパイしたモックリポジトリを通じてテストを行いました。
 
-```tsx:mock-post-repository.ts
+```tsx mock-post-repository.ts
 import { injectable } from 'inversify';
 import 'reflect-metadata';
 import type { Message, Post, PostId } from '../domain/models/posts';
@@ -505,7 +504,7 @@ export class MockPostRepository implements IPostRepository {
 
 ```
 
-```tsx:post-repository.test.ts
+```tsx post-repository.test.ts
 import { createPostId } from '../domain/models/posts';
 import type { IPostRepository } from '../infrastructure/repositories/i-post-repository';
 import { REPOSITORY_BINDINGS } from '../keys';
@@ -564,7 +563,7 @@ describe('PostRepository', () => {
 
 ```
 
-```tsx:get-post.usecase.test.ts
+```tsx get-post.usecase.test.ts
 import { GetPostUseCase } from '../application/usecases/post/get-posts.usecase';
 import { createPostId } from '../domain/models/posts';
 import { REPOSITORY_BINDINGS } from '../keys';

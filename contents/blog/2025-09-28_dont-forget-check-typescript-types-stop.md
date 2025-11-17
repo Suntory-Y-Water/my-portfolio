@@ -11,9 +11,8 @@ tags:
   - ZennFes2025AI
 ---
 
-:::message
-この記事は誤字・脱字のチェック以外、温もりのある人間の手で書かれています
-:::
+> [!NOTE]
+> この記事は誤字・脱字のチェック以外、温もりのある人間の手で書かれています
 
 Claude Code は、処理の開始や終了時に特定のコードを実行できる「Hooks」という仕組みがあります。
 
@@ -63,7 +62,7 @@ Hooks は shell で書かれるのが一般的なイメージですが、個人�
 
 ## 実装したコード
 
-```ts:scripts/typescript/use_typecheck.ts
+```ts scripts/typescript/use_typecheck.ts
 #!/usr/bin/env -S bun run --silent
 import { spawnSync } from 'bun';
 import { defineHook, runHook } from 'cc-hooks-ts';
@@ -214,7 +213,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 ```
 
-```ts:scripts/typescript/types/claude-output.ts
+```ts scripts/typescript/types/claude-output.ts
 import type { ToolSchema } from 'cc-hooks-ts';
 
 /**
@@ -455,10 +454,9 @@ if (
 }
 ```
 
-:::message
-ここで利用している判定は、ログ出力が `"Stop hook feedback:"` で始まることを前提にしているため、公式に保証された仕様ではありません。
-Claude Code の内部実装が変わると誤検知の可能性がある点に注意してください。
-:::
+> [!NOTE]
+> ここで利用している判定は、ログ出力が `"Stop hook feedback:"` で始まることを前提にしているため、公式に保証された仕様ではありません。
+> Claude Code の内部実装が変わると誤検知の可能性がある点に注意してください。
 
 実際に型チェックが成功するとこのようにエディタ上で怒ってくれます✌️
 ![image](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/fbea084e7204ab74b15a200f8453655e.png)

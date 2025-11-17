@@ -138,7 +138,7 @@ port = 9999
 
 http-service ではテキストをレスポンスします。
 
-```tsx:http-service/src/index.ts
+```tsx http-service/src/index.ts
 import { Hono } from "hono";
 
 const app = new Hono().basePath("/http");
@@ -154,7 +154,7 @@ https://developers.cloudflare.com/workers/runtime-apis/rpc#class-instances
 
 WorkerEntrypoint を継承した RpcService を Export します。
 
-```tsx:rpc-service/src/index.ts
+```tsx rpc-service/src/index.ts
 import { WorkerEntrypoint } from "cloudflare:workers";
 
 export class RpcService extends WorkerEntrypoint {
@@ -178,7 +178,7 @@ Bindings という型を定義して、Hono の Generics に渡します。
 
 このとき、`Bindings` のキーは `wrangler.toml` の `services` フィールドに設定した `binding` の値と同じにしておきます。
 
-```tsx:webhook/src/index.ts
+```tsx webhook/src/index.ts
 import { Hono } from "hono";
 import type { RpcService } from "../../rpc-service/src";
 

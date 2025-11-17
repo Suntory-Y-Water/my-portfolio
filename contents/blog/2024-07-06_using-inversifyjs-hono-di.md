@@ -123,10 +123,8 @@ pnpm add -D @types/inversify
 
 識別子をシンボル化することで、PostService を PostServoce のような typo を防ぐことができます。
 
-
-:::message
-この型宣言は必ず別のファイルに配置してください。( #1445)
-:::
+> [!NOTE]
+> この型宣言は必ず別のファイルに配置してください。( #1445)
 
 https://github.com/inversify/InversifyJS/issues/1455
 

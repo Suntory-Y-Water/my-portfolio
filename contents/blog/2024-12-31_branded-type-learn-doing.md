@@ -116,7 +116,7 @@ https://github.com/Suntory-Y-Water/di-lesson-with-hono
 
 まず、`post.ts` にある Branded Type を追加します。
 
-```tsx:post.ts
+```tsx post.ts
 // post.ts
 const postIdBrand = Symbol();
 

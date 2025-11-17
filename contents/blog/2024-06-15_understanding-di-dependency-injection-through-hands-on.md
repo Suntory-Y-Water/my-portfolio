@@ -51,7 +51,7 @@ https://blog.70-10.net/posts/hono-dependency-injection/
 まずはベースとなる Post クラスを作成します
 型は JSON Placeholder の posts を元に作成しました
 
-```tsx:post.ts
+```tsx post.ts
 // post.ts
 
 export class Post {
@@ -84,7 +84,7 @@ export interface IPostRepository {
 ## リポジトリクラスの実装
 次に、`IPostRepository` インターフェースを実装する具体的なリポジトリクラスを作成します。
 
-```tsx:post-repository.ts
+```tsx post-repository.ts
 export class PostRepository implements IPostRepository {
   findPost(id: number): Post {
     // 本来はAPIから取得しますが、ここでは例として固定のデータを返す
@@ -110,7 +110,7 @@ export class PostRepository implements IPostRepository {
 
 `IPostService` は、サービス層が提供する機能を抽象化し、他のクラスがサービス層の機能を利用する際に、`getPost(id: number): Post;` および `getAllPosts(): Post[];` メソッドを必ず実装するように強制します。
 
-```tsx:post-service.ts
+```tsx post-service.ts
 import { Post } from './post';
 import { IPostRepository } from './post-repository';
 
@@ -148,7 +148,7 @@ DI コンテナは、アプリケーション内のオブジェクトの生成�
 
 ジェネリクスを使用して任意の型の依存オブジェクトを管理しています。
 
-```tsx:di-container.ts
+```tsx di-container.ts
 export class DIContainer<DependencyTypes> {
   private registry = new Map<keyof DependencyTypes, DependencyTypes[keyof DependencyTypes]>();
 
@@ -175,7 +175,7 @@ export class DIContainer<DependencyTypes> {
 ## 依存関係の登録
 最後に `di-config.ts` で DI コンテナを使ってリポジトリとサービスの依存関係を登録していきます。
 
-```tsx:di-config.ts
+```tsx di-config.ts
 import { IPostService, PostService } from './post-service';
 import { DIContainer } from './di-container';
 import { IPostRepository, PostRepository } from './post-repository';

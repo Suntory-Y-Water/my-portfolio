@@ -177,7 +177,7 @@ pnpm add -D @crxjs/vite-plugin @types/chrome
 
 `vite.config.ts` を作成します。
 
-```tsx:vite.config.ts
+```tsx vite.config.ts
 import { defineConfig } from 'vite';
 import { crx, defineManifest } from '@crxjs/vite-plugin';
 
@@ -321,7 +321,7 @@ export default defineConfig({
 
 まずは `popup.ts` にメッセージを送信する処理を書いていきます。
 
-```tsx:popup.ts
+```tsx popup.ts
 import { MessageActionsId, ResponseMessageData } from './types';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -346,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 型情報がないので、`types.ts` を作成して `content.ts` でも使用する汎用的な型を作成します。
 
-```tsx:types.ts
+```tsx types.ts
 export type MessageActionsId = {
   action: 'get-zenn-articles';
 };
@@ -364,7 +364,7 @@ export type ResponseMessageData = {
 
 `content.ts` には記事情報取得を開始するメッセージである `get-zenn-articles` を受け取ったときに処理を開始します。
 
-```tsx:content.ts
+```tsx content.ts
 import { MessageActionsId, ResponseMessageData, ZennArticleData } from './types';
 
 const setupMessageListener = () => {
@@ -434,7 +434,7 @@ if (typeof chrome !== 'undefined' && chrome.runtime) {
 
 記事情報を取得できたので、あとは `popup.ts` で取得したデータを `index.html` に反映させていきましょう。
 
-```tsx:popup.ts
+```tsx popup.ts
 import { MessageActionsId, ResponseMessageData, ZennArticleData } from './types';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -543,7 +543,7 @@ https://github.com/crxjs/chrome-extension-tools/issues/846
 
 記事と異なる部分は `Plugin` ではなく `PluginOption` を使用しています。
 
-```tsx:vite.config.ts
+```tsx vite.config.ts
 import { PluginOption, defineConfig } from 'vite';
 import { crx, defineManifest } from '@crxjs/vite-plugin';
 

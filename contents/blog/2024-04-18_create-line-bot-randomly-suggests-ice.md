@@ -105,7 +105,7 @@ Cloudflare Workers との相性もよく、爆速でデプロイできること�
 LINE Messaging API でのアプリ？開発も始めてでしたが、公式ドキュメントが総じて分かりやすく Flex Message の作成も GUI 上で行うことができたので触りとしてはちょうどよかった。
 
 定期実行のエンドポイントにはアクセスを極力させたくないため `Bearer Auth` で認証を設けています。
-```ts:src/index.ts
+```ts src/index.ts
 import { Context, Hono } from 'hono';
 import { router } from './api';
 import { prettyJSON } from 'hono/pretty-json';
@@ -139,7 +139,7 @@ export default {
 
 ```
 
-```ts:src/model.ts
+```ts src/model.ts
 /**
  *
  * @description スケジューリング関数。定時になったら指定されたAPIを叩く
