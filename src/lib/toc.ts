@@ -12,9 +12,21 @@ export function extractTOC(content: string): TOCItem[] {
 
   const result: TOCItem[] = [];
   let currentH2: TOCItem | null = null;
+  let inCodeBlock = false;
 
   // 各行を走査
   for (const line of lines) {
+    // コードブロックの開始・終了を検出（```で始まる行）
+    if (line.trim().startsWith('```')) {
+      inCodeBlock = !inCodeBlock;
+      continue;
+    }
+
+    // コードブロック内の行はスキップ
+    if (inCodeBlock) {
+      continue;
+    }
+
     // ## から始まる行はh2要素
     if (line.startsWith('## ')) {
       const text = line.replace('## ', '').trim();
