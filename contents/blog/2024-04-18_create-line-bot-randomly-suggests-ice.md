@@ -189,7 +189,7 @@ https://qiita.com/TellMin/items/62893ec24f8e90a18dec
 - 認証周りの内容
 - 参考記事を追加
 
-![](https://storage.googleapis.com/zenn-user-upload/5c15f8224586-20240420.png =250x)
+![](https://storage.googleapis.com/zenn-user-upload/5c15f8224586-20240420.png)
 *今日のアイスクリーム以外の応答メッセージ*
-![](https://storage.googleapis.com/zenn-user-upload/1e0b2366b806-20240420.png =250x)
+![](https://storage.googleapis.com/zenn-user-upload/1e0b2366b806-20240420.png)
 *リッチメニュー*

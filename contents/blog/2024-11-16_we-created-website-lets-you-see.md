@@ -102,7 +102,7 @@ push or マージ時に `pnpm next-on-pages` が走ってデプロイまで自�
 ```
 
 画像は東京都千代田区と中央区を比較した結果です。
-![](https://storage.googleapis.com/zenn-user-upload/acb92fc484ff-20241113.png =300x)
+![](https://storage.googleapis.com/zenn-user-upload/acb92fc484ff-20241113.png)
 
 ## DBを使用しない
 
