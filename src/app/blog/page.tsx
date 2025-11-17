@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { BlogCard } from '@/components/feature/content/blog-card';
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
+import { BLOG } from '@/constants';
 import { getAllBlogPosts } from '@/lib/markdown';
 import { paginateItems } from '@/lib/pagination';
 
@@ -10,7 +11,7 @@ export default async function TopPage() {
   const { items: paginatedPosts } = paginateItems({
     items: allPosts,
     page: 1,
-    pageSize: 5,
+    pageSize: BLOG.TOP_PAGE_POSTS_COUNT,
   });
 
   return (

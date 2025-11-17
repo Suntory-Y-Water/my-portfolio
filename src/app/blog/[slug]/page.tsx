@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
       url: absoluteUrl(`/blog/${post.slug}`),
       images: [absoluteUrl(`/blog/ogp/${post.slug}`)],
       locale: 'ja_JP',
-      siteName: 'sui-portfolio',
+      siteName: siteConfig.name,
     },
     twitter: {
       card: 'summary_large_image',

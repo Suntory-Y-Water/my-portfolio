@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import Career from '@/components/feature/about/Career';
+import { siteConfig } from '@/config/site';
 
 export default function Home() {
   const careerData = [
@@ -73,7 +74,7 @@ export default function Home() {
         <h2 className='text-2xl font-semibold'>その他</h2>
         <div>
           <Link
-            href='https://twitter.com/Suntory_N_Water'
+            href={siteConfig.links.twitter}
             className='inline-flex items-center space-x-2 pb-2 underline-offset-4 hover:underline'
             aria-label='X(Twitter)アカウント'
             target='_blank'
@@ -85,7 +86,7 @@ export default function Home() {
         </div>
         <div>
           <Link
-            href='https://github.com/Suntory-Y-Water'
+            href={siteConfig.links.github}
             className='inline-flex items-center space-x-2 py-2 underline-offset-4 hover:underline'
             aria-label='GitHubアカウント'
             target='_blank'
@@ -99,7 +100,7 @@ export default function Home() {
       <div className='mt-2 space-y-1'>
         <h2 className='text-2xl font-semibold'>連絡先</h2>
         <a
-          href='https://twitter.com/Suntory_N_Water'
+          href={siteConfig.links.twitter}
           className='inline-flex items-center space-x-2 text-primary underline-offset-4 hover:underline'
           aria-label='問い合わせ先'
           target='_blank'

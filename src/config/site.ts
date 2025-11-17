@@ -1,20 +1,18 @@
+import { REPOSITORY, SITE, SOCIAL } from '@/constants';
 import type { SiteConfig } from '@/types';
 
-const url = process.env.NEXT_PUBLIC_APP_URL || 'https://suntory-n-water.com';
-
 export const siteConfig: SiteConfig = {
-  name: 'sui-portfolio',
-  description:
-    'スイのポートフォリオです。簡単な自己紹介と今まで投稿してきた記事のリンクや、Web開発に関する学習記録をブログとしてまとめています。',
-  blogDescription: 'Web開発に関する学習記録をまとめたブログです。',
-  url: url,
-  ogImage: `${url}/opengraph-image.png`,
+  name: SITE.NAME,
+  description: SITE.DESCRIPTION,
+  blogDescription: SITE.BLOG_DESCRIPTION,
+  url: SITE.URL,
+  ogImage: SITE.OG_IMAGE,
   links: {
-    twitter: 'https://x.com/Suntory_N_Water',
-    github: 'https://github.com/Suntory-Y-Water',
+    twitter: SOCIAL.TWITTER,
+    github: SOCIAL.GITHUB,
   },
   repository: {
-    branch: 'main',
+    branch: REPOSITORY.BRANCH,
   },
-  copyRight: 'Suntory-N-Water',
+  copyRight: SITE.COPYRIGHT,
 };
