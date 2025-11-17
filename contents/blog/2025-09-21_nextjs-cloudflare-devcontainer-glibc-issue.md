@@ -143,17 +143,23 @@ devcontainer.json の設定を以下のように変更しました。
 解決はしましたが、なぜこの変更で問題が解決したのかを理解するために、公式情報を調べました。
 **Debian 11 bullseyeのglibc**
 Debian 公式パッケージ情報によると、bullseye は **glibc 2.31系**(`2.31-13+deb11u13`)を提供しています。
+
 https://packages.debian.org/source/bullseye/glibc
+
 **Debian 12 bookwormのglibc**
 一方、bookworm は **glibc 2.36系**(`2.36-9+deb12u13`)を提供しています。
+
 https://launchpad.net/debian/bookworm/%2Bsource/glibc
 
 ### Cloudflare workerdの要件変化
 
 Cloudflare Workers SDK の GitHub リポジトリの Issue を調べると、興味深い情報が見つかりました。
 近年の workerd では **glibc 2.35以上**を要求するようになっており、Ubuntu 20.04(glibc 2.31)などの古い環境での非対応化が議論されています。
+
 https://github.com/cloudflare/workers-sdk/issues/9336
+
 また、「あなたの OS は glibc 2.35+をサポートしていないようだ」というメンテナからのコメントもある別の Issue も確認できました。
+
 https://github.com/cloudflare/workers-sdk/issues/9446
 
 ### 技術的な背景の整理

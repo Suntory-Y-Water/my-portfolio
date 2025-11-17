@@ -44,8 +44,10 @@ LINE Messaging API の仕様上、bot からのリクエストから 2 秒以内
 この時間制約を守らない場合、LINE Messaging API からタイムアウトエラーが返却される可能性があります。
 
 https://developers.line.biz/ja/docs/partner-docs/development-guidelines/#webhook-flow-image
+
 通常の Workers 環境では、処理に 2 秒以上かかると LINE Messaging
 API との通信がタイムアウトするため、エラーが発生します。
+
 https://developers.line.biz/ja/docs/partner-docs/development-guidelines/#error-notification
 
 この問題を解決するために、重たい非同期処理を `ctx.waitUntil()` でラップしています。これにより、メインの処理フローは即座にレスポンスを返し、バックグラウンドで非同期処理を継続することが可能になります。
