@@ -48,19 +48,38 @@ type FluentEmojiParams = {
  * // => 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire/Flat/fire_flat.svg'
  * ```
  */
-function generateFluentEmojiUrl({ emojiInfo }: FluentEmojiParams): string {
+async function generateFluentEmojiUrl({
+  emojiInfo,
+}: FluentEmojiParams): Promise<string> {
   const { name, slug, skin_tone_support } = emojiInfo;
 
-  // ディレクトリ名: 最初の文字を大文字、残りを小文字に変換
-  // 例: "grinning face" → "Grinning face"
-  const dirName = name.charAt(0).toUpperCase() + name.slice(1);
+  // ディレクトリ名: nameを最初の文字だけ大文字にして、残りは小文字
+  // 例: "woman gesturing OK" → "Woman gesturing ok"
+  const dirName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
   const encodedDirName = dirName.replace(/ /g, '%20');
 
-  if (!skin_tone_support) {
-    return `https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/${encodedDirName}/Flat/${slug}_flat.svg`;
+  const basePath =
+    'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets';
+  const flatPath = skin_tone_support ? 'Default/Flat' : 'Flat';
+  const suffix = skin_tone_support
+    ? `${slug}_flat_default.svg`
+    : `${slug}_flat.svg`;
+
+  // URLを生成
+  const url = `${basePath}/${encodedDirName}/${flatPath}/${suffix}`;
+
+  // URLが有効か確認
+  try {
+    const response = await fetch(url, { method: 'HEAD' });
+    if (response.ok) {
+      return url;
+    }
+  } catch {
+    // fetch失敗時はそのまま返す
   }
 
-  return `https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/${encodedDirName}/Default/Flat/${slug}_flat_default.svg`;
+  // 404の場合でもURLを返す（エラーログ用）
+  return url;
 }
 
 /**
@@ -81,7 +100,11 @@ function generateFluentEmojiUrl({ emojiInfo }: FluentEmojiParams): string {
  * // => 'already-a-url' (絵文字データが見つからないため元の値を返す)
  * ```
  */
-export function convertEmojiToFluentUrl({ icon }: { icon: string }): string {
+export async function convertEmojiToFluentUrl({
+  icon,
+}: {
+  icon: string;
+}): Promise<string> {
   // 絵文字データからメタデータを取得
   const emojiInfo = emojiData[icon as keyof typeof emojiData];
 
@@ -91,5 +114,5 @@ export function convertEmojiToFluentUrl({ icon }: { icon: string }): string {
   }
 
   // FluentUI EmojiのURLを生成
-  return generateFluentEmojiUrl({ emojiInfo });
+  return await generateFluentEmojiUrl({ emojiInfo });
 }

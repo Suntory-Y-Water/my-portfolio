@@ -5,8 +5,8 @@ icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fir
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire/Flat/fire_flat.svg
 slug: messaging-api-github-pr
 tags:
-  - LINE Messaging API
-  - Cloudflare Workers
+  - LineMessagingAPI
+  - CloudflareWorkers
   - Notion
 description: ポートフォリオの技術記事投稿頻度をあげるためにNotion + Messaging APIでブログ記事を自動でPull Requestを発行できるようにしました。mdxファイルの作成はnotion-markdown-converterを使用しています。
 ---
@@ -44,8 +44,10 @@ LINE Messaging API の仕様上、bot からのリクエストから 2 秒以内
 この時間制約を守らない場合、LINE Messaging API からタイムアウトエラーが返却される可能性があります。
 
 https://developers.line.biz/ja/docs/partner-docs/development-guidelines/#webhook-flow-image
+
 通常の Workers 環境では、処理に 2 秒以上かかると LINE Messaging
 API との通信がタイムアウトするため、エラーが発生します。
+
 https://developers.line.biz/ja/docs/partner-docs/development-guidelines/#error-notification
 
 この問題を解決するために、重たい非同期処理を `ctx.waitUntil()` でラップしています。これにより、メインの処理フローは即座にレスポンスを返し、バックグラウンドで非同期処理を継続することが可能になります。

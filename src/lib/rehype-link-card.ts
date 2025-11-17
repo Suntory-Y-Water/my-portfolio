@@ -225,6 +225,8 @@ function createLinkCardHTML(data: LinkCardData): string {
  * 段落ノードが純粋なURLのみを含むかどうかを判定する
  *
  * `<p><a href="url">url</a></p>` の形式（URLのみの段落）を検出します。
+ * 空白のみのテキストノードや`<br>`要素は無視され、実質的なコンテンツとして
+ * URLリンクのみが含まれている場合にtrueを返します。
  * この形式の段落はリンクカードに変換されます。
  *
  * @param node - 判定対象の要素ノード
@@ -232,11 +234,30 @@ function createLinkCardHTML(data: LinkCardData): string {
  */
 function isPureUrlParagraph(node: Element): boolean {
   // <p><a href="url">url</a></p> の形式を検出
-  if (node.tagName !== 'p' || !node.children || node.children.length !== 1) {
+  // 空白のみのテキストノードと<br>要素は無視する
+  if (node.tagName !== 'p' || !node.children) {
     return false;
   }
 
-  const child = node.children[0];
+  // 空白のみのテキストノードと<br>要素を除外した子要素を取得
+  const meaningfulChildren = node.children.filter((child) => {
+    // <br>要素は無視
+    if (child.type === 'element' && child.tagName === 'br') {
+      return false;
+    }
+    // 空白のみのテキストノードは無視
+    if (child.type === 'text' && /^\s*$/.test(child.value)) {
+      return false;
+    }
+    return true;
+  });
+
+  // 実質的な子要素が1つだけであることを確認
+  if (meaningfulChildren.length !== 1) {
+    return false;
+  }
+
+  const child = meaningfulChildren[0];
   if (child.type !== 'element' || child.tagName !== 'a') {
     return false;
   }

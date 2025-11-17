@@ -52,6 +52,8 @@ const blogDir = path.join(process.cwd(), 'contents', 'blog');
 type BlogFileParams = {
   /** ブログファイルのパス */
   filePath: string;
+  /** 既存のicon_urlを強制的に更新するか */
+  force?: boolean;
 };
 
 /**
@@ -73,6 +75,7 @@ type BlogFileParams = {
  */
 async function updateBlogIconUrl({
   filePath,
+  force = false,
 }: BlogFileParams): Promise<string> {
   const content = await fs.readFile(filePath, 'utf-8');
   const { data: frontmatter } = matter(content);
@@ -82,8 +85,8 @@ async function updateBlogIconUrl({
     return `ℹ️  Skipped: ${path.basename(filePath)} (no icon field)`;
   }
 
-  // icon_urlフィールドが既に値を持つ場合はスキップ
-  if (frontmatter.icon_url && frontmatter.icon_url.trim() !== '') {
+  // icon_urlフィールドが既に値を持つ場合、forceオプションがfalseならスキップ
+  if (!force && frontmatter.icon_url && frontmatter.icon_url.trim() !== '') {
     return `ℹ️  Skipped: ${path.basename(filePath)} (icon_url already exists)`;
   }
 
@@ -96,8 +99,8 @@ async function updateBlogIconUrl({
   ) {
     iconUrl = frontmatter.icon;
   } else {
-    // 絵文字をFluentUI EmojiのURLに変換
-    iconUrl = convertEmojiToFluentUrl({ icon: frontmatter.icon });
+    // 絵文字をFluentUI EmojiのURLに変換（await追加）
+    iconUrl = await convertEmojiToFluentUrl({ icon: frontmatter.icon });
 
     // 変換できなかった場合（絵文字データが見つからない）はスキップ
     if (iconUrl === frontmatter.icon) {
@@ -139,7 +142,14 @@ async function updateBlogIconUrl({
  * ```
  */
 async function processBlogs(): Promise<void> {
-  const targetFiles = process.argv.slice(2);
+  const args = process.argv.slice(2);
+  
+  // --forceオプションの確認
+  const forceIndex = args.indexOf('--force');
+  const force = forceIndex !== -1;
+  
+  // --forceオプションを除外したファイルリスト
+  const targetFiles = args.filter((arg) => arg !== '--force');
 
   let filesToProcess: string[] = [];
 
@@ -162,10 +172,10 @@ async function processBlogs(): Promise<void> {
       .map((file) => path.join(blogDir, file));
   }
 
-  console.log(`\n🔄 Processing ${filesToProcess.length} blog file(s)...\n`);
+  console.log(`\n🔄 Processing ${filesToProcess.length} blog file(s)${force ? ' (force mode)' : ''}...\n`);
 
   const results = await Promise.all(
-    filesToProcess.map((file) => updateBlogIconUrl({ filePath: file })),
+    filesToProcess.map((file) => updateBlogIconUrl({ filePath: file, force })),
   );
 
   for (const result of results) {
