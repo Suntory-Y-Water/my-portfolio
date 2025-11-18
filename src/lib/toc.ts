@@ -13,12 +13,26 @@ export function extractTOC(content: string): TOCItem[] {
   const result: TOCItem[] = [];
   let currentH2: TOCItem | null = null;
   let inCodeBlock = false;
+  let codeBlockFenceLength = 0;
 
   // 各行を走査
   for (const line of lines) {
-    // コードブロックの開始・終了を検出（```で始まる行）
-    if (line.trim().startsWith('```')) {
-      inCodeBlock = !inCodeBlock;
+    const trimmedLine = line.trim();
+
+    // コードブロックの開始・終了を検出（```または````で始まる行）
+    const fenceMatch = trimmedLine.match(/^(`{3,})/);
+    if (fenceMatch) {
+      const currentFenceLength = fenceMatch[1].length;
+
+      if (!inCodeBlock) {
+        // コードブロック開始
+        inCodeBlock = true;
+        codeBlockFenceLength = currentFenceLength;
+      } else if (currentFenceLength >= codeBlockFenceLength) {
+        // 同じ長さ以上のフェンスでコードブロック終了
+        inCodeBlock = false;
+        codeBlockFenceLength = 0;
+      }
       continue;
     }
 
