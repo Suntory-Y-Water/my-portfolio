@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { CustomMarkdown } from '@/components/feature/content/custom-markdown';
 import { GitHubEditButton } from '@/components/feature/content/github-edit-button';
+import { MarkdownCopyButton } from '@/components/feature/content/markdown-copy-button';
 import { TableOfContents } from '@/components/feature/content/table-of-contents';
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
@@ -158,9 +159,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
 
         {/* Title */}
-        <h1 className='text-2xl font-bold leading-snug tracking-normal'>
-          {post.metadata.title}
-        </h1>
+        <div className='flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'>
+          <h1 className='text-2xl font-bold leading-snug tracking-normal'>
+            {post.metadata.title}
+          </h1>
+          <div className='self-start sm:self-auto'>
+            <MarkdownCopyButton content={post.rawContent} />
+          </div>
+        </div>
 
         {/* Description */}
         {post.metadata.description && (
