@@ -9,7 +9,6 @@ tags:
   - Cloudflare
   - OpenNext.js
   - Docker
-  - DevConatainers
 description: Debian 11 bullseyeベースのdevcontainerでNext.js 15 + OpenNext.jsの開発サーバーが起動せず、Debian 12 bookwormベースに変更して解決した事例。glibcバージョン要件とworkerdの実行互換について整理。
 ---
 

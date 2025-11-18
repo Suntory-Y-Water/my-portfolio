@@ -6,8 +6,8 @@ icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets
 slug: vscode-github-copilot-multiple-prompt
 tags:
   - GitHub
-  - GitHub Copilot
-  - Visual Studio Code
+  - GitHubCopilot
+  - VisualStudioCode
 description: VSCodeで使えるGitHub Copilotでも Cursorと同じようなルールを設定することができます。この記事では複数のルールを設定して開発を行う方法を解説します。
 ---
 

@@ -8,10 +8,9 @@ icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets
 tags:
   - TypeScript
   - ClaudeCode
-  - ZennFes2025AI
 ---
 
-> [!NOTE]
+> [!TIPS]
 > この記事は誤字・脱字のチェック以外、温もりのある人間の手で書かれています
 
 Claude Code は、処理の開始や終了時に特定のコードを実行できる「Hooks」という仕組みがあります。
