@@ -20,16 +20,19 @@ export function extractTOC(content: string): TOCItem[] {
     const trimmedLine = line.trim();
 
     // コードブロックの開始・終了を検出（```または````で始まる行）
-    const fenceMatch = trimmedLine.match(/^(`{3,})/);
+    const fenceMatch = trimmedLine.match(/^(`{3,})(?:\s*(\S+)?.*)?$/);
     if (fenceMatch) {
       const currentFenceLength = fenceMatch[1].length;
+      const language = fenceMatch[2]; // 言語指定（あれば）
 
       if (!inCodeBlock) {
-        // コードブロック開始
+        // コードブロック開始（言語指定があってもなくてもOK）
         inCodeBlock = true;
         codeBlockFenceLength = currentFenceLength;
-      } else if (currentFenceLength >= codeBlockFenceLength) {
-        // 同じ長さ以上のフェンスでコードブロック終了
+      } else if (currentFenceLength >= codeBlockFenceLength && !language) {
+        // コードブロック終了の条件：
+        // 1. 同じ長さ以上のフェンス
+        // 2. 言語指定がない（バッククォートのみ）
         inCodeBlock = false;
         codeBlockFenceLength = 0;
       }
