@@ -44,6 +44,16 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
       images: [absoluteUrl(`/blog/ogp/${post.slug}`)],
       locale: 'ja_JP',
       siteName: siteConfig.name,
+      article: {
+        publishedTime: new Date(post.metadata.date).toISOString(),
+        ...(post.metadata.modified_time && {
+          modifiedTime: new Date(post.metadata.modified_time).toISOString(),
+        }),
+        ...(post.metadata.tags &&
+          post.metadata.tags.length > 0 && {
+            tags: post.metadata.tags,
+          }),
+      },
     },
     twitter: {
       card: 'summary_large_image',
