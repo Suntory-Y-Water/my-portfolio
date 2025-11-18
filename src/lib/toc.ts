@@ -13,12 +13,26 @@ export function extractTOC(content: string): TOCItem[] {
   const result: TOCItem[] = [];
   let currentH2: TOCItem | null = null;
   let inCodeBlock = false;
+  let codeBlockFenceLength = 0;
 
   // 各行を走査
   for (const line of lines) {
-    // コードブロックの開始・終了を検出（```で始まる行）
-    if (line.trim().startsWith('```')) {
-      inCodeBlock = !inCodeBlock;
+    const trimmedLine = line.trim();
+
+    // コードブロックの開始・終了を検出（```または````で始まる行）
+    const fenceMatch = trimmedLine.match(/^(`{3,})/);
+    if (fenceMatch) {
+      const currentFenceLength = fenceMatch[1].length;
+
+      if (!inCodeBlock) {
+        // コードブロック開始
+        inCodeBlock = true;
+        codeBlockFenceLength = currentFenceLength;
+      } else if (currentFenceLength >= codeBlockFenceLength) {
+        // 同じ長さ以上のフェンスでコードブロック終了
+        inCodeBlock = false;
+        codeBlockFenceLength = 0;
+      }
       continue;
     }
 
@@ -29,9 +43,11 @@ export function extractTOC(content: string): TOCItem[] {
 
     // ## から始まる行はh2要素
     if (line.startsWith('## ')) {
-      const text = line.replace('## ', '').trim();
-      // 見出しをIDとして使用
-      const id = generateSlug(text);
+      const rawText = line.replace('## ', '').trim();
+      // Markdownフォーマット（太字、イタリック、コードなど）を除去して表示用テキストを生成
+      const text = stripMarkdownFormatting(rawText);
+      // 見出しをIDとして使用（元のテキストから生成）
+      const id = generateSlug(rawText);
 
       currentH2 = {
         id,
@@ -43,9 +59,11 @@ export function extractTOC(content: string): TOCItem[] {
     }
     // ### から始まる行はh3要素
     else if (line.startsWith('### ')) {
-      const text = line.replace('### ', '').trim();
-      // 見出しをIDとして使用
-      const id = generateSlug(text);
+      const rawText = line.replace('### ', '').trim();
+      // Markdownフォーマット（太字、イタリック、コードなど）を除去して表示用テキストを生成
+      const text = stripMarkdownFormatting(rawText);
+      // 見出しをIDとして使用（元のテキストから生成）
+      const id = generateSlug(rawText);
 
       const h3Item: TOCItem = {
         id,
@@ -65,19 +83,62 @@ export function extractTOC(content: string): TOCItem[] {
 }
 
 /**
+ * Markdownフォーマット記号を除去してプレーンテキストを取得
+ * 太字（**、__）、イタリック（*、_）、コード（`）などを除去
+ *
+ * @param text - Markdownフォーマットを含むテキスト
+ * @returns プレーンテキスト
+ */
+function stripMarkdownFormatting(text: string): string {
+  return (
+    text
+      // 太字とイタリックの組み合わせ（***text*** or ___text___）
+      .replace(/(\*\*\*|___)(.+?)\1/g, '$2')
+      // 太字（**text** or __text__）
+      .replace(/(\*\*|__)(.+?)\1/g, '$2')
+      // イタリック（*text* or _text_）
+      .replace(/(\*|_)(.+?)\1/g, '$2')
+      // インラインコード（`text`）
+      .replace(/`([^`]+)`/g, '$1')
+      // リンク（[text](url)）
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      // 画像（![alt](url)）
+      .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1')
+      .trim()
+  );
+}
+
+/**
  * テキストからURLスラッグを生成
- * シンプルな方法で日本語を含む文字列をIDに変換
+ * 日本語を含む文字列をIDに変換し、空白や特殊文字をハイフンに置換
+ *
+ * @param text - スラッグ化するテキスト
+ * @returns URL用のスラッグ文字列
  */
 function generateSlug(text: string): string {
+  // Markdownフォーマットを除去
+  const plainText = stripMarkdownFormatting(text);
+
   // 空文字列の場合はランダムなIDを返す（重複防止）
-  if (!text.trim()) {
+  if (!plainText.trim()) {
     return `toc-${Math.random().toString(36).substring(2, 9)}`;
   }
 
-  // スペースをハイフンに置換し、IDとして使用できない文字を削除
-  return text
-    .toLowerCase()
-    .replace(/\s+/g, '-') // スペースをハイフンに置換
-    .replace(/[^a-z0-9\-\u3000-\u9fff\u30a0-\u30ff\uff00-\uff9f]/g, '') // 英数字、日本語、ハイフン以外を削除
-    .trim();
+  return (
+    plainText
+      .toLowerCase()
+      // 全角スペースと半角スペースをハイフンに置換
+      .replace(/[\s\u3000]+/g, '-')
+      // コロン、セミコロン、カンマなどの区切り文字をハイフンに置換
+      .replace(/[：:;；,，、。.]+/g, '-')
+      // 括弧類を削除
+      .replace(/[()（）[\]【】「」『』]/g, '')
+      // 英数字、日本語、ハイフン以外を削除
+      .replace(/[^a-z0-9\-\u3000-\u9fff\u30a0-\u30ff\uff00-\uff9f]/g, '')
+      // 連続するハイフンを1つにまとめる
+      .replace(/-+/g, '-')
+      // 前後のハイフンを削除
+      .replace(/^-+|-+$/g, '')
+      .trim()
+  );
 }
