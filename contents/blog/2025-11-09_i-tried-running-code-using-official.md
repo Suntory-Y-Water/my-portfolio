@@ -348,9 +348,9 @@ MCP サーバーのコード実行をするためには、以下の条件を満�
 
 ---
 
-## 付録A: SKILL.md
+## 付録A、SKILL.md
 
-````md:SKILL.md
+````md SKILL.md
 ---
 name: mcp-code-execution
 description: MCP ツールを TypeScript コードとして実行し、トークン消費を最大 98.7% 削減します。Serena MCP ツール呼び出しが必要な場合、大規模データセット処理、コードベース全体への操作、バッチ処理、プライバシーに配慮したデータ処理が必要な場合に使用してください。
@@ -592,9 +592,9 @@ try {
 [Code execution with MCP: building more efficient AI agents](https://www.anthropic.com/engineering/code-execution-with-mcp)
 ````
 
-## 付録B: TOOLS.md
+## 付録B、TOOLS.md
 
-````md:TOOLS.md
+````md TOOLS.md
 ## 利用可能なツール
 
 自動生成された TypeScript ラッパーを通じて、全 20 の Serena MCP ツールが利用可能です。

@@ -217,7 +217,3 @@ export async function GET(request: NextRequest) {
 ## 感想
 あるべき姿だけど、動的 og 画像はストレージサービスに画像を保存したほうが良い気がする。
 ただ個人規模の超ミニマルなものであればストレージを使用せずともバリデーション + αだけしていれば良さそう。
-
-## 参考
-
-https://www.2riniar.com/pages/c_waup6uzi4

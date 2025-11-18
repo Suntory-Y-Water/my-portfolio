@@ -8,7 +8,7 @@ icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets
 tags:
   - GitHubActions
   - CI
-  - Dependabot
+  - dependabot
 ---
 
 dependabot は、依存関係の更新を自動的に検出し、プルリクエスト(PR)を作成する便利なツールです。
