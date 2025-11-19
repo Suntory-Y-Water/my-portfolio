@@ -69,7 +69,8 @@ export function BlogSearchDialog({
         ],
         threshold: SEARCH_CONSTANTS.SEARCH_THRESHOLD,
         includeScore: true,
-        minMatchCharLength: 2,
+        minMatchCharLength: 1,
+        ignoreLocation: true,
       }),
     [posts],
   );
@@ -77,10 +78,10 @@ export function BlogSearchDialog({
   // 検索結果を取得
   const searchResults = useMemo(() => {
     if (!searchQuery.trim()) {
-      return posts;
+      return [];
     }
     return fuse.search(searchQuery).map((result) => result.item);
-  }, [searchQuery, fuse, posts]);
+  }, [searchQuery, fuse]);
 
   // 表示する検索結果（ページネーション適用）
   const displayedResults = useMemo(
@@ -120,8 +121,11 @@ export function BlogSearchDialog({
   // 記事を選択したときのハンドラー
   const handleSelectPost = useCallback(
     (slug: string) => {
+      // ダイアログを閉じてから遷移
+      setTimeout(() => {
+        router.push(`/blog/${slug}`);
+      }, 0);
       onOpenChange(false);
-      router.push(`/blog/${slug}`);
     },
     [onOpenChange, router],
   );
@@ -132,108 +136,105 @@ export function BlogSearchDialog({
         placeholder='記事を検索...'
         value={searchQuery}
         onValueChange={setSearchQuery}
+        className='text-base'
       />
-      <CommandList>
+      <CommandList className='pt-2'>
         <CommandEmpty>
           {searchQuery
             ? '検索結果が見つかりませんでした。'
             : '検索キーワードを入力してください。'}
         </CommandEmpty>
-        <CommandGroup
-          heading={
-            searchQuery
-              ? `検索結果 (${searchResults.length}件)`
-              : `すべての記事 (${posts.length}件)`
-          }
-        >
-          {displayedResults.map((post) => (
-            <CommandItem
-              key={post.slug}
-              value={post.slug}
-              onSelect={() => handleSelectPost(post.slug)}
-              className='flex flex-col items-start gap-2 px-3 py-3'
-            >
-              {/* タイトルとアイコン */}
-              <div className='flex w-full items-center gap-2'>
-                <FileText className='size-4 shrink-0 text-muted-foreground' />
-                <span className='flex-1 truncate font-medium'>
-                  {post.metadata.title}
-                </span>
-                <ChevronRight className='size-4 shrink-0 text-muted-foreground' />
-              </div>
-
-              {/* 説明文 */}
-              {post.metadata.description && (
-                <p className='line-clamp-2 w-full text-xs text-muted-foreground'>
-                  {post.metadata.description}
-                </p>
-              )}
-
-              {/* メタデータ（日付・タグ） */}
-              <div className='flex w-full flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground'>
-                {/* 日付 */}
-                <div className='flex items-center gap-1'>
-                  <Calendar className='size-3' />
-                  <time dateTime={post.metadata.date}>
-                    {formatDate(post.metadata.date)}
-                  </time>
+        {searchQuery && (
+          <CommandGroup heading={`検索結果 (${searchResults.length}件)`}>
+            {displayedResults.map((post) => (
+              <CommandItem
+                key={post.slug}
+                value={post.slug}
+                onSelect={() => handleSelectPost(post.slug)}
+                className='flex flex-col items-start gap-2 px-3 py-3'
+              >
+                {/* タイトルとアイコン */}
+                <div className='flex w-full items-center gap-2'>
+                  <FileText className='size-4 shrink-0 text-muted-foreground' />
+                  <span className='flex-1 truncate font-medium'>
+                    {post.metadata.title}
+                  </span>
+                  <ChevronRight className='size-4 shrink-0 text-muted-foreground' />
                 </div>
 
-                {/* タグ */}
-                {post.metadata.tags && post.metadata.tags.length > 0 && (
+                {/* 説明文 */}
+                {post.metadata.description && (
+                  <p className='line-clamp-2 w-full text-xs text-muted-foreground'>
+                    {post.metadata.description}
+                  </p>
+                )}
+
+                {/* メタデータ（日付・タグ） */}
+                <div className='flex w-full flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground'>
+                  {/* 日付 */}
                   <div className='flex items-center gap-1'>
-                    <Tag className='size-3' />
-                    <div className='flex flex-wrap gap-1'>
-                      {post.metadata.tags.slice(0, 3).map((tag) => (
-                        <Badge
-                          key={tag}
-                          variant='secondary'
-                          className='px-1.5 py-0 text-[10px]'
-                        >
-                          {tag}
-                        </Badge>
-                      ))}
-                      {post.metadata.tags.length > 3 && (
-                        <span className='text-[10px]'>
-                          +{post.metadata.tags.length - 3}
-                        </span>
-                      )}
-                    </div>
+                    <Calendar className='size-3' />
+                    <time dateTime={post.metadata.date}>
+                      {formatDate(post.metadata.date)}
+                    </time>
                   </div>
-                )}
-              </div>
-            </CommandItem>
-          ))}
 
-          {/* 「もっと見る」ボタン */}
-          {canLoadMore && (
-            <div className='flex justify-center p-2'>
-              <Button
-                variant='ghost'
-                size='sm'
-                onClick={handleLoadMore}
-                className='w-full'
-              >
-                もっと見る (
-                {Math.min(
-                  SEARCH_CONSTANTS.LOAD_MORE_COUNT,
-                  searchResults.length - displayCount,
-                )}
-                件)
-              </Button>
-            </div>
-          )}
+                  {/* タグ */}
+                  {post.metadata.tags && post.metadata.tags.length > 0 && (
+                    <div className='flex items-center gap-1'>
+                      <Tag className='size-3' />
+                      <div className='flex flex-wrap gap-1'>
+                        {post.metadata.tags.slice(0, 3).map((tag) => (
+                          <Badge
+                            key={tag}
+                            variant='secondary'
+                            className='px-1.5 py-0 text-[10px]'
+                          >
+                            {tag}
+                          </Badge>
+                        ))}
+                        {post.metadata.tags.length > 3 && (
+                          <span className='text-[10px]'>
+                            +{post.metadata.tags.length - 3}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </CommandItem>
+            ))}
 
-          {/* 最大表示件数に達した場合のメッセージ */}
-          {hasMore &&
-            displayCount >= SEARCH_CONSTANTS.MAX_RESULTS_COUNT &&
-            searchResults.length > SEARCH_CONSTANTS.MAX_RESULTS_COUNT && (
-              <div className='p-3 text-center text-xs text-muted-foreground'>
-                {searchResults.length - SEARCH_CONSTANTS.MAX_RESULTS_COUNT}
-                件以上の結果があります。検索キーワードを絞り込んでください。
+            {/* 「もっと見る」ボタン */}
+            {canLoadMore && (
+              <div className='flex justify-center p-2'>
+                <Button
+                  variant='ghost'
+                  size='sm'
+                  onClick={handleLoadMore}
+                  className='w-full'
+                >
+                  もっと見る (
+                  {Math.min(
+                    SEARCH_CONSTANTS.LOAD_MORE_COUNT,
+                    searchResults.length - displayCount,
+                  )}
+                  件)
+                </Button>
               </div>
             )}
-        </CommandGroup>
+
+            {/* 最大表示件数に達した場合のメッセージ */}
+            {hasMore &&
+              displayCount >= SEARCH_CONSTANTS.MAX_RESULTS_COUNT &&
+              searchResults.length > SEARCH_CONSTANTS.MAX_RESULTS_COUNT && (
+                <div className='p-3 text-center text-xs text-muted-foreground'>
+                  {searchResults.length - SEARCH_CONSTANTS.MAX_RESULTS_COUNT}
+                  件以上の結果があります。検索キーワードを絞り込んでください。
+                </div>
+              )}
+          </CommandGroup>
+        )}
       </CommandList>
     </CommandDialog>
   );

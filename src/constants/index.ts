@@ -71,5 +71,5 @@ export const SEARCH_CONSTANTS = {
   /** 検索結果の最大表示件数 */
   MAX_RESULTS_COUNT: 100,
   /** Fuse.jsの検索スコアしきい値（0.0 = 完全一致、1.0 = すべてマッチ） */
-  SEARCH_THRESHOLD: 0.4,
+  SEARCH_THRESHOLD: 0.5,
 } as const;
