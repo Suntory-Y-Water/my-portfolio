@@ -2,6 +2,7 @@
 title: Honoでランダムにアイスクリームを提案するLINE BOTを作る
 slug: create-line-bot-randomly-suggests-ice
 date: 2024-04-18
+modified_time: 2024-04-18
 description: Hono + Cloudflare Workersを使用してランダムにアイスクリームを提案するLINE BOTを作成しました。チョコモナカジャンボに変わる新しい最強のアイスクリームを見つけることをコンセプトに、技術選定から実装までを解説します。
 icon: 🍨
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ice%20cream/Flat/ice_cream_flat.svg

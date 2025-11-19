@@ -2,6 +2,7 @@
 title: React + Flaskを連携させてみる
 slug: lets-integrate-react-flask
 date: 2023-07-01
+modified_time: 2023-07-01
 description: ReactとFlaskを連携させたアプリケーション開発の手順。
 icon: ⚛️
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Atom%20symbol/Flat/atom_symbol_flat.svg

@@ -2,6 +2,7 @@
 title: 住んでいる地域の人口増減を一目でわかるWebサイトをつくった
 slug: we-created-website-lets-you-see
 date: 2024-11-16
+modified_time: 2024-11-16
 description: 都道府県と市区町村を選択するだけで、その地域の人口動態を可視化できるWebサイトを作成しました。Next.js、Recharts、shadcn/uiを使用した実装を紹介します。
 icon: 🗾
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Map%20of%20japan/Flat/map_of_japan_flat.svg

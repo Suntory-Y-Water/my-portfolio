@@ -2,6 +2,7 @@
 title: Playwrightでクエリパラメータが付与されているページのURLを取得する
 slug: get-url-page-query-parameters-playwright
 date: 2024-09-26
+modified_time: 2024-09-26
 description: Playwrightでクエリパラメータが付与されているページのURLを取得する方法を解説します。page.on()メソッドでネットワークを監視する方法を紹介します。
 icon: 👺
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Goblin/Flat/goblin_flat.svg

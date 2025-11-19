@@ -2,6 +2,7 @@
 title: ブログ記事のアーキテクチャをMDXからMarkdownへ変更しました
 slug: blog-new-architecture
 date: 2025-11-16
+modified_time: 2025-11-16
 description: NotionとLINEメッセージングAPIを使った外出先からのブログ更新システムから、ObsidianとMarkdownベースのシンプルな管理方式へ移行した経緯を紹介します。
 icon: 📔
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Notebook%20with%20decorative%20cover/Flat/notebook_with_decorative_cover_flat.svg

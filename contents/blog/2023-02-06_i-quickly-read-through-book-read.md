@@ -2,6 +2,7 @@
 title: 技術書の読書術をざっくり読んで個人的に重要な部分をまとめてみた。
 slug: i-quickly-read-through-book-read
 date: 2023-02-06
+modified_time: 2023-02-06
 description: 技術書の読書術の重要な部分をまとめた備忘録。効果的な読書方法とアウトプットについて。
 icon: 📚
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Books/Flat/books_flat.svg

@@ -2,6 +2,7 @@
 title: 【FastAPI】idをuuidで設定するときは型定義に気をつけたい
 slug: setting-id-uuid-careful-type-definition
 date: 2024-01-21
+modified_time: 2024-01-21
 description: FastAPIでidをuuidで設定する際の型定義の注意点。
 icon: 🆔
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Id%20button/Flat/id_button_flat.svg

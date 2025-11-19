@@ -2,6 +2,7 @@
 title: 2022年秋 応用情報技術者試験""不""合格体験記
 slug: fall-2022-applied-information-technology-engineer
 date: 2022-12-23
+modified_time: 2022-12-23
 description: 応用情報技術者試験の不合格体験をもとに、なぜ不合格だったのかを振り返る雑記。
 icon: 😅
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Grinning%20face%20with%20sweat/Flat/grinning_face_with_sweat_flat.svg

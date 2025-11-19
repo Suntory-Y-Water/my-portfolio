@@ -2,6 +2,7 @@
 title: Wikipediaの全記事を学習させて、日本語で遊んでみる
 slug: learn-all-wikipedia-articles-fun-them
 date: 2024-11-09
+modified_time: 2024-11-09
 description: Wikipediaの全記事をWord2Vecに学習させて、単語同士の足し算や引き算を行うことができるWebサイトを作成しました。FastAPIの復習も兼ねた実装を紹介します。
 icon: 🟰
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Heavy%20equals%20sign/Flat/heavy_equals_sign_flat.svg

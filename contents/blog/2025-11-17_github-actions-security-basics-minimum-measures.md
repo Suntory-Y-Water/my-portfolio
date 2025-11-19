@@ -2,6 +2,7 @@
 title: 今日から学ぶGitHub Actionsのセキュリティ設定の基本と最低限の対策
 slug: github-actions-security-basics-minimum-measures
 date: 2025-11-17
+modified_time: 2025-11-17
 description: GitHub Actionsで発生しうるScript InjectionやPull Request Target、権限の過剰付与などの脆弱性と、actionlint・ghalint・zizmor等の静的解析ツールを使った具体的な対策方法を解説します。
 icon: 🚓
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Police%20car/Flat/police_car_flat.svg

@@ -2,6 +2,7 @@
 title: アニメ情報を取得するWebAPIを実際にリクエストして、比較してみる
 slug: lets-actually-request-webapi-retrieves-anime
 date: 2024-11-17
+modified_time: 2024-11-17
 description: アニメ情報を取得するWebAPI（ShangriLa Anime API、Annict API、MyAnimeList API）を実際にリクエストして比較検証しました。各APIの特徴と違いを解説します。
 icon: 🪄
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Magic%20wand/Flat/magic_wand_flat.svg

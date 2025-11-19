@@ -2,6 +2,7 @@
 title: 【Python】初めての自然言語処理？discord.pyでネガティブな単語に反応するbotを作ってみた。
 slug: my-first-natural-language-processing-i
 date: 2023-04-02
+modified_time: 2023-04-02
 description: Pythonとdiscord.pyを使ってネガティブな単語に反応するbotを作成。自然言語処理と形態素解析の入門。
 icon: 🤖
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Robot/Flat/robot_flat.svg
