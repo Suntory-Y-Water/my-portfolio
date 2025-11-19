@@ -183,6 +183,7 @@ export const BLOG_CONSTANTS = {
 - ビルド時に検索インデックスを生成
 - クライアントサイドで高速検索
 - バックエンド不要
+- 日本語対応、あいまい検索、ハイライト機能内蔵
 
 #### 実装フロー
 
@@ -214,44 +215,42 @@ export const BLOG_CONSTANTS = {
 
 ## 4. 技術的選択肢
 
-### 4.1 検索実装の4つのアプローチ
+### 4.1 検索実装の3つのアプローチ
 
-#### Option 1: shadcn/ui Command + クライアントサイドフィルタリング ⭐**推奨**
+#### Option 1: Pagefind + shadcn/ui Command ⭐**推奨**
 
 **メリット:**
-- ✅ 既存のshadcn/uiデザインシステムと統一
-- ✅ 実装がシンプル
-- ✅ 追加ライブラリ最小限
-- ✅ リアルタイムフィルタリング
-- ✅ `Cmd+K` ショートカット標準対応
-- ✅ アクセシビリティ対応済み
-- ✅ カスタマイズ性が高い
+- ✅ **検索エンジン**: Pagefind（高機能、自作不要）
+- ✅ **UI**: shadcn/ui（既存デザインと統一）
+- ✅ 高速検索（インデックス検索）
+- ✅ 日本語対応、あいまい検索、ハイライト
+- ✅ `Cmd+K` ショートカット対応
+- ✅ アクセシビリティ対応
+- ✅ スケーラブル（記事数増加に強い）
+- ✅ 実績あり（参考プロジェクト使用）
 
 **デメリット:**
-- ⚠️ 記事数が数千になるとパフォーマンス低下の可能性
-- ⚠️ 全記事データをクライアントに送信
+- ⚠️ ビルド時間が若干増加（5-10秒）
+- ⚠️ 検索インデックスのサイズ増加（~50KB/100記事）
+- ⚠️ 動的import必要（ビルド後に生成されるため）
 
-**実装コスト:** ⭐⭐ (低)
+**実装コスト:** ⭐⭐⭐ (中)
 
-**必要なコンポーネント:**
+**必要なライブラリ:**
 ```bash
+bun add -D pagefind
 bunx shadcn@latest add command dialog
 ```
 
 **実装例:**
 ```typescript
-import {
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
+// src/components/feature/search/search-dialog.tsx
+import { CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command"
 
 export function SearchDialog() {
   const [open, setOpen] = useState(false)
-  const [posts, setPosts] = useState<BlogPost[]>([])
+  const [query, setQuery] = useState("")
+  const [results, setResults] = useState<any[]>([])
 
   // Cmd+Kで開く
   useEffect(() => {
@@ -265,18 +264,51 @@ export function SearchDialog() {
     return () => document.removeEventListener("keydown", down)
   }, [])
 
+  // Pagefindで検索（動的import）
+  const handleSearch = async (value: string) => {
+    setQuery(value)
+
+    if (!value) {
+      setResults([])
+      return
+    }
+
+    // ビルド後に生成されるファイルを動的に読み込む
+    const pagefind = await import('/pagefind/pagefind.js')
+    const search = await pagefind.search(value)
+
+    // 検索結果のデータを取得
+    const data = await Promise.all(
+      search.results.map((r: any) => r.data())
+    )
+
+    setResults(data)
+  }
+
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
-      <CommandInput placeholder="記事を検索..." />
+      <CommandInput
+        placeholder="記事を検索..."
+        value={query}
+        onValueChange={handleSearch}
+      />
       <CommandList>
         <CommandEmpty>記事が見つかりませんでした</CommandEmpty>
         <CommandGroup heading="検索結果">
-          {posts.map((post) => (
-            <CommandItem key={post.slug} onSelect={() => {
-              router.push(`/blog/${post.slug}`)
-              setOpen(false)
-            }}>
-              {post.metadata.title}
+          {results.map((result) => (
+            <CommandItem
+              key={result.url}
+              onSelect={() => {
+                router.push(result.url)
+                setOpen(false)
+              }}
+            >
+              <div className="flex flex-col">
+                <span className="font-medium">{result.meta.title}</span>
+                <span className="text-sm text-muted-foreground">
+                  {result.excerpt}
+                </span>
+              </div>
             </CommandItem>
           ))}
         </CommandGroup>
@@ -286,33 +318,29 @@ export function SearchDialog() {
 }
 ```
 
-#### Option 2: Pagefind（静的検索）
+#### Option 2: Pagefind Default UI
 
 **メリット:**
-- ✅ バックエンド不要
-- ✅ 高速（インデックス検索）
-- ✅ Next.js App Routerと相性良い
-- ✅ 日本語対応
-- ✅ ゼロ設定で動作
-- ✅ 記事数が多くてもパフォーマンス良好
+- ✅ 最も簡単（設定ほぼゼロ）
+- ✅ 検索エンジン込みのUI提供
+- ✅ 参考プロジェクトと同じ実装
 
 **デメリット:**
-- ⚠️ ビルド時間が若干増加
-- ⚠️ 検索インデックスのサイズ増加
-- ⚠️ カスタムUIが必要（shadcn/uiと統合する場合）
+- ❌ デザインのカスタマイズが困難
+- ❌ shadcn/uiと統一できない
+- ❌ `Cmd+K` のカスタマイズが制限される
 
-**実装コスト:** ⭐⭐⭐ (中)
+**実装コスト:** ⭐ (最低)
 
-```bash
-# インストール
-bun add -D pagefind
+```typescript
+import "@pagefind/default-ui/css/ui.css"
 
-# package.json
-{
-  "scripts": {
-    "postbuild": "pagefind --site .next"
-  }
-}
+useEffect(() => {
+  new PagefindUI({
+    element: "#search",
+    showSubResults: true
+  })
+}, [])
 ```
 
 #### Option 3: サーバーサイド検索（URL searchParams）
@@ -321,27 +349,14 @@ bun add -D pagefind
 - ✅ Next.js公式推奨パターン
 - ✅ URLで検索状態を共有可能
 - ✅ SEOフレンドリー
-- ✅ ブックマーク可能
 
 **デメリット:**
-- ⚠️ ページ遷移が発生
-- ⚠️ クライアントサイドより若干遅い
-- ⚠️ `Cmd+K` のようなモーダル検索には不向き
+- ❌ **検索ロジックを自作する必要がある**
+- ❌ 高度な検索機能（あいまい検索等）の実装が困難
+- ❌ ページ遷移が発生
+- ❌ `Cmd+K` のようなモーダル検索には不向き
 
-**実装コスト:** ⭐⭐⭐ (中)
-
-#### Option 4: ハイブリッド（shadcn/ui Command + Pagefind）
-
-**メリット:**
-- ✅ UIはshadcn/uiで統一
-- ✅ 検索エンジンはPagefindで高速
-- ✅ ベストオブボスワールド
-
-**デメリット:**
-- ⚠️ 統合の複雑性が増す
-- ⚠️ 実装コストが高い
-
-**実装コスト:** ⭐⭐⭐⭐ (高)
+**実装コスト:** ⭐⭐⭐⭐ (高) - 非推奨
 
 ---
 
@@ -393,50 +408,77 @@ export type Frontmatter<T = Record<string, never>> = {
 } & T;
 ```
 
-### 5.3 検索対象フィールド
+### 5.3 Pagefindの検索対象
 
-**検索可能なデータ:**
-- ✅ `title` - タイトル（必須、高優先度）
-- ✅ `description` - 説明文（中優先度）
-- ✅ `tags` - タグ配列（タグ名での検索）
-- ✅ `rawContent` - Markdown本文（全文検索の場合、低優先度）
-- ❌ `slug` - 検索対象外推奨
-- ❌ `date` - 検索対象外（ソートに使用）
+**Pagefindが自動的に検索対象にする要素:**
+- ✅ `<h1>` - タイトル（最高優先度）
+- ✅ `<meta name="description">` - 説明文
+- ✅ 本文テキスト
+- ✅ カスタムメタデータ（`data-pagefind-meta`属性）
 
-**検索スコアリング（優先度）:**
-1. タイトル完全一致: 最高
-2. タイトル部分一致: 高
-3. タグ一致: 中
-4. 説明文一致: 中
-5. 本文一致: 低
+**検索スコアリング（Pagefindが自動処理）:**
+1. タイトル一致: 最高
+2. メタデータ一致: 高
+3. 本文一致: 中
+4. あいまい一致: 低
+
+**→ 検索ロジックの実装は不要！**
 
 ---
 
 ## 6. 実装推奨案
 
-### 6.1 推奨アプローチ: **shadcn/ui Command + クライアントサイドフィルタリング**
+### 6.1 推奨アプローチ: **Pagefind + shadcn/ui Command**
 
 **選定理由:**
-1. **デザイン統一性** - 既存のshadcn/uiコンポーネントと一貫性
-2. **実装コスト** - 最も低い（1-2日で実装可能）
-3. **ユーザー体験** - `Cmd+K`ショートカット、モーダル検索
-4. **パフォーマンス** - 現在の記事数（~100記事）では十分高速
-5. **カスタマイズ性** - 細かいUI調整が容易
-6. **メンテナンス性** - シンプルで理解しやすい
-
-**将来的な拡張:**
-- 記事数が1000件を超えた場合 → Pagefindへの移行を検討
-- 現時点では過剰最適化を避け、シンプルな実装を優先
+1. **検索ロジック不要** - Pagefindが全て処理（自作不要）
+2. **デザイン統一** - shadcn/uiで既存コンポーネントと一貫性
+3. **高機能** - あいまい検索、ハイライト、日本語対応
+4. **高速** - インデックス検索で即座に結果
+5. **実績** - 参考プロジェクトで使用中
+6. **スケーラブル** - 記事数が増えても問題なし
+7. **ユーザー体験** - `Cmd+K`ショートカット、モーダル検索
 
 ### 6.2 実装ロードマップ
 
-#### Phase 1: 基本検索UI（shadcn/ui Command導入）
+#### Phase 1: Pagefindのセットアップ
 
 **タスク:**
-1. shadcn/ui `command` と `dialog` コンポーネントのインストール
+1. Pagefindのインストール
+2. `postbuild`スクリプトの設定
+3. ビルドテスト
+
+**実装:**
+```bash
+# インストール
+bun add -D pagefind
+
+# package.json に追加
+{
+  "scripts": {
+    "postbuild": "pagefind --site .next"
+  }
+}
+
+# ビルドテスト
+bun run build
+```
+
+**確認事項:**
+- `.next/pagefind/` ディレクトリが生成される
+- `pagefind.js` が存在する
+
+#### Phase 2: shadcn/ui Commandコンポーネントの追加
+
+**タスク:**
+1. `command`と`dialog`コンポーネントのインストール
 2. `SearchDialog` コンポーネントの作成
-3. ヘッダーに検索トリガーボタンを追加
-4. キーボードショートカット（`Cmd+K`）の実装
+3. `SearchTrigger` ボタンの作成
+
+**実装:**
+```bash
+bunx shadcn@latest add command dialog
+```
 
 **実装ファイル:**
 ```
@@ -444,72 +486,173 @@ src/components/
 └── feature/
     └── search/
         ├── search-dialog.tsx      # CommandDialog使用
-        └── search-trigger.tsx     # トリガーボタン
+        ├── search-trigger.tsx     # トリガーボタン
+        └── search-result-item.tsx # 検索結果アイテム
 ```
 
-**期待される成果物:**
-- ヘッダーに「検索」ボタン
-- `Cmd+K`でモーダル検索を開く
-- リアルタイム検索結果表示
-- 検索結果クリックで記事ページへ遷移
-
-#### Phase 2: 検索ロジックの実装
+#### Phase 3: Pagefindとshadcn/ui Commandの統合
 
 **タスク:**
-1. クライアントサイド検索関数の作成
-2. タイトル、説明文、タグでのフィルタリング
-3. 検索結果のソート（関連度順）
-4. 検索結果のハイライト
+1. 動的importでPagefindを読み込み
+2. 検索結果をCommandItemで表示
+3. キーボードショートカット（`Cmd+K`）の実装
+4. 検索結果クリックで記事ページへ遷移
 
-**実装ファイル:**
-```
-src/lib/
-└── search.ts    # 検索ロジック
-```
-
-**検索ロジック例:**
+**実装例:**
 ```typescript
-// src/lib/search.ts
-export function searchBlogPosts(
-  posts: BlogPost[],
-  query: string
-): BlogPost[] {
-  const lowerQuery = query.toLowerCase().trim();
+// src/components/feature/search/search-dialog.tsx
+'use client'
 
-  if (!lowerQuery) return posts;
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import {
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command'
 
-  return posts
-    .filter((post) => {
-      const titleMatch = post.metadata.title.toLowerCase().includes(lowerQuery);
-      const descMatch = post.metadata.description?.toLowerCase().includes(lowerQuery);
-      const tagMatch = post.metadata.tags?.some((tag) =>
-        tag.toLowerCase().includes(lowerQuery)
-      );
-      return titleMatch || descMatch || tagMatch;
-    })
-    .sort((a, b) => {
-      // タイトル一致を優先
-      const aTitle = a.metadata.title.toLowerCase().includes(lowerQuery);
-      const bTitle = b.metadata.title.toLowerCase().includes(lowerQuery);
-      if (aTitle && !bTitle) return -1;
-      if (!aTitle && bTitle) return 1;
-      return 0;
-    });
+export function SearchDialog() {
+  const router = useRouter()
+  const [open, setOpen] = useState(false)
+  const [query, setQuery] = useState('')
+  const [results, setResults] = useState<any[]>([])
+
+  // Cmd+K ショートカット
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault()
+        setOpen((open) => !open)
+      }
+    }
+
+    document.addEventListener('keydown', down)
+    return () => document.removeEventListener('keydown', down)
+  }, [])
+
+  // Pagefind検索
+  const handleSearch = async (value: string) => {
+    setQuery(value)
+
+    if (!value) {
+      setResults([])
+      return
+    }
+
+    try {
+      // 動的import（ビルド後に生成されるファイル）
+      const pagefind = await import(
+        /* @vite-ignore */
+        '/pagefind/pagefind.js'
+      )
+      const search = await pagefind.search(value)
+
+      // 検索結果のメタデータを取得
+      const data = await Promise.all(
+        search.results.map((r: any) => r.data())
+      )
+
+      setResults(data)
+    } catch (error) {
+      console.error('Search error:', error)
+      setResults([])
+    }
+  }
+
+  return (
+    <CommandDialog open={open} onOpenChange={setOpen}>
+      <CommandInput
+        placeholder="記事を検索..."
+        value={query}
+        onValueChange={handleSearch}
+      />
+      <CommandList>
+        <CommandEmpty>記事が見つかりませんでした</CommandEmpty>
+        <CommandGroup heading={`検索結果 (${results.length}件)`}>
+          {results.map((result) => (
+            <CommandItem
+              key={result.url}
+              value={result.url}
+              onSelect={() => {
+                router.push(result.url)
+                setOpen(false)
+              }}
+            >
+              <div className="flex flex-col gap-1">
+                <span className="font-medium">{result.meta.title}</span>
+                {result.excerpt && (
+                  <span
+                    className="text-sm text-muted-foreground"
+                    dangerouslySetInnerHTML={{ __html: result.excerpt }}
+                  />
+                )}
+              </div>
+            </CommandItem>
+          ))}
+        </CommandGroup>
+      </CommandList>
+    </CommandDialog>
+  )
 }
 ```
 
-#### Phase 3: UX改善
+```typescript
+// src/components/feature/search/search-trigger.tsx
+'use client'
+
+import { Search } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+
+export function SearchTrigger() {
+  return (
+    <Button
+      variant="outline"
+      className="relative h-9 w-9 p-0 xl:h-10 xl:w-60 xl:justify-start xl:px-3 xl:py-2"
+    >
+      <Search className="h-4 w-4 xl:mr-2" />
+      <span className="hidden xl:inline-flex">記事を検索...</span>
+      <kbd className="pointer-events-none absolute right-1.5 top-2 hidden h-6 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 xl:flex">
+        <span className="text-xs">⌘</span>K
+      </kbd>
+    </Button>
+  )
+}
+```
+
+#### Phase 4: ヘッダーへの統合
 
 **タスク:**
-1. 検索結果のプレビュー表示（アイコン、日付）
-2. "検索結果なし"時のメッセージ改善
-3. 検索履歴の表示（LocalStorage使用）
-4. タグフィルターとの連携
+1. `Header.tsx` に `SearchTrigger` を追加
+2. レスポンシブ対応
 
-**オプション機能:**
-- 最近検索したキーワード
-- 人気の検索キーワード
-- 検索結果の件数表示
+**実装:**
+```typescript
+// src/components/shared/Header.tsx に追加
+import { SearchTrigger } from '@/components/feature/search/search-trigger'
+import { SearchDialog } from '@/components/feature/search/search-dialog'
+
+export function Header() {
+  return (
+    <header>
+      {/* 既存のヘッダー要素 */}
+
+      <SearchTrigger />
+      <SearchDialog />
+    </header>
+  )
+}
+```
+
+#### Phase 5: UX改善（オプション）
+
+**タスク:**
+1. 検索結果のアイコン表示
+2. タグ表示
+3. 日付表示
+4. 検索履歴（LocalStorage）
 
 ### 6.3 必要なコンポーネント構成
 
@@ -520,14 +663,12 @@ src/
 │   │   └── search/
 │   │       ├── search-dialog.tsx          # メイン検索ダイアログ
 │   │       ├── search-trigger.tsx         # ヘッダー検索ボタン
-│   │       └── search-result-item.tsx     # 検索結果アイテム
+│   │       └── search-result-item.tsx     # 検索結果アイテム（オプション）
 │   └── ui/
 │       ├── command.tsx                    # shadcn/ui (新規)
 │       └── dialog.tsx                     # shadcn/ui (新規)
-├── lib/
-│   └── search.ts                          # 検索ロジック
-└── hooks/
-    └── use-search.ts                      # 検索Hook（オプション）
+└── lib/
+    └── search.ts                          # 検索関連ユーティリティ（オプション）
 ```
 
 ### 6.4 設定ファイル
@@ -537,10 +678,6 @@ src/
 export const SEARCH_CONSTANTS = {
   /** 検索結果の最大表示数 */
   MAX_RESULTS: 50,
-  /** 検索キーワードの最小文字数 */
-  MIN_QUERY_LENGTH: 1,
-  /** 検索履歴の保存件数 */
-  MAX_HISTORY: 5,
   /** キーボードショートカット */
   KEYBOARD_SHORTCUT: {
     key: 'k',
@@ -549,29 +686,61 @@ export const SEARCH_CONSTANTS = {
 } as const;
 ```
 
-### 6.5 既存機能との統合
-
-**シナリオ1: ヘッダーからの検索**
-```typescript
-// src/components/shared/Header.tsx に追加
-import { SearchTrigger } from '@/components/feature/search/search-trigger';
-
-<SearchTrigger />  // Cmd+K表示のボタン
+```json
+// package.json
+{
+  "scripts": {
+    "dev": "bun run --bun next dev",
+    "build": "bun run --bun next build",
+    "postbuild": "pagefind --site .next",
+    "start": "next start"
+  }
+}
 ```
 
-**シナリオ2: タグフィルター併用**
-- 検索ダイアログ内でタグによる絞り込みも可能
-- CommandGroupでタグごとにグループ化
+### 6.5 Pagefindの設定（オプション）
 
-**シナリオ3: モバイル対応**
-- モバイルでは全画面表示
-- タッチジェスチャー対応
+```yaml
+# pagefind.yml（プロジェクトルート）
+source: .next
+bundle_dir: pagefind
+exclude_selectors:
+  - "nav"
+  - "footer"
+  - "[data-pagefind-ignore]"
+```
 
 ---
 
 ## 7. 補足情報
 
-### 7.1 shadcn/ui Command の特徴
+### 7.1 Pagefindの特徴
+
+**なぜPagefindを使うべきか:**
+1. **検索ロジックを自作する必要がない** - 全て組み込み
+2. **高機能** - あいまい検索、ハイライト、ストップワード、日本語対応
+3. **高速** - インデックス検索で瞬時に結果
+4. **軽量** - 検索インデックスは圧縮済み
+5. **スケーラブル** - 数千ページでも高速
+
+**公式サイト:** https://pagefind.app/
+
+### 7.2 動的importが必要な理由
+
+```typescript
+// ❌ 通常のimportはできない
+import pagefind from '/pagefind/pagefind.js'  // エラー！
+
+// ✅ 動的importが必要
+const pagefind = await import('/pagefind/pagefind.js')
+```
+
+**理由:**
+1. `pagefind.js` はビルド後に生成される（`postbuild`）
+2. 開発時（`bun dev`）には存在しない
+3. TypeScript型定義がない
+
+### 7.3 shadcn/ui Command の特徴
 
 **cmdk（Command Menu）:**
 - Vercel製の高品質コマンドパレット
@@ -586,57 +755,52 @@ import { SearchTrigger } from '@/components/feature/search/search-trigger';
 - Linear（イシュー検索）
 - Raycast（アプリランチャー）
 
-### 7.2 パフォーマンス考慮
+### 7.4 パフォーマンス考慮
 
 **現在の記事数による試算:**
 ```
 記事数: 約100件（2022-2024年分）
-平均メタデータサイズ: ~500 bytes/記事
-総データサイズ: ~50KB
+検索インデックスサイズ: ~50KB（圧縮済み）
+検索速度: <50ms
 
-→ クライアント転送量: 問題なし
-→ フィルタリング速度: 瞬時（<10ms）
+→ パフォーマンス問題なし
 ```
 
 **1000記事になった場合:**
 ```
-総データサイズ: ~500KB
-フィルタリング速度: ~50-100ms
+検索インデックスサイズ: ~500KB
+検索速度: ~100ms
 
-→ この時点でPagefind移行を検討
+→ 依然として高速
 ```
 
-### 7.3 SEO考慮事項
+### 7.5 SEO考慮事項
 
-**クライアントサイド検索の場合:**
+**Pagefind検索の場合:**
 - 検索ダイアログはSEO対象外（問題なし）
 - 元の記事ページは変更なしのためSEO影響なし
 - 検索結果ページのインデックスは不要
 
-**代替手段（検索結果をSEO対象にする場合）:**
-- サーバーサイド検索ページ（`/search?q=...`）を別途用意
-- こちらはsearchParamsベースで実装
+### 7.6 アクセシビリティ要件
 
-### 7.4 アクセシビリティ要件
-
-shadcn/ui Commandは以下を標準サポート：
+**shadcn/ui Command標準サポート:**
 - ✅ キーボード操作（`Cmd+K`、矢印キー、Enter、Esc）
 - ✅ スクリーンリーダー対応（ARIA属性）
 - ✅ フォーカス管理（自動フォーカストラップ）
 - ✅ ダークモード対応
 
-追加で実装が必要：
-- 検索結果件数の読み上げ
-- 検索中のローディング状態
+**Pagefind標準サポート:**
+- ✅ 検索結果のハイライト
+- ✅ 抜粋（excerpt）の自動生成
+- ✅ 複数言語対応
 
-### 7.5 今後の拡張可能性
+### 7.7 今後の拡張可能性
 
-**Phase 4以降:**
-1. **全文検索** - 本文も検索対象に
-2. **ファセット検索** - タグ、日付範囲での絞り込み
+**Phase 6以降:**
+1. **フィルター機能** - タグ、日付範囲での絞り込み
+2. **ソート機能** - 関連度、日付、タイトル順
 3. **検索アナリティクス** - よく検索されるキーワードの分析
-4. **AI検索** - 意味検索（セマンティックサーチ）
-5. **Pagefind移行** - 記事数増加時のパフォーマンス対策
+4. **カスタムフィルター** - Pagefindのfilter機能使用
 
 ---
 
@@ -649,21 +813,28 @@ shadcn/ui Commandは以下を標準サポート：
 - shadcn/uiのcommand、dialogコンポーネントは未インストール
 
 ### 推奨実装
-- **shadcn/ui Command + クライアントサイドフィルタリング**
-- 理由: シンプル、高速、既存デザインシステムと統一、実装コストが低い
-- 将来的にPagefindへの移行パスも確保
+- **Pagefind（検索エンジン）+ shadcn/ui Command（UI）**
+- 理由: 検索ロジック不要、高機能、高速、既存デザインシステムと統一
+
+### Pagefindを選ぶ理由
+- ✅ **検索ロジックを自作する必要がない** - これが最大の理由
+- ✅ あいまい検索、ハイライト、日本語対応が標準装備
+- ✅ 参考プロジェクトで実績あり
+- ✅ スケーラブル（記事数増加に強い）
 
 ### 必要な作業
-1. `bunx shadcn@latest add command dialog` でコンポーネント追加
-2. SearchDialogコンポーネントの実装
-3. 検索ロジック（`src/lib/search.ts`）の実装
-4. ヘッダーへの統合
-5. ADRの作成（検索機能の設計決定を記録）
+1. `bun add -D pagefind` でPagefindインストール
+2. `bunx shadcn@latest add command dialog` でUIコンポーネント追加
+3. `postbuild`スクリプトの設定
+4. SearchDialogコンポーネントの実装（Pagefind動的import）
+5. ヘッダーへの統合
+6. ADRの作成（検索機能の設計決定を記録）
 
 ### 実装期間見積もり
-- Phase 1（基本UI）: 0.5日
-- Phase 2（検索ロジック）: 0.5日
-- Phase 3（UX改善）: 1日
-- **合計: 2日**
+- Phase 1（Pagefindセットアップ）: 0.5日
+- Phase 2（shadcn/ui追加）: 0.5日
+- Phase 3（統合）: 1日
+- Phase 4（ヘッダー統合）: 0.5日
+- **合計: 2.5日**
 
 このレポートは、今後の開発における要件定義として使用できます。
