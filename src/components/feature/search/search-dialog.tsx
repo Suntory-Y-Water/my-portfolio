@@ -1,21 +1,7 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import {
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command';
+import { useEffect } from 'react';
 import { SEARCH_CONSTANTS } from '@/constants';
-import type {
-  PagefindModule,
-  PagefindSearchResult,
-  PagefindSearchResultItem,
-} from '@/types/pagefind';
 
 /**
  * PagefindのURLを正しいNext.jsのルートに変換
@@ -36,8 +22,11 @@ function normalizePagefindUrl(pagefindUrl: string): string {
 /**
  * 検索ダイアログコンポーネント
  *
- * Pagefindを使用したブログ記事の検索機能を提供します。
+ * PagefindUIを使用したブログ記事の検索機能を提供します。
  * Cmd+K (Mac) / Ctrl+K (Windows) でダイアログを開くことができます。
+ *
+ * PagefindUIの公式コンポーネントを使用することで、
+ * 日本語検索とUI文字列の完全な日本語化を実現しています。
  *
  * @param open - ダイアログの開閉状態
  * @param onOpenChange - ダイアログの開閉状態を変更する関数
@@ -55,11 +44,6 @@ export function SearchDialog({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
-  const router = useRouter();
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState<PagefindSearchResult[]>([]);
-  const [isSearching, setIsSearching] = useState(false);
-
   /**
    * Cmd+K / Ctrl+K でダイアログを開く
    */
@@ -79,101 +63,132 @@ export function SearchDialog({
   }, [open, onOpenChange]);
 
   /**
-   * Pagefindで検索を実行
+   * PagefindUIの初期化
    *
-   * ビルド後に生成されるPagefindファイルを動的にimportして検索を実行します。
-   * 検索結果は最大MAX_RESULTS件まで表示します。
-   *
-   * @param value - 検索クエリ
+   * ダイアログが開いたときにPagefindUIを動的にロードして初期化します。
+   * translationsオプションで日本語UIを実現しています。
+   * processResultでURLを正規化して正しいNext.jsルートに変換します。
    */
-  const handleSearch = async (value: string) => {
-    setQuery(value);
+  useEffect(() => {
+    if (!open) return;
 
-    if (!value) {
-      setResults([]);
-      return;
+    // PagefindUIのCSS/JSが既にロードされているかチェック
+    const cssLoaded = !!document.querySelector('link[href*="pagefind-ui.css"]');
+    const jsLoaded = !!document.querySelector('script[src*="pagefind-ui.js"]');
+
+    // CSSをロード
+    if (!cssLoaded) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = '/pagefind/pagefind-ui.css';
+      document.head.appendChild(link);
     }
 
-    setIsSearching(true);
+    // JSをロードして初期化
+    const timer = setTimeout(() => {
+      const searchElement = document.querySelector('#search');
+      if (!searchElement) return;
 
-    try {
-      // ビルド後に生成されるファイルを動的に読み込む
-      // Pagefindはビルド後に生成されるため、開発時には存在しない
-      // 型チェックを回避するため、importパスを動的に構築
-      const pagefindPath = '/pagefind/pagefind.js';
-      const pagefind: PagefindModule = await import(
-        /* webpackIgnore: true */
-        pagefindPath
-      );
-      const search = await pagefind.search(value);
+      // 既存のコンテンツをクリア
+      searchElement.innerHTML = '';
 
-      // 検索結果のデータを取得（最大MAX_RESULTS件）
-      const data = await Promise.all(
-        search.results
-          .slice(0, SEARCH_CONSTANTS.MAX_RESULTS)
-          .map((r: PagefindSearchResultItem) => r.data()),
-      );
+      const initPagefindUI = () => {
+        const PagefindUIConstructor = (
+          window as { PagefindUI?: PagefindUIInterface }
+        ).PagefindUI;
+        if (!PagefindUIConstructor) return;
 
-      // PagefindのURLを正しいNext.jsのルートに変換
-      const normalizedData = data.map((result) => ({
-        ...result,
-        url: normalizePagefindUrl(result.url),
-      }));
+        new PagefindUIConstructor({
+          element: '#search',
+          bundlePath: '/pagefind/',
+          showSubResults: true,
+          translations: {
+            placeholder: '記事を検索...',
+            clear_search: 'クリア',
+            load_more: 'さらに読み込む',
+            search_label: '検索',
+            filters_label: 'フィルター',
+            zero_results:
+              '[SEARCH_TERM] に一致する記事は見つかりませんでした。',
+            many_results: '[SEARCH_TERM] の検索結果（[COUNT] 件）',
+            one_result: '[SEARCH_TERM] の検索結果（[COUNT] 件）',
+            alt_search: '[SEARCH_TERM] の検索結果',
+            search_suggestion:
+              '検索結果が見つかりませんでした。別のキーワードをお試しください。',
+            searching: '検索中...',
+          },
+          processResult: (result: {
+            url: string;
+            meta: { image?: string };
+          }) => {
+            result.url = normalizePagefindUrl(result.url);
+            if (result.meta.image) {
+              result.meta.image = result.meta.image.replaceAll('&amp;', '&');
+            }
+            return result;
+          },
+        });
 
-      setResults(normalizedData);
-    } catch (error) {
-      console.error('Search error:', error);
-      setResults([]);
-    } finally {
-      setIsSearching(false);
-    }
-  };
+        setTimeout(() => {
+          document
+            .querySelector<HTMLElement>('.pagefind-ui__search-input')
+            ?.focus();
+        }, 50);
+      };
+
+      if (jsLoaded) {
+        // 既にロード済み
+        initPagefindUI();
+      } else {
+        // JSをロード
+        const script = document.createElement('script');
+        script.src = '/pagefind/pagefind-ui.js';
+        script.onload = initPagefindUI;
+        document.head.appendChild(script);
+      }
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [open]);
 
   /**
-   * 検索結果を選択したときの処理
-   *
-   * @param url - 遷移先のURL
+   * リンククリック時にダイアログを閉じる
    */
-  const handleSelect = (url: string) => {
-    router.push(url);
-    onOpenChange(false);
-    setQuery('');
-    setResults([]);
-  };
+  useEffect(() => {
+    if (!open) return;
+
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'A') {
+        onOpenChange(false);
+      }
+    };
+
+    window.addEventListener('click', handleClick);
+    return () => window.removeEventListener('click', handleClick);
+  }, [open, onOpenChange]);
+
+  if (!open) return null;
 
   return (
-    <CommandDialog open={open} onOpenChange={onOpenChange}>
-      <CommandInput
-        placeholder='記事を検索...'
-        value={query}
-        onValueChange={handleSearch}
+    <>
+      {/* オーバーレイ */}
+      <button
+        type='button'
+        className='fixed inset-0 z-50 bg-black/80 backdrop-blur-sm'
+        onClick={() => onOpenChange(false)}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') {
+            onOpenChange(false);
+          }
+        }}
+        aria-label='検索ダイアログを閉じる'
       />
-      <CommandList>
-        <CommandEmpty>
-          {isSearching ? '検索中...' : '記事が見つかりませんでした'}
-        </CommandEmpty>
-        {results.length > 0 && (
-          <CommandGroup heading={`検索結果 (${results.length}件)`}>
-            {results.map((result) => (
-              <CommandItem
-                key={result.url}
-                value={result.url}
-                onSelect={() => handleSelect(result.url)}
-              >
-                <div className='flex flex-col gap-1'>
-                  <span className='font-medium'>{result.meta.title}</span>
-                  {result.excerpt && (
-                    <span
-                      className='text-sm text-muted-foreground'
-                      dangerouslySetInnerHTML={{ __html: result.excerpt }}
-                    />
-                  )}
-                </div>
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        )}
-      </CommandList>
-    </CommandDialog>
+
+      {/* ダイアログコンテンツ */}
+      <div className='fixed left-0 right-0 top-0 z-50 mx-auto mt-8 flex max-h-[90%] min-h-[15rem] max-w-2xl overflow-y-auto rounded-lg border border-border bg-background p-5 text-foreground shadow-lg md:mt-16 md:max-h-[80%]'>
+        <div id='search' className='w-full' />
+      </div>
+    </>
   );
 }
