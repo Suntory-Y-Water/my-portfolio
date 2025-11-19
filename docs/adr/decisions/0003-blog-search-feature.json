@@ -1,0 +1,190 @@
+{
+  "id": "ADR-0003",
+  "timestamp": "2025-11-19T00:00:00Z",
+  "title": "ブログ検索機能の実装",
+  "status": "accepted",
+  "context": {
+    "problem": "ブログ記事の件数が増加し、ユーザーが目的の記事を見つけにくくなっている。効率的な記事検索機能が必要。",
+    "constraints": [
+      "キーボードショートカット（Command+K）対応が必須",
+      "レスポンシブデザイン対応が必須",
+      "大量の記事に対応できるページネーション機能が必要",
+      "既存のUIコンポーネントライブラリ（shadcn/ui）との一貫性を保つ",
+      "TypeScriptの型安全性を維持",
+      "Next.js App Routerのサーバーコンポーネント・クライアントコンポーネントの適切な使い分け"
+    ],
+    "requirements": [
+      "キーボードショートカット（Command+K または Ctrl+K）でダイアログを開く",
+      "タイトル、説明文、タグ、本文からファジー検索",
+      "検索結果のページネーション（初期表示10件、「もっと見る」ボタンで追加読み込み）",
+      "モバイル・デスクトップ両対応のレスポンシブUI",
+      "検索結果から記事に直接遷移できる"
+    ]
+  },
+  "decision": {
+    "summary": "Fuse.jsを使用したクライアントサイド検索と、shadcn/uiのCommandダイアログを組み合わせた検索機能を実装",
+    "details": "検索機能は以下のコンポーネント構成で実装する：\n\n1. **BlogSearchDialog**: Fuse.jsでファジー検索を実行し、検索結果を表示するダイアログコンポーネント（クライアント）\n2. **SearchButton**: ヘッダーに配置する検索ボタンで、Command+Kショートカットにも対応（クライアント）\n3. **Header**: actionsプロップを追加して、SearchButtonを柔軟に統合できるよう拡張（クライアント）\n4. **RootLayout**: サーバーコンポーネントで全ブログ記事を取得し、SearchButtonにpropsとして渡す（サーバー）\n\n検索ロジックはFuse.jsを使用し、タイトル（weight: 2）、説明文（weight: 1.5）、タグ（weight: 1）、本文（weight: 0.5）を検索対象とする。検索スコアのしきい値は0.4に設定。\n\nページネーションは、初期表示10件、「もっと見る」ボタンで10件ずつ追加読み込み、最大100件まで表示する。これらの設定値は`SEARCH_CONSTANTS`として`src/constants/index.ts`に定義（ADR-0002に準拠）。",
+    "alternatives": [
+      {
+        "option": "サーバーサイド検索（APIルート）",
+        "pros": [
+          "クライアントに送信するデータ量を削減できる",
+          "検索ロジックをサーバー側に隠蔽できる"
+        ],
+        "cons": [
+          "検索のたびにサーバーリクエストが発生し、レスポンスが遅くなる",
+          "Next.js App Routerのキャッシュ戦略が複雑になる",
+          "実装とデバッグが複雑"
+        ],
+        "rejected": true,
+        "reason": "ブログ記事が100件程度であれば、全記事データをクライアントに送信してもパフォーマンス上の問題はない。クライアントサイド検索の方がユーザー体験が良く、実装もシンプル。"
+      },
+      {
+        "option": "検索インデックスの静的生成（JSON）",
+        "pros": [
+          "ビルド時に検索インデックスを生成できる",
+          "クライアントに送信するデータ量を最小化できる"
+        ],
+        "cons": [
+          "記事の更新のたびにインデックスを再生成する必要がある",
+          "実装が複雑",
+          "記事の全文検索ができない"
+        ],
+        "rejected": true,
+        "reason": "静的サイトなので記事更新時にビルドが必要なのは変わらない。全記事データを送信しても問題ないため、実装の複雑さを避けるため採用しない。"
+      },
+      {
+        "option": "無限スクロール",
+        "pros": [
+          "「もっと見る」ボタンのクリックが不要",
+          "ユーザー体験が滑らか"
+        ],
+        "cons": [
+          "実装が複雑",
+          "スクロール位置の管理が難しい",
+          "アクセシビリティの問題"
+        ],
+        "rejected": true,
+        "reason": "検索結果は通常それほど多くないため、「もっと見る」ボタンの方がシンプルで分かりやすい。アクセシビリティも良好。"
+      }
+    ],
+    "rationale": "クライアントサイド検索は実装がシンプルで、レスポンスが高速、ユーザー体験が良い。Fuse.jsはファジー検索に特化したライブラリで、タイプミスや部分一致にも対応できる。shadcn/uiのCommandダイアログは、既存のUIとの一貫性を保ちながら、キーボードショートカットにも対応できる。ページネーションは「もっと見る」ボタン方式を採用し、実装がシンプルでアクセシビリティも良好。",
+    "consequences": [
+      "全ブログ記事データがクライアントに送信されるため、記事が数千件に増えた場合はパフォーマンス問題が発生する可能性がある（現状100件程度なので問題なし）",
+      "検索ロジックがクライアントサイドで実行されるため、SEOには貢献しない",
+      "キーボードショートカットにより、パワーユーザーの検索効率が向上",
+      "レスポンシブデザインにより、モバイルユーザーも快適に検索できる",
+      "検索クエリに応じてリアルタイムで結果が更新されるため、ユーザー体験が向上",
+      "既存のHeaderコンポーネントにactionsプロップを追加したため、将来的に他のアクションボタンも追加しやすくなった"
+    ]
+  },
+  "implementation": {
+    "affected_files": [
+      "src/components/feature/search/blog-search-dialog.tsx",
+      "src/components/feature/search/search-button.tsx",
+      "src/components/ui/dialog.tsx",
+      "src/components/ui/command.tsx",
+      "src/components/shared/Header.tsx",
+      "src/app/layout.tsx",
+      "src/constants/index.ts",
+      "package.json"
+    ],
+    "affected_components": [
+      "検索機能",
+      "ヘッダー",
+      "レイアウト",
+      "定数管理"
+    ],
+    "code_patterns": [
+      "Fuse.jsを使用したファジー検索（keys配列でweightを設定）",
+      "shadcn/uiのDialogとCommandコンポーネント",
+      "useEffect + useState によるキーボードショートカット実装",
+      "useMemo による検索結果のメモ化",
+      "useCallback による関数のメモ化",
+      "クライアントコンポーネントとサーバーコンポーネントの適切な使い分け"
+    ],
+    "dependencies": [
+      {
+        "name": "fuse.js",
+        "version": "^7.1.0",
+        "purpose": "ファジー検索ライブラリ"
+      },
+      {
+        "name": "@radix-ui/react-dialog",
+        "version": "^1.1.15",
+        "purpose": "Dialogコンポーネントの基盤"
+      },
+      {
+        "name": "cmdk",
+        "version": "^1.1.1",
+        "purpose": "Commandコンポーネントの基盤"
+      }
+    ],
+    "examples": [
+      {
+        "file": "src/components/feature/search/blog-search-dialog.tsx",
+        "line_start": 62,
+        "line_end": 74,
+        "description": "Fuse.jsの検索インスタンス作成。keys配列でタイトル、説明文、タグ、本文の検索ウェイトを設定"
+      },
+      {
+        "file": "src/components/feature/search/search-button.tsx",
+        "line_start": 36,
+        "line_end": 46,
+        "description": "Command+K または Ctrl+K でダイアログを開くキーボードショートカット実装"
+      },
+      {
+        "file": "src/app/layout.tsx",
+        "line_start": 41,
+        "line_end": 42,
+        "description": "サーバーコンポーネントで全ブログ記事を取得し、SearchButtonにpropsとして渡す"
+      },
+      {
+        "file": "src/constants/index.ts",
+        "line_start": 66,
+        "line_end": 75,
+        "description": "検索機能の設定定数（初期表示件数、追加読み込み件数、最大表示件数、検索スコアしきい値）"
+      }
+    ]
+  },
+  "metadata": {
+    "tags": [
+      "search",
+      "ui",
+      "keyboard-shortcut",
+      "pagination",
+      "fuse.js",
+      "shadcn-ui",
+      "responsive-design"
+    ],
+    "related_adrs": [
+      "ADR-0002"
+    ],
+    "supersedes": null,
+    "superseded_by": null,
+    "author": "AIアシスタント",
+    "reviewers": []
+  },
+  "search_keywords": [
+    "検索",
+    "search",
+    "ブログ",
+    "blog",
+    "Command+K",
+    "キーボードショートカット",
+    "keyboard shortcut",
+    "Fuse.js",
+    "ファジー検索",
+    "fuzzy search",
+    "ページネーション",
+    "pagination",
+    "もっと見る",
+    "load more",
+    "レスポンシブ",
+    "responsive",
+    "Dialog",
+    "Command",
+    "shadcn/ui"
+  ],
+  "vector_embedding": null
+}

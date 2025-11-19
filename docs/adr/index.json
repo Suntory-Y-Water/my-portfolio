@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2025-11-17T00:00:00Z",
+  "last_updated": "2025-11-19T00:00:00Z",
   "adrs": [
     {
       "id": "ADR-0001",
@@ -66,6 +66,49 @@
         "GitHubリンクコンポーネント"
       ],
       "file_path": "docs/adr/decisions/0002-constants-centralization.json"
+    },
+    {
+      "id": "ADR-0003",
+      "title": "ブログ検索機能の実装",
+      "status": "accepted",
+      "timestamp": "2025-11-19T00:00:00Z",
+      "tags": [
+        "search",
+        "ui",
+        "keyboard-shortcut",
+        "pagination",
+        "fuse.js",
+        "shadcn-ui",
+        "responsive-design"
+      ],
+      "keywords": [
+        "検索",
+        "search",
+        "ブログ",
+        "blog",
+        "Command+K",
+        "キーボードショートカット",
+        "keyboard shortcut",
+        "Fuse.js",
+        "ファジー検索",
+        "fuzzy search",
+        "ページネーション",
+        "pagination",
+        "もっと見る",
+        "load more",
+        "レスポンシブ",
+        "responsive",
+        "Dialog",
+        "Command",
+        "shadcn/ui"
+      ],
+      "affected_components": [
+        "検索機能",
+        "ヘッダー",
+        "レイアウト",
+        "定数管理"
+      ],
+      "file_path": "docs/adr/decisions/0003-blog-search-feature.json"
     }
   ],
   "indices": {
@@ -99,6 +142,27 @@
       ],
       "type-safety": [
         "ADR-0002"
+      ],
+      "search": [
+        "ADR-0003"
+      ],
+      "ui": [
+        "ADR-0003"
+      ],
+      "keyboard-shortcut": [
+        "ADR-0003"
+      ],
+      "pagination": [
+        "ADR-0003"
+      ],
+      "fuse.js": [
+        "ADR-0003"
+      ],
+      "shadcn-ui": [
+        "ADR-0003"
+      ],
+      "responsive-design": [
+        "ADR-0003"
       ]
     },
     "by_component": {
@@ -106,7 +170,8 @@
         "ADR-0001"
       ],
       "定数管理": [
-        "ADR-0002"
+        "ADR-0002",
+        "ADR-0003"
       ],
       "サイト設定": [
         "ADR-0002"
@@ -122,12 +187,22 @@
       ],
       "GitHubリンクコンポーネント": [
         "ADR-0002"
+      ],
+      "検索機能": [
+        "ADR-0003"
+      ],
+      "ヘッダー": [
+        "ADR-0003"
+      ],
+      "レイアウト": [
+        "ADR-0003"
       ]
     },
     "by_status": {
       "accepted": [
         "ADR-0001",
-        "ADR-0002"
+        "ADR-0002",
+        "ADR-0003"
       ]
     }
   }

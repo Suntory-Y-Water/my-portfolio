@@ -36,6 +36,11 @@ const NAVIGATION_LINKS: MenuItemLinkProps[] = [
   },
 ];
 
+type HeaderProps = {
+  /** ヘッダー右側に追加する要素（検索ボタンなど） */
+  actions?: React.ReactNode;
+};
+
 /**
  * アプリケーション全体のヘッダーコンポーネント
  *
@@ -43,23 +48,26 @@ const NAVIGATION_LINKS: MenuItemLinkProps[] = [
  * テーマ切り替えボタン、モバイルメニューを含みます。
  * 現在のページに応じてナビゲーションリンクがアクティブ状態で表示されます。
  *
+ * @param actions - ヘッダー右側に追加する要素（検索ボタンなど）
  * @returns ヘッダーコンポーネント
  *
  * @example
  * ```tsx
  * import Header from '@/components/shared/Header';
+ * import { SearchButton } from '@/components/feature/search/search-button';
  *
  * export default function Layout({ children }) {
+ *   const posts = await getAllBlogPosts();
  *   return (
  *     <>
- *       <Header />
+ *       <Header actions={<SearchButton posts={posts} />} />
  *       <main>{children}</main>
  *     </>
  *   );
  * }
  * ```
  */
-export default function Header() {
+export default function Header({ actions }: HeaderProps = {}) {
   const pathname = usePathname();
 
   /**
@@ -126,8 +134,9 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Right side elements: Theme toggle and Mobile Menu */}
+        {/* Right side elements: Actions, Theme toggle and Mobile Menu */}
         <div className='flex items-center gap-2'>
+          {actions}
           <ModeToggle />
           {/* Pass updated links to mobile menu */}
           <div className='md:hidden'>

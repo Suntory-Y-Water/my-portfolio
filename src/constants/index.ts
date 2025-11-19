@@ -59,3 +59,17 @@ export const BLOG_CONSTANTS = {
   /** トップページに表示する記事数 */
   TOP_PAGE_POSTS_COUNT: 5,
 } as const;
+
+/**
+ * 検索機能の設定
+ */
+export const SEARCH_CONSTANTS = {
+  /** 検索結果の初期表示件数 */
+  INITIAL_RESULTS_COUNT: 10,
+  /** 「もっと見る」ボタンで追加読み込みする件数 */
+  LOAD_MORE_COUNT: 10,
+  /** 検索結果の最大表示件数 */
+  MAX_RESULTS_COUNT: 100,
+  /** Fuse.jsの検索スコアしきい値（0.0 = 完全一致、1.0 = すべてマッチ） */
+  SEARCH_THRESHOLD: 0.4,
+} as const;

@@ -5,9 +5,11 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 import type React from 'react';
 import { fontPlemolJP35Console } from '@/assets/fonts';
+import { SearchButton } from '@/components/feature/search/search-button';
 import Footer from '@/components/shared/Footer';
 import { ThemeProvider } from '@/components/ui/theme-provider';
 import { siteConfig } from '@/config/site';
+import { getAllBlogPosts } from '@/lib/markdown';
 import Header from '../components/shared/Header';
 
 export const metadata: Metadata = {
@@ -31,11 +33,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // ブログ記事を取得して検索機能に提供
+  const posts = await getAllBlogPosts();
+
   return (
     <html
       lang='ja'
@@ -70,7 +75,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
+          <Header actions={<SearchButton posts={posts} />} />
           <main className='mx-auto w-[calc(100%-32px)] max-w-screen-lg flex-1 py-4 md:w-[calc(100%-100px)] md:py-8'>
             {children}
           </main>
