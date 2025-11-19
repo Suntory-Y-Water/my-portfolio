@@ -2,6 +2,7 @@
 title: コンビニスイーツをランダムに表示するLINE BOTをつくる
 slug: create-line-bot-randomly-displays-convenience
 date: 2024-04-27
+modified_time: 2024-04-27
 description: CloudflareWorkersとHonoを使ってコンビニスイーツをランダムに表示するLINE BOTを作成。
 icon: 🍰
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Shortcake/Flat/shortcake_flat.svg

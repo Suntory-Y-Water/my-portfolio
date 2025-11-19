@@ -2,6 +2,7 @@
 title: 手を動かして理解するクリーンアーキテクチャ
 slug: learn-clean-architecture-through-hands-on-experience
 date: 2025-01-02
+modified_time: 2025-01-02
 description: クリーンアーキテクチャの概要をざっくり理解し、実際に手を動かして実装することで腹落ちを目指します。関心ごとの分離と依存関係の方向性について解説します。
 icon: 🎼
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Musical%20score/Flat/musical_score_flat.svg

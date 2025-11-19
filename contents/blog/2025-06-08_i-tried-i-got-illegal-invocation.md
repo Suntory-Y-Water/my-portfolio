@@ -2,6 +2,7 @@
 title: Cloudflare Workers環境で「Illegal invocation」エラーが起きたときに試したこと
 slug: i-tried-i-got-illegal-invocation
 date: 2025-06-08
+modified_time: 2025-06-08
 description: "Cloudflare Workers上でMCPサーバーを構築し、Notion APIを使用する際に遭遇した「TypeError: Illegal invocation」エラーの根本原因の特定から解決までの検証プロセスを詳しく解説します。"
 icon: 🗼
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Tokyo%20tower/Flat/tokyo_tower_flat.svg

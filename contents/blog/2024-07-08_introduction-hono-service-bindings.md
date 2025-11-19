@@ -2,6 +2,7 @@
 title: Hono Service bindings入門
 slug: introduction-hono-service-bindings
 date: 2024-07-08
+modified_time: 2024-07-08
 description: Cloudflare WorkersのService Bindings機能を使って、パブリックにアクセス可能なURLを経由せずに別のWorkersを呼び出す方法を解説します。Honoを使った複数Workersの連携実装例を紹介します。
 icon: 📡
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Satellite%20antenna/Flat/satellite_antenna_flat.svg

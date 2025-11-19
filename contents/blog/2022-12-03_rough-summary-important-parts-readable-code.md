@@ -2,6 +2,7 @@
 title: リーダブルコードの個人的重要部分をざっくりまとめてみた
 slug: rough-summary-important-parts-readable-code
 date: 2022-12-03
+modified_time: 2022-12-03
 description: リーダブルコードの重要な部分をざっくりまとめて、振り返れるようにした備忘録。
 icon: 📖
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Open%20book/Flat/open_book_flat.svg

@@ -2,6 +2,7 @@
 title: Dev Container環境でSerena MCPのブラウザ自動起動を無効化する
 slug: disable-automatic-browser-launch-serena-mcp
 date: 2025-09-27
+modified_time: 2025-09-27
 description: Dev Container環境でSerena MCPのブラウザ自動起動を無効化する方法を解説します。グローバル設定ファイルとdevcontainer.jsonの設定でダッシュボードの自動起動を制御します。
 icon: 🙆‍♀️
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Woman%20gesturing%20ok/Default/Flat/woman_gesturing_ok_flat_default.svg

@@ -11,6 +11,12 @@ if [ -n "$STAGED_BLOG_FILES" ]; then
   # 変更されたファイルを再度ステージング
   echo "$STAGED_BLOG_FILES" | xargs git add
 
+  echo "📅 modified_time を更新中..."
+  bun run scripts/update-modified-time.ts $STAGED_BLOG_FILES
+
+  # 変更されたファイルを再度ステージング
+  echo "$STAGED_BLOG_FILES" | xargs git add
+
   echo "🔍 タグ整合性をチェック中..."
   bun run check:tags || {
     echo "❌ タグチェックに失敗しました。未登録のタグを修正してからコミットしてください。"

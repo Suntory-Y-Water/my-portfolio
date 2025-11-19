@@ -2,6 +2,7 @@
 title: ReactとFlaskを連携させてみる part2
 slug: integrating-react-flask-part-2
 date: 2023-07-09
+modified_time: 2023-07-09
 description: React→Flask→Reactのデータフロー実装について。FlaskとReactの連携part2。
 icon: ⚛️
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Atom%20symbol/Flat/atom_symbol_flat.svg

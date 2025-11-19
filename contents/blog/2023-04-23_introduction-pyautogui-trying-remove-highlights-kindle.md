@@ -2,6 +2,7 @@
 title: 【Python】pyautogui入門 -Kindleのハイライトを削除してみる-
 slug: introduction-pyautogui-trying-remove-highlights-kindle
 date: 2023-04-23
+modified_time: 2023-04-23
 description: デスクトップのKindleアプリでハイライトと注記を自動削除するPyAutoGUIスクリプト。
 icon: 📱
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Mobile%20phone/Flat/mobile_phone_flat.svg

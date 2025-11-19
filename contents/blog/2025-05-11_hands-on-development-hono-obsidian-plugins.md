@@ -2,6 +2,7 @@
 title: Hono + Obsidianプラグインをハンズオン形式で開発してみる
 slug: hands-on-development-hono-obsidian-plugins
 date: 2025-05-11
+modified_time: 2025-05-11
 description: Honoを使用してObsidianプラグインを開発するための環境構築手順を解説します。pnpm workspacesを使ったモノレポ構成でCloudflare Workers上で動作するHonoとObsidianプラグインを管理します。
 icon: 💎
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Gem%20stone/Flat/gem_stone_flat.svg

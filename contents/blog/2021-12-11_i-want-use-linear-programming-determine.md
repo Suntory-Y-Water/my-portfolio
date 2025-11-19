@@ -2,6 +2,7 @@
 title: セブンイレブンで最適な食品を線形計画法を用いて決めたい
 slug: i-want-use-linear-programming-determine
 date: 2021-12-11
+modified_time: 2021-12-11
 description: 線形計画法を用いてセブンイレブンの食品から栄養バランスと価格を最適化した食事を選択。PuLPライブラリを使用してPFCバランスと価格を考慮した最適解を計算した実験記録。
 icon: 🧮
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Abacus/Flat/abacus_flat.svg

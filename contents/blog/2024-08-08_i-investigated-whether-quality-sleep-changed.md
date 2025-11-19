@@ -2,6 +2,7 @@
 title: ニート→社会人になって睡眠の質は変化したのか調べてみた
 slug: i-investigated-whether-quality-sleep-changed
 date: 2024-08-08
+modified_time: 2024-08-08
 description: ニートから社会人になって睡眠の質がどう変化したのか、iPhoneのヘルスケアアプリのデータを使って定量的に分析しました。睡眠に関するデータ解析の方法を紹介します。
 icon: 🛌
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Person%20in%20bed/Default/Flat/person_in_bed_flat_default.svg

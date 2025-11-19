@@ -2,6 +2,7 @@
 title: GitHub Actionsでビルドしたファイルをリリースノートに格納する
 slug: include-build-files-release-notes-github
 date: 2024-09-13
+modified_time: 2024-09-13
 description: GitHub Actionsでビルドしたファイルをリリースノートに格納する方法を解説します。非エンジニアの友人でも簡単に拡張機能をアップデートできる仕組みを実装します。
 icon: 📒
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ledger/Flat/ledger_flat.svg

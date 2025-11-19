@@ -2,6 +2,7 @@
 title: dependabotによる依存関係更新の集約設定
 slug: aggregating-dependency-updates-dependabot
 date: 2025-05-18
+modified_time: 2025-05-18
 description: dependabotによる依存関係更新を1つのPRにまとめる設定方法を解説します。グループ化設定を導入して、複数のPRを個別にマージする際の一時的なバージョン不整合を解消します。
 icon: 🤖
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Robot/Flat/robot_flat.svg

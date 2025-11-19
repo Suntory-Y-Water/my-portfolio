@@ -1,6 +1,7 @@
 ---
 title: Notionの画像(S3)をCloudflare R2に格納する
 date: 2025-03-25
+modified_time: 2025-03-25
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Framed%20picture/Flat/framed_picture_flat.svg
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Framed%20picture/Flat/framed_picture_flat.svg
 slug: notion-images-put-cloudflare
