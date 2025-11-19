@@ -1,5 +1,6 @@
 'use client';
 
+import type React from 'react';
 import { useEffect } from 'react';
 import { SEARCH_CONSTANTS } from '@/constants';
 
@@ -42,10 +43,14 @@ export function SearchDialog({
   onOpenChange,
 }: {
   open: boolean;
-  onOpenChange: (open: boolean) => void;
+  onOpenChange: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   /**
    * Cmd+K / Ctrl+K でダイアログを開く
+   *
+   * 外部システム（ブラウザのキーボードイベント）との同期のため、useEffectを使用。
+   * onOpenChangeに関数形式を使うことで、openを依存配列から除外し、
+   * openが変わるたびにイベントリスナーが再登録されるのを防ぐ。
    */
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -54,17 +59,18 @@ export function SearchDialog({
         (e.metaKey || e.ctrlKey)
       ) {
         e.preventDefault();
-        onOpenChange(!open);
+        onOpenChange((prev: boolean) => !prev);
       }
     };
 
     document.addEventListener('keydown', down);
     return () => document.removeEventListener('keydown', down);
-  }, [open, onOpenChange]);
+  }, [onOpenChange]);
 
   /**
    * PagefindUIの初期化
    *
+   * 外部システム（PagefindUIライブラリ）との同期のため、useEffectを使用。
    * ダイアログが開いたときにPagefindUIを動的にロードして初期化します。
    * translationsオプションで日本語UIを実現しています。
    * processResultでURLを正規化して正しいNext.jsルートに変換します。
@@ -153,6 +159,9 @@ export function SearchDialog({
 
   /**
    * リンククリック時にダイアログを閉じる
+   *
+   * 外部システム（DOMのクリックイベント）との同期のため、useEffectを使用。
+   * ダイアログが開いているときのみイベントリスナーを登録する。
    */
   useEffect(() => {
     if (!open) return;
