@@ -18,6 +18,22 @@ import type {
 } from '@/types/pagefind';
 
 /**
+ * PagefindのURLを正しいNext.jsのルートに変換
+ *
+ * Pagefindは`.next/server/app/xxx.html`のようなパスを返すため、
+ * これを実際のルート（例: `/blog/xxx`）に変換する必要があります。
+ *
+ * @param pagefindUrl - Pagefindが返すURL（例: `/server/app/blog/article-title.html`）
+ * @returns Next.jsの正しいルート（例: `/blog/article-title`）
+ */
+function normalizePagefindUrl(pagefindUrl: string): string {
+  // `/server/app/`を削除して、`.html`拡張子も削除
+  return pagefindUrl
+    .replace(/^\/server\/app\//, '/') // /server/app/ を削除
+    .replace(/\.html$/, ''); // .html を削除
+}
+
+/**
  * 検索ダイアログコンポーネント
  *
  * Pagefindを使用したブログ記事の検索機能を提供します。
@@ -83,8 +99,12 @@ export function SearchDialog({
     try {
       // ビルド後に生成されるファイルを動的に読み込む
       // Pagefindはビルド後に生成されるため、開発時には存在しない
-      // @ts-expect-error
-      const pagefind: PagefindModule = await import('/pagefind/pagefind.js');
+      // 型チェックを回避するため、importパスを動的に構築
+      const pagefindPath = '/pagefind/pagefind.js';
+      const pagefind: PagefindModule = await import(
+        /* webpackIgnore: true */
+        pagefindPath
+      );
       const search = await pagefind.search(value);
 
       // 検索結果のデータを取得（最大MAX_RESULTS件）
@@ -94,7 +114,13 @@ export function SearchDialog({
           .map((r: PagefindSearchResultItem) => r.data()),
       );
 
-      setResults(data);
+      // PagefindのURLを正しいNext.jsのルートに変換
+      const normalizedData = data.map((result) => ({
+        ...result,
+        url: normalizePagefindUrl(result.url),
+      }));
+
+      setResults(normalizedData);
     } catch (error) {
       console.error('Search error:', error);
       setResults([]);

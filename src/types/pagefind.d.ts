@@ -36,12 +36,3 @@ export type PagefindSearchResponse = {
 export type PagefindModule = {
   search: (query: string) => Promise<PagefindSearchResponse>;
 };
-
-/**
- * Pagefindの動的インポート用の型定義
- * ビルド後に生成されるファイルのため、開発時には存在しない
- */
-declare module '/pagefind/pagefind.js' {
-  const pagefind: PagefindModule;
-  export = pagefind;
-}
