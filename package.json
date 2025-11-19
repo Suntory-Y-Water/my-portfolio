@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "bun run --bun next dev",
     "build": "bun run --bun next build",
-    "postbuild": "pagefind --site .next",
+    "postbuild": "pagefind --site .next && cp -r .next/pagefind public/",
     "start": "next start",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
