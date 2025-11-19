@@ -71,6 +71,8 @@ export function BlogSearchDialog({
         includeScore: true,
         minMatchCharLength: 1,
         ignoreLocation: true,
+        distance: 1000,
+        useExtendedSearch: false,
       }),
     [posts],
   );
@@ -138,7 +140,7 @@ export function BlogSearchDialog({
         onValueChange={setSearchQuery}
         className='text-base'
       />
-      <CommandList className='pt-2'>
+      <CommandList className='py-2'>
         <CommandEmpty>
           {searchQuery
             ? '検索結果が見つかりませんでした。'
@@ -151,7 +153,7 @@ export function BlogSearchDialog({
                 key={post.slug}
                 value={post.slug}
                 onSelect={() => handleSelectPost(post.slug)}
-                className='flex flex-col items-start gap-2 px-3 py-3'
+                className='flex flex-col items-start gap-2 px-3 py-3 my-1'
               >
                 {/* タイトルとアイコン */}
                 <div className='flex w-full items-center gap-2'>
