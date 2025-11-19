@@ -59,3 +59,16 @@ export const BLOG_CONSTANTS = {
   /** トップページに表示する記事数 */
   TOP_PAGE_POSTS_COUNT: 5,
 } as const;
+
+/**
+ * 検索機能の設定
+ */
+export const SEARCH_CONSTANTS = {
+  /** 検索結果の最大表示数 */
+  MAX_RESULTS: 50,
+  /** キーボードショートカット */
+  KEYBOARD_SHORTCUT: {
+    key: 'k',
+    metaKey: true, // Cmd(Mac) / Ctrl(Windows)
+  },
+} as const;
