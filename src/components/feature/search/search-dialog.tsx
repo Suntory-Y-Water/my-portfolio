@@ -51,7 +51,13 @@ export function SearchDialog({
   onOpenChange: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [pagefindLoaded, setPagefindLoaded] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
+
+  // クライアントマウント完了フラグ
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   /**
    * Cmd+K / Ctrl+K でダイアログを開く
@@ -159,13 +165,6 @@ export function SearchDialog({
         });
 
         setPagefindLoaded(true);
-
-        // 検索入力フィールドに自動フォーカス
-        setTimeout(() => {
-          document
-            .querySelector<HTMLElement>('.pagefind-ui__search-input')
-            ?.focus();
-        }, 50);
       } catch (error) {
         // 開発環境ではPagefindがまだ生成されていない可能性がある
         console.warn('Pagefind not available:', error);
@@ -175,6 +174,24 @@ export function SearchDialog({
     if (open && !pagefindLoaded) {
       loadPagefind();
     }
+  }, [open, pagefindLoaded]);
+
+  /**
+   * ダイアログが開くたびに検索入力にフォーカス
+   *
+   * 外部システム(ブラウザのDOM API)との同期のため、useEffectを使用。
+   * PagefindUIが生成するDOMに対してフォーカスを当てる。
+   */
+  useEffect(() => {
+    if (!open || !pagefindLoaded) return;
+
+    const timer = setTimeout(() => {
+      document
+        .querySelector<HTMLElement>('.pagefind-ui__search-input')
+        ?.focus();
+    }, 50);
+
+    return () => clearTimeout(timer);
   }, [open, pagefindLoaded]);
 
   /**
@@ -197,11 +214,15 @@ export function SearchDialog({
     return () => window.removeEventListener('click', handleClick);
   }, [open, onOpenChange]);
 
-  if (!open) return null;
+  // サーバー側では document が無いため、マウント前は何も描画しない
+  if (!mounted) {
+    return null;
+  }
 
   // React Portalを使用してdocument.bodyに直接レンダリング
+  // ダイアログを閉じてもアンマウントせず、CSSで非表示にする（PagefindUIのDOMを保持するため）
   return createPortal(
-    <>
+    <div className={open ? '' : 'hidden'}>
       {/* オーバーレイ */}
       <button
         type='button'
@@ -215,7 +236,7 @@ export function SearchDialog({
       <div className='fixed left-0 right-0 top-0 z-50 mx-auto mt-8 flex max-h-[85vh] min-h-[20rem] max-w-4xl overflow-y-auto rounded-lg border border-border bg-background p-6 pb-8 text-foreground shadow-lg md:mt-16 md:max-h-[75vh]'>
         <div id='search' ref={searchContainerRef} className='w-full' />
       </div>
-    </>,
+    </div>,
     document.body,
   );
 }
