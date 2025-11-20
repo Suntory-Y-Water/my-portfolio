@@ -123,3 +123,84 @@
     @apply leading-relaxed text-foreground/90; /* Slightly relaxed leading [166] */
   }
 }
+
+/* PagefindUIのスタイルをテーマに合わせてカスタマイズ
+ * @layer を使用せず、グローバルスコープで定義してPagefindUIの動的要素に確実に適用
+ */
+
+/* ライトモード用のスタイル */
+.pagefind-ui__result {
+  background-color: hsl(0 0% 100%) !important;
+}
+
+.pagefind-ui__result-title,
+.pagefind-ui__result-link,
+.pagefind-ui__result-link:hover {
+  color: hsl(0 0% 5%) !important;
+}
+
+.pagefind-ui__result-excerpt,
+.pagefind-ui__result-inner p,
+.pagefind-ui__result-inner span {
+  color: hsl(0 0% 20%) !important;
+}
+
+.pagefind-ui__message,
+.pagefind-ui__results-area {
+  color: hsl(0 0% 20%) !important;
+}
+
+.pagefind-ui__button {
+  margin-bottom: 1rem !important;
+}
+
+/* クリアボタン - ライトモード */
+.pagefind-ui__search-clear {
+  color: hsl(0 0% 40%) !important;
+}
+
+.pagefind-ui__result-nested {
+  color: hsl(0 0% 20%) !important;
+}
+
+/* ハイライト（mark要素）の色 - ライトモード */
+mark {
+  background-color: hsl(60 100% 70%) !important;
+  color: hsl(0 0% 0%) !important;
+}
+
+/* ダークモード用のスタイル */
+.dark .pagefind-ui__result {
+  background-color: hsl(0 0% 15%) !important;
+}
+
+.dark .pagefind-ui__result-title,
+.dark .pagefind-ui__result-link,
+.dark .pagefind-ui__result-link:hover {
+  color: hsl(0 0% 95%) !important;
+}
+
+.dark .pagefind-ui__result-excerpt,
+.dark .pagefind-ui__result-inner p,
+.dark .pagefind-ui__result-inner span {
+  color: hsl(0 0% 80%) !important;
+}
+
+.dark .pagefind-ui__message,
+.dark .pagefind-ui__results-area {
+  color: hsl(0 0% 80%) !important;
+}
+
+.dark .pagefind-ui__button {
+  margin-bottom: 1rem !important;
+}
+
+.dark .pagefind-ui__result-nested {
+  color: hsl(0 0% 80%) !important;
+}
+
+/* ハイライト（mark要素）の色 - ダークモード */
+.dark mark {
+  background-color: hsl(45 100% 40%) !important;
+  color: hsl(0 0% 100%) !important;
+}

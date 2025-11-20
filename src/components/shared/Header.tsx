@@ -3,9 +3,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import type { ReactElement } from 'react';
+import { type ReactElement, useState } from 'react';
 import { IoMdHome } from 'react-icons/io';
 import { MdOutlineBook } from 'react-icons/md';
+import { SearchDialog } from '@/components/feature/search/search-dialog';
+import { SearchTrigger } from '@/components/feature/search/search-trigger';
 import { Icons } from '@/components/icons';
 import HamburgerMenu from '@/components/shared/MenuMobile';
 import { Button } from '@/components/ui/button';
@@ -61,6 +63,7 @@ const NAVIGATION_LINKS: MenuItemLinkProps[] = [
  */
 export default function Header() {
   const pathname = usePathname();
+  const [searchOpen, setSearchOpen] = useState(false);
 
   /**
    * 指定されたリンクが現在のページでアクティブかどうかを判定
@@ -126,8 +129,9 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Right side elements: Theme toggle and Mobile Menu */}
+        {/* Right side elements: Search, Theme toggle and Mobile Menu */}
         <div className='flex items-center gap-2'>
+          <SearchTrigger onClick={() => setSearchOpen(true)} />
           <ModeToggle />
           {/* Pass updated links to mobile menu */}
           <div className='md:hidden'>
@@ -135,6 +139,9 @@ export default function Header() {
           </div>
         </div>
       </div>
+
+      {/* Search Dialog */}
+      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </header>
   );
 }

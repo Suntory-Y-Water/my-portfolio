@@ -5,7 +5,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 
@@ -65,7 +64,6 @@ export default function HamburgerMenu({ params }: Props) {
             </DropdownMenuItem>
           </Link>
         ))}
-        <DropdownMenuSeparator />
       </DropdownMenuContent>
     </DropdownMenu>
   );

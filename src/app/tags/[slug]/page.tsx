@@ -70,7 +70,7 @@ export default async function TagPage({ params }: TagPageProps) {
   const posts = await getBlogPostsByTagSlug(slug);
 
   return (
-    <section>
+    <section data-pagefind-ignore>
       <PageHeader heading={`${tagName} タグの記事一覧`} />
       <div className='space-y-6'>
         {posts.map((blog) => (
