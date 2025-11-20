@@ -78,6 +78,18 @@ interface PagefindUIInterface {
   });
 }
 
-declare module '@pagefind/default-ui' {
+/**
+ * Pagefindのビルド後に生成されるファイルの型定義
+ * webpackIgnoreで参照されるため、絶対パスで定義
+ */
+declare module '/pagefind/*' {
   export const PagefindUI: PagefindUIInterface;
+}
+
+/**
+ * PagefindUIがグローバルに登録される際のWindow型拡張
+ */
+
+interface Window {
+  PagefindUI?: PagefindUIInterface;
 }
