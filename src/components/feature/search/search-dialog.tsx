@@ -1,7 +1,7 @@
 'use client';
 
 import type React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { SEARCH_CONSTANTS } from '@/constants';
@@ -28,8 +28,8 @@ function normalizePagefindUrl(pagefindUrl: string): string {
  * PagefindUIを使用したブログ記事の検索機能を提供します。
  * Cmd+K (Mac) / Ctrl+K (Windows) でダイアログを開くことができます。
  *
- * PagefindUIの公式コンポーネントを使用することで、
- * 日本語検索とUI文字列の完全な日本語化を実現しています。
+ * 公式の推奨アプローチに基づき、dynamic importとwebpackIgnoreを使用して実装しています。
+ * これにより、開発環境でのエラーハンドリングとビルド後の正しいパス解決を実現しています。
  *
  * @param open - ダイアログの開閉状態
  * @param onOpenChange - ダイアログの開閉状態を変更する関数
@@ -39,6 +39,9 @@ function normalizePagefindUrl(pagefindUrl: string): string {
  * const [open, setOpen] = useState(false);
  * <SearchDialog open={open} onOpenChange={setOpen} />
  * ```
+ *
+ * @see https://pagefind.app/docs/ui/
+ * @see https://www.petemillspaugh.com/using-pagefind-with-nextjs
  */
 export function SearchDialog({
   open,
@@ -47,6 +50,9 @@ export function SearchDialog({
   open: boolean;
   onOpenChange: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const [pagefindLoaded, setPagefindLoaded] = useState(false);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+
   /**
    * Cmd+K / Ctrl+K でダイアログを開く
    *
@@ -89,43 +95,39 @@ export function SearchDialog({
   }, [open, onOpenChange]);
 
   /**
-   * PagefindUIの初期化
+   * PagefindUIのロードと初期化
    *
-   * 外部システム(PagefindUIライブラリ)との同期のため、useEffectを使用。
-   * ダイアログが開いたときにPagefindUIを動的にロードして初期化します。
-   * translationsオプションで日本語UIを実現しています。
-   * processResultでURLを正規化して正しいNext.jsルートに変換します。
+   * 公式推奨のアプローチに基づき、CSSとJSを動的にロード。
+   * - CSSを<link>タグで読み込み
+   * - JSをdynamic importで読み込み（webpackIgnoreでパスを維持）
+   * - try-catchで開発環境のエラーハンドリング
+   * - translationsオプションで日本語UIを実現
+   * - processResultでURLを正規化
    */
   useEffect(() => {
-    if (!open) return;
+    async function loadPagefind() {
+      if (pagefindLoaded) return;
 
-    // PagefindUIのCSS/JSが既にロードされているかチェック
-    const cssLoaded = !!document.querySelector('link[href*="pagefind-ui.css"]');
-    const jsLoaded = !!document.querySelector('script[src*="pagefind-ui.js"]');
+      try {
+        // CSSを読み込み（既に読み込まれていない場合のみ）
+        if (!document.querySelector('link[href="/pagefind/pagefind-ui.css"]')) {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = '/pagefind/pagefind-ui.css';
+          document.head.appendChild(link);
+        }
 
-    // CSSをロード
-    if (!cssLoaded) {
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = '/pagefind/pagefind-ui.css';
-      document.head.appendChild(link);
-    }
+        // JSを動的にロード
+        await import(/* webpackIgnore: true */ '/pagefind/pagefind-ui.js');
 
-    // JSをロードして初期化
-    const timer = setTimeout(() => {
-      const searchElement = document.querySelector('#search');
-      if (!searchElement) return;
+        // PagefindUIはグローバルに登録されるため、windowオブジェクトから取得
+        if (!window.PagefindUI) {
+          console.warn('PagefindUI not found in window object');
+          return;
+        }
 
-      // 既存のコンテンツをクリア
-      searchElement.innerHTML = '';
-
-      const initPagefindUI = () => {
-        const PagefindUIConstructor = (
-          window as { PagefindUI?: PagefindUIInterface }
-        ).PagefindUI;
-        if (!PagefindUIConstructor) return;
-
-        new PagefindUIConstructor({
+        // PagefindUI インスタンスを生成
+        new window.PagefindUI({
           element: '#search',
           bundlePath: '/pagefind/',
           showSubResults: true,
@@ -156,27 +158,24 @@ export function SearchDialog({
           },
         });
 
+        setPagefindLoaded(true);
+
+        // 検索入力フィールドに自動フォーカス
         setTimeout(() => {
           document
             .querySelector<HTMLElement>('.pagefind-ui__search-input')
             ?.focus();
         }, 50);
-      };
-
-      if (jsLoaded) {
-        // 既にロード済み
-        initPagefindUI();
-      } else {
-        // JSをロード
-        const script = document.createElement('script');
-        script.src = '/pagefind/pagefind-ui.js';
-        script.onload = initPagefindUI;
-        document.head.appendChild(script);
+      } catch (error) {
+        // 開発環境ではPagefindがまだ生成されていない可能性がある
+        console.warn('Pagefind not available:', error);
       }
-    }, 100);
+    }
 
-    return () => clearTimeout(timer);
-  }, [open]);
+    if (open && !pagefindLoaded) {
+      loadPagefind();
+    }
+  }, [open, pagefindLoaded]);
 
   /**
    * リンククリック時にダイアログを閉じる
@@ -214,7 +213,7 @@ export function SearchDialog({
 
       {/* ダイアログコンテンツ */}
       <div className='fixed left-0 right-0 top-0 z-50 mx-auto mt-8 flex max-h-[85vh] min-h-[20rem] max-w-4xl overflow-y-auto rounded-lg border border-border bg-background p-6 pb-8 text-foreground shadow-lg md:mt-16 md:max-h-[75vh]'>
-        <div id='search' className='w-full' />
+        <div id='search' ref={searchContainerRef} className='w-full' />
       </div>
     </>,
     document.body,
