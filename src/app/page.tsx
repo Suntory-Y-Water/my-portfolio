@@ -43,7 +43,8 @@ export default function Home() {
     },
   ];
   return (
-    <div>
+    // Pagefindによる全文検索から除外
+    <div data-pagefind-ignore>
       <h1 className='pb-6 text-4xl font-semibold tracking-wide md:text-[40px]'>
         私について
       </h1>

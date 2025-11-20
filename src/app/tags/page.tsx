@@ -41,7 +41,7 @@ export default async function TagsPage() {
   const sortedTags = tags.sort((a, b) => a.localeCompare(b, 'ja'));
 
   return (
-    <section className='container mx-auto px-4 py-8'>
+    <section className='container mx-auto px-4 py-8' data-pagefind-ignore>
       <PageHeader heading={PAGE_TITLE} text={PAGE_DESCRIPTION} />
 
       {sortedTags.length > 0 ? (

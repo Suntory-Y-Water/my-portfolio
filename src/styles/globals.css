@@ -40,13 +40,6 @@
     --chart-4: 358 100% 86%; /* #fecaca */
     --chart-5: 41 94% 75%; /* #fcd34d */
 
-    /* PagefindUI用のカスタムプロパティ */
-    --pagefind-ui-primary: hsl(214 100% 27%); /* inori-track blue */
-    --pagefind-ui-text: hsl(0 0% 20%); /* #333333 */
-    --pagefind-ui-background: hsl(0 0% 100%); /* #ffffff */
-    --pagefind-ui-border: hsl(0 0% 86%); /* #dbdbdb */
-    --pagefind-ui-tag: hsl(220 14% 96%); /* #f3f4f8 */
-
     font-family: "noto-sans", sans-serif;
   }
 
@@ -86,13 +79,6 @@
     --chart-3: 266 100% 87%; /* #d8b4fe */
     --chart-4: 358 100% 86%; /* #fecaca */
     --chart-5: 41 94% 75%; /* #fcd34d */
-
-    /* PagefindUI用のカスタムプロパティ（ダークモード） */
-    --pagefind-ui-primary: hsl(199 100% 78%); /* #8ED0FF */
-    --pagefind-ui-text: hsl(0 0% 95%); /* #f2f2f2 */
-    --pagefind-ui-background: hsl(0 0% 15%); /* #262626 */
-    --pagefind-ui-border: hsl(0 0% 28%); /* #474747 */
-    --pagefind-ui-tag: hsl(0 0% 20%); /* #333333 */
   }
 
   p,
@@ -136,4 +122,85 @@
   li {
     @apply leading-relaxed text-foreground/90; /* Slightly relaxed leading [166] */
   }
+}
+
+/* PagefindUIのスタイルをテーマに合わせてカスタマイズ
+ * @layer を使用せず、グローバルスコープで定義してPagefindUIの動的要素に確実に適用
+ */
+
+/* ライトモード用のスタイル */
+.pagefind-ui__result {
+  background-color: hsl(0 0% 100%) !important;
+}
+
+.pagefind-ui__result-title,
+.pagefind-ui__result-link,
+.pagefind-ui__result-link:hover {
+  color: hsl(0 0% 5%) !important;
+}
+
+.pagefind-ui__result-excerpt,
+.pagefind-ui__result-inner p,
+.pagefind-ui__result-inner span {
+  color: hsl(0 0% 20%) !important;
+}
+
+.pagefind-ui__message,
+.pagefind-ui__results-area {
+  color: hsl(0 0% 20%) !important;
+}
+
+.pagefind-ui__button {
+  margin-bottom: 1rem !important;
+}
+
+/* クリアボタン - ライトモード */
+.pagefind-ui__search-clear {
+  color: hsl(0 0% 40%) !important;
+}
+
+.pagefind-ui__result-nested {
+  color: hsl(0 0% 20%) !important;
+}
+
+/* ハイライト（mark要素）の色 - ライトモード */
+mark {
+  background-color: hsl(60 100% 70%) !important;
+  color: hsl(0 0% 0%) !important;
+}
+
+/* ダークモード用のスタイル */
+.dark .pagefind-ui__result {
+  background-color: hsl(0 0% 15%) !important;
+}
+
+.dark .pagefind-ui__result-title,
+.dark .pagefind-ui__result-link,
+.dark .pagefind-ui__result-link:hover {
+  color: hsl(0 0% 95%) !important;
+}
+
+.dark .pagefind-ui__result-excerpt,
+.dark .pagefind-ui__result-inner p,
+.dark .pagefind-ui__result-inner span {
+  color: hsl(0 0% 80%) !important;
+}
+
+.dark .pagefind-ui__message,
+.dark .pagefind-ui__results-area {
+  color: hsl(0 0% 80%) !important;
+}
+
+.dark .pagefind-ui__button {
+  margin-bottom: 1rem !important;
+}
+
+.dark .pagefind-ui__result-nested {
+  color: hsl(0 0% 80%) !important;
+}
+
+/* ハイライト（mark要素）の色 - ダークモード */
+.dark mark {
+  background-color: hsl(45 100% 40%) !important;
+  color: hsl(0 0% 100%) !important;
 }

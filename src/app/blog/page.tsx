@@ -15,7 +15,7 @@ export default async function TopPage() {
   });
 
   return (
-    <section>
+    <section data-pagefind-ignore>
       <div className='space-y-6'>
         {paginatedPosts.map((blog, index) => (
           <BlogCard key={blog.slug} data={blog} isFirst={index === 0} />

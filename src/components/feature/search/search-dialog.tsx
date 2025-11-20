@@ -2,6 +2,8 @@
 
 import type React from 'react';
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+
 import { SEARCH_CONSTANTS } from '@/constants';
 
 /**
@@ -48,7 +50,7 @@ export function SearchDialog({
   /**
    * Cmd+K / Ctrl+K でダイアログを開く
    *
-   * 外部システム（ブラウザのキーボードイベント）との同期のため、useEffectを使用。
+   * 外部システム(ブラウザのキーボードイベント)との同期のため、useEffectを使用。
    * onOpenChangeに関数形式を使うことで、openを依存配列から除外し、
    * openが変わるたびにイベントリスナーが再登録されるのを防ぐ。
    */
@@ -68,9 +70,28 @@ export function SearchDialog({
   }, [onOpenChange]);
 
   /**
+   * Escapeキーでダイアログを閉じる
+   *
+   * ダイアログが開いているときのみEscapeキーのハンドラーを登録する。
+   */
+  useEffect(() => {
+    if (!open) return;
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        onOpenChange(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [open, onOpenChange]);
+
+  /**
    * PagefindUIの初期化
    *
-   * 外部システム（PagefindUIライブラリ）との同期のため、useEffectを使用。
+   * 外部システム(PagefindUIライブラリ)との同期のため、useEffectを使用。
    * ダイアログが開いたときにPagefindUIを動的にロードして初期化します。
    * translationsオプションで日本語UIを実現しています。
    * processResultでURLを正規化して正しいNext.jsルートに変換します。
@@ -116,8 +137,8 @@ export function SearchDialog({
             filters_label: 'フィルター',
             zero_results:
               '[SEARCH_TERM] に一致する記事は見つかりませんでした。',
-            many_results: '[SEARCH_TERM] の検索結果（[COUNT] 件）',
-            one_result: '[SEARCH_TERM] の検索結果（[COUNT] 件）',
+            many_results: '[SEARCH_TERM] の検索結果([COUNT] 件)',
+            one_result: '[SEARCH_TERM] の検索結果([COUNT] 件)',
             alt_search: '[SEARCH_TERM] の検索結果',
             search_suggestion:
               '検索結果が見つかりませんでした。別のキーワードをお試しください。',
@@ -160,7 +181,7 @@ export function SearchDialog({
   /**
    * リンククリック時にダイアログを閉じる
    *
-   * 外部システム（DOMのクリックイベント）との同期のため、useEffectを使用。
+   * 外部システム(DOMのクリックイベント)との同期のため、useEffectを使用。
    * ダイアログが開いているときのみイベントリスナーを登録する。
    */
   useEffect(() => {
@@ -179,25 +200,23 @@ export function SearchDialog({
 
   if (!open) return null;
 
-  return (
+  // React Portalを使用してdocument.bodyに直接レンダリング
+  return createPortal(
     <>
       {/* オーバーレイ */}
       <button
         type='button'
-        className='fixed inset-0 z-50 bg-black/80 backdrop-blur-sm'
+        className='fixed inset-0 z-40 bg-black/80 backdrop-blur-sm'
         onClick={() => onOpenChange(false)}
-        onKeyDown={(e) => {
-          if (e.key === 'Escape') {
-            onOpenChange(false);
-          }
-        }}
         aria-label='検索ダイアログを閉じる'
+        tabIndex={-1}
       />
 
       {/* ダイアログコンテンツ */}
-      <div className='fixed left-0 right-0 top-0 z-50 mx-auto mt-8 flex max-h-[90%] min-h-[15rem] max-w-2xl overflow-y-auto rounded-lg border border-border bg-background p-5 text-foreground shadow-lg md:mt-16 md:max-h-[80%]'>
+      <div className='fixed left-0 right-0 top-0 z-50 mx-auto mt-8 flex max-h-[85vh] min-h-[20rem] max-w-4xl overflow-y-auto rounded-lg border border-border bg-background p-6 pb-8 text-foreground shadow-lg md:mt-16 md:max-h-[75vh]'>
         <div id='search' className='w-full' />
       </div>
-    </>
+    </>,
+    document.body,
   );
 }
