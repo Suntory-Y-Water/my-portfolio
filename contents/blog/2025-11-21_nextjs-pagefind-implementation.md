@@ -1,7 +1,7 @@
 ---
 title: Next.js App RouterとPagefindで爆速のサイト内検索を実装する
 slug: nextjs-pagefind-implementation
-date: 2025-11-22
+date: 2025-11-21
 modified_time: 2025-11-21
 icon: 🔦
 icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Flashlight/Flat/flashlight_flat.svg
