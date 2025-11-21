@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "bun run --bun next dev",
     "build": "bun run --bun next build",
-    "postbuild": "npx pagefind --site .next --output-path public/pagefind",
+    "postbuild": "pagefind --site .next --output-path public/pagefind",
     "start": "next start",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
