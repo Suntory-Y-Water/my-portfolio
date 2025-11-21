@@ -70,6 +70,7 @@ export const TAG_SLUG_MAP: Record<string, string> = {
   OpenCV: 'opencv',
   'OpenNext.js': 'opennextjs',
   pandas: 'pandas',
+  Pagefind: 'pagefind',
   Playwright: 'playwright',
   PokeAPI: 'pokeapi',
   Postman: 'postman',
