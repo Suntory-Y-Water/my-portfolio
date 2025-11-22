@@ -6,7 +6,8 @@ STAGED_BLOG_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep 'con
 
 if [ -n "$STAGED_BLOG_FILES" ]; then
   echo "🔄 ブログアイコンを変換中..."
-  bun run scripts/update-blog-icon.ts $STAGED_BLOG_FILES
+  # Bunが長大な引数列で不安定になるのを避けるため、10件ずつ処理
+  echo "$STAGED_BLOG_FILES" | xargs -n 10 bun run scripts/update-blog-icon.ts
 
   # 変更されたファイルを再度ステージング
   echo "$STAGED_BLOG_FILES" | xargs git add
