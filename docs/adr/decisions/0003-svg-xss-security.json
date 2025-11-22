@@ -1,0 +1,131 @@
+{
+  "id": "ADR-0003",
+  "title": "SVGとMarkdownにおけるXSS脆弱性の対策",
+  "status": "accepted",
+  "timestamp": "2025-11-22T00:00:00Z",
+  "context": {
+    "problem": "ブログ記事でSVGアイコンを動的に表示するために dangerouslySetInnerHTML を使用していたが、サニタイゼーション処理がなくXSS攻撃のリスクがあった。また、Markdownパーサーで allowDangerousHtml: true が設定されており、生HTMLが実行される可能性があった。",
+    "constraints": [
+      "SVG動的生成機能を維持する必要がある（画像のチラつき防止）",
+      "ビルド時のキャッシュ機構を維持する必要がある",
+      "既存のマークダウンファイルとの互換性を保つ必要がある",
+      "パフォーマンスへの影響を最小限に抑える"
+    ],
+    "forces": [
+      "セキュリティ: XSS攻撃を防ぐ必要がある",
+      "UX: SVG動的生成によるチラつき防止を維持",
+      "パフォーマンス: ビルド時処理で実行時オーバーヘッドを最小化",
+      "保守性: 業界標準のライブラリを使用"
+    ]
+  },
+  "decision": {
+    "summary": "isomorphic-dompurify を使用してSVGをサニタイズし、Markdownパーサーの allowDangerousHtml を無効化する",
+    "rationale": [
+      "DOMPurifyは業界標準のサニタイザーで包括的なXSS防御が可能",
+      "ビルド時にサニタイズすることで実行時オーバーヘッドがゼロ",
+      "SVG動的生成とチラつき防止の機能を完全に維持できる",
+      "既存のマークダウンファイルでHTMLタグが使用されていないため、allowDangerousHtml無効化の影響なし"
+    ],
+    "alternatives_considered": [
+      {
+        "option": "SVGスプライト + <use> 要素",
+        "pros": ["完全に安全", "パフォーマンス最適化", "パッケージ追加不要"],
+        "cons": ["ビルドスクリプト追加が必要", "動的にアイコン追加する場合は再ビルド必要"],
+        "reason_rejected": "現在の動的生成の仕組みを大きく変更する必要があるため"
+      },
+      {
+        "option": "CSP (Content Security Policy) のみ",
+        "pros": ["多層防御", "アプリ全体のセキュリティ向上"],
+        "cons": ["根本対策ではない", "設定ミスで機能が壊れるリスク"],
+        "reason_rejected": "補助的な対策であり、サニタイゼーションの代替にはならない"
+      },
+      {
+        "option": "手動サニタイゼーション",
+        "pros": ["軽量", "カスタマイズ可能"],
+        "cons": ["抜け漏れリスク", "メンテナンスコスト"],
+        "reason_rejected": "セキュリティの抜け漏れリスクが高く、業界標準のライブラリの方が信頼性が高い"
+      }
+    ]
+  },
+  "implementation": {
+    "changes": [
+      {
+        "file": "src/lib/inline-icons.ts",
+        "description": "DOMPurifyを使ったSVGサニタイズ関数を追加し、loadIcons関数内でサニタイズを適用",
+        "details": [
+          "sanitizeSVG関数を追加: SVGプロファイルを使用し、危険なタグ（script, iframe等）と属性（onerror, onload等）を除去",
+          "loadIcons関数でSVG読み込み時にサニタイズを実行",
+          "ビルド時に一度だけ処理されるため実行時オーバーヘッドなし"
+        ]
+      },
+      {
+        "file": "src/components/feature/content/custom-markdown.tsx",
+        "description": "remarkRehype と rehypeStringify の allowDangerousHtml オプションを削除（false化）",
+        "details": [
+          "Markdown内の生HTMLタグがサニタイズされるようになる",
+          "既存コンテンツへの影響なし（HTMLタグ未使用を確認済み）"
+        ]
+      },
+      {
+        "file": "package.json",
+        "description": "isomorphic-dompurify パッケージを追加",
+        "version": "^2.16.0"
+      }
+    ],
+    "affected_components": [
+      "src/lib/inline-icons.ts",
+      "src/components/feature/content/custom-markdown.tsx",
+      "src/app/blog/[slug]/page.tsx (dangerouslySetInnerHTML使用箇所)",
+      "src/components/feature/content/blog-card.tsx (dangerouslySetInnerHTML使用箇所)"
+    ],
+    "testing": [
+      "ビルドが成功することを確認",
+      "型チェックが通ることを確認",
+      "既存のブログ記事が正常に表示されることを確認",
+      "SVGアイコンが正常に表示されることを確認"
+    ]
+  },
+  "consequences": {
+    "positive": [
+      "XSS攻撃のリスクを大幅に軽減",
+      "業界標準のライブラリによる包括的な防御",
+      "既存機能（SVG動的生成、チラつき防止）を完全に維持",
+      "ビルド時処理のため実行時パフォーマンス影響なし"
+    ],
+    "negative": [
+      "パッケージサイズが約45KB（gzipped）増加",
+      "悪意のあるSVGファイルが配置された場合、ビルド時に検出されない（サニタイズされて安全になるのみ）"
+    ],
+    "neutral": [
+      "既存のマークダウンでHTMLタグを使いたい場合は別の方法を検討する必要がある"
+    ]
+  },
+  "related_adrs": [],
+  "tags": [
+    "security",
+    "xss",
+    "svg",
+    "markdown",
+    "sanitization",
+    "dompurify"
+  ],
+  "keywords": [
+    "XSS",
+    "クロスサイトスクリプティング",
+    "SVG",
+    "サニタイゼーション",
+    "DOMPurify",
+    "dangerouslySetInnerHTML",
+    "allowDangerousHtml",
+    "セキュリティ",
+    "脆弱性対策",
+    "Markdown",
+    "rehype",
+    "remark"
+  ],
+  "notes": [
+    "既存のマークダウンファイルでHTMLタグが使用されていないことを grep で確認済み",
+    "SVGサニタイズはビルド時に実行されるため、ランタイムパフォーマンスへの影響はゼロ",
+    "DOMPurifyの設定は必要に応じて調整可能（ADD_TAGS, FORBID_TAGSなど）"
+  ]
+}
