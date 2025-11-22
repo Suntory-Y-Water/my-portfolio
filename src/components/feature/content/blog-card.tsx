@@ -2,11 +2,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
+import { getInlineIcon } from '@/lib/inline-icons';
 import type { BlogPost } from '@/lib/markdown';
 import { cn, formatDate } from '@/lib/utils';
 
 type BlogCardProps = {
   data: BlogPost;
+  priority?: boolean;
 };
 
 /**
@@ -45,7 +47,7 @@ type BlogCardProps = {
  * }
  * ```
  */
-export function BlogCard({ data }: BlogCardProps) {
+export function BlogCard({ data, priority }: BlogCardProps) {
   const { metadata, slug } = data;
   const dateISO = new Date(metadata.date).toISOString();
   const formattedDate = formatDate(metadata.date).replace(/\//g, '.');
@@ -54,6 +56,7 @@ export function BlogCard({ data }: BlogCardProps) {
   const displayUrl =
     metadata.icon_url ||
     (metadata.icon?.startsWith('https://') ? metadata.icon : null);
+  const inlineSvg = displayUrl ? getInlineIcon(displayUrl) : undefined;
 
   return (
     <Link
@@ -67,12 +70,21 @@ export function BlogCard({ data }: BlogCardProps) {
       <div className='relative aspect-video w-full bg-muted overflow-hidden'>
         <div className='absolute inset-0 bg-gradient-to-br from-secondary to-background' />
         <div className='absolute inset-0 flex items-center justify-center transition-transform duration-500 group-hover:scale-110'>
-          {displayUrl ? (
+          {inlineSvg ? (
+            <span
+              className='h-16 w-16 [&>svg]:h-full [&>svg]:w-full [&>svg]:object-contain [&>svg]:drop-shadow-md'
+              aria-hidden
+              dangerouslySetInnerHTML={{ __html: inlineSvg }}
+            />
+          ) : displayUrl ? (
             <Image
               src={displayUrl}
               alt={metadata.title}
               width={64}
               height={64}
+              loading={priority ? 'eager' : 'lazy'}
+              fetchPriority={priority ? 'high' : 'auto'}
+              unoptimized
               className='h-16 w-16 object-contain drop-shadow-md'
             />
           ) : (

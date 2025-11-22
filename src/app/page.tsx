@@ -65,8 +65,8 @@ export default async function Home() {
         </div>
 
         <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
-          {paginatedPosts.map((blog) => (
-            <BlogCard key={blog.slug} data={blog} />
+          {paginatedPosts.map((blog, index) => (
+            <BlogCard key={blog.slug} data={blog} priority={index < 6} />
           ))}
         </div>
 
