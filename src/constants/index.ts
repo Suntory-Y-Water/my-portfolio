@@ -14,7 +14,7 @@ const url = process.env.NEXT_PUBLIC_APP_URL || 'https://suntory-n-water.com';
  */
 export const SITE_CONSTANTS = {
   /** サイト名 */
-  NAME: 'sui-tech-blog',
+  NAME: 'sui Tech Blog',
   /** サイトの説明 */
   DESCRIPTION:
     'スイのテックブログです。トップで最新記事ダイジェストを載せつつ、自己紹介やこれまでの投稿リンク、Web開発の学習記録をまとめています。',

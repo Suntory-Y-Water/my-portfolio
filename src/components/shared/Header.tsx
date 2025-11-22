@@ -109,7 +109,7 @@ export default function Header() {
             className='rounded-full'
           />
           <span className='font-bold tracking-tight text-base transition-colors group-hover:text-primary'>
-            sui-tech-blog
+            sui Tech Blog
           </span>
         </Link>
 
