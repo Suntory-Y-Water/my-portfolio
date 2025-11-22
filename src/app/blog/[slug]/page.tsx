@@ -3,13 +3,14 @@ import '@/styles/markdown.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { BlogBackButton } from '@/components/feature/content/blog-back-button';
 import { CustomMarkdown } from '@/components/feature/content/custom-markdown';
 import { GitHubEditButton } from '@/components/feature/content/github-edit-button';
 import { MarkdownCopyButton } from '@/components/feature/content/markdown-copy-button';
 import { TableOfContents } from '@/components/feature/content/table-of-contents';
+import { BlogViewTransition } from '@/components/feature/content/view-transition';
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
 import { getTagSlug } from '@/config/tag-slugs';
 import { getInlineIcon } from '@/lib/inline-icons';
@@ -131,57 +132,69 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       />
 
       <article className='min-h-[500px]'>
+        <div className='mb-6 flex items-center justify-between'>
+          <BlogBackButton className='h-9 px-2' />
+        </div>
+
         {/* Icon */}
         {(displayUrl || post.metadata.icon) && (
           <div className='mb-6 flex justify-center'>
-            {inlineSvg ? (
-              <span
-                className='h-20 w-20 [&>svg]:h-full [&>svg]:w-full [&>svg]:object-contain'
-                aria-hidden
-                dangerouslySetInnerHTML={{ __html: inlineSvg }}
-              />
-            ) : displayUrl ? (
-              <Image
-                src={displayUrl}
-                alt={`Icon for ${post.metadata.title}`}
-                width={80}
-                height={80}
-                priority
-                unoptimized
-              />
-            ) : (
-              <div className='text-6xl'>{post.metadata.icon}</div>
-            )}
+            <BlogViewTransition name={`blog-icon-${post.slug}`}>
+              {inlineSvg ? (
+                <span
+                  className='h-20 w-20 [&>svg]:h-full [&>svg]:w-full [&>svg]:object-contain'
+                  aria-hidden
+                  dangerouslySetInnerHTML={{ __html: inlineSvg }}
+                />
+              ) : displayUrl ? (
+                <Image
+                  src={displayUrl}
+                  alt={`Icon for ${post.metadata.title}`}
+                  width={80}
+                  height={80}
+                  priority
+                  unoptimized
+                />
+              ) : (
+                <div className='text-6xl'>{post.metadata.icon}</div>
+              )}
+            </BlogViewTransition>
           </div>
         )}
 
         {/* Metadata (Date & Tags) */}
         <div className='mb-6 flex flex-wrap items-center justify-between text-sm text-muted-foreground'>
           {post.metadata.date && (
-            <div className='inline-flex items-center gap-1'>
-              <Icons.calendar className='size-4' />
-              <time dateTime={new Date(post.metadata.date).toISOString()}>
-                {formatDate(post.metadata.date)}
-              </time>
-            </div>
+            <BlogViewTransition name={`blog-date-${post.slug}`}>
+              <div className='inline-flex items-center gap-1'>
+                <Icons.calendar className='size-4' />
+                <time dateTime={new Date(post.metadata.date).toISOString()}>
+                  {formatDate(post.metadata.date)}
+                </time>
+              </div>
+            </BlogViewTransition>
           )}
 
           {post.metadata.tags && post.metadata.tags.length > 0 && (
-            <div className='inline-flex flex-wrap gap-2'>
-              {post.metadata.tags.map((tag) => (
-                <Link key={tag} href={`/tags/${getTagSlug(tag)}`}>
-                  <Badge className='px-2 py-0.5 text-xs'>{tag}</Badge>
-                </Link>
-              ))}
-            </div>
+            <BlogViewTransition name={`blog-tags-${post.slug}`}>
+              <div className='inline-flex flex-wrap gap-2'>
+                {post.metadata.tags.map((tag) => (
+                  <Link key={tag} href={`/tags/${getTagSlug(tag)}`}>
+                    <Badge className='px-2 py-0.5 text-xs'>{tag}</Badge>
+                  </Link>
+                ))}
+              </div>
+            </BlogViewTransition>
           )}
         </div>
 
         {/* Title */}
         <div className='flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'>
-          <h1 className='text-2xl font-bold leading-snug tracking-normal'>
-            {post.metadata.title}
-          </h1>
+          <BlogViewTransition name={`blog-title-${post.slug}`}>
+            <h1 className='text-2xl font-bold leading-snug tracking-normal'>
+              {post.metadata.title}
+            </h1>
+          </BlogViewTransition>
           <div className='self-start sm:self-auto'>
             <MarkdownCopyButton content={post.rawContent} />
           </div>
@@ -189,7 +202,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         {/* Description */}
         {post.metadata.description && (
-          <p className='mt-4 text-foreground/80'>{post.metadata.description}</p>
+          <BlogViewTransition name={`blog-desc-${post.slug}`}>
+            <p className='mt-4 text-foreground/80'>
+              {post.metadata.description}
+            </p>
+          </BlogViewTransition>
         )}
 
         {/* Table of Contents */}
@@ -204,13 +221,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         {/* Footer */}
         <footer className='mt-10 flex flex-wrap items-center justify-between gap-4 border-t pt-8'>
-          <Button variant='ghost' asChild className='h-9 px-2'>
-            <Link href='/blog' className='group inline-flex items-center'>
-              <Icons.arrowLeft className='mr-2 size-4 transition-transform group-hover:-translate-x-1' />
-              ブログ一覧に戻る
-            </Link>
-          </Button>
-
           <div className='flex items-center space-x-2'>
             <Link
               href={`/blog/${slug}.md`}
