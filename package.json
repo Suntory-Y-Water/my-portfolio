@@ -6,10 +6,11 @@
   "scripts": {
     "dev": "bun run --bun next dev",
     "build": "bun run --bun next build",
-    "postbuild": "npx pagefind --site .next --output-path public/pagefind",
+    "postbuild": "pagefind --site .next --output-path public/pagefind",
     "start": "next start",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
+    "textlint:fix" : "cd contents/ && bun run lint:fix && cd ..",
     "format": "biome format --write .",
     "format:check": "biome format .",
     "check": "biome check .",

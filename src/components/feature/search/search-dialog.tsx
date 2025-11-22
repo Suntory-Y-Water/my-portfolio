@@ -1,5 +1,6 @@
 'use client';
 
+import { usePathname, useRouter } from 'next/navigation';
 import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -52,7 +53,11 @@ export function SearchDialog({
 }) {
   const [pagefindLoaded, setPagefindLoaded] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
   const searchContainerRef = useRef<HTMLDivElement>(null);
+  const previousPathnameRef = useRef(pathname);
 
   // クライアントマウント完了フラグ
   useEffect(() => {
@@ -195,24 +200,59 @@ export function SearchDialog({
   }, [open, pagefindLoaded]);
 
   /**
-   * リンククリック時にダイアログを閉じる
+   * 検索結果クリック時のナビゲーションを制御
    *
-   * 外部システム(DOMのクリックイベント)との同期のため、useEffectを使用。
-   * ダイアログが開いているときのみイベントリスナーを登録する。
+   * PagefindUIが生成する結果リンクをNext.jsのクライアントナビゲーションに乗せ替え、
+   * 画面遷移が完了するまでダイアログを開いたままにします。
    */
   useEffect(() => {
-    if (!open) return;
+    // ダイアログが開いており、PagefindのDOMが生成済みのときのみクリックを拾う
+    if (!open || !pagefindLoaded) {
+      return;
+    }
 
-    const handleClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.tagName === 'A') {
-        onOpenChange(false);
+    const container = searchContainerRef.current;
+    // refが未セットの場合の安全装置
+    if (!container) {
+      return;
+    }
+
+    const handleResultClick = (event: MouseEvent) => {
+      if (isNavigating) {
+        return;
       }
+
+      const target = event.target as HTMLElement | null;
+      if (!target) {
+        return;
+      }
+
+      const anchor = target.closest<HTMLAnchorElement>('a');
+      if (!anchor) {
+        return;
+      }
+
+      event.preventDefault();
+      setIsNavigating(true);
+      router.push(anchor.pathname + anchor.search);
     };
 
-    window.addEventListener('click', handleClick);
-    return () => window.removeEventListener('click', handleClick);
-  }, [open, onOpenChange]);
+    container.addEventListener('click', handleResultClick);
+    return () => container.removeEventListener('click', handleResultClick);
+  }, [open, pagefindLoaded, router, isNavigating]);
+
+  /**
+   * ルート変更完了時にダイアログを閉じ、ナビゲーション状態をリセット
+   */
+  useEffect(() => {
+    if (pathname !== previousPathnameRef.current) {
+      previousPathnameRef.current = pathname;
+      setIsNavigating(false);
+      if (open) {
+        onOpenChange(false);
+      }
+    }
+  }, [pathname, open, onOpenChange]);
 
   // サーバー側では document が無いため、マウント前は何も描画しない
   if (!mounted) {
