@@ -93,7 +93,7 @@ export default function Header() {
   return (
     <header className='sticky top-0 z-30 h-16 w-full border-b border-border/40 bg-background/80 backdrop-blur-sm transition-all duration-300'>
       {/* Maintain container and alignment */}
-      <div className='container mx-auto flex h-full max-w-5xl items-center justify-between px-4'>
+      <div className='container relative mx-auto flex h-full max-w-5xl items-center justify-between px-4'>
         {/* Logo */}
         <Link
           href='/'
@@ -111,7 +111,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className='hidden items-center gap-1 md:flex'>
+        <nav className='absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex'>
           {NAVIGATION_LINKS.map((link) => (
             <Button
               key={link.href}

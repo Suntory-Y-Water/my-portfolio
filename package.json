@@ -10,6 +10,7 @@
     "start": "next start",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
+    "textlint:fix" : "cd contents/ && bun run lint:fix && cd ..",
     "format": "biome format --write .",
     "format:check": "biome format .",
     "check": "biome check .",

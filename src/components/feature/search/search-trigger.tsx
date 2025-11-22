@@ -26,8 +26,8 @@ export function SearchTrigger({ onClick }: { onClick: () => void }) {
     >
       <Search className='h-4 w-4 xl:mr-2' aria-hidden='true' />
       <span className='hidden xl:inline-flex'>記事を検索...</span>
-      <kbd className='pointer-events-none absolute right-1.5 top-2 hidden h-6 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 xl:flex'>
-        <span className='text-xs'>⌘</span>K
+      <kbd className='pointer-events-none absolute right-1.5 top-2 hidden h-6 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-foreground opacity-100 xl:flex'>
+        <span className='text-xs text-foreground'>⌘</span>K
       </kbd>
     </Button>
   );
