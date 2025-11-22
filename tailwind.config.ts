@@ -80,12 +80,17 @@ const config = {
             opacity: '1',
           },
         },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'fade-in-bottom':
           'fade-in-bottom 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000)   both',
+        float: 'float 6s ease-in-out infinite',
       },
     },
   },

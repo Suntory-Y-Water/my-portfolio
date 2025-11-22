@@ -5,7 +5,7 @@ date: 2023-04-01
 modified_time: 2023-04-01
 description: Anacondaとcmdでは環境変数の設定方法が異なるという発見についての備忘録。
 icon: 🐍
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Snake/Flat/snake_flat.svg
+icon_url: /icons/snake_flat.svg
 tags:
   - Anaconda
 ---

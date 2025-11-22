@@ -10,8 +10,6 @@ const nextConfig = {
     tsconfigPath: 'tsconfig.build.json',
   },
   images: {
-    loader: 'custom',
-    loaderFile: './src/lib/image-loader.ts',
     domains: ['pub-37c337e4f6b74be784982bc3041040b4.r2.dev'],
     formats: ['image/webp'],
     remotePatterns: [
@@ -23,6 +21,17 @@ const nextConfig = {
     ],
   },
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+
+  async redirects() {
+    return [
+      // ブログの1ページ目はブログトップと同じ役割なのでリダイレクト
+      {
+        source: '/blog/page/1',
+        destination: '/blog',
+        permanent: true,
+      },
+    ];
+  },
 
   // セキュリティヘッダの追加
   async headers() {

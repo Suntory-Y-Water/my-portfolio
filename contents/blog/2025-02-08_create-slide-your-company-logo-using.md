@@ -5,7 +5,7 @@ date: 2025-02-08
 modified_time: 2025-02-08
 description: "Marpで企業ロゴが入ったスライドを作成する方法を解説します。gaiaテーマとCSSの::after疑似要素を活用してヘッダーの右上にロゴを配置する実装を紹介します。"
 icon: 🛝
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Playground%20slide/Flat/playground_slide_flat.svg
+icon_url: /icons/playground_slide_flat.svg
 tags:
   - CSS
   - Marp

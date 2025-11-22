@@ -5,7 +5,7 @@ date: 2023-10-14
 modified_time: 2023-10-14
 description: KindleのハイライトをNotionにまとめる自分専用BookNotionアプリを開発。
 icon: 📔
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Notebook%20with%20decorative%20cover/Flat/notebook_with_decorative_cover_flat.svg
+icon_url: /icons/notebook_with_decorative_cover_flat.svg
 tags:
   - Next.js
   - Notion

@@ -5,7 +5,7 @@ date: 2023-02-15
 modified_time: 2023-02-15
 description: Djangoテンプレートタグで空白を入れると認識されない問題についての備忘録。
 icon: 🌐
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Globe%20with%20meridians/Flat/globe_with_meridians_flat.svg
+icon_url: /icons/globe_with_meridians_flat.svg
 tags:
   - Python
   - HTML

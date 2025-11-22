@@ -5,7 +5,7 @@ date: 2022-11-28
 modified_time: 2022-11-28
 description: PyAutoGUIを用いた作業自動化で発見した画像認識の課題。PCの画面解像度が異なる場合の画像認識の問題について。
 icon: 🔍
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Magnifying%20glass%20tilted%20left/Flat/magnifying_glass_tilted_left_flat.svg
+icon_url: /icons/magnifying_glass_tilted_left_flat.svg
 tags:
   - Python
   - OpenCV

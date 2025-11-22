@@ -5,7 +5,7 @@ date: 2025-03-03
 modified_time: 2025-03-03
 description: HonoXで短縮URL作成サイトを作成します。基本的な環境構築が終わっているsetupブランチから完成版までの変化を追いながら、実装の流れを解説します。
 icon: 🔗
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Link/Flat/link_flat.svg
+icon_url: /icons/link_flat.svg
 tags:
   - Hono
   - HonoX

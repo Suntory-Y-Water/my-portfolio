@@ -5,7 +5,7 @@ date: 2023-08-26
 modified_time: 2023-08-26
 description: ラーメン二郎のコールシステムを例に、良いアルゴリズムとは何かを学ぶ。
 icon: 🍜
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Steaming%20bowl/Flat/steaming_bowl_flat.svg
+icon_url: /icons/steaming_bowl_flat.svg
 tags:
   - アルゴリズム
   - 初心者

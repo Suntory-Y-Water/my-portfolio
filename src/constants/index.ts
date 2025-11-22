@@ -14,16 +14,16 @@ const url = process.env.NEXT_PUBLIC_APP_URL || 'https://suntory-n-water.com';
  */
 export const SITE_CONSTANTS = {
   /** サイト名 */
-  NAME: 'sui-portfolio',
+  NAME: 'sui Tech Blog',
   /** サイトの説明 */
   DESCRIPTION:
-    'スイのポートフォリオです。簡単な自己紹介と今まで投稿してきた記事のリンクや、Web開発に関する学習記録をブログとしてまとめています。',
+    'スイのテックブログです。トップで最新記事ダイジェストを載せつつ、自己紹介やこれまでの投稿リンク、Web開発の学習記録をまとめています。',
   /** ブログセクションの説明 */
   BLOG_DESCRIPTION: 'Web開発に関する学習記録をまとめたブログです。',
   /** サイトURL */
   URL: url,
   /** OGP画像URL */
-  OG_IMAGE: `${url}/opengraph-image.png`,
+  OG_IMAGE: `${url}/opengraph-image.png?20251122`,
   /** 著作権表記 */
   COPYRIGHT: 'Suntory-N-Water',
 } as const;
@@ -55,9 +55,9 @@ export const REPOSITORY_CONSTANTS = {
  */
 export const BLOG_CONSTANTS = {
   /** ブログページのページネーション: 1ページあたりの記事数 */
-  POSTS_PER_PAGE: 10,
+  POSTS_PER_PAGE: 12,
   /** トップページに表示する記事数 */
-  TOP_PAGE_POSTS_COUNT: 5,
+  TOP_PAGE_POSTS_COUNT: 3,
 } as const;
 
 /**

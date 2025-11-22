@@ -5,7 +5,7 @@ date: 2023-12-29
 modified_time: 2023-12-29
 description: shadcn/uiを使ってダークパターンを実装する例。
 icon: 🌑
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/New%20moon/Flat/new_moon_flat.svg
+icon_url: /icons/new_moon_flat.svg
 tags:
   - Design
   - Next.js

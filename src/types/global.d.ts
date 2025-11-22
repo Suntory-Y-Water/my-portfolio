@@ -30,6 +30,7 @@ interface PagefindUIInterface {
     /**
      * Provides a function that Pagefind UI calls before displaying each result. This can be used to fix relative URLs, rewrite titles, or any other modifications you might like to make to the raw result object returned by Pagefind.
      */
+    // biome-ignore lint/suspicious/noExplicitAny: Pagefind UI型定義は外部仕様に合わせる
     processResult?: (result: any) => any;
     /**
      * By default, Pagefind UI shows filters with no results alongside the count (0). Pass false to hide filters that have no remaining results.

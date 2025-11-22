@@ -5,7 +5,7 @@ date: 2023-02-06
 modified_time: 2023-02-06
 description: 技術書の読書術の重要な部分をまとめた備忘録。効果的な読書方法とアウトプットについて。
 icon: 📚
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Books/Flat/books_flat.svg
+icon_url: /icons/books_flat.svg
 tags:
   - 読書
 ---

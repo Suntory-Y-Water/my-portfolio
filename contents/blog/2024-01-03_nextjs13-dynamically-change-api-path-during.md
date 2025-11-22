@@ -5,7 +5,7 @@ date: 2024-01-03
 modified_time: 2024-01-03
 description: Next.js13でデプロイ時にAPIのパスを動的に変更する方法。
 icon: 🔗
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Link/Flat/link_flat.svg
+icon_url: /icons/link_flat.svg
 tags:
   - API
   - Next.js

@@ -5,7 +5,7 @@ date: 2025-02-22
 modified_time: 2025-02-22
 description: KubernetesのPodとは何かを弁当ケースに例えて理解します。1つ以上のコンテナをまとめたものであるPodの概念を、実務で遭遇した場面から学んだことをまとめました。
 icon: 📦
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Package/Flat/package_flat.svg
+icon_url: /icons/package_flat.svg
 tags:
   - Docker
   - Kubernetes

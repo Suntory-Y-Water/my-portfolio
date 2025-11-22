@@ -3,7 +3,7 @@ title: 『ないなら作ればいいじゃない』HonoXで金髪ヒロイン�
 date: 2025-05-07
 modified_time: 2025-05-07
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire/Flat/fire_flat.svg
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire/Flat/fire_flat.svg
+icon_url: /icons/fire_flat.svg
 slug: kinpatsu-heroine-honox
 tags:
   - HonoX

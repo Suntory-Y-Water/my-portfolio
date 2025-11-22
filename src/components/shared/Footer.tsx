@@ -2,80 +2,60 @@ import Link from 'next/link';
 import { Icons, SocialIcons } from '@/components/icons';
 import { siteConfig } from '@/config/site';
 
-/**
- * アプリケーション全体のフッターコンポーネント
- *
- * このコンポーネントはサイトの最下部に表示され、著作権表示とソーシャルメディアリンク（Twitter、GitHub）、RSSフィードリンクを含みます。
- * ソーシャルメディアのURLはsiteConfigから取得され、URLが設定されている場合のみアイコンが表示されます。
- *
- * @returns フッターコンポーネント
- *
- * @example
- * ```tsx
- * import Footer from '@/components/shared/Footer';
- *
- * export default function Layout({ children }) {
- *   return (
- *     <>
- *       <main>{children}</main>
- *       <Footer />
- *     </>
- *   );
- * }
- * ```
- */
 export default function Footer() {
   const twitterUrl = siteConfig.links.twitter;
   const githubUrl = siteConfig.links.github;
   const copyrightName = siteConfig.copyRight;
 
   return (
-    <footer className='mt-16 border-t border-border/40 bg-muted/50'>
-      {/* Use container for consistent width */}
-      <div className='container mx-auto flex flex-col items-center justify-between gap-4 px-4 py-8 sm:flex-row'>
+    <footer className='mt-20 border-t border-border/40 bg-background/80 backdrop-blur-lg'>
+      <div className='container mx-auto flex flex-col items-center justify-between gap-6 px-6 py-8 sm:flex-row'>
         {/* Copyright notice */}
-        <p className='text-sm text-muted-foreground'>
+        <p className='text-sm font-medium text-muted-foreground'>
           © {new Date().getFullYear()} {copyrightName}. All Rights Reserved.
         </p>
 
         {/* Social media links and RSS feed */}
-        <div className='flex items-center gap-4'>
-          {twitterUrl && ( // Render only if URL exists
-            <Link
-              href={twitterUrl}
-              target='_blank'
-              rel='noopener noreferrer'
-              aria-label='Twitter profile'
-              className='text-muted-foreground transition-colors hover:text-foreground'
-            >
-              <SocialIcons.twitter className='size-5' />
-              <span className='sr-only'>Twitter</span>
-            </Link>
+        <div className='flex items-center gap-3'>
+          {twitterUrl && (
+            <SocialLink href={twitterUrl} label='Twitter'>
+              <SocialIcons.twitter className='size-4' />
+            </SocialLink>
           )}
-          {githubUrl && ( // Render only if URL exists
-            <Link
-              href={githubUrl}
-              target='_blank'
-              rel='noopener noreferrer'
-              aria-label='GitHub profile'
-              className='text-muted-foreground transition-colors hover:text-foreground'
-            >
-              <SocialIcons.github className='size-5' />
-              <span className='sr-only'>GitHub</span>
-            </Link>
+          {githubUrl && (
+            <SocialLink href={githubUrl} label='GitHub'>
+              <SocialIcons.github className='size-4' />
+            </SocialLink>
           )}
-          <Link
-            href='/rss.xml'
-            target='_blank'
-            rel='noopener noreferrer'
-            aria-label='RSSフィードを購読'
-            className='text-muted-foreground transition-colors hover:text-foreground'
-          >
-            <Icons.rss className='size-5' />
-            <span className='sr-only'>RSS</span>
-          </Link>
+          <SocialLink href='/rss.xml' label='RSS'>
+            <Icons.rss className='size-4' />
+          </SocialLink>
         </div>
       </div>
     </footer>
+  );
+}
+
+// アイコンボタンの共通コンポーネント
+function SocialLink({
+  href,
+  children,
+  label,
+}: {
+  href: string;
+  children: React.ReactNode;
+  label: string;
+}) {
+  return (
+    <Link
+      href={href}
+      target='_blank'
+      rel='noopener noreferrer'
+      aria-label={label}
+      className='flex size-9 items-center justify-center rounded-full border border-border/50 bg-secondary/30 text-muted-foreground transition-all duration-300 hover:border-primary/50 hover:bg-primary/10 hover:text-primary hover:shadow-lg hover:shadow-primary/20'
+    >
+      {children}
+      <span className='sr-only'>{label}</span>
+    </Link>
   );
 }

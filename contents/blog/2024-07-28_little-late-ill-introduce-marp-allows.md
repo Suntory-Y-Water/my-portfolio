@@ -5,7 +5,7 @@ date: 2024-07-28
 modified_time: 2024-07-28
 description: MarkdownでPowerPointスライドが作成できるMarpに入門します。ハンズオン形式でMarpの環境構築から実際のスライド作成までを解説します。
 icon: 📺
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Television/Flat/television_flat.svg
+icon_url: /icons/television_flat.svg
 tags:
   - PowerPoint
   - Marp

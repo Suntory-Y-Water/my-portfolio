@@ -5,7 +5,7 @@ date: 2023-04-23
 modified_time: 2023-04-23
 description: デスクトップのKindleアプリでハイライトと注記を自動削除するPyAutoGUIスクリプト。
 icon: 📱
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Mobile%20phone/Flat/mobile_phone_flat.svg
+icon_url: /icons/mobile_phone_flat.svg
 tags:
   - Python
   - OpenCV

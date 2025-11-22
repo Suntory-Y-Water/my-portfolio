@@ -21,15 +21,6 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /**
- * 環境変数を安全にアクセスするためのオブジェクト
- *
- * 環境変数の型安全なアクセスを提供します。
- */
-export const processEnv = {
-  QIITA_ACCESS_TOKEN: process.env.QIITA_ACCESS_TOKEN,
-};
-
-/**
  * 日付を日本語形式（年/月/日）にフォーマットする
  *
  * 入力された日付を日本のタイムゾーン（Asia/Tokyo）で

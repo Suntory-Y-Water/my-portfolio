@@ -5,7 +5,7 @@ date: 2025-11-22
 modified_time: 2025-11-22
 description: Next.js (App Router) のブログに Pagefind で全文検索機能を実装する手順を紹介します。public ディレクトリへのインデックス出力設定や、クライアントサイドでの動的インポートなど、実装に必要なポイントをコード付きで解説します。
 icon: 🔦
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Flashlight/Flat/flashlight_flat.svg
+icon_url: /icons/flashlight_flat.svg
 tags:
   - Next.js
   - Pagefind

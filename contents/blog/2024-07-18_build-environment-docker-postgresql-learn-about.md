@@ -5,7 +5,7 @@ date: 2024-07-18
 modified_time: 2024-07-18
 description: Docker + PostgreSQLで環境構築を行い、パーティションについて学びます。実務でn千万からn億レコードのテーブルを扱う際に必要なパーティション構成の基礎を実践的に解説します。
 icon: 🛢️
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Oil%20drum/Flat/oil_drum_flat.svg
+icon_url: /icons/oil_drum_flat.svg
 tags:
   - Docker
   - PostgreSQL

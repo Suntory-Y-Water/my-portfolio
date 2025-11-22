@@ -1,13 +1,13 @@
 'use client';
 
+import { Search } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { type ReactElement, useState } from 'react';
-import { IoMdHome } from 'react-icons/io';
+import { IoMdPerson } from 'react-icons/io';
 import { MdOutlineBook } from 'react-icons/md';
 import { SearchDialog } from '@/components/feature/search/search-dialog';
-import { SearchTrigger } from '@/components/feature/search/search-trigger';
 import { Icons } from '@/components/icons';
 import HamburgerMenu from '@/components/shared/MenuMobile';
 import { Button } from '@/components/ui/button';
@@ -22,14 +22,14 @@ type MenuItemLinkProps = {
 
 const NAVIGATION_LINKS: MenuItemLinkProps[] = [
   {
-    href: '/',
-    title: 'Home',
-    icon: <IoMdHome size='1.2em' />,
-  },
-  {
     href: '/blog',
     title: 'Blog',
     icon: <MdOutlineBook size='1.2em' />,
+  },
+  {
+    href: '/about',
+    title: 'About',
+    icon: <IoMdPerson size='1.2em' />,
   },
   {
     href: '/tags',
@@ -97,31 +97,34 @@ export default function Header() {
         {/* Logo */}
         <Link
           href='/'
-          className='flex items-center gap-2 transition-transform duration-300 hover:scale-105'
+          className='group flex items-center gap-2 transition-transform duration-300 hover:scale-105'
           aria-label='最初の画面に戻る'
         >
           <Image
             src='/images/icon.webp'
-            alt='ポートフォリオサイトのロゴ'
+            alt='ブログサイトのロゴ'
             width={32}
             height={32}
             priority
             className='rounded-full'
           />
+          <span className='font-bold tracking-tight text-base transition-colors group-hover:text-primary'>
+            sui Tech Blog
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className='absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex'>
+        <nav className='hidden items-center gap-1 rounded-full border border-border/50 bg-secondary/20 px-2 py-1 backdrop-blur-md md:flex'>
           {NAVIGATION_LINKS.map((link) => (
             <Button
               key={link.href}
-              variant='link'
+              variant='ghost'
               size='sm'
               asChild
               className={cn(
-                'text-muted-foreground transition-colors',
-                // Apply active styles using the isLinkActive helper function
-                isLinkActive(link.href) && 'font-semibold text-foreground', // <-- Updated condition
+                'rounded-full px-4 text-sm font-medium text-muted-foreground transition-colors',
+                isLinkActive(link.href) &&
+                  'bg-background text-foreground font-bold',
               )}
             >
               <Link href={link.href}>{link.title}</Link>
@@ -131,8 +134,31 @@ export default function Header() {
 
         {/* Right side elements: Search, Theme toggle and Mobile Menu */}
         <div className='flex items-center gap-2'>
-          <SearchTrigger onClick={() => setSearchOpen(true)} />
-          <ModeToggle />
+          {/* Search Buttons */}
+          <button
+            type='button'
+            onClick={() => setSearchOpen(true)}
+            className='hidden h-9 items-center justify-start gap-2 overflow-hidden rounded-lg border border-border/50 bg-secondary/20 px-3 text-sm font-medium text-muted-foreground transition-all hover:border-border/80 hover:bg-secondary/60 hover:text-foreground w-48 lg:w-64 md:inline-flex'
+          >
+            <Search className='h-4 w-4 transition-transform group-hover:scale-110' />
+            <span>Search...</span>
+            <kbd className='ml-auto pointer-events-none hidden h-5 select-none items-center gap-1 rounded border border-border bg-background/50 px-1.5 font-mono text-[10px] font-medium opacity-100 lg:flex'>
+              <span className='text-xs'>⌘</span>K
+            </kbd>
+          </button>
+
+          <button
+            type='button'
+            onClick={() => setSearchOpen(true)}
+            className='inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border/50 bg-secondary/20 text-muted-foreground transition-all hover:bg-secondary/60 hover:text-foreground md:hidden'
+          >
+            <Search className='h-4 w-4' />
+          </button>
+
+          <div className='inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg border border-border/50 bg-secondary/20 text-muted-foreground transition-all hover:border-border/80 hover:bg-secondary/60'>
+            <ModeToggle />
+          </div>
+
           {/* Pass updated links to mobile menu */}
           <div className='md:hidden'>
             <HamburgerMenu params={NAVIGATION_LINKS} />

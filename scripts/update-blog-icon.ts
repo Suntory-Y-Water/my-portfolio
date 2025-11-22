@@ -2,41 +2,20 @@
 /**
  * ブログアイコン自動変換スクリプト
  *
- * ブログ記事のフロントマターにある`icon`フィールドの絵文字を、
- * FluentUI EmojiのURLに自動変換して`icon_url`フィールドを生成します。
+ * ブログ記事のフロントマターにある`icon`をFluent UI Emoji URLへ変換し、
+ * アイコンSVGをローカルにキャッシュして`icon_url`をローカルパスに更新します。
+ * 同じアイコンはファイル名（basename）で使い回します。
  *
  * ## 動作
- * 1. contents/blogディレクトリ配下の全.mdファイルをスキャン
- * 2. `icon`フィールドが絵文字の場合、FluentUI EmojiのURLを生成
- * 3. `icon_url`フィールドが存在しない場合のみ追加
- * 4. 既に`icon_url`が存在する場合はスキップ
+ * 1. contents/blog配下の.mdをスキャン
+ * 2. iconが絵文字ならFluent URLを生成、URLならそのまま使用
+ * 3. アイコンをダウンロードして public/icons/{basename}.svg に保存（重複はスキップ）
+ * 4. frontmatterの icon_url を /icons/{basename}.svg に書き換え（存在しなければ追記）
  *
- * ## 実行方法
- * ```bash
- * # 全ブログファイルを処理
- * bun run scripts/update-blog-icon.ts
- *
- * # 特定のファイルのみ処理（pre-commitフックで使用）
- * bun run scripts/update-blog-icon.ts contents/blog/2025-11-15_example.md
- * ```
- *
- * ## 使用例
- * ### 変換前のフロントマター
- * ```yaml
- * ---
- * title: サンプル記事
- * icon: 🔥
- * ---
- * ```
- *
- * ### 変換後のフロントマター
- * ```yaml
- * ---
- * title: サンプル記事
- * icon: 🔥
- * icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire/Flat/fire_flat.svg
- * ---
- * ```
+ * ## 実行例
+ * bun run scripts/update-blog-icon.ts          # 全記事
+ * bun run scripts/update-blog-icon.ts file.md  # 単体
+ * bun run scripts/update-blog-icon.ts --force  # 既存キャッシュを上書き
  */
 
 import { promises as fs } from 'node:fs';
@@ -45,142 +24,124 @@ import matter from 'gray-matter';
 import { convertEmojiToFluentUrl } from '@/lib/emoji-converter';
 
 const blogDir = path.join(process.cwd(), 'contents', 'blog');
+const iconsDir = path.join(process.cwd(), 'public', 'icons');
 
-/**
- * ブログファイルのフロントマターパラメータ
- */
-type BlogFileParams = {
-  /** ブログファイルのパス */
-  filePath: string;
-  /** 既存のicon_urlを強制的に更新するか */
-  force?: boolean;
-};
+async function fileExists(filePath: string) {
+  try {
+    await fs.stat(filePath);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
-/**
- * ブログファイルのフロントマターを更新する
- *
- * ファイルを読み込み、`icon`フィールドが絵文字の場合に`icon_url`フィールドを生成します。
- * 既に`icon_url`が存在する場合、または`icon`フィールドがない場合はスキップします。
- *
- * @param params - ブログファイルのパラメータ
- * @returns 処理結果メッセージ
- *
- * @example
- * ```ts
- * const result = await updateBlogIconUrl({
- *   filePath: 'contents/blog/2025-11-15_example.md'
- * });
- * // => '✅ Updated: 2025-11-15_example.md' または 'ℹ️  Skipped: ...'
- * ```
- */
+async function downloadIcon(url: string, destPath: string, force: boolean) {
+  if (!force && (await fileExists(destPath))) return;
+
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`Failed to download icon: ${url} (${res.status})`);
+  }
+
+  await fs.mkdir(path.dirname(destPath), { recursive: true });
+  const buffer = Buffer.from(await res.arrayBuffer());
+  await fs.writeFile(destPath, buffer);
+}
+
+function insertOrReplaceIconUrl(content: string, localIconUrl: string): string {
+  const iconUrlRegex = /^icon_url:[^\n]*/m;
+  const iconRegex = /^icon:[^\n]*/m;
+
+  if (iconUrlRegex.test(content)) {
+    return content.replace(iconUrlRegex, `icon_url: ${localIconUrl}`);
+  }
+
+  if (iconRegex.test(content)) {
+    return content.replace(iconRegex, (match) => `${match}\nicon_url: ${localIconUrl}`);
+  }
+
+  // icon行も無い場合は末尾に追記
+  return `${content.trimEnd()}\nicon_url: ${localIconUrl}\n`;
+}
+
+async function resolveRemoteIconUrl(icon?: unknown, iconUrl?: unknown) {
+  if (typeof icon === 'string') {
+    if (icon.startsWith('http')) return icon;
+    // 絵文字をFluent UI Emoji URLに
+    const url = await convertEmojiToFluentUrl({ icon });
+    return url === icon ? undefined : url;
+  }
+
+  if (typeof iconUrl === 'string' && iconUrl.startsWith('http')) {
+    return iconUrl;
+  }
+
+  return undefined;
+}
+
 async function updateBlogIconUrl({
   filePath,
   force = false,
-}: BlogFileParams): Promise<string> {
+}: {
+  filePath: string;
+  force?: boolean;
+}): Promise<string> {
   const content = await fs.readFile(filePath, 'utf-8');
   const { data: frontmatter } = matter(content);
 
-  // iconフィールドが存在しない場合はスキップ
-  if (!frontmatter.icon) {
-    return `ℹ️  Skipped: ${path.basename(filePath)} (no icon field)`;
+  const remoteIconUrl = await resolveRemoteIconUrl(frontmatter.icon, frontmatter.icon_url);
+  if (!remoteIconUrl) {
+    return `ℹ️  Skipped: ${path.basename(filePath)} (no icon)`;
   }
 
-  // icon_urlフィールドが既に値を持つ場合、forceオプションがfalseならスキップ
-  if (!force && frontmatter.icon_url && frontmatter.icon_url.trim() !== '') {
-    return `ℹ️  Skipped: ${path.basename(filePath)} (icon_url already exists)`;
-  }
+  const parsed = new URL(remoteIconUrl);
+  const baseName = path.basename(parsed.pathname) || 'icon.svg';
+  const localFileName = baseName;
+  const localIconPath = path.join(iconsDir, localFileName);
+  const localIconUrl = `/icons/${localFileName}`;
 
-  let iconUrl: string;
+  await downloadIcon(remoteIconUrl, localIconPath, force);
 
-  // iconフィールドが既にURLの場合はそのまま使用
-  if (
-    typeof frontmatter.icon === 'string' &&
-    frontmatter.icon.startsWith('http')
-  ) {
-    iconUrl = frontmatter.icon;
-  } else {
-    // 絵文字をFluentUI EmojiのURLに変換（await追加）
-    iconUrl = await convertEmojiToFluentUrl({ icon: frontmatter.icon });
-
-    // 変換できなかった場合（絵文字データが見つからない）はスキップ
-    if (iconUrl === frontmatter.icon) {
-      return `⚠️  Warning: ${path.basename(filePath)} (could not convert emoji: ${frontmatter.icon})`;
-    }
-  }
-
-  // icon_url:の値を更新（YAMLフォーマットを保持）
-  // mフラグなしで改行の前までマッチ
-  const iconUrlRegex = /icon_url:[^\n]*/;
-  const match = content.match(iconUrlRegex);
-
-  if (!match) {
-    return `⚠️  Warning: ${path.basename(filePath)} (could not find icon_url field)`;
-  }
-
-  const updatedContent = content.replace(iconUrlRegex, `icon_url: ${iconUrl}`);
-
-  // ファイルに書き戻す
+  const updatedContent = insertOrReplaceIconUrl(content, localIconUrl);
   await fs.writeFile(filePath, updatedContent, 'utf-8');
 
-  return `✅ Updated: ${path.basename(filePath)}`;
+  return `✅ Updated: ${path.basename(filePath)} -> ${localIconUrl}`;
 }
 
-/**
- * 全ブログファイルまたは指定されたファイルを処理する
- *
- * コマンドライン引数にファイルパスが指定されている場合はそのファイルのみを処理し、
- * 指定されていない場合はcontents/blogディレクトリ配下の全.mdファイルを処理します。
- *
- * @example
- * ```ts
- * // 全ファイルを処理
- * await processBlogs();
- *
- * // 特定のファイルのみ処理
- * process.argv = ['node', 'script.js', 'contents/blog/example.md'];
- * await processBlogs();
- * ```
- */
-async function processBlogs(): Promise<void> {
+async function processBlogs() {
   const args = process.argv.slice(2);
-  
-  // --forceオプションの確認
-  const forceIndex = args.indexOf('--force');
-  const force = forceIndex !== -1;
-  
-  // --forceオプションを除外したファイルリスト
+  const force = args.includes('--force');
   const targetFiles = args.filter((arg) => arg !== '--force');
 
   let filesToProcess: string[] = [];
 
   if (targetFiles.length > 0) {
-    // 引数で指定されたファイルのみ処理
-    // .mdファイルのみをフィルタリング
     filesToProcess = targetFiles.filter(
       (file) => file.endsWith('.md') && file.includes('contents/blog'),
     );
-
-    if (filesToProcess.length === 0) {
-      console.log('ℹ️  No blog markdown files to process.');
-      return;
-    }
   } else {
-    // 全ブログファイルを処理
     const files = await fs.readdir(blogDir);
     filesToProcess = files
       .filter((file) => file.endsWith('.md'))
       .map((file) => path.join(blogDir, file));
   }
 
-  console.log(`\n🔄 Processing ${filesToProcess.length} blog file(s)${force ? ' (force mode)' : ''}...\n`);
+  if (filesToProcess.length === 0) {
+    console.log('ℹ️  No blog markdown files to process.');
+    return;
+  }
+
+  console.log(
+    `\n🔄 Processing ${filesToProcess.length} blog file(s)${
+      force ? ' (force mode)' : ''
+    }...\n`,
+  );
 
   const results = await Promise.all(
     filesToProcess.map((file) => updateBlogIconUrl({ filePath: file, force })),
   );
 
-  for (const result of results) {
-    console.log(result);
-  }
+  for (const result of results) console.log(result);
 
   const updatedCount = results.filter((r) => r.startsWith('✅')).length;
   const skippedCount = results.filter((r) => r.startsWith('ℹ️')).length;
@@ -189,11 +150,9 @@ async function processBlogs(): Promise<void> {
   console.log('\n📊 Summary:');
   console.log(`  Updated: ${updatedCount}`);
   console.log(`  Skipped: ${skippedCount}`);
-  console.log(`  Warnings: ${warningCount}`);
-  console.log('');
+  console.log(`  Warnings: ${warningCount}\n`);
 }
 
-// スクリプト実行
 processBlogs().catch((error) => {
   console.error('❌ Error occurred:', error);
   process.exit(1);
