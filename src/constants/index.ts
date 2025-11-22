@@ -23,7 +23,7 @@ export const SITE_CONSTANTS = {
   /** サイトURL */
   URL: url,
   /** OGP画像URL */
-  OG_IMAGE: `${url}/opengraph-image.png`,
+  OG_IMAGE: `${url}/opengraph-image.png?20251122`,
   /** 著作権表記 */
   COPYRIGHT: 'Suntory-N-Water',
 } as const;
@@ -55,9 +55,9 @@ export const REPOSITORY_CONSTANTS = {
  */
 export const BLOG_CONSTANTS = {
   /** ブログページのページネーション: 1ページあたりの記事数 */
-  POSTS_PER_PAGE: 10,
+  POSTS_PER_PAGE: 12,
   /** トップページに表示する記事数 */
-  TOP_PAGE_POSTS_COUNT: 5,
+  TOP_PAGE_POSTS_COUNT: 3,
 } as const;
 
 /**

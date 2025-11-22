@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import { BlogCard } from '@/components/feature/content/blog-card';
+import { Icons } from '@/components/icons';
 import { PageHeader } from '@/components/shared/page-header';
 import { siteConfig } from '@/config/site';
 import { getTagNameFromSlug } from '@/config/tag-slugs';
@@ -70,9 +72,31 @@ export default async function TagPage({ params }: TagPageProps) {
   const posts = await getBlogPostsByTagSlug(slug);
 
   return (
-    <section data-pagefind-ignore>
-      <PageHeader heading={`${tagName} タグの記事一覧`} />
-      <div className='space-y-6'>
+    <section data-pagefind-ignore className='space-y-10'>
+      <div className='space-y-3 border-b border-border/60 pb-4'>
+        <nav className='flex items-center gap-2 text-sm text-muted-foreground'>
+          <Link href='/' className='transition-colors hover:text-primary'>
+            Home
+          </Link>
+          <Icons.chevronRight className='size-4' />
+          <Link href='/tags' className='transition-colors hover:text-primary'>
+            Tags
+          </Link>
+          <Icons.chevronRight className='size-4' />
+          <span className='text-foreground'>{tagName}</span>
+        </nav>
+
+        <div className='flex flex-wrap items-end justify-between gap-3'>
+          <h1 className='text-3xl font-bold tracking-tight md:text-4xl'>
+            {tagName}
+          </h1>
+          <span className='text-sm font-mono text-muted-foreground'>
+            Total {posts.length} posts
+          </span>
+        </div>
+      </div>
+
+      <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
         {posts.map((blog) => (
           <BlogCard key={blog.slug} data={blog} />
         ))}

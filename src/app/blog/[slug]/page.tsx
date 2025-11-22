@@ -111,7 +111,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       name: siteConfig.name,
       logo: {
         '@type': 'ImageObject',
-        url: absoluteUrl('/opengraph-image.png'),
+        url: absoluteUrl('/opengraph-image.png?20251122'),
       },
     },
     mainEntityOfPage: {
