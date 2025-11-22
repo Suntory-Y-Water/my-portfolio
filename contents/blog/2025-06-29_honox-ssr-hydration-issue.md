@@ -3,7 +3,7 @@ title: HonoXにおけるSSRとクライアントサイドHydrationの同期問�
 date: 2025-06-29
 modified_time: 2025-06-29
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Cloud%20with%20rain/Flat/cloud_with_rain_flat.svg
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Cloud%20with%20rain/Flat/cloud_with_rain_flat.svg
+icon_url: /icons/cloud_with_rain_flat.svg
 slug: honox-ssr-hydration-issue
 tags:
   - HonoX

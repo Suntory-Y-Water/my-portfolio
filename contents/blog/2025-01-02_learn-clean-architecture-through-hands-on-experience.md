@@ -5,7 +5,7 @@ date: 2025-01-02
 modified_time: 2025-01-02
 description: クリーンアーキテクチャの概要をざっくり理解し、実際に手を動かして実装することで腹落ちを目指します。関心ごとの分離と依存関係の方向性について解説します。
 icon: 🎼
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Musical%20score/Flat/musical_score_flat.svg
+icon_url: /icons/musical_score_flat.svg
 tags:
   - TypeScript
   - クリーンアーキテクチャ

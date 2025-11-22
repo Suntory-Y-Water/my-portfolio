@@ -5,7 +5,7 @@ date: 2024-06-15
 modified_time: 2024-06-15
 description: 依存性の注入(DI)という概念を手を動かしながら理解します。読んでもよく分からなかったので、実装を通じてナンモワカランからチョットワカッタカモになることを目指します。
 icon: 💉
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Syringe/Flat/syringe_flat.svg
+icon_url: /icons/syringe_flat.svg
 tags:
   - TypeScript
   - DI

@@ -5,7 +5,7 @@ date: 2022-11-12
 modified_time: 2022-11-12
 description: Pythonでスクレイピングする際に何度も遭遇したfind()とfind_all()の使い分けエラーについての備忘録。
 icon: 🕷️
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Spider%20web/Flat/spider_web_flat.svg
+icon_url: /icons/spider_flat.svg
 tags:
   - Python
   - スクレイピング

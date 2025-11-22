@@ -5,7 +5,7 @@ date: 2025-11-03
 modified_time: 2025-11-03
 description: Google Apps Script（GAS）を使うと社内限定で使えるWebアプリケーションを簡単に構築できます。claspとTypeScriptを使ってGoogleDriveのファイルを検索するアプリケーションを作成します。
 icon: 👀
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Eyes/Flat/eyes_flat.svg
+icon_url: /icons/eyes_flat.svg
 tags:
   - TypeScript
   - GAS

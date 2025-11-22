@@ -5,7 +5,7 @@ date: 2023-01-22
 modified_time: 2023-01-22
 description: アラーム音による心臓への負担を軽減するため、光で目覚める方法を提案する雑記。
 icon: ☀️
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Sun/Flat/sun_flat.svg
+icon_url: /icons/sun_flat.svg
 tags:
   - 雑記
 ---

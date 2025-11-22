@@ -5,7 +5,7 @@ date: 2023-08-27
 modified_time: 2023-08-27
 description: Postmanでlocalhostにリクエストを送信できない問題の解決方法。
 icon: 📮
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Postbox/Flat/postbox_flat.svg
+icon_url: /icons/postbox_flat.svg
 tags:
   - API
   - Postman

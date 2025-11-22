@@ -5,7 +5,7 @@ date: 2022-12-03
 modified_time: 2022-12-03
 description: リーダブルコードの重要な部分をざっくりまとめて、振り返れるようにした備忘録。
 icon: 📖
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Open%20book/Flat/open_book_flat.svg
+icon_url: /icons/open_book_flat.svg
 tags:
   - 初心者
 ---

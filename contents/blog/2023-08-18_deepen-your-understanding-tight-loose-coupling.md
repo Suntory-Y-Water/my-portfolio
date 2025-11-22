@@ -5,7 +5,7 @@ date: 2023-08-18
 modified_time: 2023-08-18
 description: 密結合と疎結合の違いと、コードの品質への影響について。
 icon: 🔗
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Link/Flat/link_flat.svg
+icon_url: /icons/link_flat.svg
 tags:
   - TypeScript
 ---

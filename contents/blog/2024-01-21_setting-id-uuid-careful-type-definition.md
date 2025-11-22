@@ -5,7 +5,7 @@ date: 2024-01-21
 modified_time: 2024-01-21
 description: FastAPIでidをuuidで設定する際の型定義の注意点。
 icon: 🆔
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Id%20button/Flat/id_button_flat.svg
+icon_url: /icons/id_button_flat.svg
 tags:
   - Python
   - FastAPI

@@ -3,7 +3,7 @@ title: Vercelで独自ドメインを設定する
 date: 2025-03-22
 modified_time: 2025-03-22
 icon: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Water%20wave/Flat/water_wave_flat.svg
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Water%20wave/Flat/water_wave_flat.svg
+icon_url: /icons/water_wave_flat.svg
 slug: cloudflare-get-domain-vercel
 tags:
   - Cloudflare

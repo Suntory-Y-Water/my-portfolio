@@ -5,7 +5,7 @@ date: 2023-12-23
 modified_time: 2023-12-23
 description: PokeAPIを使って10%の確率でドオーしか表示されないポケモン生成サイトを作成。
 icon: 🎮
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Video%20game/Flat/video_game_flat.svg
+icon_url: /icons/video_game_flat.svg
 tags:
   - 個人開発
   - ポケモン

@@ -5,7 +5,7 @@ date: 2023-05-28
 modified_time: 2023-05-28
 description: ChatGPTを使って読んだ本を要約してもらった実験記録。
 icon: 🤖
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Robot/Flat/robot_flat.svg
+icon_url: /icons/robot_flat.svg
 tags:
   - ChatGPT
 ---

@@ -5,7 +5,7 @@ date: 2025-08-28
 modified_time: 2025-08-28
 description: Claude CodeのPreToolUseがfailed with non-blocking status code 127になったときの解決方法を解説します。改行コードがCRLFになっている場合にLFに変更することで解決します。
 icon: 🎐
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Wind%20chime/Flat/wind_chime_flat.svg
+icon_url: /icons/wind_chime_flat.svg
 tags:
   - ClaudeCode
   - Serena

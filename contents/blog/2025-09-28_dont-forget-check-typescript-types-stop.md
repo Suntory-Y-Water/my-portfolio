@@ -5,7 +5,7 @@ date: 2025-09-28
 modified_time: 2025-09-28
 description: Claude CodeのStop Hooksを使って、TypeScriptの型チェックを自動実行する仕組みを実装します。物忘れを仕組みでカバーして、効率的な開発フローを実現します。
 icon: 😤
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Face%20with%20steam%20from%20nose/Flat/face_with_steam_from_nose_flat.svg
+icon_url: /icons/face_with_steam_from_nose_flat.svg
 tags:
   - TypeScript
   - ClaudeCode

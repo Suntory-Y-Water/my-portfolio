@@ -5,7 +5,7 @@ date: 2025-10-18
 modified_time: 2025-10-18
 description: Notion APIのバージョン2025-09-03における破壊的変更について解説します。単一データベースモデルからマルチソースデータベースモデルへの移行に伴う実装修正方法を紹介します。
 icon: 🚜
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Tractor/Flat/tractor_flat.svg
+icon_url: /icons/tractor_flat.svg
 tags:
   - TypeScript
   - Notion

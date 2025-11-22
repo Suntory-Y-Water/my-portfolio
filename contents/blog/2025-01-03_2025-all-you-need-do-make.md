@@ -5,7 +5,7 @@ date: 2025-01-03
 modified_time: 2025-01-03
 description: ベッドメイキングから始まる小さな成功体験の重要性についてのポエム。
 icon: 🛏️
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Bed/Flat/bed_flat.svg
+icon_url: /icons/bed_flat.svg
 tags:
   - ポエム
 ---

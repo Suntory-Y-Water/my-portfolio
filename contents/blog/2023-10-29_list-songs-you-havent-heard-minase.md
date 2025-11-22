@@ -5,7 +5,7 @@ date: 2023-10-29
 modified_time: 2023-10-29
 description: 水瀬いのりさんのライブで聴いたことのない曲を一覧表示するアプリの開発。
 icon: 🎵
-icon_url: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Musical%20note/Flat/musical_note_flat.svg
+icon_url: /icons/musical_note_flat.svg
 tags:
   - 個人開発
   - Next.js
