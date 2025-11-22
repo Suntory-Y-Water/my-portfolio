@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { BlogCard } from '@/components/feature/content/blog-card';
+import { RememberBlogListPath } from '@/components/feature/content/remember-blog-list-path';
 import { Icons } from '@/components/icons';
 import { Pagination } from '@/components/shared/pagination';
 import { BLOG_CONSTANTS } from '@/constants';
@@ -48,6 +49,7 @@ export default async function BlogListPage({ params }: BlogListPageProps) {
 
   return (
     <section data-pagefind-ignore className='space-y-10'>
+      <RememberBlogListPath />
       <div className='space-y-3 border-b border-border/60 pb-4'>
         <nav className='flex items-center gap-2 text-sm text-muted-foreground'>
           <Link href='/' className='transition-colors hover:text-primary'>

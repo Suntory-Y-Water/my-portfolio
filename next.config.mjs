@@ -10,13 +10,17 @@ const nextConfig = {
     tsconfigPath: 'tsconfig.build.json',
   },
   images: {
-    domains: ['pub-37c337e4f6b74be784982bc3041040b4.r2.dev'],
     formats: ['image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'raw.githubusercontent.com',
         pathname: '/microsoft/fluentui-emoji/main/assets/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'pub-37c337e4f6b74be784982bc3041040b4.r2.dev',
+        pathname: '/**',
       },
     ],
   },

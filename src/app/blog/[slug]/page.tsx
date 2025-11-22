@@ -3,6 +3,7 @@ import '@/styles/markdown.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { BlogBackButton } from '@/components/feature/content/blog-back-button';
 import { CustomMarkdown } from '@/components/feature/content/custom-markdown';
 import { GitHubEditButton } from '@/components/feature/content/github-edit-button';
 import { MarkdownCopyButton } from '@/components/feature/content/markdown-copy-button';
@@ -10,7 +11,6 @@ import { TableOfContents } from '@/components/feature/content/table-of-contents'
 import { BlogViewTransition } from '@/components/feature/content/view-transition';
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
 import { getTagSlug } from '@/config/tag-slugs';
 import { getInlineIcon } from '@/lib/inline-icons';
@@ -133,12 +133,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
       <article className='min-h-[500px]'>
         <div className='mb-6 flex items-center justify-between'>
-          <Button variant='ghost' asChild className='h-9 px-2'>
-            <Link href='/blog' className='group inline-flex items-center'>
-              <Icons.arrowLeft className='mr-2 size-4 transition-transform group-hover:-translate-x-1' />
-              ブログ一覧に戻る
-            </Link>
-          </Button>
+          <BlogBackButton className='h-9 px-2' />
         </div>
 
         {/* Icon */}
