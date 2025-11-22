@@ -12,6 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
 import { getTagSlug } from '@/config/tag-slugs';
+import { getInlineIcon } from '@/lib/inline-icons';
 import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/markdown';
 import { extractTOC } from '@/lib/toc';
 import { absoluteUrl, formatDate } from '@/lib/utils';
@@ -91,6 +92,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const displayUrl =
     post.metadata.icon_url ||
     (post.metadata.icon?.startsWith('https://') ? post.metadata.icon : null);
+  const inlineSvg = displayUrl ? getInlineIcon(displayUrl) : undefined;
 
   // 構造化データ (JSON-LD) の生成
   const jsonLd = {
@@ -132,13 +134,20 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         {/* Icon */}
         {(displayUrl || post.metadata.icon) && (
           <div className='mb-6 flex justify-center'>
-            {displayUrl ? (
+            {inlineSvg ? (
+              <span
+                className='h-20 w-20 [&>svg]:h-full [&>svg]:w-full [&>svg]:object-contain'
+                aria-hidden
+                dangerouslySetInnerHTML={{ __html: inlineSvg }}
+              />
+            ) : displayUrl ? (
               <Image
                 src={displayUrl}
                 alt={`Icon for ${post.metadata.title}`}
                 width={80}
                 height={80}
                 priority
+                unoptimized
               />
             ) : (
               <div className='text-6xl'>{post.metadata.icon}</div>
