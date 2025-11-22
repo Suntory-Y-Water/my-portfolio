@@ -29,7 +29,7 @@ export default async function Home() {
         <p className='mt-6 text-base font-semibold text-muted-foreground md:text-lg'>
           日々の開発で得た知見や、実験的な実装を記録する技術ブログです。
           <br />
-          TypeScript に関する分野の記事が中心です。
+          TypeScript に関する記事が中心です。
         </p>
         <div className='mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6'>
           <Button asChild className='h-11 rounded-full px-8'>
