@@ -61,12 +61,12 @@ export async function CustomMarkdown({ source }: CustomMarkdownProps) {
       .use(remarkGfm)
       .use(remarkBreaks)
       .use(remarkAlert)
-      .use(remarkRehype, { allowDangerousHtml: true })
+      .use(remarkRehype)
       .use(rehypeSlug)
       .use(rehypeLinkCard)
       .use(rehypePrettyCode, rehypePrettyCodeOptions)
       .use(rehypeCodeCopyButton)
-      .use(rehypeStringify, { allowDangerousHtml: true })
+      .use(rehypeStringify)
       .process(source);
 
     return <MarkdownContent html={String(result)} />;

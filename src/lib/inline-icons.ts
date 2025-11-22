@@ -1,9 +1,35 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import DOMPurify from 'isomorphic-dompurify';
+
+/**
+ * SVGをサニタイズしてXSS攻撃を防ぐ
+ * script要素、onload/onerror等のイベントハンドラを除去
+ */
+function sanitizeSVG(svg: string): string {
+  return DOMPurify.sanitize(svg, {
+    USE_PROFILES: { svg: true, svgFilters: true },
+    ADD_TAGS: [
+      'svg',
+      'path',
+      'circle',
+      'rect',
+      'line',
+      'polyline',
+      'polygon',
+      'g',
+      'defs',
+      'use',
+    ],
+    FORBID_TAGS: ['script', 'iframe', 'object', 'embed'],
+    FORBID_ATTR: ['onerror', 'onload', 'onclick', 'onmouseover'],
+  });
+}
 
 /**
  * public/icons 配下の SVG を読み込み、パスをキーにインライン用の文字列を返す。
  * ビルド時に一度だけ同期読み込みし、ランタイムではメモリキャッシュを参照する。
+ * セキュリティ: すべてのSVGはDOMPurifyでサニタイズされる
  */
 function loadIcons(): Record<string, string> {
   const iconsDir = path.join(process.cwd(), 'public', 'icons');
@@ -18,7 +44,8 @@ function loadIcons(): Record<string, string> {
     const abs = path.join(iconsDir, file);
     try {
       const svg = fs.readFileSync(abs, 'utf8');
-      cache[`/icons/${file}`] = svg;
+      // セキュリティ: XSS攻撃を防ぐためSVGをサニタイズ
+      cache[`/icons/${file}`] = sanitizeSVG(svg);
     } catch {
       // 読み込み失敗時はスキップ
     }

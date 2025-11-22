@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2025-11-17T00:00:00Z",
+  "last_updated": "2025-11-22T00:00:00Z",
   "adrs": [
     {
       "id": "ADR-0001",
@@ -66,6 +66,39 @@
         "GitHubリンクコンポーネント"
       ],
       "file_path": "docs/adr/decisions/0002-constants-centralization.json"
+    },
+    {
+      "id": "ADR-0003",
+      "title": "SVGとMarkdownにおけるXSS脆弱性の対策",
+      "status": "accepted",
+      "timestamp": "2025-11-22T00:00:00Z",
+      "tags": [
+        "security",
+        "xss",
+        "svg",
+        "markdown",
+        "sanitization",
+        "dompurify"
+      ],
+      "keywords": [
+        "XSS",
+        "クロスサイトスクリプティング",
+        "SVG",
+        "サニタイゼーション",
+        "DOMPurify",
+        "dangerouslySetInnerHTML",
+        "allowDangerousHtml",
+        "セキュリティ",
+        "脆弱性対策",
+        "Markdown"
+      ],
+      "affected_components": [
+        "SVGアイコン読み込み",
+        "Markdownレンダリング",
+        "ブログ詳細ページ",
+        "ブログカード"
+      ],
+      "file_path": "docs/adr/decisions/0003-svg-xss-security.json"
     }
   ],
   "indices": {
@@ -99,6 +132,24 @@
       ],
       "type-safety": [
         "ADR-0002"
+      ],
+      "security": [
+        "ADR-0003"
+      ],
+      "xss": [
+        "ADR-0003"
+      ],
+      "svg": [
+        "ADR-0003"
+      ],
+      "markdown": [
+        "ADR-0003"
+      ],
+      "sanitization": [
+        "ADR-0003"
+      ],
+      "dompurify": [
+        "ADR-0003"
       ]
     },
     "by_component": {
@@ -122,12 +173,22 @@
       ],
       "GitHubリンクコンポーネント": [
         "ADR-0002"
+      ],
+      "SVGアイコン読み込み": [
+        "ADR-0003"
+      ],
+      "Markdownレンダリング": [
+        "ADR-0003"
+      ],
+      "ブログカード": [
+        "ADR-0003"
       ]
     },
     "by_status": {
       "accepted": [
         "ADR-0001",
-        "ADR-0002"
+        "ADR-0002",
+        "ADR-0003"
       ]
     }
   }
