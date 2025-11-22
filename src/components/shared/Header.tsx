@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { type ReactElement, useState } from 'react';
-import { IoMdHome } from 'react-icons/io';
+import { IoMdHome, IoMdPerson } from 'react-icons/io';
 import { MdOutlineBook } from 'react-icons/md';
 import { SearchDialog } from '@/components/feature/search/search-dialog';
 import { SearchTrigger } from '@/components/feature/search/search-trigger';
@@ -30,6 +30,11 @@ const NAVIGATION_LINKS: MenuItemLinkProps[] = [
     href: '/blog',
     title: 'Blog',
     icon: <MdOutlineBook size='1.2em' />,
+  },
+  {
+    href: '/about',
+    title: 'About',
+    icon: <IoMdPerson size='1.2em' />,
   },
   {
     href: '/tags',
@@ -102,7 +107,7 @@ export default function Header() {
         >
           <Image
             src='/images/icon.webp'
-            alt='ポートフォリオサイトのロゴ'
+            alt='ブログサイトのロゴ'
             width={32}
             height={32}
             priority

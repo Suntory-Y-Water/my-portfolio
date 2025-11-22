@@ -5,10 +5,6 @@
  * - 画面表示: 日本語タグ（例: "アクセシビリティ"）
  * - URL: 英語slug（例: "accessibility"）
  * - slug: 小文字、ハイフン区切り、英数字のみ
- *
- * ## 新しいタグを追加する場合
- * 1. このファイルにマッピングを追加
- * 2. CI/CDで自動的にバリデーションされる
  */
 
 export const TAG_SLUG_MAP: Record<string, string> = {

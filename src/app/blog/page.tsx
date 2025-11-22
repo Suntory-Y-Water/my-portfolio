@@ -1,17 +1,19 @@
-import Link from 'next/link';
 import { BlogCard } from '@/components/feature/content/blog-card';
-import { Icons } from '@/components/icons';
-import { Button } from '@/components/ui/button';
+import { Pagination } from '@/components/shared/pagination';
 import { BLOG_CONSTANTS } from '@/constants';
 import { getAllBlogPosts } from '@/lib/markdown';
 import { paginateItems } from '@/lib/pagination';
 
 export default async function TopPage() {
   const allPosts = await getAllBlogPosts();
-  const { items: paginatedPosts } = paginateItems({
+  const {
+    items: paginatedPosts,
+    currentPage,
+    totalPages,
+  } = paginateItems({
     items: allPosts,
     page: 1,
-    pageSize: BLOG_CONSTANTS.TOP_PAGE_POSTS_COUNT,
+    pageSize: BLOG_CONSTANTS.POSTS_PER_PAGE,
   });
 
   return (
@@ -22,17 +24,15 @@ export default async function TopPage() {
         ))}
       </div>
 
-      <div className='mt-10 text-end'>
-        <Button variant='ghost' asChild className='h-9 px-2'>
-          <Link
-            href='/blog/page/1'
-            className='group inline-flex items-center gap-2'
-          >
-            <span>{'すべての投稿を見る'}</span>
-            <Icons.chevronRight className='size-4 transition-transform group-hover:translate-x-1' />
-          </Link>
-        </Button>
-      </div>
+      {totalPages > 1 && (
+        <div className='mt-10'>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            basePath='/blog/page'
+          />
+        </div>
+      )}
     </section>
   );
 }

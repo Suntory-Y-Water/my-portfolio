@@ -24,6 +24,17 @@ const nextConfig = {
   },
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
 
+  async redirects() {
+    return [
+      // ブログの1ページ目はブログトップと同じ役割なのでリダイレクト
+      {
+        source: '/blog/page/1',
+        destination: '/blog',
+        permanent: true,
+      },
+    ];
+  },
+
   // セキュリティヘッダの追加
   async headers() {
     return [

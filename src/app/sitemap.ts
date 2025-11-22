@@ -14,10 +14,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
+      changeFrequency: 'daily' as const,
     },
     {
       url: `${baseUrl}/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'daily' as const,
+    },
+    {
+      url: `${baseUrl}/about`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+    },
+    {
+      url: `${baseUrl}/tags`,
       lastModified: new Date(),
       changeFrequency: 'daily' as const,
     },
@@ -38,9 +48,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // ページネーション
-  const totalPages = Math.ceil(
-    posts.length / BLOG_CONSTANTS.TOP_PAGE_POSTS_COUNT,
-  );
+  const totalPages = Math.ceil(posts.length / BLOG_CONSTANTS.POSTS_PER_PAGE);
   const paginationEntries = Array.from({ length: totalPages }, (_, i) => ({
     url: `${baseUrl}/blog/page/${i + 1}`,
     lastModified: new Date(),

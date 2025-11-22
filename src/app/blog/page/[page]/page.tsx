@@ -11,9 +11,7 @@ interface BlogListPageProps {
 
 export async function generateStaticParams() {
   const allPosts = await getAllBlogPosts();
-  const totalPages = Math.ceil(
-    allPosts.length / BLOG_CONSTANTS.TOP_PAGE_POSTS_COUNT,
-  );
+  const totalPages = Math.ceil(allPosts.length / BLOG_CONSTANTS.POSTS_PER_PAGE);
 
   return await Promise.all(
     Array.from({ length: totalPages }, (_, i) => ({
