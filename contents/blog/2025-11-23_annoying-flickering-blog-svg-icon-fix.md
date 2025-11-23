@@ -3,7 +3,7 @@ title: ブログのSVGアイコンがチラついてムカついたのでやっ�
 slug: annoying-flickering-blog-svg-icon-fix
 date: 2025-11-23
 modified_time: 2025-11-23
-description: Next.jsのImageコンポーネントで発生するSVGアイコンのちらつき問題を、SVGインライン化によって解決した実装記録です。publicフォルダ配置では解消できなかった初回表示時のちらつきを、ビルド時にSVGコードを埋め込むことで完全に除去しました。
+description: Next.jsのImageコンポーネントで発生するSVGアイコンのちらつき問題を、SVGインライン化によって解決した実装記録です。publicフォルダ配置では解消できなかった初回表示時のちらつきを、ビルド時にSVGコードを埋め込むことでチラつきを無くしました。
 icon: 💥
 icon_url: /icons/collision_flat.svg
 tags:
