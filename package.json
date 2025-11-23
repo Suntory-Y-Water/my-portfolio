@@ -16,6 +16,8 @@
     "check": "biome check .",
     "check:fix": "biome check --write .",
     "check:tags": "bun run scripts/check-tags.ts",
+    "check:svg-security": "bun run scripts/check-svg-security.ts",
+    "check:svg-security:all": "bun run scripts/check-svg-security.ts --all",
     "check:url-blank-lines": "bun run scripts/detect-url-without-blank-lines.ts",
     "fix:url-blank-lines": "bun run scripts/fix-url-blank-lines.ts --apply",
     "new-blog": "bun run scripts/create-blog-template.ts",
