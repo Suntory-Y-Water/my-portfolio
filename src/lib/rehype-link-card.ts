@@ -1,8 +1,14 @@
+import DOMPurify from 'dompurify';
 import type { Element, Root } from 'hast';
+import { JSDOM } from 'jsdom';
 import { visit } from 'unist-util-visit';
 import { getOGData } from '@/actions/fetch-og-metadata';
 import { siteConfig } from '@/config/site';
 import { getBlogPostBySlug } from '@/lib/markdown';
+
+// Node.js環境でDOMPurifyを初期化
+const window = new JSDOM('').window;
+const purify = DOMPurify(window);
 
 /**
  * リンクカード表示用のデータ型
@@ -154,9 +160,10 @@ async function fetchLinkCardData(url: string): Promise<LinkCardData> {
  *
  * LinkCardDataからリンクカードのHTMLを生成します。
  * 内部リンクと外部リンクで表示内容が異なります。
+ * セキュリティ: 生成されたHTMLはDOMPurifyでサニタイズされます。
  *
  * @param data - リンクカード表示用のデータ
- * @returns 生成されたHTMLタグの文字列
+ * @returns 生成されたサニタイズ済みのHTMLタグ文字列
  */
 function createLinkCardHTML(data: LinkCardData): string {
   const { url, title, description, image, isInternal, error } = data;
@@ -199,7 +206,7 @@ function createLinkCardHTML(data: LinkCardData): string {
         </div>
       </div>`;
 
-  return `<a ${linkAttrs}>
+  const html = `<a ${linkAttrs}>
     <div class="flex flex-1 flex-col gap-2 p-4">
       <div class="flex items-center gap-1">
         <div class="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
@@ -219,6 +226,46 @@ function createLinkCardHTML(data: LinkCardData): string {
     </div>
     ${imageSection}
   </a>`;
+
+  // XSS攻撃を防ぐためHTMLをサニタイズ
+  return purify.sanitize(html, {
+    ALLOWED_TAGS: [
+      'a',
+      'div',
+      'span',
+      'h3',
+      'p',
+      'img',
+      'svg',
+      'path',
+      'polyline',
+      'line',
+    ],
+    ALLOWED_ATTR: [
+      'href',
+      'target',
+      'rel',
+      'class',
+      'src',
+      'alt',
+      'loading',
+      'width',
+      'height',
+      'style',
+      'xmlns',
+      'viewBox',
+      'fill',
+      'stroke',
+      'stroke-width',
+      'stroke-linecap',
+      'stroke-linejoin',
+      'x1',
+      'y1',
+      'x2',
+      'y2',
+      'points',
+    ],
+  });
 }
 
 /**
