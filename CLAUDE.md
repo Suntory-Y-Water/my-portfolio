@@ -333,7 +333,7 @@ relative_path: 'src/auth/user.ts'
 
 ```bash
 # 型チェック
-bun run type-check
+bun run typecheck
 
 # Lint
 bun run lint

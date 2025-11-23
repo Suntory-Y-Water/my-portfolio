@@ -149,6 +149,22 @@
   @apply h-auto w-full;
 }
 
+/* Mermaid ダークモード対応: 文字色と矢印・線を白に上書き */
+.dark .markdown-content .mermaid svg text {
+  fill: white !important;
+}
+
+.dark .markdown-content .mermaid svg .edgePath path,
+.dark .markdown-content .mermaid svg .edgePath marker path,
+.dark .markdown-content .mermaid svg line[class*="messageLine"],
+.dark .markdown-content .mermaid svg path[class*="messageLine"] {
+  stroke: white !important;
+}
+
+.dark .markdown-content .mermaid svg marker path {
+  fill: white !important;
+}
+
 .markdown-content hr {
   @apply my-8 border-border/50;
 }
