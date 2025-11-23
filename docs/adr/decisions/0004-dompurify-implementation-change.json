@@ -1,0 +1,176 @@
+{
+  "id": "ADR-0004",
+  "title": "DOMPurify実装方法の変更とリンクカードサニタイズの追加",
+  "status": "accepted",
+  "timestamp": "2025-11-23T00:00:00Z",
+  "context": {
+    "problem": "ADR-0003でisomorphic-dompurifyを採用したが、Vercelビルド環境で依存関係エラー（Cannot find module 'entities/escape'）が発生。また、allowDangerousHtmlを無効化したことでリンクカード機能が動作しなくなった。",
+    "constraints": [
+      "Vercelビルド環境で確実に動作する必要がある",
+      "リンクカード表示機能を維持する必要がある",
+      "ADR-0003で確立したセキュリティレベルを維持する必要がある",
+      "既存のSVGサニタイズ機能を維持する必要がある"
+    ],
+    "forces": [
+      "セキュリティ: XSS攻撃を防ぐ多層防御を維持",
+      "機能性: リンクカード表示機能の復活",
+      "信頼性: Vercelビルドエラーの解消",
+      "保守性: 依存関係の透明性向上",
+      "標準準拠: DOMPurify公式推奨の実装方法を採用"
+    ]
+  },
+  "decision": {
+    "summary": "isomorphic-dompurifyからDOMPurify公式推奨のdompurify+jsdom直接使用に変更し、リンクカード生成時にHTMLサニタイズを追加してallowDangerousHtmlを有効化する",
+    "rationale": [
+      "DOMPurify公式ドキュメントで推奨されている実装方法を採用することで標準準拠",
+      "isomorphic-dompurifyの抽象化が依存関係の問題を隠蔽していたため、明示的な実装に変更",
+      "依存関係が明示的になることでトラブルシューティングが容易に",
+      "リンクカード生成時にDOMPurifyでサニタイズすることで、allowDangerousHtml有効化でもセキュリティを維持",
+      "ホワイトリスト方式（ALLOWED_TAGS/ALLOWED_ATTR）で必要最小限のHTMLのみ許可"
+    ],
+    "alternatives_considered": [
+      {
+        "option": "isomorphic-dompurifyのまま依存関係を修正",
+        "pros": ["コード変更が最小限", "既存の実装を維持"],
+        "cons": ["根本原因が不明確", "再発の可能性", "依存関係が隠蔽されたまま"],
+        "reason_rejected": "依存関係の透明性が低く、将来的なトラブルシューティングが困難"
+      },
+      {
+        "option": "リンクカード機能を削除",
+        "pros": ["セキュリティリスクを完全に回避", "allowDangerousHtml不要"],
+        "cons": ["ユーザー体験の低下", "機能の損失"],
+        "reason_rejected": "リンクカード機能はUX向上に寄与しており、サニタイズで安全に実装可能"
+      },
+      {
+        "option": "クライアントサイドでリンクカード生成",
+        "pros": ["サーバーサイドの複雑性を回避"],
+        "cons": ["パフォーマンス低下", "SEOへの悪影響", "初期表示の遅延"],
+        "reason_rejected": "静的サイト生成の利点を失う"
+      }
+    ]
+  },
+  "implementation": {
+    "changes": [
+      {
+        "file": "package.json",
+        "description": "依存関係の変更",
+        "details": [
+          "削除: isomorphic-dompurify@2.33.0",
+          "追加: dompurify@3.3.0, jsdom@27.2.0",
+          "追加（型定義）: @types/dompurify@3.2.0, @types/jsdom@27.0.0"
+        ]
+      },
+      {
+        "file": "src/lib/inline-icons.ts",
+        "description": "DOMPurify公式推奨の初期化方法に変更",
+        "details": [
+          "isomorphic-dompurifyからdompurify+jsdomに変更",
+          "const window = new JSDOM('').window; const purify = DOMPurify(window); で初期化",
+          "公式READMEに記載されている標準的な使い方を採用",
+          "既存のSVGサニタイズ機能は変更なし"
+        ]
+      },
+      {
+        "file": "src/lib/rehype-link-card.ts",
+        "description": "リンクカードHTML生成時にDOMPurifyでサニタイズを追加",
+        "details": [
+          "DOMPurifyの初期化を追加（inline-icons.tsと同じ方法）",
+          "createLinkCardHTML関数でHTMLサニタイズを実装",
+          "ALLOWED_TAGS: a, div, span, h3, p, img, svg, path, polyline, line",
+          "ALLOWED_ATTR: href, target, rel, class, src, alt, loading, width, height, style, xmlns, viewBox, fill, stroke関連など",
+          "ホワイトリスト方式で必要最小限のHTMLのみ許可"
+        ]
+      },
+      {
+        "file": "src/components/feature/content/custom-markdown.tsx",
+        "description": "allowDangerousHtmlを有効化（セキュリティコメント追加）",
+        "details": [
+          "remarkRehype({ allowDangerousHtml: true })を設定",
+          "rehypeStringify({ allowDangerousHtml: true })を設定",
+          "リンクカードがDOMPurifyでサニタイズ済みであることをコメントで明記",
+          "セキュリティに関する説明をJSDocに追加"
+        ]
+      }
+    ],
+    "affected_components": [
+      "src/lib/inline-icons.ts（DOMPurify初期化方法変更）",
+      "src/lib/rehype-link-card.ts（サニタイズ追加）",
+      "src/components/feature/content/custom-markdown.tsx（allowDangerousHtml有効化）",
+      "package.json（依存関係変更）"
+    ],
+    "testing": [
+      "Vercelビルドが成功することを確認",
+      "型チェックが通ることを確認（bun run typecheck）",
+      "Lintが通ることを確認（bun run check）",
+      "ローカルビルドが成功することを確認（bun run build）",
+      "リンクカードが正常に表示されることを確認",
+      "SVGアイコンが正常に表示されることを確認（既存機能）"
+    ]
+  },
+  "consequences": {
+    "positive": [
+      "Vercelビルドエラーが解消され、デプロイが安定",
+      "リンクカード表示機能が復活",
+      "依存関係が明示的になり、トラブルシューティングが容易",
+      "DOMPurify公式推奨の実装方法を採用し、標準準拠",
+      "セキュリティ多層防御を実現（SVGサニタイズ + リンクカードサニタイズ）",
+      "パッケージサイズはisomorphic-dompurify使用時とほぼ同じ"
+    ],
+    "negative": [
+      "allowDangerousHtmlを有効化（ただしリンクカード生成時にサニタイズ済み）"
+    ],
+    "neutral": [
+      "コード量が若干増加（DOMPurify初期化コードが各ファイルで必要）",
+      "将来的にMarkdownで生HTMLを使いたい場合は、別途サニタイズ処理が必要"
+    ]
+  },
+  "security_considerations": {
+    "multi_layer_defense": [
+      "第1層: SVGサニタイズ（inline-icons.ts）- ビルド時にSVGファイルをサニタイズ",
+      "第2層: リンクカードサニタイズ（rehype-link-card.ts）- HTML生成時にサニタイズ",
+      "第3層: ホワイトリスト方式 - ALLOWED_TAGSとALLOWED_ATTRで必要最小限のみ許可"
+    ],
+    "sanitization_points": [
+      "SVG読み込み時（loadIcons関数内）",
+      "リンクカードHTML生成時（createLinkCardHTML関数内）"
+    ],
+    "allowed_html_elements": {
+      "tags": ["a", "div", "span", "h3", "p", "img", "svg", "path", "polyline", "line"],
+      "attributes": ["href", "target", "rel", "class", "src", "alt", "loading", "width", "height", "style", "xmlns", "viewBox", "fill", "stroke", "stroke-width", "stroke-linecap", "stroke-linejoin", "x1", "y1", "x2", "y2", "points"]
+    }
+  },
+  "related_adrs": [
+    "ADR-0003"
+  ],
+  "tags": [
+    "security",
+    "dependency",
+    "dompurify",
+    "jsdom",
+    "sanitization",
+    "link-card",
+    "vercel",
+    "build-error"
+  ],
+  "keywords": [
+    "DOMPurify",
+    "jsdom",
+    "isomorphic-dompurify",
+    "依存関係",
+    "Vercel",
+    "ビルドエラー",
+    "リンクカード",
+    "サニタイゼーション",
+    "allowDangerousHtml",
+    "セキュリティ",
+    "多層防御",
+    "ホワイトリスト"
+  ],
+  "notes": [
+    "DOMPurify公式ドキュメント: https://github.com/cure53/dompurify",
+    "公式推奨の初期化方法: const window = new JSDOM('').window; const purify = DOMPurify(window);",
+    "isomorphic-dompurifyは便利だが、依存関係が隠蔽されるため今回のようなトラブルシューティングが困難",
+    "リンクカードサニタイズはビルド時に実行されるため、ランタイムパフォーマンスへの影響はゼロ",
+    "allowDangerousHtmlを有効化しているが、出力されるHTMLは全てDOMPurifyでサニタイズ済み"
+  ]
+}

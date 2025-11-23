@@ -1,13 +1,18 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import DOMPurify from 'isomorphic-dompurify';
+import DOMPurify from 'dompurify';
+import { JSDOM } from 'jsdom';
+
+// Node.js環境でDOMPurifyを初期化
+const window = new JSDOM('').window;
+const purify = DOMPurify(window);
 
 /**
  * SVGをサニタイズしてXSS攻撃を防ぐ
  * script要素、onload/onerror等のイベントハンドラを除去
  */
 function sanitizeSVG(svg: string): string {
-  return DOMPurify.sanitize(svg, {
+  return purify.sanitize(svg, {
     USE_PROFILES: { svg: true, svgFilters: true },
     ADD_TAGS: [
       'svg',

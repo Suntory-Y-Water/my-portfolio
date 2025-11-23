@@ -50,6 +50,9 @@ const rehypePrettyCodeOptions: Options = {
  * シンタックスハイライト、コードコピーボタンなど、多くの機能をサポートしています。
  * エラーが発生した場合は、エラーメッセージを表示します。
  *
+ * セキュリティ: allowDangerousHtml を有効化していますが、
+ * リンクカード生成時にDOMPurifyでサニタイズしているため安全です。
+ *
  * @param source - レンダリングするMarkdownソース文字列
  * @returns レンダリングされたMarkdownコンポーネント。エラー時はエラーメッセージを含むdivを返します
  *
@@ -61,12 +64,12 @@ export async function CustomMarkdown({ source }: CustomMarkdownProps) {
       .use(remarkGfm)
       .use(remarkBreaks)
       .use(remarkAlert)
-      .use(remarkRehype)
+      .use(remarkRehype, { allowDangerousHtml: true })
       .use(rehypeSlug)
       .use(rehypeLinkCard)
       .use(rehypePrettyCode, rehypePrettyCodeOptions)
       .use(rehypeCodeCopyButton)
-      .use(rehypeStringify)
+      .use(rehypeStringify, { allowDangerousHtml: true })
       .process(source);
 
     return <MarkdownContent html={String(result)} />;

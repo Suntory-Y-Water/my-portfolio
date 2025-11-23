@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2025-11-22T00:00:00Z",
+  "last_updated": "2025-11-23T00:00:00Z",
   "adrs": [
     {
       "id": "ADR-0001",
@@ -99,6 +99,43 @@
         "ブログカード"
       ],
       "file_path": "docs/adr/decisions/0003-svg-xss-security.json"
+    },
+    {
+      "id": "ADR-0004",
+      "title": "DOMPurify実装方法の変更とリンクカードサニタイズの追加",
+      "status": "accepted",
+      "timestamp": "2025-11-23T00:00:00Z",
+      "tags": [
+        "security",
+        "dependency",
+        "dompurify",
+        "jsdom",
+        "sanitization",
+        "link-card",
+        "vercel",
+        "build-error"
+      ],
+      "keywords": [
+        "DOMPurify",
+        "jsdom",
+        "isomorphic-dompurify",
+        "依存関係",
+        "Vercel",
+        "ビルドエラー",
+        "リンクカード",
+        "サニタイゼーション",
+        "allowDangerousHtml",
+        "セキュリティ",
+        "多層防御",
+        "ホワイトリスト"
+      ],
+      "affected_components": [
+        "SVGアイコン読み込み",
+        "リンクカード生成",
+        "Markdownレンダリング",
+        "依存関係管理"
+      ],
+      "file_path": "docs/adr/decisions/0004-dompurify-implementation-change.json"
     }
   ],
   "indices": {
@@ -134,7 +171,8 @@
         "ADR-0002"
       ],
       "security": [
-        "ADR-0003"
+        "ADR-0003",
+        "ADR-0004"
       ],
       "xss": [
         "ADR-0003"
@@ -146,10 +184,27 @@
         "ADR-0003"
       ],
       "sanitization": [
-        "ADR-0003"
+        "ADR-0003",
+        "ADR-0004"
       ],
       "dompurify": [
-        "ADR-0003"
+        "ADR-0003",
+        "ADR-0004"
+      ],
+      "dependency": [
+        "ADR-0004"
+      ],
+      "jsdom": [
+        "ADR-0004"
+      ],
+      "link-card": [
+        "ADR-0004"
+      ],
+      "vercel": [
+        "ADR-0004"
+      ],
+      "build-error": [
+        "ADR-0004"
       ]
     },
     "by_component": {
@@ -175,20 +230,29 @@
         "ADR-0002"
       ],
       "SVGアイコン読み込み": [
-        "ADR-0003"
+        "ADR-0003",
+        "ADR-0004"
       ],
       "Markdownレンダリング": [
-        "ADR-0003"
+        "ADR-0003",
+        "ADR-0004"
       ],
       "ブログカード": [
         "ADR-0003"
+      ],
+      "リンクカード生成": [
+        "ADR-0004"
+      ],
+      "依存関係管理": [
+        "ADR-0004"
       ]
     },
     "by_status": {
       "accepted": [
         "ADR-0001",
         "ADR-0002",
-        "ADR-0003"
+        "ADR-0003",
+        "ADR-0004"
       ]
     }
   }
