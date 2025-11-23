@@ -151,6 +151,7 @@ export default function Header() {
             type='button'
             onClick={() => setSearchOpen(true)}
             className='inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border/50 bg-secondary/20 text-muted-foreground transition-all hover:bg-secondary/60 hover:text-foreground md:hidden'
+            aria-label='検索を開く'
           >
             <Search className='h-4 w-4' />
           </button>

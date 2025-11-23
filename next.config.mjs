@@ -3,6 +3,12 @@ import bundleAnalyzer from '@next/bundle-analyzer';
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
+  analyzerMode: process.env.ANALYZE_MODE || 'static', // 'json' を指定すると JSON 出力
+  reportFilename: process.env.BUNDLE_REPORT || './.next/analyze/client.html',
+  generateStatsFile: process.env.ANALYZE_STATS === 'true',
+  statsFilename: process.env.BUNDLE_STATS || './.next/analyze/stats.json',
+  openAnalyzer: false,
+  statsOptions: { source: false }, // 必要に応じて
 });
 
 const nextConfig = {
