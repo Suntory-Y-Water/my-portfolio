@@ -161,17 +161,3 @@ function slugifyTag(tag: string): string {
     .replace(/\s+/g, '-') // スペースをハイフンに
     .replace(/-+/g, '-'); // 連続ハイフンを1つに
 }
-
-/**
- * マッピングテーブルに登録されている全てのタグ名を取得
- */
-export function getAllMappedTagNames(): string[] {
-  return Object.keys(TAG_SLUG_MAP);
-}
-
-/**
- * マッピングテーブルに登録されている全てのslugを取得
- */
-export function getAllMappedSlugs(): string[] {
-  return Object.values(TAG_SLUG_MAP);
-}

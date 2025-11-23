@@ -67,25 +67,3 @@ export function formatDate(input: string | number): string {
 export function absoluteUrl(path: string) {
   return `${process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'}${path}`;
 }
-
-/**
- * テキストを指定された最大長で切り詰める
- *
- * 入力テキストが最大長を超える場合は、指定された長さで切り詰めて
- * 末尾に「...」を追加します。最大長以下の場合は元のテキストをそのまま返します。
- *
- * @param inputText - 切り詰める対象のテキスト
- * @param maxLength - 最大文字数（この長さを超えると切り詰められる）
- * @returns 切り詰められたテキスト（必要に応じて「...」付き）
- *
- * @example
- * ```ts
- * truncateText('これは長いテキストです', 5) // => 'これは長いテ...'
- * truncateText('短い', 10) // => '短い'
- * ```
- */
-export function truncateText(inputText: string, maxLength: number): string {
-  return inputText.length > maxLength
-    ? `${inputText.slice(0, maxLength)}...`
-    : inputText;
-}
