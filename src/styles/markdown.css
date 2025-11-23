@@ -141,6 +141,14 @@
   @apply rounded-md border border-border/50 h-auto max-w-full max-h-[600px] object-contain mx-auto;
 }
 
+.markdown-content .mermaid {
+  @apply my-6 overflow-x-auto rounded-lg border border-border/50 bg-muted/40 p-4;
+}
+
+.markdown-content .mermaid svg {
+  @apply h-auto w-full;
+}
+
 .markdown-content hr {
   @apply my-8 border-border/50;
 }

@@ -9,6 +9,7 @@ import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 import { rehypeCodeCopyButton } from '@/lib/rehype-code-copy-button';
 import { rehypeLinkCard } from '@/lib/rehype-link-card';
+import { rehypeMermaidCodeToDiv } from '@/lib/rehype-mermaid-code';
 import { MarkdownContent } from './markdown-content';
 
 type CustomMarkdownProps = {
@@ -67,6 +68,7 @@ export async function CustomMarkdown({ source }: CustomMarkdownProps) {
       .use(remarkRehype, { allowDangerousHtml: true })
       .use(rehypeSlug)
       .use(rehypeLinkCard)
+      .use(rehypeMermaidCodeToDiv)
       .use(rehypePrettyCode, rehypePrettyCodeOptions)
       .use(rehypeCodeCopyButton)
       .use(rehypeStringify, { allowDangerousHtml: true })

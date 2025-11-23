@@ -1,10 +1,13 @@
 'use client';
 
+import mermaid from 'mermaid';
 import { useEffect, useRef } from 'react';
 
 type MarkdownContentProps = {
   html: string;
 };
+
+let mermaidInitialized = false;
 
 /**
  * コンパイル済みMarkdown HTMLを表示するクライアントコンポーネント
@@ -121,6 +124,35 @@ export function MarkdownContent({ html }: MarkdownContentProps) {
         if (timeoutId) clearTimeout(timeoutId);
       });
     };
+  }, [html]);
+
+  useEffect(() => {
+    if (!html) return;
+
+    const renderMermaid = async () => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      const mermaidBlocks = container.querySelectorAll<HTMLElement>('.mermaid');
+      if (mermaidBlocks.length === 0) return;
+
+      if (!mermaidInitialized) {
+        mermaid.initialize({
+          startOnLoad: false,
+          securityLevel: 'strict',
+        });
+        mermaidInitialized = true;
+      }
+      await mermaid.run({
+        querySelector: '.mermaid',
+        nodes: Array.from(mermaidBlocks),
+        suppressErrors: true,
+      });
+    };
+
+    renderMermaid().catch((error) => {
+      console.error('Failed to render Mermaid diagrams:', error);
+    });
   }, [html]);
 
   return (
