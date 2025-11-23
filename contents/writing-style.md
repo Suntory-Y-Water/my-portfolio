@@ -90,7 +90,14 @@ YouTubeの「大人の教養TVchannel」が過去日本が占領した地域の�
 - **リンク:**
     - 公式ドキュメントや関連技術、参考記事へのリンク (`[text](url)`) を積極的に活用します。
 - **注意喚起:**
-    - `>[CAUTION]` や `>[NOTE]`などのコールアウトを用いて、注意点、補足情報などを目立たせます。
+    - `>[!CAUTION]` や `>[!NOTE]`などのGitHub Flavored Markdown記法を用いて、注意点、補足情報などを目立たせます。
+    - これらの記法はtextlintの`no-unmatched-pair`ルールでエラーになるため、前後にコメントで無効化します：
+      ```markdown
+      <!-- textlint-disable preset-ja-technical-writing/no-unmatched-pair -->
+      >[!CAUTION]
+      >注意事項...
+      <!-- textlint-enable preset-ja-technical-writing/no-unmatched-pair -->
+      ```
 
 ### サンプルコードの品質と再現性
 読者の学習体験を最大化するため、掲載するコードは以下の基準を満たすよう努めます。
