@@ -45,6 +45,9 @@ export async function generateMetadata({ params }: TagPageProps) {
       description: `「${tagName}」タグの記事一覧を表示しています。`,
       images: [siteConfig.ogImage],
     },
+    alternates: {
+      canonical: absoluteUrl(`/tags/${slug}`),
+    },
   };
 }
 

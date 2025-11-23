@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { BlogCard } from '@/components/feature/content/blog-card';
@@ -7,9 +8,22 @@ import { Pagination } from '@/components/shared/pagination';
 import { BLOG_CONSTANTS } from '@/constants';
 import { getAllBlogPosts } from '@/lib/markdown';
 import { paginateItems } from '@/lib/pagination';
+import { absoluteUrl } from '@/lib/utils';
 
 interface BlogListPageProps {
   params: Promise<{ page: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: BlogListPageProps): Promise<Metadata> {
+  const { page } = await params;
+
+  return {
+    alternates: {
+      canonical: absoluteUrl(`/blog/page/${page}`),
+    },
+  };
 }
 
 export async function generateStaticParams() {
