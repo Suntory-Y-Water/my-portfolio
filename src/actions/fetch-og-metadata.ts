@@ -10,6 +10,35 @@ interface OGData {
 }
 
 /**
+ * OGP画像のURLを絶対URLに変換する
+ *
+ * 相対URLの場合は元ページのoriginを基準に絶対URLに変換します。
+ * 既に絶対URLの場合はそのまま返します。
+ *
+ * @param imageUrl - OGP画像のURL（相対または絶対）
+ * @param baseUrl - 基準となるページのURL
+ * @returns 絶対URL形式の画像URL、変換できない場合は空文字列
+ */
+function resolveImageUrl({
+  imageUrl,
+  baseUrl,
+}: {
+  imageUrl: string | undefined;
+  baseUrl: string;
+}): string {
+  if (!imageUrl) return '';
+
+  // 絶対URLかどうかを判定
+  const isAbsoluteUrl = /^https?:\/\//i.test(imageUrl);
+  if (isAbsoluteUrl) return imageUrl;
+
+  // 相対URLの場合は元のURLのoriginを基準に絶対URLに変換
+  const base = new URL(baseUrl);
+  const absoluteUrl = new URL(imageUrl, base.origin);
+  return absoluteUrl.href;
+}
+
+/**
  * URLからOGP（Open Graph Protocol）データを取得する
  *
  * @param url - OGPデータを取得するURL
@@ -45,7 +74,10 @@ async function getOGDataImpl(url: string): Promise<Partial<OGData>> {
       title: getMetaContent('og:title') || titleMatch?.[1] || '',
       description:
         getMetaContent('og:description') || getMetaContent('description') || '',
-      image: getMetaContent('og:image') || '',
+      image: resolveImageUrl({
+        imageUrl: getMetaContent('og:image'),
+        baseUrl: url,
+      }),
       url,
     };
   } catch (error) {
