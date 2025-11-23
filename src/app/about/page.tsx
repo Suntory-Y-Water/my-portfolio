@@ -9,10 +9,34 @@ import {
   Tv,
   Twitter,
 } from 'lucide-react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { siteConfig } from '@/config/site';
+import { absoluteUrl } from '@/lib/utils';
+
+const aboutDescription =
+  'プロフィール、経歴、SNSや連絡先のリンクをまとめたページです。';
+
+export const metadata: Metadata = {
+  title: 'About',
+  description: aboutDescription,
+  openGraph: {
+    title: 'About',
+    description: aboutDescription,
+    url: absoluteUrl('/about'),
+    images: [siteConfig.ogImage],
+  },
+  twitter: {
+    title: 'About',
+    description: aboutDescription,
+    images: [siteConfig.ogImage],
+  },
+  alternates: {
+    canonical: absoluteUrl('/about'),
+  },
+};
 
 // --- 型定義 ---
 

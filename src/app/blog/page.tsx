@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BlogCard } from '@/components/feature/content/blog-card';
 import { RememberBlogListPath } from '@/components/feature/content/remember-blog-list-path';
@@ -6,6 +7,13 @@ import { Pagination } from '@/components/shared/pagination';
 import { BLOG_CONSTANTS } from '@/constants';
 import { getAllBlogPosts } from '@/lib/markdown';
 import { paginateItems } from '@/lib/pagination';
+import { absoluteUrl } from '@/lib/utils';
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: absoluteUrl('/blog'),
+  },
+};
 
 export default async function TopPage() {
   const allPosts = await getAllBlogPosts();

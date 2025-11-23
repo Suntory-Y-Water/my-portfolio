@@ -22,6 +22,11 @@ const nextConfig = {
         hostname: 'pub-37c337e4f6b74be784982bc3041040b4.r2.dev',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'pub-151065dba8464e6982571edb9ce95445.r2.dev',
+        pathname: '/**',
+      },
     ],
   },
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
@@ -47,6 +52,10 @@ const nextConfig = {
           {
             key: 'Strict-Transport-Security',
             value: 'max-age=31536000; includeSubDomains; preload',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: "frame-ancestors 'self'",
           },
           {
             key: 'X-Content-Type-Options',

@@ -3,6 +3,7 @@ import '@/styles/markdown.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
 import { BlogBackButton } from '@/components/feature/content/blog-back-button';
 import { CustomMarkdown } from '@/components/feature/content/custom-markdown';
 import { GitHubEditButton } from '@/components/feature/content/github-edit-button';
@@ -126,7 +127,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <div>
       {/* 構造化データ (JSON-LD) */}
-      <script
+      <Script
         type='application/ld+json'
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />

@@ -33,6 +33,9 @@ export const metadata: Metadata = {
     description: PAGE_DESCRIPTION,
     images: [siteConfig.ogImage],
   },
+  alternates: {
+    canonical: absoluteUrl('/tags'),
+  },
 };
 
 export default async function TagsPage() {
