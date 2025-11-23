@@ -79,6 +79,7 @@ export const TAG_SLUG_MAP: Record<string, string> = {
   Recharts: 'recharts',
   Selenium: 'selenium',
   Serena: 'serena',
+  SVG: 'svg',
   'shadcn/ui': 'shadcn-ui',
   sqlalchemy: 'sqlalchemy',
   TailwindCSS: 'tailwind-css',
