@@ -10,6 +10,7 @@ import {
   Twitter,
 } from 'lucide-react';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -148,11 +149,13 @@ export default function AboutPage() {
           <div className='relative'>
             <div className='absolute inset-0 animate-pulse rounded-full bg-primary/20 blur-[50px]' />
             <div className='relative h-40 w-40 overflow-hidden rounded-full border-4 border-background bg-muted shadow-xl md:h-48 md:w-48'>
-              {/* biome-ignore lint/performance/noImgElement: Avatar image */}
-              <img
+              <Image
                 src='https://avatars.githubusercontent.com/u/116779921?v=4'
                 alt='sui avatar'
+                width={192}
+                height={192}
                 className='h-full w-full object-cover transition-transform duration-500 hover:scale-110'
+                priority
               />
             </div>
           </div>
