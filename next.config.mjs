@@ -33,6 +33,11 @@ const nextConfig = {
         hostname: 'pub-151065dba8464e6982571edb9ce95445.r2.dev',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+        pathname: '/**',
+      },
     ],
   },
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
