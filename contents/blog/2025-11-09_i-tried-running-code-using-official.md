@@ -121,7 +121,9 @@ Found registered project 'mcp-code-execution' at path
 /Users/user/dev/test-parser/.claude/skills/mcp-code-execution
 ```
 
-Serena は**Skillディレクトリ自身**をプロジェクトルートとして認識していました。つまり、期待していたのは `/Users/user/dev/test-parser` をプロジェクトルートとして認識し、相対パス `'parser'` を `/Users/user/dev/test-parser/parser` と解釈することでしたが、実際には `/Users/user/dev/test-parser/.claude/skills/mcp-code-execution` をプロジェクトルートとして認識し、相対パス `'parser'` を `/Users/user/dev/test-parser/.claude/skills/mcp-code-execution/parser` と解釈していました。当然、この場所には parser ディレクトリは存在しません。
+Serena は**Skillディレクトリ自身**をプロジェクトルートとして認識していました。
+つまり、期待していたのは `/Users/user/dev/test-parser` をプロジェクトルートとして認識し、相対パス `'parser'` を `/Users/user/dev/test-parser/parser` と解釈することです。
+ですが、実際には `/Users/user/dev/test-parser/.claude/skills/mcp-code-execution` をプロジェクトルートとして認識し、相対パス `'parser'` を `/Users/user/dev/test-parser/.claude/skills/mcp-code-execution/parser` と解釈していました。当然、この場所には parser ディレクトリは存在しません。
 
 ```
 test-parser/

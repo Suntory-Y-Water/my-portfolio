@@ -23,10 +23,7 @@
     "alternatives": [
       {
         "option": "既存の`src/config/site.ts`を拡張（Proposal B）",
-        "pros": [
-          "新規ファイル作成が不要",
-          "既存の構造を活用できる"
-        ],
+        "pros": ["新規ファイル作成が不要", "既存の構造を活用できる"],
         "cons": [
           "設定ファイルと定数の責任が混在",
           "ファイルが肥大化する可能性",
@@ -96,13 +93,7 @@
     ]
   },
   "metadata": {
-    "tags": [
-      "constants",
-      "configuration",
-      "url",
-      "maintenance",
-      "type-safety"
-    ],
+    "tags": ["constants", "configuration", "url", "maintenance", "type-safety"],
     "related_adrs": [],
     "supersedes": null,
     "superseded_by": null,

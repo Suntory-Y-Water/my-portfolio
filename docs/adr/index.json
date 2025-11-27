@@ -7,13 +7,7 @@
       "title": "ブログ記事作成スクリプトでの自動ブランチ作成",
       "status": "accepted",
       "timestamp": "2025-11-16T00:00:00Z",
-      "tags": [
-        "git",
-        "automation",
-        "blog",
-        "workflow",
-        "scripting"
-      ],
+      "tags": ["git", "automation", "blog", "workflow", "scripting"],
       "keywords": [
         "ブランチ作成",
         "自動化",
@@ -25,9 +19,7 @@
         "blog-slug",
         "create-blog-template"
       ],
-      "affected_components": [
-        "ブログ記事作成スクリプト"
-      ],
+      "affected_components": ["ブログ記事作成スクリプト"],
       "file_path": "docs/adr/decisions/0001-auto-branch-creation-blog-script.json"
     },
     {
@@ -140,120 +132,44 @@
   ],
   "indices": {
     "by_tag": {
-      "git": [
-        "ADR-0001"
-      ],
-      "automation": [
-        "ADR-0001"
-      ],
-      "blog": [
-        "ADR-0001"
-      ],
-      "workflow": [
-        "ADR-0001"
-      ],
-      "scripting": [
-        "ADR-0001"
-      ],
-      "constants": [
-        "ADR-0002"
-      ],
-      "configuration": [
-        "ADR-0002"
-      ],
-      "url": [
-        "ADR-0002"
-      ],
-      "maintenance": [
-        "ADR-0002"
-      ],
-      "type-safety": [
-        "ADR-0002"
-      ],
-      "security": [
-        "ADR-0003",
-        "ADR-0004"
-      ],
-      "xss": [
-        "ADR-0003"
-      ],
-      "svg": [
-        "ADR-0003"
-      ],
-      "markdown": [
-        "ADR-0003"
-      ],
-      "sanitization": [
-        "ADR-0003",
-        "ADR-0004"
-      ],
-      "dompurify": [
-        "ADR-0003",
-        "ADR-0004"
-      ],
-      "dependency": [
-        "ADR-0004"
-      ],
-      "jsdom": [
-        "ADR-0004"
-      ],
-      "link-card": [
-        "ADR-0004"
-      ],
-      "vercel": [
-        "ADR-0004"
-      ],
-      "build-error": [
-        "ADR-0004"
-      ]
+      "git": ["ADR-0001"],
+      "automation": ["ADR-0001"],
+      "blog": ["ADR-0001"],
+      "workflow": ["ADR-0001"],
+      "scripting": ["ADR-0001"],
+      "constants": ["ADR-0002"],
+      "configuration": ["ADR-0002"],
+      "url": ["ADR-0002"],
+      "maintenance": ["ADR-0002"],
+      "type-safety": ["ADR-0002"],
+      "security": ["ADR-0003", "ADR-0004"],
+      "xss": ["ADR-0003"],
+      "svg": ["ADR-0003"],
+      "markdown": ["ADR-0003"],
+      "sanitization": ["ADR-0003", "ADR-0004"],
+      "dompurify": ["ADR-0003", "ADR-0004"],
+      "dependency": ["ADR-0004"],
+      "jsdom": ["ADR-0004"],
+      "link-card": ["ADR-0004"],
+      "vercel": ["ADR-0004"],
+      "build-error": ["ADR-0004"]
     },
     "by_component": {
-      "ブログ記事作成スクリプト": [
-        "ADR-0001"
-      ],
-      "定数管理": [
-        "ADR-0002"
-      ],
-      "サイト設定": [
-        "ADR-0002"
-      ],
-      "トップページ": [
-        "ADR-0002"
-      ],
-      "ブログ詳細ページ": [
-        "ADR-0002"
-      ],
-      "ブログ一覧ページ": [
-        "ADR-0002"
-      ],
-      "GitHubリンクコンポーネント": [
-        "ADR-0002"
-      ],
-      "SVGアイコン読み込み": [
-        "ADR-0003",
-        "ADR-0004"
-      ],
-      "Markdownレンダリング": [
-        "ADR-0003",
-        "ADR-0004"
-      ],
-      "ブログカード": [
-        "ADR-0003"
-      ],
-      "リンクカード生成": [
-        "ADR-0004"
-      ],
-      "依存関係管理": [
-        "ADR-0004"
-      ]
+      "ブログ記事作成スクリプト": ["ADR-0001"],
+      "定数管理": ["ADR-0002"],
+      "サイト設定": ["ADR-0002"],
+      "トップページ": ["ADR-0002"],
+      "ブログ詳細ページ": ["ADR-0002"],
+      "ブログ一覧ページ": ["ADR-0002"],
+      "GitHubリンクコンポーネント": ["ADR-0002"],
+      "SVGアイコン読み込み": ["ADR-0003", "ADR-0004"],
+      "Markdownレンダリング": ["ADR-0003", "ADR-0004"],
+      "ブログカード": ["ADR-0003"],
+      "リンクカード生成": ["ADR-0004"],
+      "依存関係管理": ["ADR-0004"]
     },
     "by_status": {
-      "accepted": [
-        "ADR-0001",
-        "ADR-0002",
-        "ADR-0003",
-        "ADR-0004"
-      ]
+      "accepted": ["ADR-0001", "ADR-0002", "ADR-0003", "ADR-0004"]
     }
   }
 }

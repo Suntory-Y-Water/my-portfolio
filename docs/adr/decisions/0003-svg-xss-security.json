@@ -30,7 +30,10 @@
       {
         "option": "SVGスプライト + <use> 要素",
         "pros": ["完全に安全", "パフォーマンス最適化", "パッケージ追加不要"],
-        "cons": ["ビルドスクリプト追加が必要", "動的にアイコン追加する場合は再ビルド必要"],
+        "cons": [
+          "ビルドスクリプト追加が必要",
+          "動的にアイコン追加する場合は再ビルド必要"
+        ],
         "reason_rejected": "現在の動的生成の仕組みを大きく変更する必要があるため"
       },
       {
@@ -101,14 +104,7 @@
     ]
   },
   "related_adrs": [],
-  "tags": [
-    "security",
-    "xss",
-    "svg",
-    "markdown",
-    "sanitization",
-    "dompurify"
-  ],
+  "tags": ["security", "xss", "svg", "markdown", "sanitization", "dompurify"],
   "keywords": [
     "XSS",
     "クロスサイトスクリプティング",

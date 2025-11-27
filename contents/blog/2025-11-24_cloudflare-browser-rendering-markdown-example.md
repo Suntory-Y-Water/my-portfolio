@@ -62,8 +62,8 @@ Safari などのブラウザでページを開いて、手動でコピーして 
 
 必要な環境変数は以下の通りです。
 
-- account_id : https://dash.cloudflare.com/<account_id> から確認できます。
-- api_token :  https://dash.cloudflare.com/profile/api-tokens で作成し、設定することが可能です。
+- account_id : https://dash.cloudflare.com/<account_id> から確認できる。
+- api_token :  https://dash.cloudflare.com/profile/api-tokens で作成し、設定することが可能である。
 
 api_token の場合、テンプレートの「Cloudflare Workers を編集する」から `browser-rendering-test-token` という名前で作成し、権限は「ブラウザレンダリング」を選択します。最小権限の法則に基づき、この権限だけを付与するようにしましょう。
 

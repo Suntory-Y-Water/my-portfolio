@@ -50,12 +50,8 @@
     ]
   },
   "implementation": {
-    "affected_files": [
-      "scripts/create-blog-template.ts"
-    ],
-    "affected_components": [
-      "ブログ記事作成スクリプト"
-    ],
+    "affected_files": ["scripts/create-blog-template.ts"],
+    "affected_components": ["ブログ記事作成スクリプト"],
     "code_patterns": [
       "execSync('git checkout -b ...')によるブランチ作成",
       "try-catchによるエラーハンドリング"
@@ -70,13 +66,7 @@
     ]
   },
   "metadata": {
-    "tags": [
-      "git",
-      "automation",
-      "blog",
-      "workflow",
-      "scripting"
-    ],
+    "tags": ["git", "automation", "blog", "workflow", "scripting"],
     "related_adrs": [],
     "supersedes": null,
     "superseded_by": null,

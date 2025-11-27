@@ -16,8 +16,8 @@
     "editor.defaultFormatter": "biomejs.biome"
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll.biome": "explicit",
-    "source.organizeImports.biome": "explicit"
+    "source.fixAll.biome": "always",
+    "source.organizeImports.biome": "always"
   },
   // @see https://qiita.com/nolanlover0527/items/071277263f8851012e6b
   // 不要なファイル監視を除外してパフォーマンスを向上させる

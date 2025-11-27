@@ -14,10 +14,6 @@
       "ja-no-successive-word": {
         "allow": ["・"]
       },
-      "ja-no-mixed-period": {
-        "allowPeriodMarks": [":"]
-      },
-      "max-comma": false,
       "ja-no-weak-phrase": {
         "severity": "warning"
       },
