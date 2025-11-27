@@ -137,21 +137,11 @@ export async function getAllTagSlugs(): Promise<string[]> {
  * }
  * ```
  */
-export async function getBlogPostBySlug(slug: string) {
-  return getBlogPost((post) => post.slug === slug);
-}
-
-/**
- * 指定された条件に一致するブログ記事を検索する（内部関数）
- *
- * @param predicate - 検索条件を定義する関数
- * @returns 条件に一致した最初のブログ記事、または見つからない場合はundefined
- */
-async function getBlogPost(
-  predicate: (post: BlogPost) => boolean,
+export async function getBlogPostBySlug(
+  slug: string,
 ): Promise<BlogPost | undefined> {
   const posts = await getAllBlogPosts();
-  return posts.find(predicate);
+  return posts.find((post) => post.slug === slug);
 }
 
 /**

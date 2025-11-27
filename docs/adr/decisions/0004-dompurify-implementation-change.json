@@ -32,7 +32,11 @@
       {
         "option": "isomorphic-dompurifyのまま依存関係を修正",
         "pros": ["コード変更が最小限", "既存の実装を維持"],
-        "cons": ["根本原因が不明確", "再発の可能性", "依存関係が隠蔽されたまま"],
+        "cons": [
+          "根本原因が不明確",
+          "再発の可能性",
+          "依存関係が隠蔽されたまま"
+        ],
         "reason_rejected": "依存関係の透明性が低く、将来的なトラブルシューティングが困難"
       },
       {
@@ -135,13 +139,45 @@
       "リンクカードHTML生成時（createLinkCardHTML関数内）"
     ],
     "allowed_html_elements": {
-      "tags": ["a", "div", "span", "h3", "p", "img", "svg", "path", "polyline", "line"],
-      "attributes": ["href", "target", "rel", "class", "src", "alt", "loading", "width", "height", "style", "xmlns", "viewBox", "fill", "stroke", "stroke-width", "stroke-linecap", "stroke-linejoin", "x1", "y1", "x2", "y2", "points"]
+      "tags": [
+        "a",
+        "div",
+        "span",
+        "h3",
+        "p",
+        "img",
+        "svg",
+        "path",
+        "polyline",
+        "line"
+      ],
+      "attributes": [
+        "href",
+        "target",
+        "rel",
+        "class",
+        "src",
+        "alt",
+        "loading",
+        "width",
+        "height",
+        "style",
+        "xmlns",
+        "viewBox",
+        "fill",
+        "stroke",
+        "stroke-width",
+        "stroke-linecap",
+        "stroke-linejoin",
+        "x1",
+        "y1",
+        "x2",
+        "y2",
+        "points"
+      ]
     }
   },
-  "related_adrs": [
-    "ADR-0003"
-  ],
+  "related_adrs": ["ADR-0003"],
   "tags": [
     "security",
     "dependency",
