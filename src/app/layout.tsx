@@ -3,11 +3,13 @@ import '@/styles/markdown.css';
 
 import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import type React from 'react';
 import { fontPlemolJP35Console } from '@/assets/fonts';
 import Footer from '@/components/shared/Footer';
 import { ThemeProvider } from '@/components/ui/theme-provider';
 import { siteConfig } from '@/config/site';
+import { absoluteUrl } from '@/lib/utils';
 import Header from '../components/shared/Header';
 
 export const metadata: Metadata = {
@@ -36,6 +38,22 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // WebSite構造化データの定義
+  const jsonLdWebsite = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: siteConfig.name,
+    url: siteConfig.url,
+    publisher: {
+      '@type': 'Organization',
+      name: siteConfig.name,
+      logo: {
+        '@type': 'ImageObject',
+        url: absoluteUrl('/opengraph-image.png'),
+      },
+    },
+  };
+
   return (
     <html
       lang='ja'
@@ -43,6 +61,12 @@ export default function RootLayout({
       className={`${fontPlemolJP35Console.variable} overflow-x-hidden`}
     >
       <head>
+        <Script
+          id='jsonld-website'
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebsite) }}
+          strategy='beforeInteractive'
+        />
         <link
           rel='apple-touch-icon'
           sizes='180x180'
