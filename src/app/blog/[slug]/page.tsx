@@ -111,9 +111,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       url: siteConfig.url,
     },
     publisher: {
-      '@type': 'Organization',
+      '@type': 'Person',
       name: siteConfig.name,
-      logo: {
+      image: {
         '@type': 'ImageObject',
         url: absoluteUrl('/opengraph-image.png?20251122'),
       },
