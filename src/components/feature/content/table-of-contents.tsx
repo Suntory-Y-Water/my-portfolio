@@ -57,26 +57,6 @@ type TableOfContentsItemProps = {
  * @param item - 表示する目次項目。id、text、level、items?プロパティを含みます
  * @param index - 項目の番号（1から始まる）。目次のナンバリングに使用されます
  * @returns 目次項目コンポーネント
- *
- * @example
- * ```tsx
- * // TableOfContentsコンポーネント内で自動的に使用されます
- * const item = {
- *   id: 'introduction',
- *   text: '概要',
- *   level: 2,
- *   items: [
- *     { id: 'intro-1', text: 'サブ項目1', level: 3 },
- *     { id: 'intro-2', text: 'サブ項目2', level: 3 },
- *   ],
- * };
- *
- * <TableOfContentsItem item={item} index={1} />
- * // 出力:
- * // 1. 概要
- * //   1. サブ項目1
- * //   2. サブ項目2
- * ```
  */
 function TableOfContentsItem({ item, index }: TableOfContentsItemProps) {
   return (
