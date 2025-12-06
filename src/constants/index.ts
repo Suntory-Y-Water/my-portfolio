@@ -58,6 +58,8 @@ export const BLOG_CONSTANTS = {
   POSTS_PER_PAGE: 12,
   /** トップページに表示する記事数 */
   TOP_PAGE_POSTS_COUNT: 3,
+  /** 関連記事の表示数 */
+  RELATED_POSTS_COUNT: 3,
 } as const;
 
 /**

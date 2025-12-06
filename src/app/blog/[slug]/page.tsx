@@ -8,14 +8,17 @@ import { BlogBackButton } from '@/components/feature/content/blog-back-button';
 import { CustomMarkdown } from '@/components/feature/content/custom-markdown';
 import { GitHubEditButton } from '@/components/feature/content/github-edit-button';
 import { MarkdownCopyButton } from '@/components/feature/content/markdown-copy-button';
+import { RelatedArticles } from '@/components/feature/content/related-articles';
 import { TableOfContents } from '@/components/feature/content/table-of-contents';
 import { BlogViewTransition } from '@/components/feature/content/view-transition';
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 import { siteConfig } from '@/config/site';
 import { getTagSlug } from '@/config/tag-slugs';
+import { BLOG_CONSTANTS } from '@/constants';
 import { getInlineIcon } from '@/lib/inline-icons';
 import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/markdown';
+import { getRelatedPosts } from '@/lib/recommend';
 import { extractTOC } from '@/lib/toc';
 import { absoluteUrl, formatDate } from '@/lib/utils';
 
@@ -86,6 +89,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (!post) {
     notFound();
   }
+
+  // 全記事を取得
+  const allPosts = await getAllBlogPosts();
+
+  // 関連記事を取得
+  const relatedPosts = getRelatedPosts({
+    currentSlug: slug,
+    allPosts,
+    count: BLOG_CONSTANTS.RELATED_POSTS_COUNT,
+  });
 
   // 目次を生成
   const tableOfContents = extractTOC(post.rawContent);
@@ -234,6 +247,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </footer>
       </article>
+
+      {/* Related Articles */}
+      <RelatedArticles relatedPosts={relatedPosts} />
     </div>
   );
 }
