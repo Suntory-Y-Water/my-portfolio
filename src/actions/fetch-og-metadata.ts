@@ -26,11 +26,15 @@ function resolveImageUrl({
   imageUrl: string | undefined;
   baseUrl: string;
 }): string {
-  if (!imageUrl) return '';
+  if (!imageUrl) {
+    return '';
+  }
 
   // 絶対URLかどうかを判定
   const isAbsoluteUrl = /^https?:\/\//i.test(imageUrl);
-  if (isAbsoluteUrl) return imageUrl;
+  if (isAbsoluteUrl) {
+    return imageUrl;
+  }
 
   // 相対URLの場合は元のURLのoriginを基準に絶対URLに変換
   const base = new URL(baseUrl);

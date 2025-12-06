@@ -431,10 +431,6 @@ gh pr create --title "PR title" --body "PR description"
 
 ---
 
-## 補足資料
-
-- **[MCP_REFERENCE.md](./MCP_REFERENCE.md)**: Kiri MCP、Serena MCPの詳細なコマンドリファレンス
-
 ## MCP使い分けまとめ
 
 | フェーズ | 使用MCP | 主な用途 |

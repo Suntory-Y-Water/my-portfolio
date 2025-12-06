@@ -69,10 +69,7 @@
     ]
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "context7",
-    "serena"
-  ],
+  "enabledMcpjsonServers": ["context7", "serena"],
   "hooks": {
     "SessionEnd": [
       {

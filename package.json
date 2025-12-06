@@ -45,6 +45,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "dompurify": "^3.3.0",
+    "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",
     "jsdom": "^27.2.0",
     "lucide-react": "^0.556.0",

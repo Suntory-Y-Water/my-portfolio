@@ -1,3 +1,4 @@
+import { slug } from 'github-slugger';
 import type { TOCItem } from '@/components/feature/content/table-of-contents';
 
 /**
@@ -113,7 +114,8 @@ function stripMarkdownFormatting(text: string): string {
 
 /**
  * テキストからURLスラッグを生成
- * 日本語を含む文字列をIDに変換し、空白や特殊文字をハイフンに置換
+ * rehype-slugと同じgithub-sluggerライブラリを使用して、
+ * HTMLの見出しIDと目次のIDを完全に一致させる
  *
  * @param text - スラッグ化するテキスト
  * @returns URL用のスラッグ文字列
@@ -127,21 +129,6 @@ function generateSlug(text: string): string {
     return `toc-${Math.random().toString(36).substring(2, 9)}`;
   }
 
-  return (
-    plainText
-      .toLowerCase()
-      // 全角スペースと半角スペースをハイフンに置換
-      .replace(/[\s\u3000]+/g, '-')
-      // コロン、セミコロン、カンマなどの区切り文字をハイフンに置換
-      .replace(/[：:;；,，、。.]+/g, '-')
-      // 括弧類を削除
-      .replace(/[()（）[\]【】「」『』]/g, '')
-      // 英数字、日本語、ハイフン以外を削除
-      .replace(/[^a-z0-9\-\u3000-\u9fff\u30a0-\u30ff\uff00-\uff9f]/g, '')
-      // 連続するハイフンを1つにまとめる
-      .replace(/-+/g, '-')
-      // 前後のハイフンを削除
-      .replace(/^-+|-+$/g, '')
-      .trim()
-  );
+  // github-sluggerを使用してrehype-slugと同じID生成ロジックを適用
+  return slug(plainText);
 }

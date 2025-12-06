@@ -92,7 +92,9 @@ export function SearchDialog({
    * ダイアログが開いているときのみEscapeキーのハンドラーを登録する。
    */
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      return;
+    }
 
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -117,7 +119,9 @@ export function SearchDialog({
    */
   useEffect(() => {
     async function loadPagefind() {
-      if (pagefindLoaded) return;
+      if (pagefindLoaded) {
+        return;
+      }
 
       try {
         // CSSを読み込み（既に読み込まれていない場合のみ）
@@ -188,7 +192,9 @@ export function SearchDialog({
    * PagefindUIが生成するDOMに対してフォーカスを当てる。
    */
   useEffect(() => {
-    if (!open || !pagefindLoaded) return;
+    if (!open || !pagefindLoaded) {
+      return;
+    }
 
     const timer = setTimeout(() => {
       document

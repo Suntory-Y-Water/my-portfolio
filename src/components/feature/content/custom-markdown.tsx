@@ -24,7 +24,9 @@ const rehypePrettyCodeOptions: Options = {
   // 例: utils.ts -> title="utils.ts"
   // 例: utils.ts {1-3} -> title="utils.ts" {1-3}
   filterMetaString: (meta: string) => {
-    if (!meta) return meta;
+    if (!meta) {
+      return meta;
+    }
 
     // すでにtitle属性がある場合はそのまま返す
     if (meta.includes('title=')) {

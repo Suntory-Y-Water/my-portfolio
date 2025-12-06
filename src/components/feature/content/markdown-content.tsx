@@ -45,7 +45,9 @@ export function MarkdownContent({ html }: MarkdownContentProps) {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: html変更時にボタンを再作成する必要がある
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current) {
+      return;
+    }
 
     // data-copy-button属性を持つコンテナを検出
     const copyButtonContainers =
@@ -121,20 +123,28 @@ export function MarkdownContent({ html }: MarkdownContentProps) {
       abortController.abort();
       // 全てのタイムアウトをクリア
       copiedStates.forEach(({ timeoutId }) => {
-        if (timeoutId) clearTimeout(timeoutId);
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
       });
     };
   }, [html]);
 
   useEffect(() => {
-    if (!html) return;
+    if (!html) {
+      return;
+    }
 
     const renderMermaid = async () => {
       const container = containerRef.current;
-      if (!container) return;
+      if (!container) {
+        return;
+      }
 
       const mermaidBlocks = container.querySelectorAll<HTMLElement>('.mermaid');
-      if (mermaidBlocks.length === 0) return;
+      if (mermaidBlocks.length === 0) {
+        return;
+      }
 
       if (!mermaidInitialized) {
         mermaid.initialize({

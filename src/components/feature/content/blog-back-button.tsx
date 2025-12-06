@@ -25,7 +25,9 @@ export function BlogBackButton({ className }: Props) {
   const router = useRouter();
 
   const handleClick = useCallback(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {
+      return;
+    }
 
     // 1. 保存してある一覧パスがあれば最優先
     const savedKey = BLOG_NAVIGATION_CONSTANTS.LIST_PATH_STORAGE_KEY;

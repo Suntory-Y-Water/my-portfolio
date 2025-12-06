@@ -45,7 +45,9 @@ function loadIcons(): Record<string, string> {
   }
 
   for (const file of fs.readdirSync(iconsDir)) {
-    if (!file.endsWith('.svg')) continue;
+    if (!file.endsWith('.svg')) {
+      continue;
+    }
     const abs = path.join(iconsDir, file);
     try {
       const svg = fs.readFileSync(abs, 'utf8');
