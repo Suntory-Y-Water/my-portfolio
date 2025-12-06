@@ -39,7 +39,7 @@ DISCORD_BOT_TOKEN = os.environ.get("DISCORD_BOT_TOKEN")
 Anacondaを使用している場合、環境変数を設定する方法が異なります。次の手順に従って、Anaconda環境に環境変数を設定してください。
 まず、Anaconda Promptを開きます。
 現在の環境に環境変数を追加するには、次のコマンドを実行します
-（your_tokenを実際のDiscord Botトークンに置き換えてください）:
+(your_tokenを実際のDiscord Botトークンに置き換えてください):
 
 conda env config vars set DISCORD_BOT_TOKEN=your_token
 
@@ -48,7 +48,7 @@ conda env config vars set DISCORD_BOT_TOKEN=your_token
 conda env config vars list
 
 設定が完了したら、環境を再アクティブ化する必要があります。
-次のコマンドを実行してください（your_env_nameを実際の環境名に置き換えてください）:
+次のコマンドを実行してください(your_env_nameを実際の環境名に置き換えてください):
 
 conda activate your_env_name
 

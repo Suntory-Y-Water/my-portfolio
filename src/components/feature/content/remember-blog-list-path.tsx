@@ -38,7 +38,7 @@ export function RememberBlogListPath() {
 
         if (link?.href) {
           const url = new URL(link.href);
-          // /blog/xxx（詳細ページ）へのリンクの場合
+          // /blog/xxx(詳細ページ)へのリンクの場合
           if (
             url.pathname.startsWith('/blog/') &&
             url.pathname !== '/blog' &&

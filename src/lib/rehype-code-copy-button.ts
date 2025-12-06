@@ -4,14 +4,14 @@ import { visit } from 'unist-util-visit';
 /**
  * コードブロックにコピーボタンのコンテナを追加するrehypeプラグイン
  *
- * 元のCodeBlockコンポーネント（src/components/feature/content/code-block.tsx）と
+ * 元のCodeBlockコンポーネント(src/components/feature/content/code-block.tsx)と
  * 同じDOM構造を生成：
  * <div class="group relative">
  *   <pre>...</pre>
  *   <div class="copy-button-container" data-copy-button></div>
  * </div>
  *
- * ボタンの実際のレンダリングとイベントハンドリングはクライアント側（useEffect）で実施
+ * ボタンの実際のレンダリングとイベントハンドリングはクライアント側(useEffect)で実施
  */
 export function rehypeCodeCopyButton() {
   return (tree: Root) => {
@@ -31,7 +31,7 @@ export function rehypeCodeCopyButton() {
           },
           children: [
             node,
-            // コピーボタンコンテナ（クライアント側で実際のボタンを挿入）
+            // コピーボタンコンテナ(クライアント側で実際のボタンを挿入)
             {
               type: 'element',
               tagName: 'div',
@@ -44,7 +44,7 @@ export function rehypeCodeCopyButton() {
           ],
         };
 
-        // 既存のpreのclassNameにpr-12を追加（コピーボタン用の余白）
+        // 既存のpreのclassNameにpr-12を追加(コピーボタン用の余白)
         const existingClasses = Array.isArray(node.properties?.className)
           ? node.properties.className
           : typeof node.properties?.className === 'string'

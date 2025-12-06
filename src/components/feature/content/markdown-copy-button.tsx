@@ -19,7 +19,7 @@ type Props = {
  * 2秒間チェックマークとコピー完了メッセージが表示されます。
  *
  * @param props - コンポーネントのプロパティ
- * @param props.content - コピーするMarkdownテキスト（ブログ記事のrawContent）
+ * @param props.content - コピーするMarkdownテキスト(ブログ記事のrawContent)
  *
  * @example
  * ```tsx
@@ -34,7 +34,7 @@ type Props = {
  * - 2秒後: 初期状態に戻る
  *
  * 入力:
- * - content: string型のMarkdownテキスト（例: "# タイトル\n\n本文..."）
+ * - content: string型のMarkdownテキスト(例: "# タイトル\n\n本文...")
  *
  * 出力:
  * - クリップボードにcontentがコピーされる

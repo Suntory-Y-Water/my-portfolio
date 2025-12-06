@@ -69,7 +69,7 @@ jobs:
 2025 年 8 月 26 日、JavaScript のよく利用されているビルドツールの 1 つである Nx において、複数の悪意のあるバージョンが攻撃者によって公開されました。
 
 攻撃の内容は Claude Code が作成したコードに `Script Injection` の脆弱性が含まれていたことが発端です。
-`Script Injection` とは一般的には被害者のブラウザに悪意のスクリプト（大部分は JavaScript のコード）が入り込み、ブラウザの内側からセキュリティ侵害が起こる問題です。
+`Script Injection` とは一般的には被害者のブラウザに悪意のスクリプト(大部分は JavaScript のコード)が入り込み、ブラウザの内側からセキュリティ侵害が起こる問題です。
 
 https://www.ipa.go.jp/archive/security/vuln/programming/web/chapter7/7-1.html
 
@@ -126,7 +126,7 @@ jobs:
 一方で `pull_request_target` は、プルリクエストのベースとなるリポジトリ側の設定(main ブランチなど)を用いて実行されます。
 そのため、フォークされたリポジトリからの提案であっても秘匿情報や書き込み権限を扱えます。便利である反面、扱いを誤れば、その権限が攻撃者に開かれてしまう危険性があります。
 ```yml
-## PR 自体にラベルを付与するワークフロー（Secret や write 権限が必要）の例
+## PR 自体にラベルを付与するワークフロー(Secret や write 権限が必要)の例
 on:
   pull_request_target:
     types: [opened]
@@ -147,7 +147,7 @@ jobs:
 ```
 この場合、ベースブランチ権限で API を実行するため、プルリクエストが悪意ある場合に同じ権限を悪用されるリスクが存在します。
 
-基本方針としては `pull_request` を用い、`pull_request_target` はやむを得ない場合にのみ使用します。そのときは、信頼できるプルリクエスト（例: `safe to test` ラベル付与済み）に限定して実行するなど、厳格な制御を行うことが推奨されます。
+基本方針としては `pull_request` を用い、`pull_request_target` はやむを得ない場合にのみ使用します。そのときは、信頼できるプルリクエスト(例: `safe to test` ラベル付与済み)に限定して実行するなど、厳格な制御を行うことが推奨されます。
 
 2 つ目は**Script Injection**です。冒頭にあった yml にある `${{ github.event.pull_request.title }}` を直接展開すると、タイトルにシェルスクリプトを仕込まれたときにそのまま実行されてしまいます。
 ```yaml
@@ -221,7 +221,7 @@ echo "98b883756cdd0a6807a8c7623404bfc3bc169275ad9064dc23a6e24ad398f43d  aqua-ins
 chmod +x aqua-installer
 ./aqua-installer
 
-## 環境変数PATHの設定（Linux or MacOS）
+## 環境変数PATHの設定(Linux or MacOS)
 export PATH="${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH"
 
 aqua -v

@@ -22,7 +22,7 @@ Hono + LINE Messaging API を使ってコンビニスイーツをランダムに
 LINE Messaging API のエラーレスポンスを見ると下記メッセージが送信されており、リクエストボディの内容が不正だったことが分かります。
 ```bash
 A message (messages[0]) in the request body is invalid
-(訳 : リクエストボディのメッセージ（messages[0]）が無効である。)
+(訳 : リクエストボディのメッセージ(messages[0])が無効である。)
 ```
 
 ## 結論
@@ -52,7 +52,7 @@ parseName(text: string): string {
   {
     "id": "SevenEleven109ace55-73dd-4d84-8a3e-17df30884325",
     "itemName": "ホイップで食べる　コーヒーわらび餅",
-    "itemPrice": "270円（税込291.60円）",
+    "itemPrice": "270円(税込291.60円)",
     "itemImage": "https://img.7api-01.dp1.sej.co.jp/item-image/112483/F85269A8CE1D29DE2AA4012549A9D8A6.jpg",
     "itemHref": "https://www.sej.co.jp/products/a/item/112483/kanto/",
     "storeType": "SevenEleven",
@@ -64,7 +64,7 @@ parseName(text: string): string {
   {
     "id": "SevenEleven62cac584-88bf-4a74-b758-e164cba77c31",
     "itemName": "ホイップだけどら",
-    "itemPrice": "178円（税込192.24円）",
+    "itemPrice": "178円(税込192.24円)",
     "itemImage": "https://img.7api-01.dp1.sej.co.jp/item-image/112482/C81899C7EB0877B9423CF47CCEDFF31C.jpg",
     "itemHref": "https://www.sej.co.jp/products/a/item/112482/kanto/",
     "storeType": "SevenEleven",

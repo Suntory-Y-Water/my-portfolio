@@ -2,8 +2,8 @@
  * タグ名→slug、slug→タグ名のマッピングテーブル
  *
  * ## ルール
- * - 画面表示: 日本語タグ（例: "アクセシビリティ"）
- * - URL: 英語slug（例: "accessibility"）
+ * - 画面表示: 日本語タグ(例: "アクセシビリティ")
+ * - URL: 英語slug(例: "accessibility")
  * - slug: 小文字、ハイフン区切り、英数字のみ
  */
 
@@ -143,7 +143,7 @@ export function getTagNameFromSlug(slug: string): string | undefined {
 }
 
 /**
- * タグ名を自動的にslug化する関数（フォールバック用）
+ * タグ名を自動的にslug化する関数(フォールバック用)
  *
  * 変換例:
  * - "Visual Studio Code" → "visual-studio-code"

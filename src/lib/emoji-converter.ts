@@ -6,11 +6,11 @@ import emojiData from 'unicode-emoji-json';
  * unicode-emoji-jsonパッケージが提供する絵文字メタデータの構造を定義します。
  */
 type Emoji = {
-  /** 絵文字の名前（例: "fire", "smiling face with halo"） */
+  /** 絵文字の名前(例: "fire", "smiling face with halo") */
   name: string;
-  /** 絵文字のslug（例: "fire", "smiling_face_with_halo"） */
+  /** 絵文字のslug(例: "fire", "smiling_face_with_halo") */
   slug: string;
-  /** 絵文字のグループ（例: "Smileys & Emotion"） */
+  /** 絵文字のグループ(例: "Smileys & Emotion") */
   group: string;
   /** 絵文字が追加されたEmoji仕様バージョン */
   emoji_version: string;
@@ -78,7 +78,7 @@ async function generateFluentEmojiUrl({
     // fetch失敗時はそのまま返す
   }
 
-  // 404の場合でもURLを返す（エラーログ用）
+  // 404の場合でもURLを返す(エラーログ用)
   return url;
 }
 
@@ -88,7 +88,7 @@ async function generateFluentEmojiUrl({
  * この関数は絵文字文字列を受け取り、対応するFluentUI EmojiのURLを返します。
  * 絵文字データが見つからない場合や、変換できない場合は元の文字列をそのまま返します。
  *
- * @param icon - 変換する絵文字文字列（例: "🔥", "😎"）
+ * @param icon - 変換する絵文字文字列(例: "🔥", "😎")
  * @returns FluentUI EmojiのURL、または変換できない場合は元の文字列
  *
  * @example

@@ -6,7 +6,7 @@
   "context": {
     "problem": "ブログ記事でSVGアイコンを動的に表示するために dangerouslySetInnerHTML を使用していたが、サニタイゼーション処理がなくXSS攻撃のリスクがあった。また、Markdownパーサーで allowDangerousHtml: true が設定されており、生HTMLが実行される可能性があった。",
     "constraints": [
-      "SVG動的生成機能を維持する必要がある（画像のチラつき防止）",
+      "SVG動的生成機能を維持する必要がある(画像のチラつき防止)",
       "ビルド時のキャッシュ機構を維持する必要がある",
       "既存のマークダウンファイルとの互換性を保つ必要がある",
       "パフォーマンスへの影響を最小限に抑える"
@@ -56,17 +56,17 @@
         "file": "src/lib/inline-icons.ts",
         "description": "DOMPurifyを使ったSVGサニタイズ関数を追加し、loadIcons関数内でサニタイズを適用",
         "details": [
-          "sanitizeSVG関数を追加: SVGプロファイルを使用し、危険なタグ（script, iframe等）と属性（onerror, onload等）を除去",
+          "sanitizeSVG関数を追加: SVGプロファイルを使用し、危険なタグ(script, iframe等)と属性(onerror, onload等)を除去",
           "loadIcons関数でSVG読み込み時にサニタイズを実行",
           "ビルド時に一度だけ処理されるため実行時オーバーヘッドなし"
         ]
       },
       {
         "file": "src/components/feature/content/custom-markdown.tsx",
-        "description": "remarkRehype と rehypeStringify の allowDangerousHtml オプションを削除（false化）",
+        "description": "remarkRehype と rehypeStringify の allowDangerousHtml オプションを削除(false化)",
         "details": [
           "Markdown内の生HTMLタグがサニタイズされるようになる",
-          "既存コンテンツへの影響なし（HTMLタグ未使用を確認済み）"
+          "既存コンテンツへの影響なし(HTMLタグ未使用を確認済み)"
         ]
       },
       {
@@ -92,12 +92,12 @@
     "positive": [
       "XSS攻撃のリスクを大幅に軽減",
       "業界標準のライブラリによる包括的な防御",
-      "既存機能（SVG動的生成、チラつき防止）を完全に維持",
+      "既存機能(SVG動的生成、チラつき防止)を完全に維持",
       "ビルド時処理のため実行時パフォーマンス影響なし"
     ],
     "negative": [
-      "パッケージサイズが約45KB（gzipped）増加",
-      "悪意のあるSVGファイルが配置された場合、ビルド時に検出されない（サニタイズされて安全になるのみ）"
+      "パッケージサイズが約45KB(gzipped)増加",
+      "悪意のあるSVGファイルが配置された場合、ビルド時に検出されない(サニタイズされて安全になるのみ)"
     ],
     "neutral": [
       "既存のマークダウンでHTMLタグを使いたい場合は別の方法を検討する必要がある"
@@ -122,6 +122,6 @@
   "notes": [
     "既存のマークダウンファイルでHTMLタグが使用されていないことを grep で確認済み",
     "SVGサニタイズはビルド時に実行されるため、ランタイムパフォーマンスへの影響はゼロ",
-    "DOMPurifyの設定は必要に応じて調整可能（ADD_TAGS, FORBID_TAGSなど）"
+    "DOMPurifyの設定は必要に応じて調整可能(ADD_TAGS, FORBID_TAGSなど)"
   ]
 }

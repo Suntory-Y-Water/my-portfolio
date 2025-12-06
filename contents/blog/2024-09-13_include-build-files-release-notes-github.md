@@ -150,7 +150,7 @@ jobs:
       - name: build dependencies
         run: pnpm build
 
-      # ZIPファイルを作成する（distディレクトリを対象）
+      # ZIPファイルを作成する(distディレクトリを対象)
       - name: Archive Release
         uses: thedoctor0/zip-release@main
         with:

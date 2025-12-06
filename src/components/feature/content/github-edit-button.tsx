@@ -17,7 +17,7 @@ const GITHUB_EDIT_URL_BASE = `${siteConfig.links.github}/${REPOSITORY_CONSTANTS.
  * クリックするとGitHub上の該当ファイルを開いて修正提案を行えるようにします。
  * filePathが指定されていない場合や、GitHubのURLが設定されていない場合は何も表示されません。
  *
- * @param filePath - GitHubリポジトリ内のファイルパス（任意）。例: 'contents/blog/2025-01-15-typescript.md'。指定されていない場合はボタンを表示しません
+ * @param filePath - GitHubリポジトリ内のファイルパス(任意)。例: 'contents/blog/2025-01-15-typescript.md'。指定されていない場合はボタンを表示しません
  * @returns GitHubで編集ボタンコンポーネント。filePathがない場合はnullを返します
  *
  * @example

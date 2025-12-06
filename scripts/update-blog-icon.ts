@@ -4,13 +4,13 @@
  *
  * ブログ記事のフロントマターにある`icon`をFluent UI Emoji URLへ変換し、
  * アイコンSVGをローカルにキャッシュして`icon_url`をローカルパスに更新します。
- * 同じアイコンはファイル名（basename）で使い回します。
+ * 同じアイコンはファイル名(basename)で使い回します。
  *
  * ## 動作
  * 1. contents/blog配下の.mdをスキャン
  * 2. iconが絵文字ならFluent URLを生成、URLならそのまま使用
- * 3. アイコンをダウンロードして public/icons/{basename}.svg に保存（重複はスキップ）
- * 4. frontmatterの icon_url を /icons/{basename}.svg に書き換え（存在しなければ追記）
+ * 3. アイコンをダウンロードして public/icons/{basename}.svg に保存(重複はスキップ)
+ * 4. frontmatterの icon_url を /icons/{basename}.svg に書き換え(存在しなければ追記)
  *
  * ## 実行例
  * bun run scripts/update-blog-icon.ts          # 全記事

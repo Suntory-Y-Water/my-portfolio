@@ -42,14 +42,14 @@ async function createBlogTemplate() {
     process.exit(1);
   }
 
-  // slug検証（英数字とハイフンのみ）
+  // slug検証(英数字とハイフンのみ)
   if (!/^[a-z0-9-]+$/.test(slug)) {
     console.error('❌ エラー: slugは英数字とハイフン(-)のみ使用できます');
     console.error(`  不正な値: "${slug}"`);
     process.exit(1);
   }
 
-  // 現在日付を取得（yyyy-mm-dd形式）
+  // 現在日付を取得(yyyy-mm-dd形式)
   const now = new Date();
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -112,7 +112,7 @@ tags:
   console.log(`🌿 ブランチ: ${branchName}\n`);
   console.log('次のステップ:');
   console.log('  1. タイトル、説明、タグを記入');
-  console.log('  2. iconフィールドに絵文字を入力（例: 🔥, 😎）');
+  console.log('  2. iconフィールドに絵文字を入力(例: 🔥, 😎)');
   console.log('     → コミット時に自動でFluentUI EmojiのURLに変換されます');
   console.log('  3. 本文を執筆');
   console.log('  4. 新規タグを追加した場合は src/config/tag-slugs.ts に登録');

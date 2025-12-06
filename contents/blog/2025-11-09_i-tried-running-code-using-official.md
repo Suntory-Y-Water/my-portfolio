@@ -14,7 +14,7 @@ tags:
 
 ## TL;DR
 
-- Anthropic の MCP コード実行手法（トークン 98.7%削減）を Serena MCP で試したがうまくいかなかった
+- Anthropic の MCP コード実行手法(トークン 98.7%削減)を Serena MCP で試したがうまくいかなかった
 - ツール数 5 個以下、シンプルな型定義の MCP でないと効果が出ない。Google Drive のようなシンプルな MCP で検証すべき。
 
 ## はじめに
@@ -23,9 +23,9 @@ Anthropic の記事「[Code execution with MCP: building more efficient AI agent
 
 https://www.anthropic.com/engineering/code-execution-with-mcp
 
-Claude Code で MCP を登録すると、登録されている MCP のすべての Tools が Context に反映され、初期状態で Context 量を圧迫する問題があります。この記事では、MCP ツールを TypeScript コードとして実行することでトークン消費を 98.7%削減できること（150,000 トークン → 2,000 トークン）、中間データを LLM コンテキストに含めず最終結果のみを返すアプローチが紹介されていました。
+Claude Code で MCP を登録すると、登録されている MCP のすべての Tools が Context に反映され、初期状態で Context 量を圧迫する問題があります。この記事では、MCP ツールを TypeScript コードとして実行することでトークン消費を 98.7%削減できること(150,000 トークン → 2,000 トークン)、中間データを LLM コンテキストに含めず最終結果のみを返すアプローチが紹介されていました。
 
-この内容が気になったので、Serena MCP のツール（`listDir`, `findFile`, `getSymbolsOverview` など）を TypeScript コードから呼び出せる Claude Code Skill を実装しました。
+この内容が気になったので、Serena MCP のツール(`listDir`, `findFile`, `getSymbolsOverview` など)を TypeScript コードから呼び出せる Claude Code Skill を実装しました。
 
 https://github.com/Suntory-Y-Water/mcp-code-execution
 
@@ -33,18 +33,18 @@ https://github.com/Suntory-Y-Water/mcp-code-execution
 
 ## 検証の目的
 
-実装した Skill を使って、既存の Serena MCP（直接ツール呼び出し）とコード実行方式のコンテキスト消費量を実測値として比較することが目的です。仮説として、同じ Serena MCP ツールを使用しても、コード実行方式のほうがコンテキスト消費量が少なくなる想定です。
+実装した Skill を使って、既存の Serena MCP(直接ツール呼び出し)とコード実行方式のコンテキスト消費量を実測値として比較することが目的です。仮説として、同じ Serena MCP ツールを使用しても、コード実行方式のほうがコンテキスト消費量が少なくなる想定です。
 
-検証対象は本プロジェクト用に用意した簡易的なスクレイピング機能を持つ `test-parser` プロジェクトの parser ディレクトリ（TypeScript ファイル 10 個未満）を選定しました。
+検証対象は本プロジェクト用に用意した簡易的なスクレイピング機能を持つ `test-parser` プロジェクトの parser ディレクトリ(TypeScript ファイル 10 個未満)を選定しました。
 小規模で検証に適しており、Serena MCP と同様の水準でシンボル解析できるか試験できること、実測値の比較に十分な複雑さがあることから、検証対象として適切だと判断しました。
 
 ## 検証内容
 
 `test-parser` プロジェクトの parser ディレクトリに対して、以下の 3 つのタスクを順次実行する計画を立てました。
 
-1. ディレクトリ構造の取得（`listDir`）
-2. TypeScript ファイルの一覧化（`findFile`）
-3. シンボル情報の抽出（`getSymbolsOverview`）
+1. ディレクトリ構造の取得(`listDir`)
+2. TypeScript ファイルの一覧化(`findFile`)
+3. シンボル情報の抽出(`getSymbolsOverview`)
 
 ### 検証ゴール
 
@@ -60,7 +60,7 @@ https://github.com/Suntory-Y-Water/mcp-code-execution
 
 Claude Code 公式ドキュメントによると、`.claude/skills/` に配置されたプロジェクトスキルは、そのプロジェクトのコンテキストで実行されます。そのため、プロジェクトスキルとして配置すれば、Serena は親プロジェクトをルートディレクトリとして認識すると考えました。
 
-`test-parser` プロジェクト内に `.claude/skills/mcp-code-execution` を配置し、検証スクリプト `src/analyze-parser.ts` を作成しました。3 つのタスクを順次実行する予定でしたが、まず最初のタスク（ディレクトリ構造の取得）を実装して動作を確認することにしました。
+`test-parser` プロジェクト内に `.claude/skills/mcp-code-execution` を配置し、検証スクリプト `src/analyze-parser.ts` を作成しました。3 つのタスクを順次実行する予定でしたが、まず最初のタスク(ディレクトリ構造の取得)を実装して動作を確認することにしました。
 
 ```
 test-parser/                                 ← 期待するプロジェクトルート
@@ -78,7 +78,7 @@ test-parser/                                 ← 期待するプロジェクト�
         └── ...
 ```
 
-検証スクリプトでは、相対パス `'parser'` を指定して `listDir` を呼び出しました。期待動作としては、`/Users/.../test-parser/parser` が解釈されるはずです。成功すれば、タスク 2（`findFile`）、タスク 3（`getSymbolsOverview`）を実装する予定でした。
+検証スクリプトでは、相対パス `'parser'` を指定して `listDir` を呼び出しました。期待動作としては、`/Users/.../test-parser/parser` が解釈されるはずです。成功すれば、タスク 2(`findFile`)、タスク 3(`getSymbolsOverview`)を実装する予定でした。
 
 ```typescript
 import { listDir } from '../servers/serena/index.js';
@@ -107,13 +107,13 @@ main();
 
 ## プロジェクトルートの誤認識
 
-タスク 1（ディレクトリ構造の取得）の実行時にエラーが発生しました。
+タスク 1(ディレクトリ構造の取得)の実行時にエラーが発生しました。
 
 ```
 Error: Directory not found: parser
 ```
 
-このため、タスク 2（TypeScript ファイルの一覧化）とタスク 3（シンボル情報の抽出）は実行できませんでした。Serena のログ出力を確認したところ、以下のように記録されています。
+このため、タスク 2(TypeScript ファイルの一覧化)とタスク 3(シンボル情報の抽出)は実行できませんでした。Serena のログ出力を確認したところ、以下のように記録されています。
 
 ```
 INFO serena.agent:load_project_from_path_or_name:443 -
@@ -130,7 +130,7 @@ test-parser/
 ├── .claude/
 │   └── skills/
 │       └── mcp-code-execution/      ← Serenaが認識したルート
-│           └── parser/              ← ここを探してしまう（存在しない）
+│           └── parser/              ← ここを探してしまう(存在しない)
 └── parser/                          ← 本当はここを探したい
 ```
 
@@ -218,7 +218,7 @@ export async function initClient(): Promise<Client> {
 
 ## Claude Codeの型定義認識の課題
 
-今回の検証では、SKILL.md と TOOLS.md を用意しました。Claude Code の公式ドキュメントに従って、SKILLS 自体の役割と、関連ファイルを分離しています。（詳細は付録 A、付録 B を参照）
+今回の検証では、SKILL.md と TOOLS.md を用意しました。Claude Code の公式ドキュメントに従って、SKILLS 自体の役割と、関連ファイルを分離しています。(詳細は付録 A、付録 B を参照)
 
 検証用として一部の Tools では明確に型定義も行っていました。
 
@@ -306,8 +306,8 @@ const symbols = await getSymbolsOverview({
 
 Serena MCP は 20 個のツールを持ち、それぞれに複雑な型定義があります。TOOLS.md で仕様を説明し、型定義ファイルも用意していましたが、Claude Code は以下のミスを繰り返しました。
 
-- プロパティ名の誤り（`name` → 正しくは `name_path`）
-- 独自の型アサーション（`isExported` プロパティの捏造）
+- プロパティ名の誤り(`name` → 正しくは `name_path`)
+- 独自の型アサーション(`isExported` プロパティの捏造)
 
 型定義を提供しても、Claude Code がそれを正確に参照する保証はありませんでした。結果として、エラー修正の往復が発生し、トークン消費が増加しました。「ソースコード生成後に型チェックを実行すること」と明記することも可能ですが、コード生成→型チェック→エラーという流れになると、トークン消費量が多くなるため根本的な解決にはなりません。
 
@@ -319,7 +319,7 @@ Serena MCP は 20 個のツールを持ち、それぞれに複雑な型定義�
 
 ### シンプルなMCPでは成功率が上がる可能性
 
-Context7 MCP は 2 つのツールのみで、型定義もシンプルです（`resolve-library-id` と `get-library-docs`）。ツール数が少なく、パラメータもシンプルなため、EXAMPLES.md に掲載するソースコードの例を明確に書くことができます。結果として、Claude Code が型エラーを起こす可能性が低くなると考えられます。
+Context7 MCP は 2 つのツールのみで、型定義もシンプルです(`resolve-library-id` と `get-library-docs`)。ツール数が少なく、パラメータもシンプルなため、EXAMPLES.md に掲載するソースコードの例を明確に書くことができます。結果として、Claude Code が型エラーを起こす可能性が低くなると考えられます。
 
 ### 検証できなかったこと
 
@@ -329,7 +329,7 @@ Context7 MCP は 2 つのツールのみで、型定義もシンプルです（`
 
 今後別で実施するとしたら以下の手順で実施します。
 
-1 つ目はシンプルな MCP での再検証を行います。Context7 MCP のような、ツール数が少なく（2-3 個程度）、パラメータがシンプルで（必須 1-2 個、オプション 1-2 個）、返却値の型が明確な MCP で検証します。これにより、Skill 自体の有効性を切り分けて評価できます。
+1 つ目はシンプルな MCP での再検証を行います。Context7 MCP のような、ツール数が少なく(2-3 個程度)、パラメータがシンプルで(必須 1-2 個、オプション 1-2 個)、返却値の型が明確な MCP で検証します。これにより、Skill 自体の有効性を切り分けて評価できます。
 
 2 つ目はテンプレートスクリプトを事前に配置します。`src/template.ts` を用意し、Claude Code の操作がスムーズになるかを検証します。
 
@@ -342,7 +342,7 @@ Claude Code 自体に TODO を作成させ、確認が終わってからコー�
 MCP サーバーのコード実行をするためには、以下の条件を満たした MCP が適切だと考えます。
 
 - ツール数が 5 個以下
-- 型定義がプリミティブ型中心（string, number, boolean）
+- 型定義がプリミティブ型中心(string, number, boolean)
 - パラメータが必須 1-2 個・オプション 0-2 個
 - 返却値が配列やオブジェクトではなく単一の値
 - 設計思想が一般的な API の命名規則に沿っている
@@ -366,7 +366,7 @@ allowed-tools: Read, Write, Bash, Glob, Grep
 
 MCP ツールを TypeScript コードとして実行し、トークン消費を劇的に削減します。必要なツールのみをインポートし、コード内でデータを処理してから、最終結果のみを返します。
 
-**トークン削減**: マルチツールワークフローで最大 **98.7%**（150,000 トークン → 2,000 トークン）
+**トークン削減**: マルチツールワークフローで最大 **98.7%**(150,000 トークン → 2,000 トークン)
 
 ## いつこのスキルを使うか
 
@@ -375,9 +375,9 @@ MCP ツールを TypeScript コードとして実行し、トークン消費を�
 ### 使用すべき場合
 - ✓ **Serena MCP ツール**を連続使用する必要がある
 - ✓ **100個以上のファイル**を処理する
-- ✓ **大規模データのフィルタリング**（結果を絞り込んでから報告）
-- ✓ **バッチ操作**（複数ファイルへのループ処理）
-- ✓ **プライバシー保護**（機密データを LLM コンテキストに入れない）
+- ✓ **大規模データのフィルタリング**(結果を絞り込んでから報告)
+- ✓ **バッチ操作**(複数ファイルへのループ処理)
+- ✓ **プライバシー保護**(機密データを LLM コンテキストに入れない)
 
 ### 使用すべきでない場合
 - ✗ 1-2個のツールを1回だけ使う単純なタスク
@@ -390,7 +390,7 @@ MCP ツールを TypeScript コードとして実行し、トークン消費を�
 
 このスキルの配置場所により、プロジェクトルートの設定方法が異なります。
 
-#### Project Skills（`.claude/skills/` に配置）の場合
+#### Project Skills(`.claude/skills/` に配置)の場合
 
 **プロジェクトルートは自動検出されます**。環境変数の設定は不要です。
 
@@ -400,7 +400,7 @@ MCP ツールを TypeScript コードとして実行し、トークン消費を�
 bun run src/your-script.ts
 ```
 
-#### Personal Skills（`~/.claude/skills/` に配置）の場合
+#### Personal Skills(`~/.claude/skills/` に配置)の場合
 
 **環境変数 `SERENA_PROJECT_ROOT` が必須**です。未設定の場合、エラーが発生します。
 
@@ -410,7 +410,7 @@ export SERENA_PROJECT_ROOT=/path/to/your/project
 bun run src/your-script.ts
 ```
 
-**方法2: .env ファイルで管理**（推奨）
+**方法2: .env ファイルで管理**(推奨)
 ```env
 SERENA_PROJECT_ROOT=/path/to/your/project
 ```
@@ -426,22 +426,22 @@ SERENA_PROJECT_ROOT=/Users/user/dev/test-parser bun run src/analyze-parser.ts
 SERENA_PROJECT_ROOT=/Users/user/dev/testA bun run src/analyze-testA.ts
 ```
 
-## ワークフロー（Claude が従うべき手順）
+## ワークフロー(Claude が従うべき手順)
 
 ### ステップ1: タスクの評価
 
 ユーザーのタスクが上記の「使用すべき場合」に該当するか判断してください。該当する場合のみ、このスキルを使用してください。
 
-### ステップ2: ツール仕様の確認（必須・スキップ不可）
+### ステップ2: ツール仕様の確認(必須・スキップ不可)
 
 このステップを省略すると100%失敗します。以下のファイルを必ずReadツールで読んでください：
 
 **チェックリスト:**
-- [ ] TOOLS.mdを読んだ（Readツール使用）
-- [ ] 使用する各ツールの型定義ファイル `servers/serena/[ツール名].ts` を読んだ（Readツール使用）
+- [ ] TOOLS.mdを読んだ(Readツール使用)
+- [ ] 使用する各ツールの型定義ファイル `servers/serena/[ツール名].ts` を読んだ(Readツール使用)
 - [ ] パラメータ名が型定義と完全に一致している
 - [ ] 戻り値の型が型定義と完全に一致している
-- [ ] 型アサーション（`as`）を使用していない（型定義から自動推論される）
+- [ ] 型アサーション(`as`)を使用していない(型定義から自動推論される)
 
 上記すべてにチェックが入るまでステップ3に進まないでください。
 
@@ -473,9 +473,9 @@ main();
 ```
 
 **重要**:
-- 必要なツールのみをインポート（全20ツールではなく）
+- 必要なツールのみをインポート(全20ツールではなく)
 - **TOOLS.mdで確認した正確な型定義を使用**
-- データ処理はコード内で実施（filter、map、reduce）
+- データ処理はコード内で実施(filter、map、reduce)
 - 最終結果のみを `console.log()` で出力
 - 必ず `await closeClient()` を呼び出す
 
@@ -487,7 +487,7 @@ bun run src/your-script.ts
 
 ### ステップ5: 結果の報告
 
-スクリプトの出力から最終結果のみをユーザーに報告してください。中間データや処理の詳細は報告しないでください（プライバシー保護のため）。
+スクリプトの出力から最終結果のみをユーザーに報告してください。中間データや処理の詳細は報告しないでください(プライバシー保護のため)。
 
 **エラーが発生した場合**:
 - 型エラー: TOOLS.mdと型定義を再確認
@@ -541,7 +541,7 @@ async function main() {
 main();
 ```
 
-**効果**: 1000ファイルの処理でも、最終結果のみが LLM に到達（トークン削減: 99%以上）
+**効果**: 1000ファイルの処理でも、最終結果のみが LLM に到達(トークン削減: 99%以上)
 
 さらに詳しい例は [EXAMPLES.md](EXAMPLES.md) を参照してください。
 

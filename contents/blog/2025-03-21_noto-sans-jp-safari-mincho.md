@@ -15,7 +15,7 @@ description: SafariやiOSのGoogle Chromeだけフォントが明朝体に変わ
 ## iOSのSafariだけFontが崩れる
 
 font-family に何も指定しなかった場合は、OS・ブラウザごとのデフォルトフォントが適用されます。
-大半のブラウザのデフォルトフォントは、ゴシック体ですが、macOS と iOS（iPhone、iPad）の標準ブラウザ Safari だけはデフォルトフォントが明朝体になっています。
+大半のブラウザのデフォルトフォントは、ゴシック体ですが、macOS と iOS(iPhone、iPad)の標準ブラウザ Safari だけはデフォルトフォントが明朝体になっています。
 
 https://qiita.com/ksk1015/items/9d2028454ee144c64c60
 

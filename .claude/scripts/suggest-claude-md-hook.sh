@@ -4,7 +4,7 @@
 
 set -euo pipefail
 
-# 再帰実行を防ぐ（無限ループ対策）
+# 再帰実行を防ぐ(無限ループ対策)
 #
 # 問題: SessionEndフック内でclaudeを実行すると、そのclaudeの終了時に
 #       またSessionEndフックが発火し、無限ループになる
@@ -12,7 +12,7 @@ set -euo pipefail
 # 解決策: 環境変数SUGGEST_CLAUDE_MD_RUNNINGで「実行中」フラグを管理
 #   - 初回実行時: 変数は未設定 → フラグを立てて処理続行
 #   - 2回目以降: 変数が"1" → 既に実行中と判断してスキップ
-#   - 環境変数は子プロセス（ターミナル内のclaude）にも引き継がれる
+#   - 環境変数は子プロセス(ターミナル内のclaude)にも引き継がれる
 if [ "${SUGGEST_CLAUDE_MD_RUNNING:-}" = "1" ]; then
   echo "Already running suggest-claude-md-hook. Skipping to avoid infinite loop." >&2
   exit 0
@@ -64,7 +64,7 @@ echo "🤖 会話履歴を分析中..." >&2
 echo "$HOOK_INFO" >&2
 echo "ログファイル: $LOG_FILE" >&2
 
-# 会話履歴を抽出（contentが配列か文字列かで分岐）
+# 会話履歴を抽出(contentが配列か文字列かで分岐)
 # テキストコンテンツが空のメッセージは除外
 CONVERSATION_HISTORY=$(jq -r '
   select(.message != null) |

@@ -11,10 +11,10 @@ import { SEARCH_CONSTANTS } from '@/constants';
  * PagefindのURLを正しいNext.jsのルートに変換
  *
  * Pagefindは`.next/server/app/xxx.html`のようなパスを返すため、
- * これを実際のルート（例: `/blog/xxx`）に変換する必要があります。
+ * これを実際のルート(例: `/blog/xxx`)に変換する必要があります。
  *
- * @param pagefindUrl - Pagefindが返すURL（例: `/server/app/blog/article-title.html`）
- * @returns Next.jsの正しいルート（例: `/blog/article-title`）
+ * @param pagefindUrl - Pagefindが返すURL(例: `/server/app/blog/article-title.html`)
+ * @returns Next.jsの正しいルート(例: `/blog/article-title`)
  */
 function normalizePagefindUrl(pagefindUrl: string): string {
   // `/server/app/`を削除して、`.html`拡張子も削除
@@ -112,7 +112,7 @@ export function SearchDialog({
    *
    * 公式推奨のアプローチに基づき、CSSとJSを動的にロード。
    * - CSSを<link>タグで読み込み
-   * - JSをdynamic importで読み込み（webpackIgnoreでパスを維持）
+   * - JSをdynamic importで読み込み(webpackIgnoreでパスを維持)
    * - try-catchで開発環境のエラーハンドリング
    * - translationsオプションで日本語UIを実現
    * - processResultでURLを正規化
@@ -124,7 +124,7 @@ export function SearchDialog({
       }
 
       try {
-        // CSSを読み込み（既に読み込まれていない場合のみ）
+        // CSSを読み込み(既に読み込まれていない場合のみ)
         if (!document.querySelector('link[href="/pagefind/pagefind-ui.css"]')) {
           const link = document.createElement('link');
           link.rel = 'stylesheet';
@@ -266,7 +266,7 @@ export function SearchDialog({
   }
 
   // React Portalを使用してdocument.bodyに直接レンダリング
-  // ダイアログを閉じてもアンマウントせず、CSSで非表示にする（PagefindUIのDOMを保持するため）
+  // ダイアログを閉じてもアンマウントせず、CSSで非表示にする(PagefindUIのDOMを保持するため)
   return createPortal(
     <div className={open ? '' : 'hidden'}>
       {/* オーバーレイ */}

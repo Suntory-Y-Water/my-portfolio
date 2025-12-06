@@ -21,7 +21,7 @@ Notion からエクスポートされたマークダウンにおいて S3 の画
 - ダウンロードした画像を R2 にアップロードする
 - マークダウン内の画像リンクを新しい R2 の URL に置換する
 
-これらを効率的に実行するために、Cloudflare Workers の制約（実行時間、メモリ、CPU 使用量）を考慮することが重要です。
+これらを効率的に実行するために、Cloudflare Workers の制約(実行時間、メモリ、CPU 使用量)を考慮することが重要です。
 多数の画像を含む Markdown でもスムーズに動作するように、並列処理の仕組みを導入しています。
 
 ## 実装したソースコード
@@ -53,7 +53,7 @@ export async function processAndUploadImages({
   const matches = [...markdown.matchAll(imagePattern)];
   if (matches.length === 0) return markdown;
 
-  // 処理対象のURLを収集（altテキストがURLの場合のみ処理）
+  // 処理対象のURLを収集(altテキストがURLの場合のみ処理)
   const urlsToProcess = matches
     .filter((match) => match[1].startsWith('https://')) // altテキストがURLのもののみ
     .map((match) => match[1]); // 画像URL部分を抽出
@@ -75,7 +75,7 @@ export async function processAndUploadImages({
   // 処理済みURLがなければ元のマークダウンを返す
   if (processedUrls.size === 0) return markdown;
 
-  // URLの置換処理（一度の処理で全ての置換を行う）
+  // URLの置換処理(一度の処理で全ての置換を行う)
   return replaceMarkdownUrls(markdown, processedUrls);
 }
 
@@ -182,7 +182,7 @@ export async function processAndUploadImages({
 この関数の特徴は以下の通りです。
 
 - シンプルな正規表現で画像記法を検出
-- Notion の特殊な記法（alt テキストが URL になっている）に対応
+- Notion の特殊な記法(alt テキストが URL になっている)に対応
 - 重複 URL の処理を省くための最適化
 - 並列処理による高速化
 
@@ -278,7 +278,7 @@ const imagePattern = /!\[(.*?)]\((.*?)\)/g;
 
 複雑な正規表現は保守性が低下するため、基本的なマークダウン記法にマッチするシンプルなパターンを採用しています。
 以前の実装では `prod-files-secure.s3` などの特定のドメインを検索していましたが、将来的な URL の変更に対応できるよう汎用的な形にしました。
-Notion の特殊な記法（alt テキストが URL になっている）は正規表現では捉えず、フィルタリングで対応しています。
+Notion の特殊な記法(alt テキストが URL になっている)は正規表現では捉えず、フィルタリングで対応しています。
 
 ```typescript
 .filter(match => match[1].startsWith('https://')) // altテキストがURLのもののみ

@@ -5,7 +5,7 @@
 
 ## 基本方針
 
-- **できるだけ全てのフェーズを実行する**（タイプ別の推奨フローは下記参照）
+- **できるだけ全てのフェーズを実行する**(タイプ別の推奨フローは下記参照)
 - **各フェーズで TodoWrite ツールを活用**して進捗を管理する
 - **不明点があれば AskUserQuestion で確認**してから進める
 - **エラーが発生したら必ず修正**してから次のフェーズに進む
@@ -39,7 +39,7 @@
 
 ### 必須フェーズ vs 任意フェーズ
 
-#### 必須フェーズ（ほぼすべてのケースで実行）
+#### 必須フェーズ(ほぼすべてのケースで実行)
 1. **Phase 1: Investigation & Research** - Context7/Kiriで調査
 3. **Phase 3: Planning** - TodoWriteで計画立案
 4. **Phase 4: Implementation** - Serenaでコード実装
@@ -47,7 +47,7 @@
 7. **Phase 7: Git Commit** - コミット作成
 8. **Phase 8: Push** - リモートへプッシュ
 
-#### 状況に応じて実行（推奨）
+#### 状況に応じて実行(推奨)
 2. **Phase 2: Architecture Design** - 新機能や大規模変更時
 5. **Phase 5: Code Review** - リファクタリングが必要な場合
 
@@ -58,7 +58,7 @@
 以下のカスタムコマンドが利用可能です：
 
 - **`spec-document-creator`** (`.claude/agents/spec-document-creator.md`) - 拡張可能な仕様書作成コマンド。機能仕様、API仕様、アーキテクチャ仕様など複数のドキュメントタイプをサポート
-- **`adr-memory-manager`** (`.claude/agents/adr-memory-manager.md`) - AI用のADR（Architecture Decision Record）を自動記録・検索・管理。JSON形式で機械可読性を最優先に設計
+- **`adr-memory-manager`** (`.claude/agents/adr-memory-manager.md`) - AI用のADR(Architecture Decision Record)を自動記録・検索・管理。JSON形式で機械可読性を最優先に設計
 - **`project-onboarding`** (`.claude/agents/project-onboarding.md`) - プロジェクトの構造、ドメイン知識、技術スタック、アーキテクチャパターンを分析・記録。新規プロジェクトのオンボーディングに最適
 
 ---
@@ -69,11 +69,11 @@
 
 **使用ツール**: Context7 MCP, Kiri MCP
 
-#### 1. 既存コードベースの調査（Kiri MCPを使用）
+#### 1. 既存コードベースの調査(Kiri MCPを使用)
 
 Kiri MCPはSerenaより高度な検索機能を提供します。セマンティック検索、フレーズ認識、依存関係分析などを活用してください。
 
-**1-1. コンテキスト自動取得（推奨）**
+**1-1. コンテキスト自動取得(推奨)**
 ```
 mcp__kiri__context_bundle
 goal: 'user authentication, login flow, JWT validation'
@@ -81,7 +81,7 @@ limit: 10
 compact: true
 ```
 - タスクに関連するコードスニペットを自動でランク付けして取得
-- `goal`には具体的なキーワードを使用（抽象的な動詞は避ける）
+- `goal`には具体的なキーワードを使用(抽象的な動詞は避ける)
 - `compact: true`でトークン消費を95%削減
 
 **1-2. 具体的なキーワード検索**
@@ -101,7 +101,7 @@ path: 'src/auth/login.ts'
 direction: 'inbound'
 max_depth: 3
 ```
-- 影響範囲分析（inbound）や依存チェーン（outbound）を取得
+- 影響範囲分析(inbound)や依存チェーン(outbound)を取得
 - リファクタリング時の影響調査に最適
 
 **1-4. コードの詳細取得**
@@ -117,33 +117,33 @@ path: 'src/auth/login.ts'
 - 使用するライブラリの最新情報を確認
 - `mcp__context7__resolve-library-id` → `mcp__context7__get-library-docs` の順で実行
 
-#### 3. 既存決定の確認（ADR参照）【必須】
+#### 3. 既存決定の確認(ADR参照)【必須】
 
 **⚠️ 重要: このステップは必ず実行すること**
 - **コード調査だけでは不十分**: `codebase_search`やKiri MCPで既存パターンを確認しても、ADR確認は別途必須
 - **実装前に必ず確認**: 既存のアーキテクチャ決定に従うか、新しい決定が必要かを判断
 - **ADR確認方法**:
   1. `docs/adr/index.json`を確認して関連ADRを特定
-  2. 関連するADRファイル（`docs/adr/decisions/*.json`）を読み込む
+  2. 関連するADRファイル(`docs/adr/decisions/*.json`)を読み込む
   3. 実装がADRの決定と一致しているか確認
   4. 新しい決定が必要な場合は`adr-memory-manager`エージェントを使用して記録
 
 **ADR確認のタイミング:**
-- Phase 1で初回確認（必須）
-- Phase 3（Planning）の前に再確認（推奨）
-- Phase 4（Implementation）の前に最終確認（推奨）
+- Phase 1で初回確認(必須)
+- Phase 3(Planning)の前に再確認(推奨)
+- Phase 4(Implementation)の前に最終確認(推奨)
 
 #### 4. 調査結果の整理
 - 既存パターンやコーディング規約を把握
 - 再利用可能なコンポーネントやユーティリティを特定
 - Kiriで取得したコンテキストを基に実装方針を決定
-- **既存ADRと照合して決定の一貫性を確認**（必須）
+- **既存ADRと照合して決定の一貫性を確認**(必須)
 
 **完了チェックリスト:**
 - [ ] Kiri MCPで関連コードを特定
 - [ ] 必要なライブラリのドキュメントを確認
 - [ ] 既存パターンと依存関係を把握
-- [ ] **ADRを確認し、既存決定を理解**（必須 - コード調査とは別に実行）
+- [ ] **ADRを確認し、既存決定を理解**(必須 - コード調査とは別に実行)
 - [ ] 実装がADRの決定と一致していることを確認
 
 ---
@@ -188,7 +188,7 @@ path: 'src/auth/login.ts'
 
 **⚠️ 重要: Phase 1の確認**
 - **Phase 3の前に必ず確認**:
-  - **Phase 1のADR確認が完了しているか確認**（必須）
+  - **Phase 1のADR確認が完了しているか確認**(必須)
 - **ADRの決定に従った実装計画になっているか確認**
 
 #### 1. 実装計画の作成
@@ -205,7 +205,7 @@ path: 'src/auth/login.ts'
 **注意**: ExitPlanModeツールはplan modeでのみ使用されます。通常の実装フローではTodoWriteのみを使用してください。
 
 **完了チェックリスト:**
-- [ ] **Phase 1のADR確認が完了している**（必須）
+- [ ] **Phase 1のADR確認が完了している**(必須)
 - [ ] TodoWriteで全タスクを登録
 - [ ] **実装計画がADRの決定と一致している**
 - [ ] タスクの実行順序を決定
@@ -219,10 +219,10 @@ path: 'src/auth/login.ts'
 
 **⚠️ 重要: Phase 1の確認**
 - **実装前に必ず確認**:
-  - **Phase 1のADR確認が完了しているか確認**（必須）
+  - **Phase 1のADR確認が完了しているか確認**(必須)
 - **実装がADRの決定と一致しているか確認**
 
-#### 1. コード実装（Serena MCPを使用）
+#### 1. コード実装(Serena MCPを使用)
 
 Serena MCPはシンボルベースのコード編集に特化しています。Phase 1でKiriで調査した内容を基に、Serenaで正確に実装してください。
 
@@ -270,13 +270,13 @@ relative_path: 'src/auth/user.ts'
 - 日本語コメントで意図を明確に
 - ESLint、Prettierの設定に従う
 - プロジェクト固有のパターンを踏襲
-- **バレルインポート禁止**（`@/` aliasを使用した個別インポート）
+- **バレルインポート禁止**(`@/` aliasを使用した個別インポート)
 
 #### 3. 進捗管理
 - TodoWriteツールでタスクを `in_progress` → `completed` に更新
 - 一度に1つのタスクに集中
 
-#### 4. ADRの更新（実装完了後）
+#### 4. ADRの更新(実装完了後)
 - `adr-memory-manager` エージェントを使用して実装内容をADRに反映
 - Phase 2で記録したADRに実装の詳細を追記
 - 実際に実装されたファイル、コンポーネント、パターンを記録
@@ -284,7 +284,7 @@ relative_path: 'src/auth/user.ts'
 - コード例を追加してADRをより実用的に
 
 **完了チェックリスト:**
-- [ ] **Phase 1のADR確認が完了している**（必須）
+- [ ] **Phase 1のADR確認が完了している**(必須)
 - [ ] Serena MCPでシンボルベース編集を実施
 - [ ] TypeScript型定義が厳密
 - [ ] バレルインポート未使用
@@ -292,7 +292,7 @@ relative_path: 'src/auth/user.ts'
 - [ ] **実装がADRの決定と一致している**
 - [ ] 日本語コメントで意図を説明
 - [ ] TodoWriteで進捗更新済み
-- [ ] 実装完了後、関連するADRを更新・追記（新しい決定が必要な場合）
+- [ ] 実装完了後、関連するADRを更新・追記(新しい決定が必要な場合)
 
 ---
 
@@ -320,7 +320,7 @@ relative_path: 'src/auth/user.ts'
 - リファクタリングによる変更があればADRを更新
 - 実装がADRの決定と一致しているか確認
 - 新しいパターンや変更点があれば追記
-- ADRのステータスを「accepted」に更新（実装完了時）
+- ADRのステータスを「accepted」に更新(実装完了時)
 
 **完了チェックリスト:**
 - [ ] コード品質が基準を満たす
@@ -379,7 +379,7 @@ git diff
 ```
 
 #### 2. コミット作成
-- 適切なコミットメッセージを作成（日本語、簡潔に、作成者とか不要な情報はいれない）
+- 適切なコミットメッセージを作成(日本語、簡潔に、作成者とか不要な情報はいれない)
 - コミットメッセージフォーマット：`<type>: <description>`
 - type例：feat, fix, refactor, docs, test, style, chore
 
@@ -440,5 +440,5 @@ gh pr create --title "PR title" --body "PR description"
 | **全フェーズ** | Context7 MCP | ライブラリドキュメント取得 |
 
 **Kiri vs Serenaの使い分け**:
-- **調査（読み取り）**: Kiri → セマンティック検索、自動ランク付け、依存関係分析
-- **実装（書き込み）**: Serena → シンボル編集、リネーム、挿入・置換
+- **調査(読み取り)**: Kiri → セマンティック検索、自動ランク付け、依存関係分析
+- **実装(書き込み)**: Serena → シンボル編集、リネーム、挿入・置換

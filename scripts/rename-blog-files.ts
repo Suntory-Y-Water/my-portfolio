@@ -20,7 +20,7 @@ function renameBlogFiles() {
     // フロントマターをパース
     const { data, content: markdownContent } = matter(content);
 
-    // 現在のslug（拡張子なしのファイル名）
+    // 現在のslug(拡張子なしのファイル名)
     const currentSlug = basename(filename, '.md');
 
     // dateフィールドを取得

@@ -163,7 +163,7 @@
   color: hsl(0 0% 20%) !important;
 }
 
-/* ハイライト（mark要素）の色 - ライトモード */
+/* ハイライト(mark要素)の色 - ライトモード */
 mark {
   background-color: hsl(60 100% 70%) !important;
   color: hsl(0 0% 0%) !important;
@@ -199,7 +199,7 @@ mark {
   color: hsl(0 0% 80%) !important;
 }
 
-/* ハイライト（mark要素）の色 - ダークモード */
+/* ハイライト(mark要素)の色 - ダークモード */
 .dark mark {
   background-color: hsl(45 100% 40%) !important;
   color: hsl(0 0% 100%) !important;

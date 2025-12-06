@@ -1,5 +1,5 @@
 ---
-title: 手を動かして理解しようとするDI（依存性の注入）
+title: 手を動かして理解しようとするDI(依存性の注入)
 slug: understanding-di-dependency-injection-through-hands-on
 date: 2024-06-15
 modified_time: 2024-06-15
@@ -28,7 +28,7 @@ tags:
 
 ## 概要
 
-依存性の注入（Dependency Injection, DI）とは、オ**ブジェクトの依存関係を外部から注入するデザインパターンのこと**です。
+依存性の注入(Dependency Injection, DI)とは、オ**ブジェクトの依存関係を外部から注入するデザインパターンのこと**です。
 オブジェクト間の依存関係を明示的に管理しやすくなり、コードの保守性やテストのしやすさが向上します。
 
 ## メリット
@@ -144,7 +144,7 @@ export class PostService implements IPostService {
 - `IPostService` で定義忘れ → `PostService` 内でコンパイルエラー
 
 ## DIコンテナの実装
-次に依存性注入コンテナ（DI コンテナ）を実装しています。
+次に依存性注入コンテナ(DI コンテナ)を実装しています。
 DI コンテナは、アプリケーション内のオブジェクトの生成と管理を一元化し、依存関係を注入する仕組みを提供します。
 
 ジェネリクスを使用して任意の型の依存オブジェクトを管理しています。
@@ -198,13 +198,13 @@ diContainer.register('PostService', PostService, diContainer.get('PostRepository
 **リポジトリの登録**:
 
 - `PostRepository` を DI コンテナに登録します。
-- `register` メソッドは、リポジトリのキー（ここでは `PostRepository`）とクラスのコンストラクタを受け取ります。
+- `register` メソッドは、リポジトリのキー(ここでは `PostRepository`)とクラスのコンストラクタを受け取ります。
 - これにより、DI コンテナは `PostRepository` のインスタンスを管理できるようになります。
 
 **サービスの登録**:
 
 - `PostService` を DI コンテナに登録します。
-- `register` メソッドは、サービスのキー（ここでは `PostService`）、クラスのコンストラクタ、およびコンストラクタ引数（ここでは `PostRepository` のインスタンス）を受け取ります。
+- `register` メソッドは、サービスのキー(ここでは `PostService`)、クラスのコンストラクタ、およびコンストラクタ引数(ここでは `PostRepository` のインスタンス)を受け取ります。
 - これにより、DI コンテナは `PostService` のインスタンスを管理し、必要な依存関係を注入できるようになります。
 
 ## Hono で使う

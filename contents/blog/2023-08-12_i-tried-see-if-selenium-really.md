@@ -83,7 +83,7 @@ if __name__ == '__main__':
 ## おまけ
 
 `--disable-blink-features=AutomationControlled`を追加することでwindow.navigator.webdriverプロパティを無効にすることができるそうですね。
-知らなかったので補足しておきます。（使用時はサイトの利用規約を守ってください）
+知らなかったので補足しておきます。(使用時はサイトの利用規約を守ってください)
 
 ``` python 
 import time

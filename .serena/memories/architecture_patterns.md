@@ -5,15 +5,15 @@
 ### 採用アーキテクチャ
 - **フレームワーク**: Next.js 16 App Router
 - **レンダリング戦略**: Static Site Generation (SSG) + Server Components
-- **状態管理**: React Server Components + Client Components（最小限）
-- **スタイリング**: Tailwind CSS + CSS Modules（一部）
+- **状態管理**: React Server Components + Client Components(最小限)
+- **スタイリング**: Tailwind CSS + CSS Modules(一部)
 
 ### 設計原則
 
-#### YAGNI（You Aren't Gonna Need It）
+#### YAGNI(You Aren't Gonna Need It)
 将来的な拡張性の考慮は禁止。現時点で必要な機能のみを実装する。
 
-#### KISS（Keep It Simple, Stupid）
+#### KISS(Keep It Simple, Stupid)
 シンプルで読みやすいコードを重視。過度な抽象化を避ける。
 
 #### 関数型プログラミング
@@ -65,9 +65,9 @@ ui/                  (汎用UIコンポーネント)
 #### Server Componentsを優先
 デフォルトではServer Componentsを使用し、以下の場合のみClient Componentsを使用する：
 
-- イベントハンドラーが必要な場合（`onClick`, `onChange`など）
-- React Hooksが必要な場合（`useState`, `useEffect`など）
-- ブラウザAPIが必要な場合（`localStorage`, `window`など）
+- イベントハンドラーが必要な場合(`onClick`, `onChange`など)
+- React Hooksが必要な場合(`useState`, `useEffect`など)
+- ブラウザAPIが必要な場合(`localStorage`, `window`など)
 
 #### Client Componentsの最小化
 Client Componentsは必要最小限の範囲に限定し、子コンポーネントはできるだけServer Componentsにする。
@@ -95,7 +95,7 @@ export function MinimalClientComponent() {
 
 ## データフェッチング
 
-### 静的生成（SSG）を優先
+### 静的生成(SSG)を優先
 ブログ記事など、ビルド時に生成できるページは静的生成を使用する。
 
 ```tsx
@@ -143,9 +143,9 @@ unified()
   .use(remarkRehype, { allowDangerousHtml: true })  // mdast → hast
   .use(rehypeSlug)                     // 見出しにIDを付与
   .use(rehypePrettyCode)               // コードブロックのシンタックスハイライト
-  .use(rehypeCodeCopyButton)           // コピーボタン追加（カスタムプラグイン）
-  .use(rehypeLinkCard)                 // リンクカード生成（カスタムプラグイン）
-  .use(rehypeMermaidCode)              // Mermaid図生成（カスタムプラグイン）
+  .use(rehypeCodeCopyButton)           // コピーボタン追加(カスタムプラグイン)
+  .use(rehypeLinkCard)                 // リンクカード生成(カスタムプラグイン)
+  .use(rehypeMermaidCode)              // Mermaid図生成(カスタムプラグイン)
   .use(rehypeStringify)                // hast → HTML
 ```
 
@@ -162,7 +162,7 @@ unified()
 
 ## セキュリティアーキテクチャ
 
-### 多層防御（Defense in Depth）
+### 多層防御(Defense in Depth)
 
 複数の層でセキュリティ対策を実施する。
 
@@ -175,7 +175,7 @@ unified()
 - SVGファイルのスクリプト除去
 
 #### レイヤー3: セキュリティヘッダー
-- Content Security Policy（CSP）
+- Content Security Policy(CSP)
 - X-Frame-Options
 - X-Content-Type-Options
 - Strict-Transport-Security
@@ -237,7 +237,7 @@ export const siteConfig = {
 
 ### 型定義の方針
 
-#### typeを使用（interfaceは使用しない）
+#### typeを使用(interfaceは使用しない)
 ```typescript
 // ✅ Good
 type User = {
@@ -277,13 +277,13 @@ type BlogPostWithoutContent = Omit<BlogPost, 'content'>;
 
 ### ビルド時最適化
 
-#### 静的生成（SSG）
+#### 静的生成(SSG)
 ブログ記事など、変更頻度の低いページは静的生成する。
 
 #### バンドルサイズ最適化
-- 不要なライブラリの削除（depcheck）
-- 動的インポート（`next/dynamic`）
-- Tree Shaking（Biome + Next.js）
+- 不要なライブラリの削除(depcheck)
+- 動的インポート(`next/dynamic`)
+- Tree Shaking(Biome + Next.js)
 
 ### ランタイム最適化
 
@@ -298,15 +298,15 @@ type BlogPostWithoutContent = Omit<BlogPost, 'content'>;
 
 ---
 
-## テスト戦略（現状）
+## テスト戦略(現状)
 
 現在、このプロジェクトにはテストがありません。将来的に追加する場合は、以下のような戦略を検討してください：
 
 ### 推奨テスト戦略
 - **単体テスト**: Vitest + React Testing Library
 - **E2Eテスト**: Playwright
-- **型チェック**: TypeScript（`bun run typecheck`）
-- **Lint**: Biome（`bun run check`）
+- **型チェック**: TypeScript(`bun run typecheck`)
+- **Lint**: Biome(`bun run check`)
 
 ---
 
@@ -319,19 +319,19 @@ type BlogPostWithoutContent = Omit<BlogPost, 'content'>;
 bun run build
 ```
 
-#### ビルド後処理（postbuild）
+#### ビルド後処理(postbuild)
 ```bash
 pagefind --site .next --output-path public/pagefind
 ```
 
 #### 環境変数
 - `ANALYZE`: バンドル分析の有効化
-- `ANALYZE_MODE`: 分析モード（static/json）
+- `ANALYZE_MODE`: 分析モード(static/json)
 - `ANALYZE_STATS`: stats.jsonの生成
 
 ---
 
-## ADR（Architecture Decision Records）
+## ADR(Architecture Decision Records)
 
 重要なアーキテクチャ決定は、ADRとして記録する。
 

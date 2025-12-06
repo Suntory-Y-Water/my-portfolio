@@ -244,7 +244,7 @@ function judgeWinner(result1: DiceResult, result2: DiceResult): number {
     return 0; // 完全に同じ場合は引き分け
   }
 
-  // 通常役同士の場合（両方とも通常役の場合のみ）一致していない目の大きい方が勝ち
+  // 通常役同士の場合(両方とも通常役の場合のみ)一致していない目の大きい方が勝ち
   if (result1.role === ROLES.NORMAL && result2.role === ROLES.NORMAL) {
     if (result1.uniqueValue && result2.uniqueValue) {
       if (result1.uniqueValue > result2.uniqueValue) {

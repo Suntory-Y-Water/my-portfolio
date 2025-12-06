@@ -19,7 +19,7 @@ model: inherit
 
 ## プロジェクト情報の構造
 
-プロジェクト情報は `adr-memory-manager` コマンドを用いて ADR（Architecture Decision Record）として記録します。各カテゴリは個別のADRとして保存します。
+プロジェクト情報は `adr-memory-manager` コマンドを用いて ADR(Architecture Decision Record)として記録します。各カテゴリは個別のADRとして保存します。
 
 ```
 docs/adr/decisions/
@@ -31,9 +31,9 @@ docs/adr/decisions/
 
 すべてのADRは `docs/adr/index.json` にインデックス化され、検索・参照が容易です。
 
-## 情報カテゴリ（ADRとして記録）
+## 情報カテゴリ(ADRとして記録)
 
-### 1. プロジェクト構造（ADR-0001）
+### 1. プロジェクト構造(ADR-0001)
 
 **ADRタイトル**: 「Project Structure and Naming Conventions」
 
@@ -73,7 +73,7 @@ docs/adr/decisions/
     "code_patterns": [
       "kebab-case のディレクトリ",
       "PascalCase のコンポーネントファイル",
-      "機能別編成（feature-based organization）"
+      "機能別編成(feature-based organization)"
     ],
     "examples": [
       {
@@ -89,7 +89,7 @@ docs/adr/decisions/
 }
 ```
 
-### 2. 技術スタック（ADR-0002）
+### 2. 技術スタック(ADR-0002)
 
 **ADRタイトル**: 「Technology Stack and Dependencies」
 
@@ -146,7 +146,7 @@ docs/adr/decisions/
 }
 ```
 
-### 3. アーキテクチャパターン（ADR-0003）
+### 3. アーキテクチャパターン(ADR-0003)
 
 **ADRタイトル**: 「Architecture Patterns and Code Organization」
 
@@ -196,7 +196,7 @@ docs/adr/decisions/
 }
 ```
 
-### 4. ドメイン知識（ADR-0004）
+### 4. ドメイン知識(ADR-0004)
 
 **ADRタイトル**: 「Domain Knowledge and Business Logic」
 
@@ -319,14 +319,14 @@ docs/adr/decisions/
 ### フェーズ4: ADRリンク付け
 
 1. **関連ADRの紐付け**
-   - ADR-0001（構造）を ADR-0003（アーキテクチャ）にリンク
-   - ADR-0002（技術スタック）を ADR-0003 にリンク
-   - ADR-0004（ドメイン）を ADR-0003 にリンク
+   - ADR-0001(構造)を ADR-0003(アーキテクチャ)にリンク
+   - ADR-0002(技術スタック)を ADR-0003 にリンク
+   - ADR-0004(ドメイン)を ADR-0003 にリンク
    - 相互参照を作成してナビゲーションを容易にする
 
 ## ツールと手法
 
-### Kiri MCP（セマンティック分析）
+### Kiri MCP(セマンティック分析)
 
 ```javascript
 // プロジェクト全体像の取得
@@ -350,7 +350,7 @@ mcp__kiri__context_bundle({
 })
 ```
 
-### Serena MCP（構造分析）
+### Serena MCP(構造分析)
 
 ```javascript
 // ディレクトリ構造の探索
@@ -378,7 +378,7 @@ mcp__serena__find_symbol({
 - TypeScript 設定：`tsconfig.json`
 - Next.js 設定：`next.config.js`
 - 除外設定：`.gitignore`
-- 概要：`README.md`（あれば）
+- 概要：`README.md`(あれば)
 
 ## ADR との統合
 
@@ -430,7 +430,7 @@ mcp__serena__find_symbol({
 開始前:
 - [ ] プロジェクトルートを特定
 - [ ] 既存ドキュメントの有無を確認
-- [ ] 分析ツール（Kiri MCP, Serena MCP）を準備
+- [ ] 分析ツール(Kiri MCP, Serena MCP)を準備
 
 分析中:
 - [ ] ディレクトリ構造を分析
@@ -440,10 +440,10 @@ mcp__serena__find_symbol({
 - [ ] 命名規則を記録
 
 分析後:
-- [ ] `adr-memory-manager` で ADR-0001（構造）を作成
-- [ ] `adr-memory-manager` で ADR-0002（技術スタック）を作成
-- [ ] `adr-memory-manager` で ADR-0003（アーキテクチャ）を作成
-- [ ] `adr-memory-manager` で ADR-0004（ドメイン）を作成
+- [ ] `adr-memory-manager` で ADR-0001(構造)を作成
+- [ ] `adr-memory-manager` で ADR-0002(技術スタック)を作成
+- [ ] `adr-memory-manager` で ADR-0003(アーキテクチャ)を作成
+- [ ] `adr-memory-manager` で ADR-0004(ドメイン)を作成
 - [ ] 関連ADRをリンク
 - [ ] ADR情報の正確性を検証
 - [ ] 検索可能であることをクエリで確認

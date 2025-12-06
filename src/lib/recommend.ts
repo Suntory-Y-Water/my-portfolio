@@ -61,7 +61,7 @@ function normalizeL2(vector: number[]): number[] {
 function calculateTfIdfVectors(posts: BlogPost[]): Map<string, number[]> {
   const N = posts.length;
 
-  // 各記事のタグを取得（タグがない場合は空配列）
+  // 各記事のタグを取得(タグがない場合は空配列)
   const documents = posts.map((post) => ({
     slug: post.slug,
     tags: post.metadata.tags ?? [],
@@ -79,7 +79,7 @@ function calculateTfIdfVectors(posts: BlogPost[]): Map<string, number[]> {
     }
   }
 
-  // 語彙（全タグ）をソート
+  // 語彙(全タグ)をソート
   const vocab = Array.from(tagToDocumentFrequency.keys()).sort();
   const tagToIdx = new Map(vocab.map((tag, idx) => [tag, idx]));
 
@@ -106,7 +106,7 @@ function calculateTfIdfVectors(posts: BlogPost[]): Map<string, number[]> {
     }
   }
 
-  // TF-IDFスコアを計算（TF * IDF）
+  // TF-IDFスコアを計算(TF * IDF)
   for (let i = 0; i < N; i++) {
     for (let j = 0; j < vocab.length; j++) {
       const tag = vocab[j];
@@ -140,8 +140,8 @@ export type RelatedPost = {
  *
  * @param currentSlug - 現在の記事のslug
  * @param allPosts - 全記事の配列
- * @param count - 取得する関連記事の数（デフォルト: 4）
- * @returns 関連記事の配列（類似度降順）
+ * @param count - 取得する関連記事の数(デフォルト: 4)
+ * @returns 関連記事の配列(類似度降順)
  */
 export function getRelatedPosts({
   currentSlug,
@@ -178,7 +178,7 @@ export function getRelatedPosts({
     similarities.push({ post, similarity });
   }
 
-  // 類似度でソート（降順）して上位N件を返す
+  // 類似度でソート(降順)して上位N件を返す
   return similarities
     .sort((a, b) => b.similarity - a.similarity)
     .slice(0, count);

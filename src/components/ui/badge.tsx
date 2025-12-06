@@ -28,7 +28,7 @@ export type BadgeProps = React.HTMLAttributes<HTMLDivElement> &
 /**
  * shadcn/ui バッジコンポーネント
  *
- * @param variant - バッジのスタイルバリアント（default, secondary, destructive, outline）
+ * @param variant - バッジのスタイルバリアント(default, secondary, destructive, outline)
  */
 function Badge({ className, variant, ...props }: BadgeProps) {
   return (

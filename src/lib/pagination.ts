@@ -6,7 +6,7 @@
 export type PaginationResult<T> = {
   /** ページ内のアイテム配列 */
   items: T[];
-  /** 現在のページ番号（1始まり） */
+  /** 現在のページ番号(1始まり) */
   currentPage: number;
   /** 総ページ数 */
   totalPages: number;
@@ -24,9 +24,9 @@ export type PaginationResult<T> = {
  * @template T - ページネーション対象のアイテムの型
  * @param params - ページネーションのパラメータ
  * @param params.items - ページネーション対象のアイテム配列
- * @param params.page - 取得するページ番号（1始まり）
+ * @param params.page - 取得するページ番号(1始まり)
  * @param params.pageSize - 1ページあたりのアイテム数
- * @returns ページネーション結果（アイテム、現在ページ、総ページ数、総アイテム数）
+ * @returns ページネーション結果(アイテム、現在ページ、総ページ数、総アイテム数)
  *
  * @example
  * ```ts

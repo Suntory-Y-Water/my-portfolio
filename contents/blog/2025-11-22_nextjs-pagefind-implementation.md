@@ -27,7 +27,7 @@ https://pagefind.app/
 
 ## セットアップ
 
-Pagefind は、静的サイトジェネレーター（SSG）で生成された HTML ファイルを解析し、検索用インデックスを作成します。
+Pagefind は、静的サイトジェネレーター(SSG)で生成された HTML ファイルを解析し、検索用インデックスを作成します。
 今回はランタイムに **Bun** を使用しているため、`package.json` のスクリプトは以下のようになります。
 
 ```json package.json
@@ -41,13 +41,13 @@ Pagefind は、静的サイトジェネレーター（SSG）で生成された H
 }
 ```
 
-上記のコマンドでは、`postbuild` フックを使って Next.js のビルド成果物（`.next`）をスキャンし、インデックスの出力先（`--output-path`）を `public/pagefind` に指定しています。
+上記のコマンドでは、`postbuild` フックを使って Next.js のビルド成果物(`.next`)をスキャンし、インデックスの出力先(`--output-path`)を `public/pagefind` に指定しています。
 
 通常、SSG であればビルド成果物の中に含めてしまえば良いのですが、Next.js の場合、**`public` ディレクトリ配下に置いたファイルが静的アセットとして配信される**という仕様があります。
 
 https://nextjs.org/docs/app/api-reference/file-conventions/public-folder
 
-ここにインデックスファイルや `pagefind.js` を出力することで、ブラウザ（クライアントサイド）から `/pagefind/pagefind.js` として直接アクセスが可能になり、スムーズに検索スクリプトをロードできるようになります。
+ここにインデックスファイルや `pagefind.js` を出力することで、ブラウザ(クライアントサイド)から `/pagefind/pagefind.js` として直接アクセスが可能になり、スムーズに検索スクリプトをロードできるようになります。
 
 実際にこのブログで検索したときのデモです。見ての通り爆速で記事検索ができていることが確認できます。
 ![image](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/b88b12b125263c0895529d4a4c487cec.gif)

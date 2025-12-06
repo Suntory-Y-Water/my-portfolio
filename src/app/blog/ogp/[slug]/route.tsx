@@ -36,7 +36,7 @@ function loadLocalSvg({ iconPath }: { iconPath: string }): string | null {
 /**
  * ブログ記事のOGP画像を動的に生成するAPIルートハンドラ
  *
- * @param _request - NextRequestオブジェクト（未使用）
+ * @param _request - NextRequestオブジェクト(未使用)
  * @param params - ルートパラメータを含むオブジェクト
  * @param params.params - slug を含む Promise
  * @returns 1200x630のOGP画像を含むImageResponse

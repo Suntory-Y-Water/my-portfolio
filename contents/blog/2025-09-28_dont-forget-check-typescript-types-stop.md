@@ -76,9 +76,9 @@ import type { TranscriptEntry } from '../types/claude-output';
 type CmdResult = {
   /** プロセス終了コード (0: 成功, その他: エラー, null: 実行時エラー) */
   code: number | null;
-  /** 標準出力の内容（通常は空） */
+  /** 標準出力の内容(通常は空) */
   stdout: string;
-  /** 標準エラー出力の内容（型エラーメッセージなど） */
+  /** 標準エラー出力の内容(型エラーメッセージなど) */
   stderr: string;
 };
 
@@ -217,7 +217,7 @@ if (process.env.NODE_ENV !== 'test') {
 import type { ToolSchema } from 'cc-hooks-ts';
 
 /**
- * transcript JSONLファイル内の1行（1つのメッセージエントリ）を表す型
+ * transcript JSONLファイル内の1行(1つのメッセージエントリ)を表す型
  */
 export type TranscriptEntry = UserEntry | AssistantEntry | SystemEntry;
 
@@ -233,7 +233,7 @@ type UserEntry = {
   message: {
     /** メッセージの役割 */
     role: 'user';
-    /** ユーザーの入力内容（文字列） */
+    /** ユーザーの入力内容(文字列) */
     content: string;
   };
 };
@@ -248,7 +248,7 @@ type AssistantEntry = {
   timestamp: string;
   /** アシスタントメッセージの内容 */
   message: {
-    /** メッセージ内のコンテンツ要素配列（テキスト、ツール使用など） */
+    /** メッセージ内のコンテンツ要素配列(テキスト、ツール使用など) */
     content: ContentElement[];
   };
 };
@@ -269,7 +269,7 @@ type SystemEntry = {
 };
 
 /**
- * メッセージ内の個別コンテンツ要素（テキストやツール使用）を表す型
+ * メッセージ内の個別コンテンツ要素(テキストやツール使用)を表す型
  */
 type ContentElement = {
   /** コンテンツタイプ ('tool_use': ツール使用, 'text': テキスト, その他) */

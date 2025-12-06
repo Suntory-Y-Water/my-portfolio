@@ -16,14 +16,14 @@ bun run preview
 # 本番ビルド
 bun run build
 
-# ビルド後にPagefindの検索インデックスも生成される（postbuild）
+# ビルド後にPagefindの検索インデックスも生成される(postbuild)
 # pagefind --site .next --output-path public/pagefind
 
 # 本番サーバー起動
 bun run start
 ```
 
-### コード品質チェック（必須）
+### コード品質チェック(必須)
 
 #### 型チェック
 ```bash
@@ -39,7 +39,7 @@ bun run lint
 # Lint自動修正
 bun run lint:fix
 
-# Lint unsafe修正（慎重に）
+# Lint unsafe修正(慎重に)
 bun run lint:unsage-fix
 
 # Biomeフォーマット
@@ -48,7 +48,7 @@ bun run format
 # フォーマットチェックのみ
 bun run format:check
 
-# Biome統合チェック（lintとformatを統合）
+# Biome統合チェック(lintとformatを統合)
 bun run check
 
 # Biome統合チェック + 自動修正
@@ -60,7 +60,7 @@ bun run check:fix
 # CI環境用の厳密チェック
 bun run ci
 
-# AI開発時の推奨チェック（型チェック + Biome統合チェック）
+# AI開発時の推奨チェック(型チェック + Biome統合チェック)
 bun run ai-check
 ```
 
@@ -68,7 +68,7 @@ bun run ai-check
 
 #### 記事作成
 ```bash
-# 新しいブログ記事テンプレート作成（自動でブランチ作成される）
+# 新しいブログ記事テンプレート作成(自動でブランチ作成される)
 bun run new-blog
 ```
 
@@ -77,10 +77,10 @@ bun run new-blog
 # タグ整合性チェック
 bun run check:tags
 
-# SVGセキュリティチェック（変更されたファイルのみ）
+# SVGセキュリティチェック(変更されたファイルのみ)
 bun run check:svg-security
 
-# SVGセキュリティチェック（全ファイル）
+# SVGセキュリティチェック(全ファイル)
 bun run check:svg-security:all
 
 # URL周辺の空行チェック
@@ -93,7 +93,7 @@ bun run fix:url-blank-lines --apply
 bun run update-blog-icon
 ```
 
-#### textlint（日本語校正）
+#### textlint(日本語校正)
 ```bash
 # textlint実行
 bun run textlint
@@ -117,7 +117,7 @@ bun run analyze:json
 bun run clean
 ```
 
-### Kiri MCP（コードベース検索）
+### Kiri MCP(コードベース検索)
 ```bash
 # Kiriインデックス作成・監視モード
 bun run kiri
@@ -137,14 +137,14 @@ bun run check
 # または、AIチェックコマンドで一括実行
 bun run ai-check
 
-# 3. （記事を更新した場合）textlint
+# 3. (記事を更新した場合)textlint
 bun run textlint
 
 # 4. ビルド確認
 bun run build
 ```
 
-## Darwin（macOS）システムコマンド
+## Darwin(macOS)システムコマンド
 
 ### ファイル・ディレクトリ操作
 ```bash
@@ -154,10 +154,10 @@ ls -la
 # ディレクトリ移動
 cd <path>
 
-# ファイル検索（名前）
+# ファイル検索(名前)
 find . -name "pattern"
 
-# テキスト検索（内容）
+# テキスト検索(内容)
 grep -r "pattern" .
 ```
 
@@ -185,7 +185,7 @@ git checkout -b <branch-name>
 git log --oneline
 ```
 
-### GitHub CLI（gh）
+### GitHub CLI(gh)
 ```bash
 # PR作成
 gh pr create --title "title" --body "description"
@@ -200,13 +200,13 @@ gh pr list
 gh issue list
 ```
 
-## Husky（Gitフック）
+## Husky(Gitフック)
 
 pre-commitフックで以下が自動実行されます：
 
-1. **SVGセキュリティチェック**（変更されたSVGファイルのみ）
-2. **ブログアイコン自動変換**（変更されたブログファイルのみ）
+1. **SVGセキュリティチェック**(変更されたSVGファイルのみ)
+2. **ブログアイコン自動変換**(変更されたブログファイルのみ)
 3. **タグ整合性チェック**
-4. **textlint**（日本語校正、自動修正あり）
+4. **textlint**(日本語校正、自動修正あり)
 
 これらのチェックが失敗するとコミットが中断されます。

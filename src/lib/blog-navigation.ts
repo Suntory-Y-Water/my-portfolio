@@ -7,7 +7,7 @@
  * const ng = isBlogListPath('/blog/example-post'); // false
  * ```
  *
- * @param pathname 判定対象のパス（クエリは含まれていても良い）
+ * @param pathname 判定対象のパス(クエリは含まれていても良い)
  * @returns 一覧系パスなら true
  */
 export function isBlogListPath(pathname: string): boolean {
