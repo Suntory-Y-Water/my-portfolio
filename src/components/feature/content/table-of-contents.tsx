@@ -22,37 +22,6 @@ type TableOfContentsProps = {
  * @param items - 目次項目の配列。各項目にはid（見出しのID）、text（見出しテキスト）、level（見出しレベル）が含まれます
  * @param className - 追加のCSSクラス名（任意）。ボーダーやパディングなどのスタイルをカスタマイズする際に使用します
  * @returns 目次コンポーネント。項目が空の場合はnullを返します
- *
- * @example
- * ```tsx
- * import { TableOfContents } from '@/components/feature/content/table-of-contents';
- * import type { TOCItem } from '@/components/feature/content/table-of-contents';
- *
- * const tocItems: TOCItem[] = [
- *   {
- *     id: 'introduction',
- *     text: '概要',
- *     level: 2,
- *   },
- *   {
- *     id: 'installation',
- *     text: 'インストール',
- *     level: 2,
- *   },
- * ];
- *
- * export default function BlogPost() {
- *   return (
- *     <article>
- *       <TableOfContents items={tocItems} />
- *       <div id='introduction'>
- *         <h2>概要</h2>
- *         ...
- *       </div>
- *     </article>
- *   );
- * }
- * ```
  */
 export function TableOfContents({ items, className }: TableOfContentsProps) {
   if (items.length === 0) {

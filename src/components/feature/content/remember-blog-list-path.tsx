@@ -17,7 +17,9 @@ export function RememberBlogListPath() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (!pathname) return;
+    if (!pathname) {
+      return;
+    }
     const isBlogListPage =
       pathname === '/blog' || pathname.startsWith('/blog/page/');
 

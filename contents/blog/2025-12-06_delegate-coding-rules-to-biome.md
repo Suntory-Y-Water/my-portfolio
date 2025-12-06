@@ -1,5 +1,5 @@
 ---
-title: Claude Code にコーディングルールを守らせるのを諦めて、全部 Biome に任せることにした
+title: Claude Code にコーディングルールを守らせるのは諦めて、全部 Biome に任せることにした
 slug: delegate-coding-rules-to-biome
 date: 2025-12-06
 modified_time: 2025-12-06

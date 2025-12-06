@@ -45,7 +45,9 @@ export function rehypeMermaidCodeToDiv() {
           : [];
 
       const isMermaid = classList.includes('language-mermaid');
-      if (!isMermaid) return;
+      if (!isMermaid) {
+        return;
+      }
 
       const textNode = firstChild.children?.[0];
       const codeText =

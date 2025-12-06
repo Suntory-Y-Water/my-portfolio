@@ -58,7 +58,9 @@ export function CodeBlock({ className, children, ...props }: CodeBlockProps) {
    */
   function copyToClipboard() {
     // 現在のコンポーネント内のpreタグを参照
-    if (!preRef.current) return;
+    if (!preRef.current) {
+      return;
+    }
 
     const textContent = preRef.current.textContent || '';
     navigator.clipboard.writeText(textContent);
