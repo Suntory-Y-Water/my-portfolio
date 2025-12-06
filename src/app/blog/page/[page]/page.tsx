@@ -11,9 +11,9 @@ import { getAllBlogPosts } from '@/lib/markdown';
 import { paginateItems } from '@/lib/pagination';
 import { absoluteUrl } from '@/lib/utils';
 
-interface BlogListPageProps {
+type BlogListPageProps = {
   params: Promise<{ page: string }>;
-}
+};
 
 export async function generateMetadata({
   params,

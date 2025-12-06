@@ -9,12 +9,6 @@ import { twMerge } from 'tailwind-merge';
  *
  * @param inputs - 結合するクラス名（文字列、配列、オブジェクト形式）
  * @returns マージされたクラス名文字列
- *
- * @example
- * ```ts
- * cn('px-2 py-1', 'px-4') // => 'py-1 px-4'（px-2はpx-4で上書き）
- * cn('text-red-500', false && 'text-blue-500') // => 'text-red-500'
- * ```
  */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -28,12 +22,6 @@ export function cn(...inputs: ClassValue[]) {
  *
  * @param input - フォーマットする日付（文字列またはUnixタイムスタンプ）
  * @returns 日本語形式の日付文字列（例：2025/11/15）
- *
- * @example
- * ```ts
- * formatDate('2025-11-15') // => '2025/11/15'
- * formatDate(1700000000000) // => '2023/11/15'
- * ```
  */
 export function formatDate(input: string | number): string {
   const date = new Date(input);
@@ -54,15 +42,6 @@ export function formatDate(input: string | number): string {
  *
  * @param path - 変換する相対パス（例：/blog/post-1）
  * @returns 絶対URL（例：https://example.com/blog/post-1）
- *
- * @example
- * ```ts
- * // NEXT_PUBLIC_APP_URL='https://example.com' の場合
- * absoluteUrl('/blog/post-1') // => 'https://example.com/blog/post-1'
- *
- * // 環境変数が未設定の場合
- * absoluteUrl('/about') // => 'http://localhost:3000/about'
- * ```
  */
 export function absoluteUrl(path: string) {
   return `${process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'}${path}`;

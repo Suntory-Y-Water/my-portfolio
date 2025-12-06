@@ -2,12 +2,12 @@
 
 import { cache } from 'react';
 
-interface OGData {
+type OGData = {
   title: string;
   description: string;
   image: string;
   url: string;
-}
+};
 
 /**
  * OGP画像のURLを絶対URLに変換する
