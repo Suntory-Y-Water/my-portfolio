@@ -53,6 +53,9 @@
             "style": "type"
           }
         },
+        "noParameterAssign": "error",
+        "useConsistentArrayType": "error",
+        "useArrayLiterals": "error",
         // if 文でブロックを強制する
         "useBlockStatements": "error"
       },
