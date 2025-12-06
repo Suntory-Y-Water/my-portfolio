@@ -1,5 +1,6 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.3.7/schema.json",
+  "plugins": ["./biome-plugins/max-function-params.grit"],
   "vcs": {
     "enabled": false,
     "clientKind": "git",
@@ -36,6 +37,19 @@
       "recommended": true,
       "security": {
         "noDangerouslySetInnerHtml": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "error",
+        "noImplicitAnyLet": "error",
+        "noEvolvingTypes": "error"
+      },
+      "style": {
+        "useConsistentTypeDefinitions": {
+          "level": "warn",
+          "options": {
+            "style": "type"
+          }
+        }
       }
     },
     "includes": ["src/**/*.{js,jsx,ts,tsx}"]
@@ -62,6 +76,12 @@
       "formatter": {
         "enabled": false
       },
+      "linter": {
+        "enabled": false
+      }
+    },
+    {
+      "includes": ["**/route.ts", "**/route.tsx"],
       "linter": {
         "enabled": false
       }

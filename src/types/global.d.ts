@@ -1,7 +1,7 @@
 /**
  * @see https://pagefind.app/docs/ui/
  */
-interface PagefindUIInterface {
+type PagefindUIInterface = {
   new (options: {
     /**
      * A selector for the HTML element to attach Pagefind UI to. This is the only required argument.
@@ -77,7 +77,7 @@ interface PagefindUIInterface {
      */
     sort?: Record<string, 'asc' | 'desc'>;
   });
-}
+};
 
 /**
  * Pagefindのビルド後に生成されるファイルの型定義
@@ -85,12 +85,4 @@ interface PagefindUIInterface {
  */
 declare module '/pagefind/*' {
   export const PagefindUI: PagefindUIInterface;
-}
-
-/**
- * PagefindUIがグローバルに登録される際のWindow型拡張
- */
-
-interface Window {
-  PagefindUI?: PagefindUIInterface;
 }

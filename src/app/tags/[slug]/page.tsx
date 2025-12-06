@@ -7,9 +7,9 @@ import { getTagNameFromSlug } from '@/config/tag-slugs';
 import { getAllTagSlugs, getBlogPostsByTagSlug } from '@/lib/markdown';
 import { absoluteUrl } from '@/lib/utils';
 
-interface TagPageProps {
+type TagPageProps = {
   params: Promise<{ slug: string }>;
-}
+};
 
 export async function generateMetadata({ params }: TagPageProps) {
   const { slug } = await params;

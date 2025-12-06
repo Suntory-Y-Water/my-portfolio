@@ -7,11 +7,11 @@ type PageItem =
   | { type: 'page'; value: number }
   | { type: 'ellipsis'; key: string };
 
-interface PaginationProps {
+type PaginationProps = {
   currentPage: number;
   totalPages: number;
   basePath: string;
-}
+};
 
 export function Pagination({
   currentPage,
@@ -21,7 +21,7 @@ export function Pagination({
   const firstPagePath = basePath.split('/').slice(0, -1).join('/') || basePath;
   const prevPage = currentPage > 1 ? currentPage - 1 : null;
   const nextPage = currentPage < totalPages ? currentPage + 1 : null;
-  const pages = buildPageList(currentPage, totalPages);
+  const pages = buildPageList({ currentPage, totalPages });
   const prevHref =
     prevPage === null
       ? null
@@ -120,7 +120,13 @@ export function Pagination({
   );
 }
 
-function buildPageList(currentPage: number, totalPages: number): PageItem[] {
+function buildPageList({
+  currentPage,
+  totalPages,
+}: {
+  currentPage: number;
+  totalPages: number;
+}): PageItem[] {
   if (totalPages <= 5) {
     return Array.from({ length: totalPages }, (_, i) => ({
       type: 'page',

@@ -21,9 +21,9 @@ import { absoluteUrl, formatDate } from '@/lib/utils';
 
 export const revalidate = false;
 
-interface BlogPostPageProps {
+type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
-}
+};
 
 export async function generateMetadata({ params }: BlogPostPageProps) {
   const { slug } = await params;
