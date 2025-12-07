@@ -29,15 +29,6 @@ export type BlogPost = MarkdownData<{
  * 日付が新しい順にソートして返します。
  *
  * @returns ブログ記事の配列(日付降順)
- *
- * @example
- * ```ts
- * const posts = await getAllBlogPosts();
- * // => [
- * //   { slug: '2025-11-15_new-post', metadata: { title: '新しい記事', ... }, ... },
- * //   { slug: '2025-11-14_old-post', metadata: { title: '古い記事', ... }, ... },
- * // ]
- * ```
  */
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
   const posts = await getMarkdownData(blogDir);
@@ -55,12 +46,6 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
  *
  * @param tagSlug - 検索対象のタグslug(例: 'nextjs', 'typescript')
  * @returns 指定されたタグを持つブログ記事の配列(日付降順)
- *
- * @example
- * ```ts
- * const posts = await getBlogPostsByTagSlug('nextjs');
- * // => Next.jsタグを持つ記事のみを取得
- * ```
  */
 export async function getBlogPostsByTagSlug(
   tagSlug: string,
@@ -82,12 +67,6 @@ export async function getBlogPostsByTagSlug(
  * 重複を排除したタグ名の配列を返します。
  *
  * @returns 使用されているタグ名の配列(重複なし)
- *
- * @example
- * ```ts
- * const tags = await getAllTags();
- * // => ['Next.js', 'TypeScript', 'React', ...]
- * ```
  */
 export async function getAllTags(): Promise<string[]> {
   const posts = await getAllBlogPosts();
@@ -103,12 +82,6 @@ export async function getAllTags(): Promise<string[]> {
  * タグページのルーティングやナビゲーション生成に使用されます。
  *
  * @returns タグslugの配列(重複なし)
- *
- * @example
- * ```ts
- * const tagSlugs = await getAllTagSlugs();
- * // => ['nextjs', 'typescript', 'react', ...]
- * ```
  */
 export async function getAllTagSlugs(): Promise<string[]> {
   const posts = await getAllBlogPosts();
@@ -128,14 +101,6 @@ export async function getAllTagSlugs(): Promise<string[]> {
  *
  * @param slug - 検索対象の記事slug(例: 'add-blog-to-portfolio')
  * @returns 一致したブログ記事、または見つからない場合はundefined
- *
- * @example
- * ```ts
- * const post = await getBlogPostBySlug('add-blog-to-portfolio');
- * if (post) {
- *   console.log(post.metadata.title);
- * }
- * ```
  */
 export async function getBlogPostBySlug(
   slug: string,

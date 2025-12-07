@@ -27,18 +27,6 @@ export type PaginationResult<T> = {
  * @param params.page - 取得するページ番号(1始まり)
  * @param params.pageSize - 1ページあたりのアイテム数
  * @returns ページネーション結果(アイテム、現在ページ、総ページ数、総アイテム数)
- *
- * @example
- * ```ts
- * const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
- * const result = paginateItems({ items, page: 2, pageSize: 5 });
- * // => {
- * //   items: [6, 7, 8, 9, 10],
- * //   currentPage: 2,
- * //   totalPages: 3,
- * //   totalItems: 11
- * // }
- * ```
  */
 export function paginateItems<T>({
   items,

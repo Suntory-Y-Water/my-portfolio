@@ -76,7 +76,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bun run --silent -i ~/.claude/scripts/typescript/multi-command-check.ts -c format, lint, type-check"
+            "command": "bun run --silent -i ~/.claude/scripts/typescript/multi-command-check.ts -c format,lint:ai,type-check:ai"
           }
         ]
       }
