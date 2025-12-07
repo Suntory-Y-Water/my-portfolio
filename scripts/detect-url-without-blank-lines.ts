@@ -32,7 +32,7 @@ async function checkMarkdownFile(filePath: string): Promise<IssueReport[]> {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
 
-    // URLのみの行を検出（リンク記法でない素のURL）
+    // URLのみの行を検出(リンク記法でない素のURL)
     if (URL_PATTERN.test(line)) {
       const previousLine = i > 0 ? lines[i - 1] : undefined;
       const nextLine = i < lines.length - 1 ? lines[i + 1] : undefined;

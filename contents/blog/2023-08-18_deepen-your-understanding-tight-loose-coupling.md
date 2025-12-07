@@ -292,5 +292,5 @@ Car started
 3. システム全体の再利用性や拡張性が向上する。
 
 **ソースコードの例**:
-`LooseCar` クラスは具体的なエンジンの実装（`LooseEngineA` や `LooseEngineB`）に依存していません。代わりに、`LooseEngineInterface` というインターフェースにのみ依存しています。この設計により、エンジンの実装が変わっても、`LooseCar` クラスは影響を受けません。
+`LooseCar` クラスは具体的なエンジンの実装(`LooseEngineA` や `LooseEngineB`)に依存していません。代わりに、`LooseEngineInterface` というインターフェースにのみ依存しています。この設計により、エンジンの実装が変わっても、`LooseCar` クラスは影響を受けません。
 

@@ -33,7 +33,7 @@ const rehypePrettyCodeOptions: Options = {
       return meta;
     }
 
-    // ファイル名っぽい文字列（拡張子を含む）を検出
+    // ファイル名っぽい文字列(拡張子を含む)を検出
     // 例: utils.ts, index.js, main.py など
     const match = meta.match(/^([^\s{]+\.\w+)(.*)$/);
     if (match) {
@@ -49,7 +49,7 @@ const rehypePrettyCodeOptions: Options = {
  * Markdownコンテンツをremark/rehypeプラグインを使用してレンダリングするコンポーネント
  *
  * このコンポーネントはMarkdownソースを受け取り、HTMLとして処理・表示します。
- * GFM（GitHub Flavored Markdown）、リンクカード、GitHubスタイルのアラート、
+ * GFM(GitHub Flavored Markdown)、リンクカード、GitHubスタイルのアラート、
  * シンタックスハイライト、コードコピーボタンなど、多くの機能をサポートしています。
  * エラーが発生した場合は、エラーメッセージを表示します。
  *

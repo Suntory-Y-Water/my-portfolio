@@ -34,7 +34,7 @@ APIのアクセスキーはこちらのお問い合わせから申請するこ�
 Postmanを使用してAPIを叩いていきます。
 Postmanの使用方法は調べたらいくらでも出てくると思うので、そちらをご確認ください。
 [Postman API Platform | Sign Up for Free](https://www.postman.com/)
-今回は国土数値情報（将来推計人口500mメッシュ）APIを使っていきます。
+今回は国土数値情報(将来推計人口500mメッシュ)APIを使っていきます。
 
 前提として不動産情報ライブラリAPIを叩くにはリクエストヘッダの`Ocp-Apim-Subscription-Key`にAPIキーを設定する必要があります。
 
@@ -46,8 +46,8 @@ Postmanの使用方法は調べたらいくらでも出てくると思うので�
 リクエストパラメータを確認すると、以下の値を設定する必要があるそうです。
 | パラメータ | 内容 | 備考 | 必須 |
 | --- | --- | --- | --- |
-| response_format | 応答形式 | 応答形式（GeoJSON応答／バイナリベクトルタイル応答）を設定。geojson...GeoJSON応答。pbf…バイナリベクトルタイル応答 | ○ |
-| z | ズームレベル（縮尺） | XYZ方式における、ズームレベル（縮尺）を指定。11（市）～15（詳細）で指定可能であり、値が大きいほどズームレベルは高くなります（カバーする地理的領域は狭くなります）。 | ○ |
+| response_format | 応答形式 | 応答形式(GeoJSON応答／バイナリベクトルタイル応答)を設定。geojson...GeoJSON応答。pbf…バイナリベクトルタイル応答 | ○ |
+| z | ズームレベル(縮尺) | XYZ方式における、ズームレベル(縮尺)を指定。11(市)～15(詳細)で指定可能であり、値が大きいほどズームレベルは高くなります(カバーする地理的領域は狭くなります)。 | ○ |
 | x | タイル座標のX値 | XYZ方式における、タイル座標のX値を指定 | ○ |
 | y | タイル座標のY値 | XYZ方式における、タイル座標のY値を指定 | ○ |
 
@@ -297,12 +297,12 @@ for year, color in zip(years, colors):
     # x軸に年齢グループ、y軸に人数、年ごとに色分けしてプロット
     ax1.plot(subset['age'], subset['people'], label=year, color=color, marker='o', linestyle='-')
 
-## x軸（年齢）の設定
+## x軸(年齢)の設定
 ax1.set_xlabel('Age Group', fontsize=14)
 ax1.set_xticks(np.arange(len(age_groups)))
 ax1.set_xticklabels(age_groups, rotation=45, ha='right')
 
-## 左側のy軸（人数）の設定
+## 左側のy軸(人数)の設定
 ax1.set_ylabel('People (thousands)', fontsize=14)
 ax1.tick_params(axis='y')
 
@@ -330,10 +330,10 @@ plt.show()
 ドキュメントを見ると様々な情報があり、次はこのあたりのAPIで実際にアプリとか作ってみたいですね。
 
 - 都道府県内市区町村一覧取得API
-- 地価公示・地価調査のポイント（点）API
-- 国土数値情報（医療機関）API
-- 国土数値情報（災害危険区域）API
-- 国土数値情報（自然公園地域）API
+- 地価公示・地価調査のポイント(点)API
+- 国土数値情報(医療機関)API
+- 国土数値情報(災害危険区域)API
+- 国土数値情報(自然公園地域)API
 
 ## おまけ
 

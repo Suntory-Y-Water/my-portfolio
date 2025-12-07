@@ -6,7 +6,7 @@
 
 ### 型定義の基本原則
 
-#### typeを使用（interfaceは使用しない）
+#### typeを使用(interfaceは使用しない)
 ```typescript
 // ✅ Good
 type User = {
@@ -126,7 +126,7 @@ class Counter {
 }
 ```
 
-## アンチパターン（禁止事項）
+## アンチパターン(禁止事項)
 
 ### 暗黙のフォールバックは禁止
 合理的な理由がない限り、デフォルト値や暗黙のフォールバックは禁止。
@@ -144,7 +144,7 @@ function getUser({ userId }: { userId: string }) {
 ```
 
 ### スイッチ引数は禁止
-合理的な理由がない限り、スイッチ引数（boolean引数で動作を切り替える）は禁止。
+合理的な理由がない限り、スイッチ引数(boolean引数で動作を切り替える)は禁止。
 
 ```typescript
 // ❌ Bad - スイッチ引数
@@ -177,7 +177,7 @@ function createPost({ title, draft }: { title: string; draft: boolean }) {
 ```
 
 ### 将来的な拡張性の考慮は禁止
-現時点で必要のない拡張性を考慮したコードは書かない（YAGNI原則）。
+現時点で必要のない拡張性を考慮したコードは書かない(YAGNI原則)。
 
 ### 関数を引数に渡すことは合理的理由がない限り禁止
 ```typescript
@@ -221,7 +221,7 @@ export function publicFunction() { /* ... */ }
 ## インポート規約
 
 ### バレルインポート禁止
-`@/` aliasを使用した個別インポートを使用する。バレルインポート（`index.ts`経由の再エクスポート）は禁止。
+`@/` aliasを使用した個別インポートを使用する。バレルインポート(`index.ts`経由の再エクスポート)は禁止。
 
 ```typescript
 // ✅ Good - 個別インポート
@@ -266,7 +266,7 @@ if (user.isAuthenticated) {
 ```
 
 ### 装飾的なコメントは禁止
-「（契約による設計）」など装飾的なコメントや、事前・事後・不変条件の詳細なコメント記述は禁止。
+「(契約による設計)」など装飾的なコメントや、事前・事後・不変条件の詳細なコメント記述は禁止。
 
 ```typescript
 // ❌ Bad
@@ -274,7 +274,7 @@ if (user.isAuthenticated) {
  * 事前条件: userId は null でないこと
  * 事後条件: User オブジェクトを返すこと
  * 不変条件: User.id === userId であること
- * （契約による設計）
+ * (契約による設計)
  */
 function getUser({ userId }: { userId: string }) { /* ... */ }
 
@@ -290,20 +290,20 @@ function getUser({ userId }: { userId: string }) { /* ... */ }
 ### フォーマット
 - **インデント**: スペース2つ
 - **行幅**: 80文字
-- **クォート**: シングルクォート（`'`）
+- **クォート**: シングルクォート(`'`)
 - **セミコロン**: 必須
 - **トレーリングカンマ**: 必須
 
 ### Lint
-- **noExplicitAny**: エラー（`any`型は禁止）
-- **noImplicitAnyLet**: エラー（暗黙の`any`型は禁止）
-- **noEvolvingTypes**: エラー（型の進化は禁止）
-- **useConsistentTypeDefinitions**: 警告（typeの使用を推奨）
+- **noExplicitAny**: エラー(`any`型は禁止)
+- **noImplicitAnyLet**: エラー(暗黙の`any`型は禁止)
+- **noEvolvingTypes**: エラー(型の進化は禁止)
+- **useConsistentTypeDefinitions**: 警告(typeの使用を推奨)
 
 ### オートインポート整理
 Biomeの`assist.actions.source.organizeImports`が有効になっているため、インポート文は自動的に整理される。
 
-## 契約による設計（Design by Contract）
+## 契約による設計(Design by Contract)
 
 ### 避けるべき実装パターン
 - 既にTypeScriptで型保証されている引数の再チェック
@@ -314,7 +314,7 @@ Biomeの`assist.actions.source.organizeImports`が有効になっているため
 - 関数名と型定義で契約を明示
 - シンプルで読みやすいコード構造
 - 必要最小限のJSDocコメント
-- 純粋関数としての実装（副作用なし）
+- 純粋関数としての実装(副作用なし)
 
 ## まとめ
 

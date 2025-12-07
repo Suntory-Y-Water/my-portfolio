@@ -374,8 +374,8 @@ https://developers.cloudflare.com/api/resources/browser_rendering/subresources/m
 
 Browser Rendering の料金体系は、使用方法によって異なります。
 
-- REST API - ブラウザの使用時間（Duration）のみで課金
-- Workers Bindings - 使用時間と同時実行数（Concurrency）の両方で課金
+- REST API - ブラウザの使用時間(Duration)のみで課金
+- Workers Bindings - 使用時間と同時実行数(Concurrency)の両方で課金
 
 今回使用している REST API の場合、以下の料金プランになります。
 
@@ -387,11 +387,11 @@ Browser Rendering の料金体系は、使用方法によって異なります�
 例えば、Workers Paid プランで月に 50 時間使用した場合、計算は以下のようになります。
 
 ```
-50時間 - 10時間（無料枠） = 40時間
+50時間 - 10時間(無料枠) = 40時間
 40時間 × $0.09 = $3.60
 ```
 
-REST API のレスポンスには `X-Browser-Ms-Used` ヘッダーが含まれており、そのリクエストで使用したブラウザ時間（ミリ秒単位）を確認できます。これを使って使用量をモニタリングすることも可能です。
+REST API のレスポンスには `X-Browser-Ms-Used` ヘッダーが含まれており、そのリクエストで使用したブラウザ時間(ミリ秒単位)を確認できます。これを使って使用量をモニタリングすることも可能です。
 
 ## まとめ
 

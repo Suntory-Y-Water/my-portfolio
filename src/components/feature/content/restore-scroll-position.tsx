@@ -17,7 +17,7 @@ import { BLOG_NAVIGATION_CONSTANTS } from '@/constants';
 export function RestoreScrollPosition() {
   const pathname = usePathname();
 
-  // useLayoutEffectでレンダリング前に実行（チラつき防止）
+  // useLayoutEffectでレンダリング前に実行(チラつき防止)
   useLayoutEffect(() => {
     // ブログ一覧ページ以外では何もしない
     if (
@@ -45,7 +45,7 @@ export function RestoreScrollPosition() {
     if (savedScrollPos) {
       const scrollY = Number.parseInt(savedScrollPos, 10);
       if (!Number.isNaN(scrollY)) {
-        // 即座にスクロール（チラつき防止のため遅延なし）
+        // 即座にスクロール(チラつき防止のため遅延なし)
         window.scrollTo(0, scrollY);
 
         // 復元後にsessionStorageをクリア

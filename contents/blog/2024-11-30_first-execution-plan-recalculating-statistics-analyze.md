@@ -384,8 +384,8 @@ Execution Time: 2329.379 ms
 
 ### 主なボトルネックの特定
 
-- `Seq Scan on comments c1` が発生し、`comments` テーブル全体（1,000,000 行）を読み込んでいます。
-- `WindowAgg`（ウィンドウ関数）と `Sort` 処理で時間がかかっています。
+- `Seq Scan on comments c1` が発生し、`comments` テーブル全体(1,000,000 行)を読み込んでいます。
+- `WindowAgg`(ウィンドウ関数)と `Sort` 処理で時間がかかっています。
 
 ### 改善案
 
@@ -579,7 +579,7 @@ https://www.postgresql.jp/docs/16/sql-analyze.html?utm_source=chatgpt.com
 
 ## 主な使用場面
 
-- データ分布が変化した場合（例: 大量の挿入、更新、削除の後）。
+- データ分布が変化した場合(例: 大量の挿入、更新、削除の後)。
 - 特定のテーブルに対して統計情報を手動で更新したい場合。
 
 ## まとめ

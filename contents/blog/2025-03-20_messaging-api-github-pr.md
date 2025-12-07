@@ -16,7 +16,7 @@ description: ポートフォリオの技術記事投稿頻度をあげるため�
 ## Cloudflare Workersにサーバを構築する
 
 LINE Messaging API にリクエストを送信するためのサーバーとして、Cloudflare Workers を利用します。
-Cloudflare Workers は、Cloudflare が提供するサーバーレスプラットフォームであり、エッジ（CDN の拠点）で直接コードを実行できるサービスです。
+Cloudflare Workers は、Cloudflare が提供するサーバーレスプラットフォームであり、エッジ(CDN の拠点)で直接コードを実行できるサービスです。
 このサービスを活用することで、従来のサーバーやクラウドインスタンスを使用する代わりに、Cloudflare のグローバルネットワーク上でコードが動作し、高速かつスケーラブルな処理が可能になります。
 
 ### 技術選定の理由
@@ -216,14 +216,14 @@ export function createMdxContent(
   const transformedMdxContent = transformLinksToPreviewComponent(mdxContent);
 
   // フロントマターの作成
-  // タグのインデントを統一（2スペース）
+  // タグのインデントを統一(2スペース)
   const tagsString = tags.map((tag) => `  - ${tag}`).join('\n');
 
   // 日付を「YYYY-MM-DD」形式にフォーマット
   const dateObj = new Date(date);
   const formattedDate = `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}-${String(dateObj.getDate()).padStart(2, '0')}`;
 
-  // MDXファイルの作成（インデントなし、適切な改行あり）
+  // MDXファイルの作成(インデントなし、適切な改行あり)
   return `---
 title: ${title}
 public: ${isPublic}
@@ -305,7 +305,7 @@ function cleanUrl(url: string): string {
 
 /**
  * 文字列が単独のURLかどうかを判定する
- * （前後の空白を除いた上で、文字列全体がURLかどうか）
+ * (前後の空白を除いた上で、文字列全体がURLかどうか)
  * @param text 判定する文字列
  * @returns 単独のURLならtrue、そうでなければfalse
  */
@@ -377,7 +377,7 @@ import { Octokit } from '@octokit/rest';
  * GitHubにファイルをコミットしてpushする関数
  * @param githubToken GitHub APIアクセストークン
  * @param mdxContent コミットするMDXコンテンツ
- * @param slug 記事のスラッグ（URLパス）
+ * @param slug 記事のスラッグ(URLパス)
  * @returns 作成したブランチ名
  */
 export async function createGithubPr(
@@ -410,7 +410,7 @@ export async function createGithubPr(
     });
     console.log(`ブランチを作成しました: ${newBranchName}`);
 
-    // ファイルの内容をエンコード（Cloudflare Workers対応版）
+    // ファイルの内容をエンコード(Cloudflare Workers対応版)
     // TextEncoder/btoa を使用してBase64エンコード
     const encoder = new TextEncoder();
     const bytes = encoder.encode(mdxContent);

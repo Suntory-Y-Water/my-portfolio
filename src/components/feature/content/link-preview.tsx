@@ -28,7 +28,7 @@ type LinkPreviewProps = {
  * 指定されたURLが'/blog/'で始まる内部リンクかどうかをチェックします。
  * 絶対URLと相対URLの両方に対応しています。
  *
- * @param url - 判定対象のURL（例: '/blog/typescript', 'https://example.com/blog/react'）
+ * @param url - 判定対象のURL(例: '/blog/typescript', 'https://example.com/blog/react')
  * @returns 内部ブログリンクの場合はtrue、それ以外はfalse
  *
  * @example
@@ -49,13 +49,13 @@ function isInternalBlogLink(url: string): boolean {
 }
 
 /**
- * URLからスラッグ（最後のパス部分）を抽出
+ * URLからスラッグ(最後のパス部分)を抽出
  *
  * URLのパスから最後の部分を抽出してスラッグとして返します。
  * 絶対URLと相対URLの両方に対応しています。
  *
- * @param url - スラッグを抽出するURL（例: '/blog/typescript', 'https://example.com/blog/react'）
- * @returns 抽出されたスラッグ（例: 'typescript', 'react'）
+ * @param url - スラッグを抽出するURL(例: '/blog/typescript', 'https://example.com/blog/react')
+ * @returns 抽出されたスラッグ(例: 'typescript', 'react')
  *
  * @example
  * ```tsx
@@ -83,11 +83,11 @@ function getSlugFromUrl(url: string): string {
  * 内部リンクと外部リンクの両方に対応し、外部リンクの場合は新しいタブで開きます。
  *
  * @param url - リンク先のURL
- * @param title - リンクのタイトル（任意）。指定されていない場合は'Untitled'と表示されます
- * @param description - リンクの説明文（任意）。指定されている場合は最大2行まで表示されます
- * @param image - プレビュー画像のURL（任意）。指定されていない場合はプレースホルダーが表示されます
- * @param className - 追加のCSSクラス名（任意）
- * @param error - エラー状態かどうか（デフォルト: false）。trueの場合は'Page Not Found'と表示されます
+ * @param title - リンクのタイトル(任意)。指定されていない場合は'Untitled'と表示されます
+ * @param description - リンクの説明文(任意)。指定されている場合は最大2行まで表示されます
+ * @param image - プレビュー画像のURL(任意)。指定されていない場合はプレースホルダーが表示されます
+ * @param className - 追加のCSSクラス名(任意)
+ * @param error - エラー状態かどうか(デフォルト: false)。trueの場合は'Page Not Found'と表示されます
  * @returns リンクカードコンポーネント
  *
  * @example
@@ -218,8 +218,8 @@ export function LinkCard({
  * ブログ記事のメタデータを取得してLinkCardコンポーネントで表示します。
  * 記事が見つからない場合はエラー状態のカードを表示します。
  *
- * @param url - 内部ブログ記事のURL（例: '/blog/typescript'）
- * @param className - 追加のCSSクラス名（任意）
+ * @param url - 内部ブログ記事のURL(例: '/blog/typescript')
+ * @param className - 追加のCSSクラス名(任意)
  * @returns 内部リンクカードコンポーネント
  *
  * @example
@@ -256,12 +256,12 @@ async function InternalLinkCard({
 /**
  * 外部リンクのプレビューカードを表示する非同期コンポーネント
  *
- * このコンポーネントは外部URLからOGP（Open Graph Protocol）データを取得し、
+ * このコンポーネントは外部URLからOGP(Open Graph Protocol)データを取得し、
  * LinkCardコンポーネントで表示します。
  * データ取得に失敗した場合やOGPデータがない場合はエラー状態のカードを表示します。
  *
- * @param url - 外部リンクのURL（例: 'https://zenn.dev/example/articles/typescript'）
- * @param className - 追加のCSSクラス名（任意）
+ * @param url - 外部リンクのURL(例: 'https://zenn.dev/example/articles/typescript')
+ * @param className - 追加のCSSクラス名(任意)
  * @returns 外部リンクカードコンポーネント
  *
  * @example
@@ -300,14 +300,14 @@ async function ExternalLinkCard({
 }
 
 /**
- * リンクプレビューを表示するコンポーネント（メインエクスポート）
+ * リンクプレビューを表示するコンポーネント(メインエクスポート)
  *
  * このコンポーネントは指定されたURLが内部リンクか外部リンクかを自動判定し、
  * 適切なプレビューカードを表示します。データ取得中はローディング状態を表示します。
  * Markdown記事内で自動的にリンクをカード形式に変換するために使用されます。
  *
- * @param url - プレビューを表示するURL（内部: '/blog/typescript', 外部: 'https://zenn.dev/article'）
- * @param className - 追加のCSSクラス名（任意）
+ * @param url - プレビューを表示するURL(内部: '/blog/typescript', 外部: 'https://zenn.dev/article')
+ * @param className - 追加のCSSクラス名(任意)
  * @returns リンクプレビューコンポーネント
  *
  * @example

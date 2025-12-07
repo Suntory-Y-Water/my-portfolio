@@ -39,11 +39,11 @@ https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Strict-Transpor
 
 ### 実際の攻撃(SSLストリッピング攻撃)
 
-2009 年、セキュリティ研究者の Moxie Marlinspike 氏が「sslstrip」というツールを発表しました。このツールは、ユーザーとウェブサイト間の通信を傍受し、HTTPS 接続を HTTP にダウングレードするという攻撃（SSL ストリッピング攻撃）を可能にします。
+2009 年、セキュリティ研究者の Moxie Marlinspike 氏が「sslstrip」というツールを発表しました。このツールは、ユーザーとウェブサイト間の通信を傍受し、HTTPS 接続を HTTP にダウングレードするという攻撃(SSL ストリッピング攻撃)を可能にします。
 
 以下のような例です。
 
-1. ユーザーが「example.com」とブラウザに入力する（HTTPS を明示的に指定していない）
+1. ユーザーが「example.com」とブラウザに入力する(HTTPS を明示的に指定していない)
 2. ブラウザは最初に HTTP 経由でリクエストを送信
 3. 通常なら、サーバーは「https://~~」へのリダイレクトを返す
 4. しかし、中間者攻撃者がこの通信を傍受
@@ -66,13 +66,13 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 
 ### パラメータの詳細
 
-- max-age: ブラウザがこのポリシーを記憶し、適用すべき期間（秒単位）。上記の例では 1 年間。
-- includeSubDomains: このポリシーをメインドメインだけでなく、すべてのサブドメイン（例：blog.example.com, shop.example.com）にも適用するという指示。
+- max-age: ブラウザがこのポリシーを記憶し、適用すべき期間(秒単位)。上記の例では 1 年間。
+- includeSubDomains: このポリシーをメインドメインだけでなく、すべてのサブドメイン(例：blog.example.com, shop.example.com)にも適用するという指示。
 - preload: ブラウザのビルトイン HSTS リストに含めるための指示。
 
 ### 実際の動作プロセス
 
-1. ユーザーが初めて（または max-age 期間経過後に）HTTPS で Web サイトにアクセスする
+1. ユーザーが初めて(または max-age 期間経過後に)HTTPS で Web サイトにアクセスする
 2. サーバーはレスポンスヘッダーで HSTS ポリシーを送信
 3. ブラウザはこのポリシーを保存し、指定された期間中、そのドメインへのすべてのアクセスを自動的に HTTPS にアップグレード
 4. 以降、ユーザーが「http://～～」と入力しても、ブラウザは内部で「https://～～」に変換してからリクエストを送信
@@ -92,7 +92,7 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 
 ## 中間者攻撃
 
-中間者攻撃（MITM 攻撃）とは、通信を行っている二者（例えばユーザーとウェブサイト）の間に第三者が入り込み、両者は互いに直接通信していると思っているのに、実際にはその第三者が通信を傍受・監視・改ざんしている状態を指します。
+中間者攻撃(MITM 攻撃)とは、通信を行っている二者(例えばユーザーとウェブサイト)の間に第三者が入り込み、両者は互いに直接通信していると思っているのに、実際にはその第三者が通信を傍受・監視・改ざんしている状態を指します。
 
 https://developer.mozilla.org/ja/docs/Glossary/MitM
 
@@ -114,13 +114,13 @@ https://developer.mozilla.org/ja/docs/Glossary/MitM
 1. 攻撃者がカフェなどで「Free Wi-Fi」という偽のアクセスポイントを設置
 2. ユーザーが何も疑わずに接続
 3. すべての通信が攻撃者を経由
-4. 暗号化されていない情報（HTTP 通信など）はすべて攻撃者に見られる
+4. 暗号化されていない情報(HTTP 通信など)はすべて攻撃者に見られる
 
 ### 攻撃の具体的な影響
 
 - 情報の盗難: パスワード、クレジットカード情報、個人情報など
 - セッションハイジャック: ログイン情報を盗んでユーザーになりすます
-- データの改ざん: 送受信される情報を変更する（例：銀行振込先の口座番号を変更）
+- データの改ざん: 送受信される情報を変更する(例：銀行振込先の口座番号を変更)
 - マルウェア注入: ダウンロードファイルにマルウェアを追加する
 
 ## Content-Security-Policy: frame-ancestors
@@ -130,7 +130,7 @@ https://developer.mozilla.org/ja/docs/Glossary/MitM
 Content Security Policy (CSP) は、クロスサイトスクリプティング (XSS) やその他のコンテンツインジェクション攻撃からウェブサイトを保護するために設計されたセキュリティレイヤーです。
 CSP は複数のディレクティブで構成されており、その中の 1 つが `frame-ancestors` ディレクティブです。
 
-`frame-ancestors` ディレクティブは、どのサイトがあなたのウェブページを iframe、frame、object、embed、applet などの要素内に表示（埋め込み）できるかを制御します。
+`frame-ancestors` ディレクティブは、どのサイトがあなたのウェブページを iframe、frame、object、embed、applet などの要素内に表示(埋め込み)できるかを制御します。
 
 これは「クリックジャッキング」と呼ばれる攻撃から保護するために導入されました。
 
@@ -142,8 +142,8 @@ https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Content-Securit
 
 ### 典型的なクリックジャッキング攻撃のシナリオ
 
-1. 攻撃者は魅力的なコンテンツ（例：「無料プレゼントをゲット！」といったボタン）を持つウェブサイトを作成します
-2. そのページの背後に、透明な iframe で標的となるウェブサイト（例：Facebook の「いいね！」ボタンや銀行の送金フォーム）を配置します
+1. 攻撃者は魅力的なコンテンツ(例：「無料プレゼントをゲット！」といったボタン)を持つウェブサイトを作成します
+2. そのページの背後に、透明な iframe で標的となるウェブサイト(例：Facebook の「いいね！」ボタンや銀行の送金フォーム)を配置します
 3. ユーザーがその魅力的なボタンをクリックしようとすると、実際には透明な iframe の中の「いいね！」ボタンや「送金を承認」ボタンをクリックすることになります
 
 ### 従来の対策とその限界: X-Frame-Options
@@ -156,8 +156,8 @@ https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Content-Securit
 
 しかし `X-Frame-Options` にはいくつかの制限がありました。
 
-1. 複数のドメインを許可するメカニズムがなかった（`ALLOW-FROM` は一度に 1 つの URI しか指定できない）
-2. ブラウザのサポートが不完全だった（特に `ALLOW-FROM` のサポート）
+1. 複数のドメインを許可するメカニズムがなかった(`ALLOW-FROM` は一度に 1 つの URI しか指定できない)
+2. ブラウザのサポートが不完全だった(特に `ALLOW-FROM` のサポート)
 3. CSP の他のセキュリティ機能と統合できなかった
 
 これらの制限を解消するために、CSP の `frame-ancestors` ディレクティブが導入されました。
@@ -174,15 +174,15 @@ Content-Security-Policy: frame-ancestors <source> <source> ...
 
 - `'none'`: どのサイトからもフレーム内に表示されることを許可しない
 - `'self'`: 同一オリジンからのフレーミングのみを許可
-- `<origin>`: 特定のオリジン（例：trusted-site.com）からのフレーミングを許可
-- `*`: 任意のオリジンからのフレーミングを許可（非推奨）
+- `<origin>`: 特定のオリジン(例：trusted-site.com)からのフレーミングを許可
+- `*`: 任意のオリジンからのフレーミングを許可(非推奨)
 
 ### frame-ancestors の実際の動作
 
 ブラウザがウェブページを読み込もうとした際、そのページが iframe などのフレーム内に表示されている場合、ブラウザは以下の手順でチェックを行います。
 
 1. そのページの CSP `frame-ancestors` ディレクティブを確認
-2. 現在のフレーミングサイト（親ページ）のオリジンが許可リストに含まれているかを検証
+2. 現在のフレーミングサイト(親ページ)のオリジンが許可リストに含まれているかを検証
 3. 含まれていない場合、ブラウザはフレームの読み込みをブロック
 
 ### 具体的な設定例と意味
@@ -225,7 +225,7 @@ Content-Security-Policy: frame-ancestors https://trusted-partner.com https://adm
 ### 背景と基本概念
 
 このヘッダーは「MIME Type スニッフィング」と呼ばれるブラウザの機能に関連しています
-MIME Type（Multipurpose Internet Mail Extensions）は、ウェブ上で交換されるファイルの形式を示す識別子です。
+MIME Type(Multipurpose Internet Mail Extensions)は、ウェブ上で交換されるファイルの形式を示す識別子です。
 例えば、HTML ファイルは `text/html`、JavaScript ファイルは `application/javascript`、JPEG イメージは `image/jpeg` などの MIME Type で識別されます。
 
 ### MIMEタイプスニッフィングとは
@@ -234,7 +234,7 @@ MIME Type（Multipurpose Internet Mail Extensions）は、ウェブ上で交換�
 しかし、以下のような状況が発生することがあります。
 
 1. サーバーが `Content-Type` ヘッダーを送信しない
-2. 送信された MIME Type が不正確である（設定ミスなど）
+2. 送信された MIME Type が不正確である(設定ミスなど)
 3. ファイルの実際の内容と宣言された MIME Type が一致しない
 
 こうした状況に対応するため、ブラウザは「MIME Type スニッフィング」と呼ばれる技術を使用します。
@@ -245,7 +245,7 @@ MIME Type（Multipurpose Internet Mail Extensions）は、ウェブ上で交換�
 
 ### MIME混同攻撃の実態
 
-MIME 混同攻撃（MIME Confusion Attack）は、ブラウザの MIME Type スニッフィングを悪用して、悪意のあるコードを実行させる攻撃です。以下に実例を示します。
+MIME 混同攻撃(MIME Confusion Attack)は、ブラウザの MIME Type スニッフィングを悪用して、悪意のあるコードを実行させる攻撃です。以下に実例を示します。
 
 ### テキストファイルとして配信されるJavaScript
 

@@ -123,7 +123,7 @@ if __name__ == '__main__':
 
 ## 蛇足
 
-内包表記のほうがスッキリ見えそう（理解しやすいとは言っていない）
+内包表記のほうがスッキリ見えそう(理解しやすいとは言っていない)
 
 ```python
 dateKey = [d.find(class_="visuallyhidden").text for d in soup.find_all(class_='store-hours-table-date')]

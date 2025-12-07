@@ -40,8 +40,8 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
 /**
  * shadcn/ui ボタンコンポーネント
  *
- * @param variant - ボタンのスタイルバリアント（default, destructive, outline, secondary, ghost, link）
- * @param size - ボタンのサイズ（default, sm, lg, icon）
+ * @param variant - ボタンのスタイルバリアント(default, destructive, outline, secondary, ghost, link)
+ * @param size - ボタンのサイズ(default, sm, lg, icon)
  * @param asChild - trueの場合、Radix UIのSlotコンポーネントとして描画
  */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(

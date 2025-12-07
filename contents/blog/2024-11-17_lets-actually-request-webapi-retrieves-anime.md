@@ -3,7 +3,7 @@ title: アニメ情報を取得するWebAPIを実際にリクエストして、�
 slug: lets-actually-request-webapi-retrieves-anime
 date: 2024-11-17
 modified_time: 2024-11-17
-description: アニメ情報を取得するWebAPI（ShangriLa Anime API、Annict API、MyAnimeList API）を実際にリクエストして比較検証しました。各APIの特徴と違いを解説します。
+description: アニメ情報を取得するWebAPI(ShangriLa Anime API、Annict API、MyAnimeList API)を実際にリクエストして比較検証しました。各APIの特徴と違いを解説します。
 icon: 🪄
 icon_url: /icons/magic_wand_flat.svg
 tags:
@@ -435,8 +435,8 @@ https://api.myanimelist.net/v2/anime/52481?fields=id,title,main_picture,alternat
 | 項目 | **ShangriLa Anime API** | **Annict API** | **MyAnimeList API** |
 | --- | --- | --- | --- |
 | **APIタイプ** | REST | REST、GraphQL | REST |
-| **認証方法** | なし（公開API） | OAuth 2.0（個人用アクセストークンが必要） | OAuth 2.0（個人用アクセストークンが必要） |
-| **提供データ** | アニメ作品情報（クールごと） | 作品情報、エピソード情報、ユーザーの視聴情報や役者さんの情報など多数 | 作品情報、エピソード情報、ランキングなど |
+| **認証方法** | なし(公開API) | OAuth 2.0(個人用アクセストークンが必要) | OAuth 2.0(個人用アクセストークンが必要) |
+| **提供データ** | アニメ作品情報(クールごと) | 作品情報、エピソード情報、ユーザーの視聴情報や役者さんの情報など多数 | 作品情報、エピソード情報、ランキングなど |
 | **データの詳細度** | 基本的な作品情報 | 詳細なエピソード情報やスタッフ情報 | 豊富な作品データベース(あいまい検索可能) |
 | **公式ドキュメント** | [GitHubリポジトリ](https://github.com/Project-ShangriLa/anime_api_deno) | [Annict APIドキュメント](https://developers.annict.com/docs) | [MyAnimeList APIドキュメント](https://myanimelist.net/apiconfig/references/api/v2) |
 

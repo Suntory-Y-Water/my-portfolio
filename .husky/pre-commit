@@ -32,7 +32,7 @@ if [ -n "$STAGED_BLOG_FILES" ]; then
 
   echo "📒 ブログ記事の文章構成をチェック中..."
 
-  # textlintチェックを実行（contents/ディレクトリで実行）
+  # textlintチェックを実行(contents/ディレクトリで実行)
   # .textlintignoreを考慮するため、ファイルを直接渡さずにディレクトリ全体をチェック
   cd contents && bun run lint:textlint || {
     echo "⚠️  Lintエラーを検出。自動修正を試みます..."

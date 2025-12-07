@@ -7,9 +7,9 @@ import { cn } from '@/lib/utils';
 type PageHeaderProps = {
   /** ページの見出しテキスト */
   heading: string;
-  /** 説明文（オプション） */
+  /** 説明文(オプション) */
   text?: string;
-  /** カスタムCSSクラス名（オプション） */
+  /** カスタムCSSクラス名(オプション) */
   className?: string;
 };
 

@@ -16,9 +16,9 @@ export type BlogPost = MarkdownData<{
   thumbnail?: string;
   /** 記事に付与されたタグの配列 */
   tags?: string[];
-  /** 記事のアイコン（絵文字またはURL） */
+  /** 記事のアイコン(絵文字またはURL) */
   icon?: string;
-  /** 絵文字変換後のアイコンURL（FluentUI Emoji） */
+  /** 絵文字変換後のアイコンURL(FluentUI Emoji) */
   icon_url?: string;
 }>;
 
@@ -28,16 +28,7 @@ export type BlogPost = MarkdownData<{
  * contents/blog ディレクトリ配下のすべてのMarkdownファイルを読み込み、
  * 日付が新しい順にソートして返します。
  *
- * @returns ブログ記事の配列（日付降順）
- *
- * @example
- * ```ts
- * const posts = await getAllBlogPosts();
- * // => [
- * //   { slug: '2025-11-15_new-post', metadata: { title: '新しい記事', ... }, ... },
- * //   { slug: '2025-11-14_old-post', metadata: { title: '古い記事', ... }, ... },
- * // ]
- * ```
+ * @returns ブログ記事の配列(日付降順)
  */
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
   const posts = await getMarkdownData(blogDir);
@@ -53,14 +44,8 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
  * タグslugからタグ名を逆引きし、そのタグを持つ記事のみをフィルタリングして返します。
  * タグslugが存在しない場合は空配列を返します。
  *
- * @param tagSlug - 検索対象のタグslug（例: 'nextjs', 'typescript'）
- * @returns 指定されたタグを持つブログ記事の配列（日付降順）
- *
- * @example
- * ```ts
- * const posts = await getBlogPostsByTagSlug('nextjs');
- * // => Next.jsタグを持つ記事のみを取得
- * ```
+ * @param tagSlug - 検索対象のタグslug(例: 'nextjs', 'typescript')
+ * @returns 指定されたタグを持つブログ記事の配列(日付降順)
  */
 export async function getBlogPostsByTagSlug(
   tagSlug: string,
@@ -81,13 +66,7 @@ export async function getBlogPostsByTagSlug(
  * すべてのブログ記事のメタデータからタグを抽出し、
  * 重複を排除したタグ名の配列を返します。
  *
- * @returns 使用されているタグ名の配列（重複なし）
- *
- * @example
- * ```ts
- * const tags = await getAllTags();
- * // => ['Next.js', 'TypeScript', 'React', ...]
- * ```
+ * @returns 使用されているタグ名の配列(重複なし)
  */
 export async function getAllTags(): Promise<string[]> {
   const posts = await getAllBlogPosts();
@@ -102,20 +81,14 @@ export async function getAllTags(): Promise<string[]> {
  * 重複を排除したslug配列を返します。
  * タグページのルーティングやナビゲーション生成に使用されます。
  *
- * @returns タグslugの配列（重複なし）
- *
- * @example
- * ```ts
- * const tagSlugs = await getAllTagSlugs();
- * // => ['nextjs', 'typescript', 'react', ...]
- * ```
+ * @returns タグslugの配列(重複なし)
  */
 export async function getAllTagSlugs(): Promise<string[]> {
   const posts = await getAllBlogPosts();
   const tagNames = posts.flatMap((post) => post.metadata.tags ?? []);
   const uniqueTagNames = [...new Set(tagNames)];
 
-  // タグ名をslugに変換（重複排除のため再度Set化）
+  // タグ名をslugに変換(重複排除のため再度Set化)
   const slugs = uniqueTagNames.map(getTagSlug);
   return [...new Set(slugs)];
 }
@@ -126,16 +99,8 @@ export async function getAllTagSlugs(): Promise<string[]> {
  * ブログ記事のslugから単一の記事を検索して返します。
  * 一致する記事がない場合はundefinedを返します。
  *
- * @param slug - 検索対象の記事slug（例: 'add-blog-to-portfolio'）
+ * @param slug - 検索対象の記事slug(例: 'add-blog-to-portfolio')
  * @returns 一致したブログ記事、または見つからない場合はundefined
- *
- * @example
- * ```ts
- * const post = await getBlogPostBySlug('add-blog-to-portfolio');
- * if (post) {
- *   console.log(post.metadata.title);
- * }
- * ```
  */
 export async function getBlogPostBySlug(
   slug: string,
@@ -145,7 +110,7 @@ export async function getBlogPostBySlug(
 }
 
 /**
- * 指定されたディレクトリ配下のMarkdownファイルをすべて読み込む（内部関数）
+ * 指定されたディレクトリ配下のMarkdownファイルをすべて読み込む(内部関数)
  *
  * @template T - メタデータの型
  * @param dir - Markdownファイルが格納されているディレクトリパス
@@ -159,7 +124,7 @@ async function getMarkdownData<T>(dir: string): Promise<MarkdownData<T>[]> {
 }
 
 /**
- * 指定されたディレクトリ配下の.mdファイルを取得する（内部関数）
+ * 指定されたディレクトリ配下の.mdファイルを取得する(内部関数)
  *
  * @param dir - 検索対象のディレクトリパス
  * @returns .mdファイル名の配列
@@ -169,7 +134,7 @@ async function getMarkdownFiles(dir: string): Promise<string[]> {
 }
 
 /**
- * Markdownファイルを読み込んでパースする（内部関数）
+ * Markdownファイルを読み込んでパースする(内部関数)
  *
  * Markdownファイルのfrontmatterとコンテンツを解析し、
  * slugはfrontmatterのslugフィールドを優先し、
@@ -177,7 +142,7 @@ async function getMarkdownFiles(dir: string): Promise<string[]> {
  *
  * @template T - メタデータの型
  * @param filePath - 読み込むMarkdownファイルのパス
- * @returns パースされたMarkdownデータ（メタデータ、slug、本文、ファイルパス）
+ * @returns パースされたMarkdownデータ(メタデータ、slug、本文、ファイルパス)
  */
 async function readMarkdownFile<T>(filePath: string): Promise<MarkdownData<T>> {
   const rawContent = await fs.readFile(filePath, 'utf-8');

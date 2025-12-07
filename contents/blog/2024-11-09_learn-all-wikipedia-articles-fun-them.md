@@ -147,9 +147,9 @@ API は足し算したい単語であれば `positive`、引き算したい単�
 )
 async def calculate_vectors(
     positive: str | None = Query(
-        default=None, description="足し算したい単語（カンマ区切り。例：Python,プログラミング）"
+        default=None, description="足し算したい単語(カンマ区切り。例：Python,プログラミング)"
     ),
-    negative: str | None = Query(default=None, description="引き算したい単語（カンマ区切り。例：パソコン）"),
+    negative: str | None = Query(default=None, description="引き算したい単語(カンマ区切り。例：パソコン)"),
     topn: int = Query(default=5, ge=1, le=20),
 ) -> vectors_schema.WordVectorResponse:
     try:
@@ -189,7 +189,7 @@ class Tokenizer:
         tokens = []
 
         while node:
-            # 表層形を取得（実際の単語）
+            # 表層形を取得(実際の単語)
             surface = node.surface
             # 品詞情報を取得
             features = node.feature.split(",")

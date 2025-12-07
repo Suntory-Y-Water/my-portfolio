@@ -94,7 +94,7 @@ async function fixMarkdownFile(
     }
   }
 
-  // ファイルに書き込み（dryRunでない場合）
+  // ファイルに書き込み(dryRunでない場合)
   if (!dryRun && fixedCount > 0) {
     await fs.writeFile(filePath, newLines.join('\n'), 'utf-8');
   }
@@ -138,7 +138,7 @@ function printReport(
 ) {
   console.log('='.repeat(80));
   console.log(
-    dryRun ? 'URL空行修正プレビュー（Dry Run）' : 'URL空行修正結果',
+    dryRun ? 'URL空行修正プレビュー(Dry Run)' : 'URL空行修正結果',
   );
   console.log('='.repeat(80));
   console.log();

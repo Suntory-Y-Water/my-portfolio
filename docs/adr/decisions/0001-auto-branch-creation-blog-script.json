@@ -17,7 +17,7 @@
   },
   "decision": {
     "summary": "ブログ記事作成スクリプト実行時に、blog-{slug}形式のGitブランチを自動作成する",
-    "details": "スクリプト（scripts/create-blog-template.ts）実行時に、入力されたスラッグを使用してblog-{slug}形式のブランチを自動作成する。ブランチ作成に失敗した場合でも、エラーメッセージを表示してテンプレート作成処理は継続する。",
+    "details": "スクリプト(scripts/create-blog-template.ts)実行時に、入力されたスラッグを使用してblog-{slug}形式のブランチを自動作成する。ブランチ作成に失敗した場合でも、エラーメッセージを表示してテンプレート作成処理は継続する。",
     "alternatives": [
       {
         "option": "手動でブランチを作成",

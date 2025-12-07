@@ -144,7 +144,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* アバター画像（光彩エフェクト付き） */}
+        {/* アバター画像(光彩エフェクト付き) */}
         <div className='order-1 flex justify-center md:order-2'>
           <div className='relative'>
             <div className='absolute inset-0 animate-pulse rounded-full bg-primary/20 blur-[50px]' />

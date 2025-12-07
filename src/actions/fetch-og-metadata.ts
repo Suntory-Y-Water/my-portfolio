@@ -15,7 +15,7 @@ type OGData = {
  * 相対URLの場合は元ページのoriginを基準に絶対URLに変換します。
  * 既に絶対URLの場合はそのまま返します。
  *
- * @param imageUrl - OGP画像のURL（相対または絶対）
+ * @param imageUrl - OGP画像のURL(相対または絶対)
  * @param baseUrl - 基準となるページのURL
  * @returns 絶対URL形式の画像URL、変換できない場合は空文字列
  */
@@ -43,10 +43,10 @@ function resolveImageUrl({
 }
 
 /**
- * URLからOGP（Open Graph Protocol）データを取得する
+ * URLからOGP(Open Graph Protocol)データを取得する
  *
  * @param url - OGPデータを取得するURL
- * @returns OGPデータの部分的なオブジェクト（title、description、image、url）
+ * @returns OGPデータの部分的なオブジェクト(title、description、image、url)
  *
  * @example
  * ```ts

@@ -23,9 +23,9 @@ type LinkCardData = {
   title: string;
   /** ページの説明文 */
   description: string;
-  /** OG画像のURL（オプション） */
+  /** OG画像のURL(オプション) */
   image?: string;
-  /** 内部リンク（ブログ記事）かどうか */
+  /** 内部リンク(ブログ記事)かどうか */
   isInternal: boolean;
   /** データ取得時にエラーが発生したかどうか */
   error: boolean;
@@ -35,7 +35,7 @@ type LinkCardData = {
  * URLが内部ブログリンクかどうかを判定する
  *
  * @param url - 判定対象のURL
- * @returns 内部ブログリンク（/blog/で始まる）の場合true
+ * @returns 内部ブログリンク(/blog/で始まる)の場合true
  */
 function isInternalBlogLink(url: string): boolean {
   try {
@@ -53,7 +53,7 @@ function isInternalBlogLink(url: string): boolean {
  * 絶対URL、相対URLの両方に対応しています。
  *
  * @param url - slug抽出対象のURL
- * @returns 抽出されたslug（パスの最後のセグメント）
+ * @returns 抽出されたslug(パスの最後のセグメント)
  *
  * @example
  * ```ts
@@ -271,7 +271,7 @@ function createLinkCardHTML(data: LinkCardData): string {
 /**
  * 段落ノードが純粋なURLのみを含むかどうかを判定する
  *
- * `<p><a href="url">url</a></p>` の形式（URLのみの段落）を検出します。
+ * `<p><a href="url">url</a></p>` の形式(URLのみの段落)を検出します。
  * 空白のみのテキストノードや`<br>`要素は無視され、実質的なコンテンツとして
  * URLリンクのみが含まれている場合にtrueを返します。
  * この形式の段落はリンクカードに変換されます。

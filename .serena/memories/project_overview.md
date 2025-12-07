@@ -31,7 +31,7 @@ sui Tech Blog (`sui-tech-blog`)
 - **Pagefind** - 静的サイト向け全文検索エンジン
 
 ### コード品質・リンティング
-- **Biome 2.3.7** - フォーマッター・リンター（ESLint・Prettierの代替）
+- **Biome 2.3.7** - フォーマッター・リンター(ESLint・Prettierの代替)
 - **TypeScript** - 型チェック
 - **textlint** - Markdown記事の日本語校正
 
@@ -69,7 +69,7 @@ sui Tech Blog (`sui-tech-blog`)
 │   └── styles/          # グローバルスタイル
 ├── contents/            # ブログコンテンツ
 │   ├── blog/           # Markdown記事
-│   └── slides/         # スライド（Marp）
+│   └── slides/         # スライド(Marp)
 ├── public/             # 静的ファイル
 ├── docs/               # ドキュメント
 │   ├── adr/           # Architecture Decision Records
@@ -87,9 +87,9 @@ sui Tech Blog (`sui-tech-blog`)
 - フロントマターによるメタデータ管理
 - タグによる記事分類
 - ページネーション
-- 全文検索（Pagefind）
+- 全文検索(Pagefind)
 - OGP画像生成
-- 目次（Table of Contents）
+- 目次(Table of Contents)
 - コードブロックのコピーボタン
 - リンクプレビューカード
 - GitHub編集リンク
@@ -102,9 +102,9 @@ sui Tech Blog (`sui-tech-blog`)
 - ブログリスト遷移の記憶
 
 ### セキュリティ
-- XSS対策（DOMPurify）
+- XSS対策(DOMPurify)
 - SVGセキュリティチェック
-- CSP（Content Security Policy）設定
+- CSP(Content Security Policy)設定
 - セキュリティヘッダー設定
 
 ### 開発者体験
@@ -119,5 +119,5 @@ sui Tech Blog (`sui-tech-blog`)
 ## 開発環境
 - **OS**: macOS (Darwin)
 - **ランタイム**: Bun
-- **エディタ**: VS Code（推奨）
+- **エディタ**: VS Code(推奨)
 - **Git**: GitHub

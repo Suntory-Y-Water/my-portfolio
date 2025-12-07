@@ -52,7 +52,7 @@ https://nextjs.org/docs/app/api-reference/components/image#dangerouslyallowsvg
 ## SVGインライン化による解決
 「どうにかならないか」と考えた末、React の場合は実際の SVG コードを直接ソースコードに埋め込む方が、ほぼ確実にちらつきを防げることに気づきました。
 
-SVG をインライン化（コード中に直接埋め込み）することで、ネットワーク経由の画像取得プロセスをスキップできます。ビルド時に静的ファイルの中に SVG コードそのものを含めてしまえば、画像のロードを待つ必要がなくなり、初回表示時からちらつくことなく表示されます。SVG は React のコンポーネントとして作成し、ビルド時に静的ファイルとして配信することで、ネットワークリクエストをなくし、ちらつきをなくす強引な手段で実装しました。
+SVG をインライン化(コード中に直接埋め込み)することで、ネットワーク経由の画像取得プロセスをスキップできます。ビルド時に静的ファイルの中に SVG コードそのものを含めてしまえば、画像のロードを待つ必要がなくなり、初回表示時からちらつくことなく表示されます。SVG は React のコンポーネントとして作成し、ビルド時に静的ファイルとして配信することで、ネットワークリクエストをなくし、ちらつきをなくす強引な手段で実装しました。
 
 <!-- textlint-disable preset-ja-technical-writing/no-unmatched-pair -->
 >[!CAUTION]
@@ -87,7 +87,7 @@ sequenceDiagram
     Lib->>Lib: DOMPurifyでサニタイズ
     Lib->>Page: サニタイズ済みSVG文字列
     Page->>Browser: HTMLに直接埋め込み
-    Browser->>Browser: ネットワーク取得なし（ちらつきなし）
+    Browser->>Browser: ネットワーク取得なし(ちらつきなし)
 ```
 
 ブログ記事は全て Markdown ファイルのフロントマターで定義しています。
@@ -109,11 +109,11 @@ tags:
 ---
 ```
 
-`icon_url` に指定したパス（`/icons/collision_flat.svg`）は、`public/icons/` ディレクトリ配下に配置します。
+`icon_url` に指定したパス(`/icons/collision_flat.svg`)は、`public/icons/` ディレクトリ配下に配置します。
 
 従来の実装では、Next.js の `<Image>` コンポーネントで外部 URL または public フォルダから画像を取得していました。SVG インライン化した実装では、ビルド時に SVG を読み込み、`dangerouslySetInnerHTML` で直接埋め込みます。
 ```tsx src/app/blog/[slug]/page.tsx
-// Before: Imageコンポーネントで画像取得（ちらつきあり）
+// Before: Imageコンポーネントで画像取得(ちらつきあり)
 import Image from 'next/image';
 import { getBlogPostBySlug } from '@/lib/markdown';
 
@@ -123,7 +123,7 @@ interface BlogPostPageProps {
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  // ブログ記事をslugで取得する関数（フロントマターとMarkdown本文を含む）
+  // ブログ記事をslugで取得する関数(フロントマターとMarkdown本文を含む)
   const post = await getBlogPostBySlug(slug);
 
   // フロントマターからアイコンURLを取得
@@ -151,7 +151,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
 
 ```diff src/app/blog/[slug]/page.tsx
- // After: SVGインライン化（ちらつきなし）
+ // After: SVGインライン化(ちらつきなし)
  import Image from 'next/image';
 +import { getInlineIcon } from '@/lib/inline-icons';
  import { getBlogPostBySlug } from '@/lib/markdown';
@@ -162,7 +162,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
  export default async function BlogPostPage({ params }: BlogPostPageProps) {
    const { slug } = await params;
-   // ブログ記事をslugで取得する関数（フロントマターとMarkdown本文を含む）
+   // ブログ記事をslugで取得する関数(フロントマターとMarkdown本文を含む)
    const post = await getBlogPostBySlug(slug);
 
    // フロントマターからアイコンURLを取得

@@ -12,7 +12,7 @@
     {
       "id": "blogSlug",
       "type": "promptString",
-      "description": "ブログ記事のslugを入力してください（例: my-new-article）",
+      "description": "ブログ記事のslugを入力してください(例: my-new-article)",
       "default": ""
     }
   ]

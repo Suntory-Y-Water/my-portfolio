@@ -71,22 +71,23 @@
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": ["context7", "serena"],
   "hooks": {
-    "SessionEnd": [
+    "Stop": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/scripts/suggest-claude-md-hook.sh"
+            "command": "bun run --silent -i ~/.claude/scripts/typescript/multi-command-check.ts -c format,lint:ai,type-check:ai"
           }
         ]
       }
     ],
-    "PreCompact": [
+    "PreToolUse": [
       {
+        "matcher": "Write|Edit|MultiEdit",
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/scripts/suggest-claude-md-hook.sh"
+            "command": "bun run --silent -i ~/.claude/scripts/typescript/no-restricted-edit.ts"
           }
         ]
       }

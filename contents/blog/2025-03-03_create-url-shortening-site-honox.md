@@ -32,7 +32,7 @@ URL 短縮サービスは、長い URL を短く変換し、より共有しや�
 
 - **HonoX**: Hono ベースのメタフレームワーク
 - **Tailwind CSS**: スタイリング
-- **Cloudflare Workers**: デプロイ先（KV Storage を利用）
+- **Cloudflare Workers**: デプロイ先(KV Storage を利用)
 
 ## 初期環境の確認
 
@@ -42,8 +42,8 @@ URL 短縮サービスは、長い URL を短く変換し、より共有しや�
 app/
   ├── client.ts          - クライアントサイドエントリーポイント
   ├── islands/
-  │   ├── counter.tsx    - カウンターコンポーネント（サンプル）
-  │   └── input.tsx      - 入力コンポーネント（サンプル）
+  │   ├── counter.tsx    - カウンターコンポーネント(サンプル)
+  │   └── input.tsx      - 入力コンポーネント(サンプル)
   ├── routes/
   │   ├── _404.tsx       - 404ページ
   │   ├── _error.tsx     - エラーページ

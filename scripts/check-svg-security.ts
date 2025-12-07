@@ -7,8 +7,8 @@
  *
  * ## 実行方法
  * ```bash
- * bun run check:svg-security        # 差分チェック（git diff --cached）
- * bun run check:svg-security:all    # 全件チェック（public/icons配下すべて）
+ * bun run check:svg-security        # 差分チェック(git diff --cached)
+ * bun run check:svg-security:all    # 全件チェック(public/icons配下すべて)
  * ```
  *
  * ## 検出対象
@@ -26,7 +26,7 @@ import { execSync } from 'node:child_process';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
-// セキュリティ設定（inline-icons.tsと同じ設定）
+// セキュリティ設定(inline-icons.tsと同じ設定)
 const FORBID_TAGS = ['script', 'iframe', 'object', 'embed', 'foreignObject'];
 const FORBID_ATTR = ['onerror', 'onload', 'onclick', 'onmouseover'];
 
@@ -64,7 +64,7 @@ function detectSecurityIssues(svg: string): string[] {
     issues.push('JavaScriptプロトコル (href="javascript:...") が含まれています');
   }
 
-  // 外部URL参照の検出（相対パスは許可）
+  // 外部URL参照の検出(相対パスは許可)
   const externalUrlPattern = /(?:href|xlink:href)\s*=\s*["']\s*https?:\/\//i;
   if (externalUrlPattern.test(svg)) {
     issues.push('外部URL参照 (http://, https://) が含まれています');
@@ -176,7 +176,7 @@ async function checkSvgSecurity() {
   console.error('🛡️  修正方法:');
   console.error('  1. SVGファイルから危険なタグ・属性を手動で削除してください');
   console.error('  2. 信頼できるソースからSVGを再取得してください');
-  console.error('  3. SVG最適化ツール（SVGO等）でクリーンアップしてください\n');
+  console.error('  3. SVG最適化ツール(SVGO等)でクリーンアップしてください\n');
 
   return false;
 }

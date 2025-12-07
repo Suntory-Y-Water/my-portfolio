@@ -10,6 +10,7 @@
     "preview": "bun run build && bun run start",
     "start": "next start",
     "lint": "biome lint .",
+    "lint:ai": "set -o pipefail && biome check . --reporter=github 2>&1 | grep '^::'",
     "lint:fix": "biome lint --write .",
     "lint:unsage-fix": "biome lint --write --unsafe .",
     "textlint": "cd contents/ && bun run lint && cd ..",
@@ -29,8 +30,8 @@
     "clean": "rm -rf .next/ node_modules/",
     "analyze": "ANALYZE=true bun run --bun next build --webpack",
     "analyze:json": "ANALYZE=true ANALYZE_MODE=json ANALYZE_STATS=true bun run --bun next build --webpack",
-    "typecheck": "tsc --noEmit",
-    "ai-check": "bun run typecheck && bun run check",
+    "type-check": "tsc --noEmit",
+    "type-check:ai": "bunx tsc --noEmit --pretty false",
     "prepare": "husky",
     "kiri": "kiri --repo . --db .kiri/index.duckdb --watch"
   },

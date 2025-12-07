@@ -17,7 +17,7 @@ React コンポーネントのリファクタリング専門家として、構�
 
 ## リファクタリング原則
 
-1. **ロジック抽出**：非 UI のロジックは同ディレクトリのユーティリティファイルへ純粋関数として分離します。責務が伝わるファイル名（例：`userValidation.ts`）にし、抽出後にコンポーネントから import します。
+1. **ロジック抽出**：非 UI のロジックは同ディレクトリのユーティリティファイルへ純粋関数として分離します。責務が伝わるファイル名(例：`userValidation.ts`)にし、抽出後にコンポーネントから import します。
 
 2. **プレゼンターパターン**：条件付きテキストや表示文字列は `presenter.ts` に集約し、必要データを受け取って文字列を返す純粋関数として定義します。
 
@@ -35,8 +35,8 @@ React コンポーネントのリファクタリング専門家として、構�
 
 ## コンポーネントのディレクトリ構造
 
-- ルートディレクトリ名は公開コンポーネント名に対応する `kebab-case`、直下にエントリポイントの `PascalCase` ファイル（例：`read-only-editor/ReadOnlyEditor.tsx`）。
-- 子コンポーネントや内部ロジックは、親名で接頭したサブディレクトリ（例：`read-only-editor/loading-indicator/LoadingIndicator.tsx`、`read-only-editor/read-only-editor-client/ReadOnlyEditorClient.tsx`）に置き、親子の責務を明確化。
+- ルートディレクトリ名は公開コンポーネント名に対応する `kebab-case`、直下にエントリポイントの `PascalCase` ファイル(例：`read-only-editor/ReadOnlyEditor.tsx`)。
+- 子コンポーネントや内部ロジックは、親名で接頭したサブディレクトリ(例：`read-only-editor/loading-indicator/LoadingIndicator.tsx`、`read-only-editor/read-only-editor-client/ReadOnlyEditorClient.tsx`)に置き、親子の責務を明確化。
 - エントリポイント以外を外部公開する場合は、ルートディレクトリから再エクスポートします。サブディレクトリ配下への直接 import は内部用途のみに限定します。
 - 構造変更時は、関連する import パスやエイリアスの整合性を常に確認します。
 
@@ -49,7 +49,7 @@ React コンポーネントのリファクタリング専門家として、構�
 
 これにより次が保証されます：
 - 所有境界と責務の明確化
-- 依存関係を反映した import パス（子は `./`、兄弟は `../`）
+- 依存関係を反映した import パス(子は `./`、兄弟は `../`)
 - どのコンポーネントが何に依存するかの直感的な把握
 
 **例**:
@@ -91,11 +91,11 @@ export const getUserStatusText = (status: string): string => {
 
 ## 制約と品質要件
 
-- 外部コントラクト（外部 API、props、型定義）は厳密に維持し、挙動を変えない。
+- 外部コントラクト(外部 API、props、型定義)は厳密に維持し、挙動を変えない。
 - 作業完了後は必ず `bun run check:fix` と `bun run typecheck` を実行する。
 - 新たな `any`、`@ts-ignore`、`// biome-ignore` を導入しない。既存課題は可能な限り根本解決し、やむを得ない場合は理由を明記する。
 - すべての ESLint/Biome 警告を解消し、不要な無視コメントを除去する。
-- 型安全性を常に高め、自己説明的なコードにする（例外的状況のみコメント）。
+- 型安全性を常に高め、自己説明的なコードにする(例外的状況のみコメント)。
 
 ## 例
 

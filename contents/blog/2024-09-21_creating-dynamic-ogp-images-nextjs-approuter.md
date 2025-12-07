@@ -16,7 +16,7 @@ tags:
 
 1. OG 画像を作成するエンドポイントを Next.js 内で作成
 2. `ImageResponse()` で返却する画像のレイアウトを作成
-3. 画面から `generateMetadata()` の openGraph.Images にエンドポイントの URL を設定（`searchParams` で受け取ったパラメータをよしなに解釈して API を実行している）
+3. 画面から `generateMetadata()` の openGraph.Images にエンドポイントの URL を設定(`searchParams` で受け取ったパラメータをよしなに解釈して API を実行している)
 4. og:image に API のエンドポイントを設定すれば、画像が表示される
 
 ## 実装例
@@ -206,14 +206,14 @@ export async function GET(request: NextRequest) {
 
 ```
 
-実際にエンドポイント（/api/hoge/og?count=10）リクエストを送ると「◯曲でした！」の部分に `10` が入ってる。
+実際にエンドポイント(/api/hoge/og?count=10)リクエストを送ると「◯曲でした！」の部分に `10` が入ってる。
 ![](https://storage.googleapis.com/zenn-user-upload/75720ac1bcfe-20240921.png)
 
 ただこのやり方だと og:image の content に apiurl を直接埋め込んでいるので、意地悪操作が簡単にできてしまう。
 なので上記のソースコードでは最低限のバリデーションは実装した
 - 曲の総数 = クエリパラメータだったらそもそも og 画像を作成させない
 - 曲の総数 > count > 0
-- 0（全ての曲をライブで聞いた状態）ならメッセージの文言を変更する
+- 0(全ての曲をライブで聞いた状態)ならメッセージの文言を変更する
 
 ## 感想
 あるべき姿だけど、動的 og 画像はストレージサービスに画像を保存したほうが良い気がする。

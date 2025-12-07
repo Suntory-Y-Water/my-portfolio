@@ -12,13 +12,13 @@ Next.js 16のApp Routerを使用したルーティング構造。
 - `/blog` - ブログ一覧 (`blog/page.tsx`)
 - `/blog/page/[page]` - ブログページネーション
 - `/blog/[slug]` - ブログ記事詳細
-- `/blog/ogp/[slug]` - OGP画像生成（Route Handler）
-- `/blog/md/[slug]` - Markdown配信（Route Handler）
+- `/blog/ogp/[slug]` - OGP画像生成(Route Handler)
+- `/blog/md/[slug]` - Markdown配信(Route Handler)
 - `/tags` - タグ一覧
 - `/tags/[slug]` - タグ別記事一覧
 - `/about` - Aboutページ
-- `/llms.txt` - LLM向けサイト情報（Route Handler）
-- `/rss.xml` - RSSフィード（Route Handler）
+- `/llms.txt` - LLM向けサイト情報(Route Handler)
+- `/rss.xml` - RSSフィード(Route Handler)
 
 **特殊ファイル:**
 - `layout.tsx` - レイアウト
@@ -91,8 +91,8 @@ Radix UIベースの再利用可能なUIコンポーネント。
 #### `/src/lib` - ユーティリティ関数・ライブラリ
 
 **主要ファイル:**
-- `markdown.ts` - Markdown処理関連（ブログ記事の取得、パース）
-- `utils.ts` - 汎用ユーティリティ（`cn`関数など）
+- `markdown.ts` - Markdown処理関連(ブログ記事の取得、パース)
+- `utils.ts` - 汎用ユーティリティ(`cn`関数など)
 - `pagination.ts` - ページネーション処理
 - `blog-navigation.ts` - ブログナビゲーション
 - `toc.ts` - 目次生成
@@ -105,7 +105,7 @@ Radix UIベースの再利用可能なUIコンポーネント。
 ---
 
 #### `/src/config` - 設定ファイル
-- `site.ts` - サイト設定（メタデータ、SNSリンクなど）
+- `site.ts` - サイト設定(メタデータ、SNSリンクなど)
 - `tag-slugs.ts` - タグスラッグ定義
 
 #### `/src/constants` - 定数定義
@@ -125,7 +125,7 @@ Radix UIベースの再利用可能なUIコンポーネント。
 - `markdown.css` - Markdownスタイル
 
 #### `/src/assets` - アセット
-- `/fonts` - カスタムフォント（PlemolJP、NotoSansJP）
+- `/fonts` - カスタムフォント(PlemolJP、NotoSansJP)
 
 ---
 
@@ -135,7 +135,7 @@ Radix UIベースの再利用可能なUIコンポーネント。
 ブログ記事をMarkdown形式で管理。
 
 **命名規則:**
-- `YYYY-MM-DD_slug.md`（例: `2025-12-06_delegate-coding-rules-to-biome.md`）
+- `YYYY-MM-DD_slug.md`(例: `2025-12-06_delegate-coding-rules-to-biome.md`)
 
 **フロントマター例:**
 ```yaml
@@ -167,7 +167,7 @@ Marpを使用したスライド。
 **主要ディレクトリ:**
 - `/icons` - SVGアイコン
 - `/images` - 画像ファイル
-- `/pagefind` - Pagefind検索インデックス（ビルド時生成）
+- `/pagefind` - Pagefind検索インデックス(ビルド時生成)
 
 ---
 
@@ -175,7 +175,7 @@ Marpを使用したスライド。
 
 #### `/docs/adr` - Architecture Decision Records
 - `index.json` - ADRインデックス
-- `/decisions` - 個別のADRファイル（JSON形式）
+- `/decisions` - 個別のADRファイル(JSON形式)
 
 **既存ADR:**
 - `0001-auto-branch-creation-blog-script.json` - ブログ記事作成スクリプトでの自動ブランチ作成
@@ -227,12 +227,12 @@ Marpを使用したスライド。
   - SVGセキュリティチェック
   - ブログアイコン自動変換
   - タグ整合性チェック
-  - textlint（日本語校正）
+  - textlint(日本語校正)
 
 ---
 
 ### `/.serena` - Serena MCP設定
-- `/memories` - Serenaメモリファイル（プロジェクト情報）
+- `/memories` - Serenaメモリファイル(プロジェクト情報)
 
 ---
 
@@ -255,7 +255,7 @@ Marpを使用したスライド。
 - `tsconfig.json` - TypeScript設定
 - `tsconfig.build.json` - ビルド用TypeScript設定
 - `next.config.mjs` - Next.js設定
-- `biome.json` - Biome設定（Lint・フォーマット）
+- `biome.json` - Biome設定(Lint・フォーマット)
 - `tailwind.config.ts` - Tailwind CSS設定
 - `postcss.config.js` - PostCSS設定
 - `components.json` - shadcn/ui設定
@@ -285,7 +285,7 @@ Marpを使用したスライド。
 1. `contents/blog/*.md` - Markdown記事作成
 2. `src/lib/markdown.ts` - Markdown読み込み・パース
 3. `src/app/blog/[slug]/page.tsx` - 記事詳細ページ表示
-4. Pagefind - 検索インデックス生成（ビルド時）
+4. Pagefind - 検索インデックス生成(ビルド時)
 
 ### コンポーネントの依存関係
 - `ui` - 最下層の汎用UIコンポーネント

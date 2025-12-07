@@ -14,11 +14,11 @@ type CalloutType = 'info' | 'note' | 'warning' | 'danger';
 type CalloutProps = {
   /** コールアウト内に表示するコンテンツ */
   children?: React.ReactNode;
-  /** コールアウトの種類（デフォルト: 'info'） */
+  /** コールアウトの種類(デフォルト: 'info') */
   type?: CalloutType;
-  /** コールアウトのタイトル（指定しない場合は種類に応じたデフォルトタイトル） */
+  /** コールアウトのタイトル(指定しない場合は種類に応じたデフォルトタイトル) */
   title?: string;
-  /** カスタムCSSクラス名（オプション） */
+  /** カスタムCSSクラス名(オプション) */
   className?: string;
 };
 
@@ -75,7 +75,7 @@ const calloutStyles: Record<
  * コールアウトコンポーネント
  *
  * 重要な情報や注意事項を強調表示するためのボックスコンポーネント。
- * 4つのスタイル（info, note, warning, danger）をサポートし、
+ * 4つのスタイル(info, note, warning, danger)をサポートし、
  * それぞれ異なる色とアイコンで表示されます。
  *
  * @param props - コールアウトのプロパティ

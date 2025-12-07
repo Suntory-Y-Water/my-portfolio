@@ -48,5 +48,5 @@ URL : https://funabashi-population-trends.vercel.app/
 
 ## その他
 
-工数（要件定義 ~ 簡単なテスト迄）: 17時間
+工数(要件定義 ~ 簡単なテスト迄): 17時間
 
