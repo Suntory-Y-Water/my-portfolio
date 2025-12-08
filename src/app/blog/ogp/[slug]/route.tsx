@@ -3,11 +3,28 @@ import path from 'node:path';
 import { ImageResponse } from 'next/og';
 import type { NextRequest } from 'next/server';
 import { siteConfig } from '@/config/site';
-import { getBlogPostBySlug } from '@/lib/markdown';
+import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/markdown';
 
 type ImageProps = {
   params: Promise<{ slug: string }>;
 };
+
+// フォントデータをモジュールスコープでキャッシュ(初回リクエスト時のみ読み込み)
+let cachedFontData: Buffer | null = null;
+
+// 許可していないパラメータでのアクセスを防止
+export const dynamicParams = false;
+
+/**
+ * 静的生成用のパラメータを生成
+ * ビルド時に全ブログ記事のOGP画像を事前生成
+ */
+export async function generateStaticParams() {
+  const posts = await getAllBlogPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
 
 /**
  * ローカルのSVGファイルを読み込んでBase64エンコードされたData URIに変換する
@@ -15,12 +32,6 @@ type ImageProps = {
  * @param iconPath - public/配下のSVGファイルパス (例: 'icons/typescript.svg')
  * @returns Base64エンコードされたSVG Data URI (例: 'data:image/svg+xml;base64,...')
  *          ファイルが存在しない場合やエラー時はnullを返す
- *
- * @example
- * ```typescript
- * const dataUri = loadLocalSvg({ iconPath: 'icons/typescript.svg' });
- * // => 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3...'
- * ```
  */
 function loadLocalSvg({ iconPath }: { iconPath: string }): string | null {
   try {
@@ -40,25 +51,16 @@ function loadLocalSvg({ iconPath }: { iconPath: string }): string | null {
  * @param params - ルートパラメータを含むオブジェクト
  * @param params.params - slug を含む Promise
  * @returns 1200x630のOGP画像を含むImageResponse
- *
- * @example
- * ```typescript
- * // /blog/ogp/my-article にアクセスすると、
- * // 'my-article' スラグに対応するOGP画像が生成される
- * ```
- *
- * @remarks
- * - 記事のタイトル、タグ、アイコンを含む画像を生成
- * - フォールバック: 記事が見つからない場合やエラー時はサイト名のみ表示
- * - Next.js App Router の動的ルートハンドラとして機能
  */
 export async function GET(_request: NextRequest, { params }: ImageProps) {
   const { slug } = await params;
 
-  // 1. フォント読み込み
-  const fontData = fs.readFileSync(
-    path.join(process.cwd(), 'src/assets/fonts/NotoSansJP-SemiBold.ttf'),
-  );
+  // 1. フォント読み込み(キャッシュ利用)
+  if (!cachedFontData) {
+    cachedFontData = fs.readFileSync(
+      path.join(process.cwd(), 'src/assets/fonts/NotoSansJP-SemiBold.ttf'),
+    );
+  }
 
   // 2. 記事データ取得
   const post = await getBlogPostBySlug(slug);
@@ -127,6 +129,7 @@ export async function GET(_request: NextRequest, { params }: ImageProps) {
                 style={{
                   fontSize: 64,
                   fontWeight: 600,
+                  fontFamily: '"Noto Sans JP", sans-serif',
                   color: 'rgba(0,0,0,0.82)',
                   lineHeight: 1.2,
                 }}
@@ -143,6 +146,7 @@ export async function GET(_request: NextRequest, { params }: ImageProps) {
                     style={{
                       fontSize: 24,
                       fontWeight: 400,
+                      fontFamily: '"Noto Sans JP", sans-serif',
                       color: 'rgba(0,0,0,0.82)',
                       border: '1px solid #d1d5db',
                       padding: '4px 24px',
@@ -162,6 +166,7 @@ export async function GET(_request: NextRequest, { params }: ImageProps) {
               style={{
                 fontSize: 48,
                 fontWeight: 400,
+                fontFamily: '"Noto Sans JP", sans-serif',
                 display: 'flex',
                 alignItems: 'center',
                 color: 'rgba(0,0,0,0.82)',
@@ -186,7 +191,7 @@ export async function GET(_request: NextRequest, { params }: ImageProps) {
         fonts: [
           {
             name: 'Noto Sans JP',
-            data: fontData,
+            data: cachedFontData,
             weight: 600,
             style: 'normal',
           },
