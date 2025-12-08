@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Read(*.md)",
+      "Bash(bun run:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(sudo:*)",
+      "Read(.env.*)",
+      "Read(.credentials.*)",
+      "Read(id_rsa)",
+      "Read(id_ed25519)",
+      "Read(**/*token*)",
+      "Read(**/*key*)",
+      "Write(.env*)",
+      "Write(**/secrets/**)",
+      "Bash(curl:*)",
+      "Bash(wget:*)"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(bun add:*)",
+      "Bash(bun remove:*)",
+      "Bash(rm:*)",
+      "WebFetch"
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "node ~/.claude/scripts/statusline.js"
+  },
+  "disabledMcpjsonServers": ["serena"]
+}
