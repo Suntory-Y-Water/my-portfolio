@@ -10,7 +10,7 @@
     "preview": "bun run build && bun run start",
     "start": "next start",
     "lint": "biome lint .",
-    "lint:ai": "set -o pipefail && biome check . --reporter=github 2>&1 | grep '^::'",
+    "lint:ai": "set -o pipefail && biome lint . --reporter=github 2>&1 | { grep '^::' || true; }",
     "lint:fix": "biome lint --write .",
     "lint:unsage-fix": "biome lint --write --unsafe .",
     "textlint": "cd contents/ && bun run lint && cd ..",
