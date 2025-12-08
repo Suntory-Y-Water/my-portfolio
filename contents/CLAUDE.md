@@ -180,10 +180,10 @@
 
 ```bash
 # エラーチェックのみ
-npx textlint blog.md
+bun run lint
 
 # 自動修正を適用
-npx textlint --fix blog.md
+bun run lint:fix
 ```
 
 **注意**: `/full-review`は自動で`--fix`を実行するため、通常は手動実行不要です。

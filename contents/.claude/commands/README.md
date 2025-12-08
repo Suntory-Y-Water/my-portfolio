@@ -141,10 +141,10 @@
 **Textlint実行コマンド**:
 ```bash
 # エラーチェックのみ
-npx textlint blog.md
+bun run textlint
 
 # 自動修正を適用
-npx textlint --fix blog.md
+bun run textlint:fix
 ```
 
 ---

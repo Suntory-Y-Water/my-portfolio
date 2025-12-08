@@ -66,7 +66,7 @@
 ### Phase 1: Textlint診断（診断のみ）
 
 ```bash
-npx textlint [ファイルパス]
+bun run lint
 ```
 
 **重要**: この段階では`--fix`を実行**しません**。エラーを検出するのみです。
@@ -188,7 +188,7 @@ npx textlint [ファイルパス]
 
 ```bash
 # Textlintの最優先エラーのみ修正
-npx textlint --fix [ファイルパス]
+bun run lint:fix
 ```
 
 その後、レビューで提案された🔴最優先改善のうち、自動修正可能な箇所のみ適用します。
@@ -303,7 +303,7 @@ git diff [ファイルパス]
 
 ### 実行コマンド
 ```bash
-npx textlint --fix [ファイルパス]
+bun run lint:fix
 ```
 
 ### 修正サマリー
@@ -592,7 +592,7 @@ git diff [ファイルパス]
 
 ```bash
 # Textlintで自動チェック
-npx textlint [ファイルパス]
+bun run lint
 
 # または簡易レビュー
 /beginner-feedback [ファイルパス]
