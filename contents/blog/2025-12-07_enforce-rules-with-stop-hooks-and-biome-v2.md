@@ -413,7 +413,7 @@ type ContentElement = {
 ```json package.json
 {
   "scripts": {
-    "lint:ai": "set -o pipefail && biome check . --reporter=github 2>&1 | grep '^::'",
+    "lint:ai": "set -o pipefail && biome lint . --reporter=github 2>&1 | { grep '^::' || true; }",
     "format": "biome format --write .",
     "type-check:ai": "tsc --noEmit --pretty false",
   },
