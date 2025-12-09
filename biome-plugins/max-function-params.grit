@@ -6,7 +6,7 @@ or {
 } where {
     register_diagnostic(
         span = $name,
-        message = "関数の引数が２個以上です。可読性の観点からオブジェクト形式で引数を設定してください",
+        message = "関数の引数が２個以上です。可読性の観点から分割代入形式({ a, b }: { a: number; b: number })`で引数を設定してください",
         severity = "error"
     )
 }
