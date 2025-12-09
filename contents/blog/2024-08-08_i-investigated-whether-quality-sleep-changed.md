@@ -214,7 +214,7 @@ https://developer.apple.com/documentation/healthkit
 
 ## 使用したソースコード
 
-https://github.com/Suntory-Y-Water/healthcare-sleep-analysis
+https://github.com/Suntory-N-Water/healthcare-sleep-analysis
 
 
 

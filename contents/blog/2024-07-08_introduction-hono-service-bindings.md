@@ -30,7 +30,7 @@ Hono で別の Workers を連携したい人
 
 ## 成果物
 
-https://github.com/Suntory-Y-Water/hono-service-binding
+https://github.com/Suntory-N-Water/hono-service-binding
 
 ## Monorepo環境を構築
 

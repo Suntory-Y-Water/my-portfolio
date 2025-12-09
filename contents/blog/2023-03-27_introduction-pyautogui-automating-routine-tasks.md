@@ -131,5 +131,5 @@ if __name__ == '__main__':
 
 ## その他
 
-> github → https://github.com/Suntory-Y-Water/start_pyautogui
+> github → https://github.com/Suntory-N-Water/start_pyautogui
 

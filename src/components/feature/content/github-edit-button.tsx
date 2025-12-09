@@ -19,25 +19,6 @@ const GITHUB_EDIT_URL_BASE = `${siteConfig.links.github}/${REPOSITORY_CONSTANTS.
  *
  * @param filePath - GitHubリポジトリ内のファイルパス(任意)。例: 'contents/blog/2025-01-15-typescript.md'。指定されていない場合はボタンを表示しません
  * @returns GitHubで編集ボタンコンポーネント。filePathがない場合はnullを返します
- *
- * @example
- * ```tsx
- * import { GitHubEditButton } from '@/components/feature/content/github-edit-button';
- *
- * export default function BlogPost() {
- *   const filePath = 'contents/blog/2025-01-15-typescript.md';
- *
- *   return (
- *     <article>
- *       <h1>TypeScriptの型定義について</h1>
- *       <p>記事の内容...</p>
- *       <GitHubEditButton filePath={filePath} />
- *     </article>
- *   );
- * }
- * // 出力: GitHubのアイコンと「GitHubで修正を提案する」というテキストのボタンが表示されます
- * // クリックすると https://github.com/Suntory-Y-Water/my-portfolio/blob/main/contents/blog/2025-01-15-typescript.md が開きます
- * ```
  */
 export function GitHubEditButton({ filePath }: GitHubEditButtonProps) {
   if (!filePath || !siteConfig.links.github || !siteConfig.repository?.branch) {

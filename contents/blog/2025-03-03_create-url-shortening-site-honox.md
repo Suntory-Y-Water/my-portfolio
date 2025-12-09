@@ -16,9 +16,9 @@ tags:
 HonoX で簡単な Web サイト(短縮 URL 作成サイト)を作成します。
 基本的な環境構築が終わっている `setup` ブランチから始めて、完成版(`main` ブランチ)までの変化を追っていきましょう。
 
-https://github.com/Suntory-Y-Water/honox-url-app/tree/setup
+https://github.com/Suntory-N-Water/honox-url-app/tree/setup
 
-https://github.com/Suntory-Y-Water/honox-url-app
+https://github.com/Suntory-N-Water/honox-url-app
 
 
 ## プロジェクト概要と技術スタック
@@ -606,4 +606,4 @@ HonoX も含め Cloudflare 製品の良いところは、デプロイやリリ�
 
 ## 最終的なソースコード
 
-https://github.com/Suntory-Y-Water/honox-url-app
+https://github.com/Suntory-N-Water/honox-url-app

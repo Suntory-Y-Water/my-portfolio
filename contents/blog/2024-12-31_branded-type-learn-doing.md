@@ -105,7 +105,7 @@ Branded Type を導入し、「`PostId` は単なる number ではない」と�
 
 作成したソースコードは `branded-type-lesson` ブランチで確認できます。
 
-https://github.com/Suntory-Y-Water/di-lesson-with-hono
+https://github.com/Suntory-N-Water/di-lesson-with-hono
 
 既存の `postRepository.ts` では `findPost(id: number)` を定義していますが、これを Branded Type を使って `findPost(id: PostId)` として扱うように修正します。
 

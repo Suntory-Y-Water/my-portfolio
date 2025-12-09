@@ -50,6 +50,122 @@ const nextConfig = {
         destination: '/blog',
         permanent: true,
       },
+      // 旧タグURL → 新タグURLへの301リダイレクト
+      {
+        source: '/tags/Claude',
+        destination: '/tags/claude',
+        permanent: true,
+      },
+      {
+        source: '/tags/ClaudeCode',
+        destination: '/tags/claude-code',
+        permanent: true,
+      },
+      {
+        source: '/tags/Cloudflare',
+        destination: '/tags/cloudflare',
+        permanent: true,
+      },
+      {
+        source: '/tags/Cloudflare%20Workers',
+        destination: '/tags/cloudflare-workers',
+        permanent: true,
+      },
+      {
+        source: '/tags/DevConatainers',
+        destination: '/tags/devcontainer',
+        permanent: true,
+      },
+      {
+        source: '/tags/Docker',
+        destination: '/tags/docker',
+        permanent: true,
+      },
+      {
+        source: '/tags/GitHub',
+        destination: '/tags/github',
+        permanent: true,
+      },
+      {
+        source: '/tags/GitHub%20Copilot',
+        destination: '/tags/github-copilot',
+        permanent: true,
+      },
+      {
+        source: '/tags/Hono',
+        destination: '/tags/hono',
+        permanent: true,
+      },
+      {
+        source: '/tags/HonoX',
+        destination: '/tags/honox',
+        permanent: true,
+      },
+      {
+        source: '/tags/LINE%20Messaging%20API',
+        destination: '/tags/line-messaging-api',
+        permanent: true,
+      },
+      {
+        source: '/tags/MCP',
+        destination: '/tags/mcp',
+        permanent: true,
+      },
+      {
+        source: '/tags/Next.js',
+        destination: '/tags/nextjs',
+        permanent: true,
+      },
+      {
+        source: '/tags/Notion',
+        destination: '/tags/notion',
+        permanent: true,
+      },
+      {
+        source: '/tags/OpenNext.js',
+        destination: '/tags/opennextjs',
+        permanent: true,
+      },
+      {
+        source: '/tags/React',
+        destination: '/tags/react',
+        permanent: true,
+      },
+      {
+        source: '/tags/Tailwind%20CSS',
+        destination: '/tags/tailwind-css',
+        permanent: true,
+      },
+      {
+        source: '/tags/Vercel',
+        destination: '/tags/vercel',
+        permanent: true,
+      },
+      {
+        source: '/tags/Visual%20Studio%20Code',
+        destination: '/tags/vscode',
+        permanent: true,
+      },
+      {
+        source: '/tags/%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3',
+        destination: '/tags/security',
+        permanent: true,
+      },
+      {
+        source: '/tags/%E3%83%96%E3%83%AD%E3%82%B0',
+        destination: '/tags/blog',
+        permanent: true,
+      },
+      {
+        source: '/tags/%E3%83%9D%E3%83%BC%E3%83%88%E3%83%95%E3%82%A9%E3%83%AA%E3%82%AA',
+        destination: '/tags/portfolio',
+        permanent: true,
+      },
+      {
+        source: '/tags/%E7%B5%B5%E6%96%87%E5%AD%97',
+        destination: '/tags/emoji',
+        permanent: true,
+      },
     ];
   },
 

@@ -45,11 +45,11 @@ https://github.com/cristobalgvera/ez-clasp
 
 サンプルプロジェクトを作成後、少し設定をいじった状態の branch がこちらです。
 
-https://github.com/Suntory-Y-Water/clasp-gas-webapp-demo/tree/init
+https://github.com/Suntory-N-Water/clasp-gas-webapp-demo/tree/init
 
 作成したすべてのコードはこちらです。
 
-https://github.com/Suntory-Y-Water/clasp-gas-webapp-demo
+https://github.com/Suntory-N-Water/clasp-gas-webapp-demo
 
 ## なぜclaspを使うのか
 

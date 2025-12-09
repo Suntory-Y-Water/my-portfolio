@@ -99,5 +99,5 @@ tags:
 脳のメモリを消費するようなUIを作らないためにも基礎的な部分を固めたいですね…
 
 今回作成したリポジトリはこちらになります。
-https://github.com/Suntory-Y-Water/the-dark-pattern-ui-sample
+https://github.com/Suntory-N-Water/the-dark-pattern-ui-sample
 

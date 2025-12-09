@@ -33,7 +33,7 @@ description: HonoXとCloudflare Workersを活用し、アニメの金髪ヒロ�
 
 開発したソースコードは、以下の GitHub リポジトリで公開しています。
 
-https://github.com/Suntory-Y-Water/kinpatsu-heroine-com
+https://github.com/Suntory-N-Water/kinpatsu-heroine-com
 
 ## サイトの使い方
 

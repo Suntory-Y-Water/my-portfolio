@@ -24,7 +24,7 @@ tags:
 
 使用した SQL や DB の環境構築に使用した Dockerfile はこちらです。
 
-https://github.com/Suntory-Y-Water/explain-analyze-lesson
+https://github.com/Suntory-N-Water/explain-analyze-lesson
 
 ## 環境構築
 ## 前提

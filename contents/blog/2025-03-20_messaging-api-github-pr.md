@@ -37,7 +37,7 @@ https://zenn.dev/msy/articles/4c48d9d9e06147
 セキュリティを考慮して、この Workers は他 LINE ユーザーや Notion のページ URL 以外のリクエストを受け付けないよう、必要最低限のバリデーションチェックを実装しています。
 ソースコードは以下のリポジトリで公開しています。
 
-https://github.com/Suntory-Y-Water/blog-worker
+https://github.com/Suntory-N-Water/blog-worker
 
 ### メインロジックをctx.waitUntil()でラップ
 
@@ -150,7 +150,7 @@ export default {
               );
 
               // 完了メッセージをLINEに送信
-              const replyText = `GitHubのPRを作成しました！\nブランチ名 : ${branchName}\n以下のURLからPull Requestを確認して下さい。\nhttps://github.com/Suntory-Y-Water/my-portfolio/compare/main...${branchName}`;
+              const replyText = `GitHubのPRを作成しました！\nブランチ名 : ${branchName}\n以下のURLからPull Requestを確認して下さい。\nhttps://github.com/Suntory-N-Water/my-portfolio/compare/main...${branchName}`;
               await sendMessage({
                 message: replyText,
                 replyToken: event.replyToken,
@@ -387,7 +387,7 @@ export async function createGithubPr(
 ): Promise<string> {
   try {
     const octokit = new Octokit({ auth: githubToken });
-    const owner = 'Suntory-Y-Water';
+    const owner = 'Suntory-N-Water';
     const repo = 'my-portfolio';
     const baseBranch = 'main';
     const newBranchName = `blog-${slug}`;

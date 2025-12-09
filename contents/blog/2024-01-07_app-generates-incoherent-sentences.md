@@ -28,7 +28,7 @@ GASのGASのLanguageAppクラスを使って複数回翻訳を行い、支離滅
 
 [支離滅裂な文章を生成するアプリ](https://incoherent-sentence-generation.vercel.app/)
 
-https://github.com/Suntory-Y-Water/incoherent-sentence-generation
+https://github.com/Suntory-N-Water/incoherent-sentence-generation
 
 YouTubeでは日本語→英語→韓国語→ドイツ語→英語→日本語の順番で翻訳していましたが、動画内にちょうど写っていたスペイン語とフランス語も噛ませばもっと支離滅裂な文章になるんじゃね？と思いドイツ語→英語→フランス語→英語→スペイン語→英語→日本語の順番で追加翻訳するように変更しました。
 

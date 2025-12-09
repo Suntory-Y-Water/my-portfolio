@@ -300,7 +300,7 @@ Power Point を出力したあとに編集できないのが少しネックで�
 今回はこのあたりで終わりたいと思います。
 作成に使ったリポジトリはこちらです。
 
-https://github.com/Suntory-Y-Water/marp-pptx-tutorial-
+https://github.com/Suntory-N-Water/marp-pptx-tutorial-
 
 ## 参考
 

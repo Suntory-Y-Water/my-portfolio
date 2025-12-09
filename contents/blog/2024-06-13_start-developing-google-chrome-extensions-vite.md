@@ -630,7 +630,7 @@ dist/assets/index.html-_Dl5P9dK.js                                 1.29 kB │ g
 
 ## ソースコード
 
-https://github.com/Suntory-Y-Water/chrome-extension-vite-sample
+https://github.com/Suntory-N-Water/chrome-extension-vite-sample
 
 ## 参考になった記事
 

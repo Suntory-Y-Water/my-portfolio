@@ -358,4 +358,4 @@ JSON Placeholder の公式ドキュメントを見たところ、id は勝手に
 
 ## ソースコード
 
-https://github.com/Suntory-Y-Water/di-lesson-with-hono
+https://github.com/Suntory-N-Water/di-lesson-with-hono

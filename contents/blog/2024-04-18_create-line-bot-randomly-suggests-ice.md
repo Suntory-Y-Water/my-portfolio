@@ -33,7 +33,7 @@ https://liff.line.me/1645278921-kWRPP32q/?accountId=462wexvg
 
 ### リポジトリ(README編集中)
 
-https://github.com/Suntory-Y-Water/I-scream
+https://github.com/Suntory-N-Water/I-scream
 
 
 

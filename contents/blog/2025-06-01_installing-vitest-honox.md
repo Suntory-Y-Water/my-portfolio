@@ -513,7 +513,7 @@ MPA フレームワークとしてサーバーサイド中心の設計を採用�
 
 今回使用したリポジトリはこちらです。
 
-https://github.com/Suntory-Y-Water/honox-examples-sui/tree/feature-vitest-start
+https://github.com/Suntory-N-Water/honox-examples-sui/tree/feature-vitest-start
 
 ## 参考
 

@@ -126,4 +126,4 @@ https://www.petemillspaugh.com/nextjs-search-with-pagefind
 作成したコードを載せてもよかったのですが、フロントエンドを触るのが久しぶりすぎたので気になる人だけ見てください…(結構汚いです)
 本当は検索で引っかかった記事アイコンのキャッシュとかもできたらいいですね。
 
-https://github.com/Suntory-Y-Water/my-portfolio/blob/main/src/components/feature/search/search-dialog.tsx
+https://github.com/Suntory-N-Water/my-portfolio/blob/main/src/components/feature/search/search-dialog.tsx
