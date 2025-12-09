@@ -45,7 +45,7 @@ https://qiita.com/Guz9N9KLASTt/items/06dbf9967be9c7155bfd
 
 ## リポジトリ
 
-https://github.com/Suntory-Y-Water/my-notion-manager
+https://github.com/Suntory-N-Water/my-notion-manager
 
 ## レイアウト
 

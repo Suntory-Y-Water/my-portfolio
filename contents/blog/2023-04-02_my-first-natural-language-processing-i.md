@@ -175,5 +175,5 @@ Received message: ピピーっ！👮👮ネガティブ警察です🚨🚨🚨
 
 ## その他
 
-github → https://github.com/Suntory-Y-Water/NegativeCommentsCheck
+github → https://github.com/Suntory-N-Water/NegativeCommentsCheck
 

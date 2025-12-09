@@ -180,5 +180,5 @@ https://github.com/vercel/next.js/issues/48344
 
 使用したリポジトリ
 
-https://github.com/Suntory-Y-Water/api-router-sample
+https://github.com/Suntory-N-Water/api-router-sample
 

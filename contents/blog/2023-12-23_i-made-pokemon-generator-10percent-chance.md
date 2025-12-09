@@ -30,7 +30,7 @@ PokeAPI を使ってみた一心から始まり、ポケモンをランダムに
 
 poketter(https://poketter.vercel.app/)
 
-https://github.com/Suntory-Y-Water/poketter
+https://github.com/Suntory-N-Water/poketter
 
 ## 感想と考慮したところ
 

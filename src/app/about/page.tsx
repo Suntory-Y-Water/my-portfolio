@@ -217,7 +217,7 @@ export default function AboutPage() {
               href={siteConfig.links.github}
               icon={<Github className='h-5 w-5' />}
               label='GitHub'
-              username='Suntory-Y-Water'
+              username='Suntory-N-Water'
             />
           </div>
         </div>

@@ -77,5 +77,5 @@ regionで指定している座標は、筆者のPCが4Kモニターを使用し�
 
 ## その他
 
-github → https://github.com/Suntory-Y-Water/HighlightDelete
+github → https://github.com/Suntory-N-Water/HighlightDelete
 

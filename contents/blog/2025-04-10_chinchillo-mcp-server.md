@@ -549,4 +549,4 @@ Claude Desktop を開くと MCP サーバーが使用可能になっています
 
 今回使用したコードは以下のリポジトリに格納しています。
 
-https://github.com/Suntory-Y-Water/chinchillo-mcp-server
+https://github.com/Suntory-N-Water/chinchillo-mcp-server

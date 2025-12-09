@@ -38,7 +38,7 @@ https://lin.ee/ANONJtN
 
 ## リポジトリ
 
-https://github.com/Suntory-Y-Water/convenience-store-sweets-bot
+https://github.com/Suntory-N-Water/convenience-store-sweets-bot
 
 ## 感想
 

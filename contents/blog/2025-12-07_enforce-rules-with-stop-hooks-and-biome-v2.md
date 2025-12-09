@@ -456,7 +456,7 @@ sequenceDiagram
 
 私が以前作成した Hooks では、最新のユーザー発言以降に編集があったかをチェックしていました。
 
-https://github.com/Suntory-Y-Water/claude-code-settings/blob/main/scripts/typescript/utils.ts#L90-L137
+https://github.com/Suntory-N-Water/claude-code-settings/blob/main/scripts/typescript/utils.ts#L90-L137
 
 しかし、そもそも Claude Code が「分かりました」とエラーがあっても作業を停止しなかった場合、その返答も最新のユーザー発言以降に含まれてしまうため、さきほどの編集を再検知してしまい、永遠に Hooks が発動し続ける状態になりました。
 これを解決するためには、Claude Code が提供している「現在 Hooks の割り込み中か」を表す `stop_hook_active` フラグがあるため、これを呼び出しの最初に確認することで、Hook でエラーが報告済みだった場合はスキップするようにしています。

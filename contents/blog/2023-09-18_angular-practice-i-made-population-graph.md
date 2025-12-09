@@ -20,7 +20,7 @@ tags:
 ## 作成したもの
 
 船橋市の人口推移グラフ
-Github : https://github.com/Suntory-Y-Water/funabashi-population-trends
+Github : https://github.com/Suntory-N-Water/funabashi-population-trends
 URL : https://funabashi-population-trends.vercel.app/
 
 ## 使用技術

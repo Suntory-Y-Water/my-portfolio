@@ -3,8 +3,6 @@
  *
  * 各定数は名前空間で分類され、`as const`で型安全性を確保しています。
  * 変更が必要な場合は、このファイルのみを編集してください。
- *
- * @see {@link https://github.com/Suntory-Y-Water/my-portfolio/issues/219}
  */
 
 const url = process.env.NEXT_PUBLIC_APP_URL || 'https://suntory-n-water.com';
@@ -35,7 +33,7 @@ export const SOCIAL_CONSTANTS = {
   /** Twitter/X アカウントURL */
   TWITTER: 'https://x.com/Suntory_N_Water',
   /** GitHub アカウントURL */
-  GITHUB: 'https://github.com/Suntory-Y-Water',
+  GITHUB: 'https://github.com/Suntory-N-Water',
 } as const;
 
 /**
@@ -43,7 +41,7 @@ export const SOCIAL_CONSTANTS = {
  */
 export const REPOSITORY_CONSTANTS = {
   /** リポジトリオーナー */
-  OWNER: 'Suntory-Y-Water',
+  OWNER: 'Suntory-N-Water',
   /** リポジトリ名 */
   NAME: 'my-portfolio',
   /** デフォルトブランチ */

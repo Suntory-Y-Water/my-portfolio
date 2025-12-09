@@ -107,11 +107,11 @@ https://zenn.dev/sre_holdings/articles/a57f088e9ca07d
 
 元
 
-https://github.com/Suntory-Y-Water/di-lesson-with-hono/tree/branded-type-lesson
+https://github.com/Suntory-N-Water/di-lesson-with-hono/tree/branded-type-lesson
 
 クリーンアーキテクチャ後
 
-https://github.com/Suntory-Y-Water/hono-clean-architecture
+https://github.com/Suntory-N-Water/hono-clean-architecture
 
 ## フォルダ構成
 

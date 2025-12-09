@@ -403,7 +403,7 @@ Cloudflare Browser Rendering は、エッジでのブラウザ自動化という
 
 今回使用したリポジトリは以下で確認できます。
 
-https://github.com/Suntory-Y-Water/browser-rendering-markdown
+https://github.com/Suntory-N-Water/browser-rendering-markdown
 
 ## 参考
 

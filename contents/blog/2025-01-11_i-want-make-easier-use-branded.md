@@ -94,4 +94,4 @@ export function createBody(p: string): Body {
 
 このツールのソースコードは GitHub で公開しています。
 
-https://github.com/Suntory-Y-Water/branded-type-generator
+https://github.com/Suntory-N-Water/branded-type-generator

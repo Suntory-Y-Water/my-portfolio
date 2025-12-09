@@ -27,7 +27,7 @@ Claude Code で MCP を登録すると、登録されている MCP のすべて�
 
 この内容が気になったので、Serena MCP のツール(`listDir`, `findFile`, `getSymbolsOverview` など)を TypeScript コードから呼び出せる Claude Code Skill を実装しました。
 
-https://github.com/Suntory-Y-Water/mcp-code-execution
+https://github.com/Suntory-N-Water/mcp-code-execution
 
 必要なツールのみをオンデマンドでインポートし、コード内でデータを処理してから最終結果のみを LLM に返すことで、トークン消費を削減できると考えました。
 

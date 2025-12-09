@@ -29,7 +29,7 @@ tags:
 
 ## URL
 
-[https://inori-track-suntory-y-water.vercel.app](https://inori-track-suntory-y-water.vercel.app/)
+[https://inori-track-Suntory-N-Water.vercel.app](https://inori-track-Suntory-N-Water.vercel.app/)
 
 ## 機能説明
 
@@ -54,9 +54,9 @@ ORM: Prisma
 データベース: Vercel Postgres
 ホスティング: Vercel
 
-リポジトリ: https://github.com/Suntory-Y-Water/inori-track
+リポジトリ: https://github.com/Suntory-N-Water/inori-track
 
-https://github.com/Suntory-Y-Water/inori-track
+https://github.com/Suntory-N-Water/inori-track
 
 ## 実際に使ってみる
 
