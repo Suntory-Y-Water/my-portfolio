@@ -39,7 +39,7 @@
 │   ├── lib/             # ビジネスロジック・ユーティリティ
 │   ├── config/          # サイト設定・タグマッピング
 │   └── constants/       # 定数定義
-├── contents/blog/       # Markdownブログ記事 (YYYY/MM-title.md)
+├── contents/blog/       # Markdownブログ記事 (YYYY-MM-DD_title.md)
 ├── public/              # 静的ファイル
 ├── scripts/             # ビルド・自動化スクリプト
 └── docs/adr/            # Architecture Decision Records
@@ -47,42 +47,41 @@
 
 ---
 
+## コーディング規約
+
+詳細なコーディング規約は `.claude/rules/` ディレクトリに整理されています:
+
+### 全体適用 (常時ロード)
+- **コーディング規約**: `.claude/rules/coding-standards.md`
+
+### パス固有ルール (動的ロード)
+- **UI Component規約**: `.claude/rules/components/ui.md`
+- **Feature Component規約**: `.claude/rules/components/feature.md`
+- **ブログ記事執筆規約**: `.claude/rules/markdown/content.md`
+- **セキュリティ原則**: `.claude/rules/security/xss-prevention.md`
+
+### 重要な原則
+- **YAGNI原則**: 将来的な拡張性の考慮は禁止、現時点で必要な機能のみ実装
+- **関数ベース**: クラスは使わない
+- **Server Components優先**: `'use client'` は最小限に
+
+---
+
 ## よく使うコマンド (AI向け)
 
-以下のコマンドを使用して品質チェックを実施してください:
-
 ```bash
-# フォーマットチェック 
+# フォーマットチェック
 bun run format
 
 # 型チェック
 bun run type-check:ai
 
-# Lint 
+# Lint
 bun run lint:ai
+
+# タグ整合性チェック
+bun run check:tags
 ```
-
----
-
-## コーディング規約
-
-### 型定義
-- **Omit, Pick で既存型を再利用する** - 同じような型を別途定義しない
-- **配列は `[]` 記法を使用** - `User[]` (良い) vs `Array<User>` (悪い)
-
-### 関数定義
-- **最上位の関数は `function` 宣言** - 見通しを良くする
-- **map、filter、即時関数はアロー関数** - 簡潔に記述
-
-### アンチパターン (禁止事項)
-- **クラスは使わない** - 関数ベースの実装を優先
-- **暗黙のフォールバックは禁止** - デフォルト値や暗黙の処理を避ける
-- **スイッチ引数は禁止** - boolean引数で動作を切り替えない
-- **オプショナル引数・デフォルト値は禁止** - 必須引数として明示
-- **YAGNI原則** - 将来的な拡張性の考慮は禁止、現時点で必要な機能のみ実装
-- **ラッパー関数の作成禁止** - 合理的な理由がない限り直接呼び出し
-- **不要なexportは禁止** - 使用されていない関数や型定義をexportしない
-- **バレルインポート禁止** - `@/` aliasを使用した個別インポートを使用
 
 ---
 
@@ -98,13 +97,6 @@ shared/       (共有コンポーネント)
   ↓
 ui/           (汎用UIコンポーネント)
 ```
-
-### Server Components vs Client Components
-- **デフォルトはServer Components** - `'use client'`は最小限に
-- **Client Componentsが必要な場合**:
-  - イベントハンドラー (`onClick`, `onChange`)
-  - React Hooks (`useState`, `useEffect`)
-  - ブラウザAPI (`localStorage`, `window`)
 
 ### 静的生成 (SSG)
 - ビルド時にすべての記事ページを静的生成
@@ -129,17 +121,17 @@ remark (Markdown AST)
 bun run new-blog
 ```
 
-### タグ追加時の手順(3は commit 時に自動検証)
-1. **タグマッピングに追加**: `src/config/tag-slugs.ts` にタグIDと表示名を追加
-2. **記事のフロントマターに追加**: `tags: ["new-tag"]` を記述
-3. **整合性チェック実行**: `bun run check:tags` で確認
+### タグ追加時の手順
+1. `src/config/tag-slugs.ts` にタグIDと表示名を追加
+2. 記事のフロントマターに追加: `tags: ["new-tag"]`
+3. `bun run check:tags` で確認 (commit時に自動検証)
 
 ---
 
 ## MCP使い分けガイド
 
-### 調査・実装フェーズ - Serena MCP
-**シンボルベースのコード編集、リネーム、挿入・置換、読み込みに使用**
+### Serena MCP - シンボルベースのコード操作
+**コード編集、リネーム、挿入・置換、読み込みに使用**
 
 ```typescript
 // シンボルの置換
@@ -166,8 +158,8 @@ name_path: 'getAllBlogPosts'
 relative_path: 'src/lib/markdown.ts'
 ```
 
-### ライブラリドキュメント - Context7 MCP
-**最新のライブラリドキュメント取得に使用(場合によって有効化されていないときあり!)**
+### Context7 MCP - ライブラリドキュメント取得
+**最新のライブラリドキュメント取得に使用 (有効化されていない場合あり)**
 
 ```typescript
 // ライブラリIDを解決
@@ -181,31 +173,7 @@ library_id: 'resolved-library-id'
 
 ---
 
-## コード更新後の作業フロー
+## 参考ドキュメント
 
-### Git操作
-```bash
-# 変更内容確認
-git status
-git diff
-
-# ブランチの確認
-git branch
-# mainなら保護ルールがあるため、新しいブランチを作成
-git switch -c feature-<修正した内容>
-
-# ステージング
-git add .
-
-# コミット (日本語、簡潔に、作成者情報不要)
-git commit -m "feat: 新機能の概要"
-# type例: feat, fix, refactor, docs, test, style, chore
-
-# プッシュ
-git push origin <branch-name>
-```
-
-### 3. PR作成
-```bash
-gh pr create --title "PR title" --body "PR description"
-```
+- **Serenaメモリ**: `.serena/memories/` (プロジェクト全体の理解)
+- **ADR**: `docs/adr/` (アーキテクチャ決定記録)
