@@ -3,6 +3,7 @@ import path from 'node:path';
 import matter from 'gray-matter';
 import { getTagNameFromSlug, getTagSlug } from '@/config/tag-slugs';
 import type { Frontmatter, MarkdownData } from '@/types/markdown';
+import type { SelfAssessmentData } from '@/types/self-assessment';
 
 const blogDir = path.join(process.cwd(), 'contents', 'blog');
 
@@ -20,6 +21,8 @@ export type BlogPost = MarkdownData<{
   icon?: string;
   /** 絵文字変換後のアイコンURL(FluentUI Emoji) */
   icon_url?: string;
+  /** 記事の理解度チェック用クイズ */
+  selfAssessment?: SelfAssessmentData;
 }>;
 
 /**

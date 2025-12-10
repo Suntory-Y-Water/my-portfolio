@@ -8,6 +8,50 @@ icon: ⚖️
 icon_url: /icons/balance_scale_flat.svg
 tags:
   - ClaudeCode
+selfAssessment:
+  quizzes:
+    - question: "Claude Codeに「ルールを覚えておいて」と頼むアプローチが機能しない理由として、最も適切なものはどれですか？"
+      answers:
+        - text: "LLMに自然言語でルールを詰め込みすぎると、全体のパフォーマンスが下がるため"
+          correct: true
+          explanation: "記事では「LLMに自然言語でルールを詰め込みすぎると、かえって全体のパフォーマンスが下がる」という構造的な限界が指摘されています。強制力のある静的解析による自動検知が必要です。"
+        - text: "Claude Codeは日本語のルールを理解できないため"
+          correct: false
+          explanation: null
+        - text: "メモリファイルCLAUDE.mdのファイルサイズに制限があるため"
+          correct: false
+          explanation: null
+        - text: "Claude Codeのプランによって記憶できるルール数が異なるため"
+          correct: false
+          explanation: null
+    - question: "Stop Hooksが無限ループに陥る問題を解決するために使用するフラグは何ですか？"
+      answers:
+        - text: "stop_hook_active"
+          correct: true
+          explanation: "Claude Codeが提供している「現在Hooksの割り込み中か」を表す`stop_hook_active`フラグを呼び出しの最初に確認することで、Hookでエラーが報告済みだった場合はスキップできます。"
+        - text: "is_hook_running"
+          correct: false
+          explanation: null
+        - text: "hook_loop_prevention"
+          correct: false
+          explanation: null
+        - text: "continue_on_error"
+          correct: false
+          explanation: null
+    - question: "Biomeのlintコマンドでパイプ処理によってエラーが消えてしまう問題を解決するために、コマンドの先頭に付与する必要があるものは何ですか？"
+      answers:
+        - text: "set -o pipefail"
+          correct: true
+          explanation: "`set -o pipefail`をコマンドの先頭に付与することで、パイプラインの途中でエラーがあれば全体の終了コードをエラー(≠0)にすることができます。これによりgrepがエラー行を見つけても、全体の終了コードが正しく保たれます。"
+        - text: "set -e"
+          correct: false
+          explanation: null
+        - text: "set -x"
+          correct: false
+          explanation: null
+        - text: "set -u"
+          correct: false
+          explanation: null
 ---
 2025 年 12 月現在、私たちのコーディング環境は過去に戻れないほどの劇的な変化を遂げました。それは Claude Code といった**コーディングエージェント**の登場です。
 コーディングエージェントの衝撃を表した記事 [CLINEに全部賭けろ](https://zenn.dev/mizchi/articles/all-in-on-cline)では「***Cline は真のイノベーションの入口であり、そして開けてはいけないパンドラの箱でもあったと思う。***」と語られています。その中でも現時点でシェア率が一番高いのは Claude Code でしょう。
