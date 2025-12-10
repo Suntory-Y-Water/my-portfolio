@@ -150,7 +150,7 @@ export default {
               );
 
               // 完了メッセージをLINEに送信
-              const replyText = `GitHubのPRを作成しました！\nブランチ名 : ${branchName}\n以下のURLからPull Requestを確認して下さい。\nhttps://github.com/Suntory-N-Water/my-portfolio/compare/main...${branchName}`;
+              const replyText = `GitHubのPRを作成しました！\nブランチ名 : ${branchName}\n以下のURLからPull Requestを確認して下さい。\nhttps://github.com/Suntory-N-Water/sui-blog/compare/main...${branchName}`;
               await sendMessage({
                 message: replyText,
                 replyToken: event.replyToken,
@@ -388,7 +388,7 @@ export async function createGithubPr(
   try {
     const octokit = new Octokit({ auth: githubToken });
     const owner = 'Suntory-N-Water';
-    const repo = 'my-portfolio';
+    const repo = 'sui-blog';
     const baseBranch = 'main';
     const newBranchName = `blog-${slug}`;
     const filePath = `src/content/blog/${slug}.mdx`;

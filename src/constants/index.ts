@@ -43,7 +43,7 @@ export const REPOSITORY_CONSTANTS = {
   /** リポジトリオーナー */
   OWNER: 'Suntory-N-Water',
   /** リポジトリ名 */
-  NAME: 'my-portfolio',
+  NAME: 'sui-blog',
   /** デフォルトブランチ */
   BRANCH: 'main',
 } as const;
