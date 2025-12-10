@@ -18,6 +18,10 @@
         "false"
       ],
       "env": {}
+    },
+    "kiri": {
+      "command": "kiri",
+      "args": ["--repo", ".", "--db", ".kiri/index.duckdb", "--watch"]
     }
   }
 }
