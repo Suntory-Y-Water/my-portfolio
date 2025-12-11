@@ -9,6 +9,7 @@ import { CustomMarkdown } from '@/components/feature/content/custom-markdown';
 import { GitHubEditButton } from '@/components/feature/content/github-edit-button';
 import { MarkdownCopyButton } from '@/components/feature/content/markdown-copy-button';
 import { RelatedArticles } from '@/components/feature/content/related-articles';
+import { SelfAssessment } from '@/components/feature/content/self-assessment';
 import { TableOfContents } from '@/components/feature/content/table-of-contents';
 import { BlogViewTransition } from '@/components/feature/content/view-transition';
 import { Icons } from '@/components/icons';
@@ -232,6 +233,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className='mt-8'>
           <CustomMarkdown source={post.rawContent} />
         </div>
+
+        {/* Self Assessment */}
+        {post.metadata.selfAssessment && (
+          <SelfAssessment selfAssessment={post.metadata.selfAssessment} />
+        )}
 
         {/* Footer */}
         <footer className='mt-10 flex flex-wrap items-center justify-between gap-4 border-t pt-8'>
