@@ -15,43 +15,29 @@ selfAssessment:
         - text: "LLMに自然言語でルールを詰め込みすぎると、全体のパフォーマンスが下がるため"
           correct: true
           explanation: "記事では「LLMに自然言語でルールを詰め込みすぎると、かえって全体のパフォーマンスが下がる」という構造的な限界が指摘されています。強制力のある静的解析による自動検知が必要です。"
-        - text: "Claude Codeは日本語のルールを理解できないため"
+        - text: "コンテキストウィンドウが埋まってトークンが足りなくなるため"
           correct: false
-          explanation: null
-        - text: "メモリファイルCLAUDE.mdのファイルサイズに制限があるため"
+          explanation: "記事では「貴重なトークンとコンテキストウィンドウの浪費」と書いていますが、これは「ルールを守って」と繰り返し指摘することの問題であり、ルールを覚えておけない理由ではありません。"
+        - text: "CLAUDE.mdに書いたルールは優先度が低く、忘れられやすいため"
           correct: false
-          explanation: null
-        - text: "Claude Codeのプランによって記憶できるルール数が異なるため"
+          explanation: "記事では「強制力がなければ忘れて守られなくなる」と書いていますが、これはメモリファイルの優先度の問題ではなく、静的解析のような強制力がないことが本質的な問題です。"
+        - text: "Pro プランでないとルールを長期記憶できないため"
           correct: false
-          explanation: null
+          explanation: "記事でProプランに言及がありますが、プランによる記憶力の違いではなく、「その都度チャットで指摘するのはトークンの浪費」という文脈で使われています。"
     - question: "Stop Hooksが無限ループに陥る問題を解決するために使用するフラグは何ですか？"
       answers:
         - text: "stop_hook_active"
           correct: true
           explanation: "Claude Codeが提供している「現在Hooksの割り込み中か」を表す`stop_hook_active`フラグを呼び出しの最初に確認することで、Hookでエラーが報告済みだった場合はスキップできます。"
-        - text: "is_hook_running"
+        - text: "最新のユーザー発言以降の編集をチェックするhasTypeScriptEdits()"
           correct: false
-          explanation: null
-        - text: "hook_loop_prevention"
+          explanation: "記事では「以前作成したHooksでは、最新のユーザー発言以降に編集があったかをチェックしていました。しかし...永遠にHooksが発動し続ける状態になりました」と明記されており、この方法では解決できませんでした。"
+        - text: "transcript_pathを確認して編集の有無を判定する"
           correct: false
-          explanation: null
-        - text: "continue_on_error"
+          explanation: "transcript_pathは実装で使われていますが、これは編集検知のためであり、無限ループを解決する仕組みではありません。"
+        - text: "blockingError()の戻り値で次回スキップを指示する"
           correct: false
-          explanation: null
-    - question: "Biomeのlintコマンドでパイプ処理によってエラーが消えてしまう問題を解決するために、コマンドの先頭に付与する必要があるものは何ですか？"
-      answers:
-        - text: "set -o pipefail"
-          correct: true
-          explanation: "`set -o pipefail`をコマンドの先頭に付与することで、パイプラインの途中でエラーがあれば全体の終了コードをエラー(≠0)にすることができます。これによりgrepがエラー行を見つけても、全体の終了コードが正しく保たれます。"
-        - text: "set -e"
-          correct: false
-          explanation: null
-        - text: "set -x"
-          correct: false
-          explanation: null
-        - text: "set -u"
-          correct: false
-          explanation: null
+          explanation: "blockingError()はエラーをClaude Codeに通知する関数ですが、次回のHook実行をスキップする機能はありません。無限ループを防ぐにはstop_hook_activeフラグの確認が必要です。"
 ---
 2025 年 12 月現在、私たちのコーディング環境は過去に戻れないほどの劇的な変化を遂げました。それは Claude Code といった**コーディングエージェント**の登場です。
 コーディングエージェントの衝撃を表した記事 [CLINEに全部賭けろ](https://zenn.dev/mizchi/articles/all-in-on-cline)では「***Cline は真のイノベーションの入口であり、そして開けてはいけないパンドラの箱でもあったと思う。***」と語られています。その中でも現時点でシェア率が一番高いのは Claude Code でしょう。

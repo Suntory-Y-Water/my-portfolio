@@ -53,54 +53,63 @@ function AnswerItem({ answer }: AnswerItemProps) {
 
   return (
     <details
-      className='border border-t-0 border-gray-300 font-medium text-gray-900 dark:border-zinc-600 dark:text-gray-50'
+      className='group border border-t-0 border-gray-300 font-medium text-gray-900 dark:border-zinc-600 dark:text-gray-50'
       open={isOpen}
       onToggle={(e) => setIsOpen(e.currentTarget.open)}
     >
-      <summary className='cursor-pointer p-4 text-lg hover:bg-gray-100 dark:hover:bg-zinc-700'>
-        {answer.text}
+      <summary className='flex cursor-pointer items-center gap-3 p-4 text-lg hover:bg-gray-100 dark:hover:bg-zinc-700 [&::-webkit-details-marker]:hidden'>
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          viewBox='0 0 20 20'
+          fill='currentColor'
+          className='h-5 w-5 shrink-0 transition-transform duration-300 group-open:rotate-90'
+          aria-hidden='true'
+        >
+          <path
+            fillRule='evenodd'
+            d='M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z'
+            clipRule='evenodd'
+          />
+        </svg>
+        <span>{answer.text}</span>
       </summary>
-      <div className='p-4'>
+      <div className='animate-in fade-in-50 slide-in-from-top-2 border-t border-gray-200 bg-gray-50 p-4 duration-300 dark:border-zinc-700 dark:bg-zinc-800/50'>
         <p>
           {answer.correct ? (
             <span className='flex items-center gap-1 text-green-500'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth='1.5'
-                stroke='currentColor'
+                viewBox='0 0 20 20'
+                fill='currentColor'
                 className='h-6 w-6'
                 aria-label='正解アイコン'
               >
                 <title>正解</title>
                 <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'
+                  fillRule='evenodd'
+                  d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z'
+                  clipRule='evenodd'
                 />
               </svg>
-              正解！
+              正解です！
             </span>
           ) : (
-            <span className='flex items-center gap-2 text-red-500'>
+            <span className='flex items-center gap-2 text-amber-600 dark:text-amber-500'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth='1.5'
-                stroke='currentColor'
+                viewBox='0 0 20 20'
+                fill='currentColor'
                 className='h-6 w-6'
                 aria-label='不正解アイコン'
               >
                 <title>不正解</title>
                 <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='M6 18L18 6M6 6l12 12'
+                  fillRule='evenodd'
+                  d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z'
+                  clipRule='evenodd'
                 />
               </svg>
-              もう一度考えてみましょう
+              もう一度考えてみましょう！
             </span>
           )}
         </p>
