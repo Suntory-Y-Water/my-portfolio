@@ -147,27 +147,27 @@ sui-blog/
 - **ベースブランチ**: `feature-migrate-astro-blog`
 - このブランチから各Phase用のブランチを切って作業
 - ブランチ命名規則:
-  - Phase 1: `feature-migrate-astro-blog/phase1-init`
-  - Phase 2-1: `feature-migrate-astro-blog/phase2-1-libs`
-  - Phase 2-2: `feature-migrate-astro-blog/phase2-2-components`
-  - Phase 2-3: `feature-migrate-astro-blog/phase2-3-pages`
-  - Phase 2-4: `feature-migrate-astro-blog/phase2-4-api-routes`
-  - Phase 2-5: `feature-migrate-astro-blog/phase2-5-styles`
-  - Phase 3: `feature-migrate-astro-blog/phase3-cleanup`
-  - Phase 4: `feature-migrate-astro-blog/phase4-final-check`
-- 各Phase完了後、`feature-migrate-astro-blog` にマージ
+  - Phase 1: `feature-migrate-astro-blog-phase1-init`
+  - Phase 2-1: `feature-migrate-astro-blog-phase2-1-libs`
+  - Phase 2-2: `feature-migrate-astro-blog-phase2-2-components`
+  - Phase 2-3: `feature-migrate-astro-blog-phase2-3-pages`
+  - Phase 2-4: `feature-migrate-astro-blog-phase2-4-api-routes`
+  - Phase 2-5: `feature-migrate-astro-blog-phase2-5-styles`
+  - Phase 3: `feature-migrate-astro-blog-phase3-cleanup`
+  - Phase 4: `feature-migrate-astro-blog-phase4-final-check`
+- Phase 1完了後、Phase 2全体（2-1～2-5）完了後、Phase 3完了後、Phase 4完了後にそれぞれ `feature-migrate-astro-blog` にマージ
 - 最終的に `feature-migrate-astro-blog` を `main` にマージ
 
 ### 段階的移行の方針
-1. 同一リポジトリ内に `astro-migration/` フォルダを作成
+1. 同一リポジトリ内に `astro-app/` フォルダを作成
 2. 既存Next.jsコードを参照しながら、Astroへ段階的に移植
 3. 移植完了後、Next.js関連ファイルを削除
-4. `astro-migration/` の内容をルートに移動
+4. `astro-app/` の内容をルートに移動
 
 ### ディレクトリ構成（移行中）
 ```
 sui-blog/
-├── astro-migration/          # 新規Astroプロジェクト
+├── astro-app/          # 新規Astroプロジェクト
 │   ├── src/
 │   ├── public/              # Astro用静的ファイル
 │   ├── astro.config.mjs
@@ -190,7 +190,7 @@ sui-blog/
 **目的**: 最小構成のAstroプロジェクトを作成し、ビルドが通る状態にする
 
 **作業内容**:
-1. `astro-migration/` フォルダ作成
+1. `astro-app/` フォルダ作成
 2. Astro初期化（minimal template）
 3. 必要なパッケージインストール
    - `@astrojs/tailwind`
@@ -234,13 +234,13 @@ sui-blog/
 
 #### Phase 2-3: ページ
 **優先順位3（コンポーネントに依存）**:
-1. トップページ: `src/app/page.tsx` → `astro-migration/src/pages/index.astro`
-2. ブログ一覧: `src/app/blog/page.tsx` → `astro-migration/src/pages/blog/index.astro`
-3. ブログ一覧（ページネーション）: `src/app/blog/page/[page]/page.tsx` → `astro-migration/src/pages/blog/[page].astro`
-4. ブログ詳細: `src/app/blog/[slug]/page.tsx` → `astro-migration/src/pages/blog/[slug].astro`
-5. タグ一覧: `src/app/tags/page.tsx` → `astro-migration/src/pages/tags/index.astro`
-6. タグ詳細: `src/app/tags/[slug]/page.tsx` → `astro-migration/src/pages/tags/[slug].astro`
-7. Aboutページ: `src/app/about/page.tsx` → `astro-migration/src/pages/about.astro`
+1. トップページ: `src/app/page.tsx` → `astro-app/src/pages/index.astro`
+2. ブログ一覧: `src/app/blog/page.tsx` → `astro-app/src/pages/blog/index.astro`
+3. ブログ一覧（ページネーション）: `src/app/blog/page/[page]/page.tsx` → `astro-app/src/pages/blog/[page].astro`
+4. ブログ詳細: `src/app/blog/[slug]/page.tsx` → `astro-app/src/pages/blog/[slug].astro`
+5. タグ一覧: `src/app/tags/page.tsx` → `astro-app/src/pages/tags/index.astro`
+6. タグ詳細: `src/app/tags/[slug]/page.tsx` → `astro-app/src/pages/tags/[slug].astro`
+7. Aboutページ: `src/app/about/page.tsx` → `astro-app/src/pages/about.astro`
 
 **移植ポイント**:
 - `generateStaticParams()` → `getStaticPaths()`
@@ -249,10 +249,10 @@ sui-blog/
 
 #### Phase 2-4: API Routes
 **優先順位4（ページと並行可能）**:
-1. OGP画像生成: `src/app/blog/ogp/[slug]/route.tsx` → `astro-migration/src/pages/blog/ogp/[slug].png.ts`
-2. RSS: `src/app/rss.xml/route.ts` → `astro-migration/src/pages/rss.xml.ts`
-3. llms.txt: `src/app/llms.txt/route.ts` → `astro-migration/src/pages/llms.txt.ts`
-4. Markdown表示: `src/app/blog/md/[slug]/route.ts` → `astro-migration/src/pages/blog/[slug].md.ts`
+1. OGP画像生成: `src/app/blog/ogp/[slug]/route.tsx` → `astro-app/src/pages/blog/ogp/[slug].png.ts`
+2. RSS: `src/app/rss.xml/route.ts` → `astro-app/src/pages/rss.xml.ts`
+3. llms.txt: `src/app/llms.txt/route.ts` → `astro-app/src/pages/llms.txt.ts`
+4. Markdown表示: `src/app/blog/md/[slug]/route.ts` → `astro-app/src/pages/blog/[slug].md.ts`
 
 **移植ポイント**:
 - `export async function GET()` は同じ形式
@@ -261,9 +261,9 @@ sui-blog/
 
 #### Phase 2-5: スタイル・設定
 **優先順位5（最後）**:
-- `tailwind.config.ts` → `astro-migration/tailwind.config.ts`
-- `src/styles/globals.css` → `astro-migration/src/styles/globals.css`
-- `biome.json` → 共有または `astro-migration/biome.json`
+- `tailwind.config.ts` → `astro-app/tailwind.config.ts`
+- `src/styles/globals.css` → `astro-app/src/styles/globals.css`
+- `biome.json` → 共有または `astro-app/biome.json`
 
 ---
 
@@ -277,7 +277,7 @@ sui-blog/
    - `next.config.ts`
    - `next-env.d.ts`
    - 既存 `package.json`, `bun.lockb`
-3. `astro-migration/` の内容をルートに移動
+3. `astro-app/` の内容をルートに移動
 4. `contents/` と `public/` はそのまま維持
 
 **確認項目**:
@@ -314,9 +314,9 @@ sui-blog/
 
 #### 実行コマンド
 ```bash
-# astro-migration/ フォルダ作成
-mkdir astro-migration
-cd astro-migration
+# astro-app/ フォルダ作成
+mkdir astro-app
+cd astro-app
 
 # Astro初期化
 bun create astro@latest . --template minimal --no-install
@@ -340,15 +340,15 @@ bun run dev
 
 #### 移植対象ファイル
 ```
-src/lib/markdown.ts          → astro-migration/src/lib/markdown.ts
-src/lib/utils.ts             → astro-migration/src/lib/utils.ts
-src/lib/pagination.ts        → astro-migration/src/lib/pagination.ts
-src/lib/toc.ts              → astro-migration/src/lib/toc.ts
-src/lib/inline-icons.ts     → astro-migration/src/lib/inline-icons.ts
-src/lib/recommend.ts        → astro-migration/src/lib/recommend.ts
-src/config/site.ts          → astro-migration/src/config/site.ts
-src/config/tag-slugs.ts     → astro-migration/src/config/tag-slugs.ts
-src/constants/index.ts      → astro-migration/src/constants/index.ts
+src/lib/markdown.ts          → astro-app/src/lib/markdown.ts
+src/lib/utils.ts             → astro-app/src/lib/utils.ts
+src/lib/pagination.ts        → astro-app/src/lib/pagination.ts
+src/lib/toc.ts              → astro-app/src/lib/toc.ts
+src/lib/inline-icons.ts     → astro-app/src/lib/inline-icons.ts
+src/lib/recommend.ts        → astro-app/src/lib/recommend.ts
+src/config/site.ts          → astro-app/src/config/site.ts
+src/config/tag-slugs.ts     → astro-app/src/config/tag-slugs.ts
+src/constants/index.ts      → astro-app/src/constants/index.ts
 ```
 
 #### 重要な変更点
@@ -363,19 +363,19 @@ src/constants/index.ts      → astro-migration/src/constants/index.ts
 #### 移植対象ファイル
 ```
 # UI Components (shadcn/ui系)
-src/components/ui/button.tsx → astro-migration/src/components/ui/Button.tsx
-src/components/ui/card.tsx → astro-migration/src/components/ui/Card.tsx
-src/components/ui/badge.tsx → astro-migration/src/components/ui/Badge.tsx
+src/components/ui/button.tsx → astro-app/src/components/ui/Button.tsx
+src/components/ui/card.tsx → astro-app/src/components/ui/Card.tsx
+src/components/ui/badge.tsx → astro-app/src/components/ui/Badge.tsx
 （他のui/配下も同様）
 
 # Shared Components
-src/components/shared/Header.tsx → astro-migration/src/components/shared/Header.tsx
-src/components/shared/Footer.tsx → astro-migration/src/components/shared/Footer.tsx
-src/components/shared/Pagination.tsx → astro-migration/src/components/shared/Pagination.tsx
+src/components/shared/Header.tsx → astro-app/src/components/shared/Header.tsx
+src/components/shared/Footer.tsx → astro-app/src/components/shared/Footer.tsx
+src/components/shared/Pagination.tsx → astro-app/src/components/shared/Pagination.tsx
 
 # Feature Components
-src/components/feature/content/blog-card.tsx → astro-migration/src/components/feature/content/BlogCard.tsx
-src/components/feature/content/custom-markdown.tsx → astro-migration/src/components/feature/content/CustomMarkdown.tsx
+src/components/feature/content/blog-card.tsx → astro-app/src/components/feature/content/BlogCard.tsx
+src/components/feature/content/custom-markdown.tsx → astro-app/src/components/feature/content/CustomMarkdown.tsx
 （他のfeature/配下も同様）
 ```
 
@@ -401,7 +401,7 @@ src/components/feature/content/custom-markdown.tsx → astro-migration/src/compo
 
 #### ページ移植例
 **ブログ詳細ページ**:
-- `src/app/blog/[slug]/page.tsx` → `astro-migration/src/pages/blog/[slug].astro`
+- `src/app/blog/[slug]/page.tsx` → `astro-app/src/pages/blog/[slug].astro`
 - `generateStaticParams` → `getStaticPaths`
 - メタデータは `<head>` 内で定義
 
@@ -411,7 +411,7 @@ src/components/feature/content/custom-markdown.tsx → astro-migration/src/compo
 
 #### OGP画像生成
 **移植内容**:
-- `src/app/blog/ogp/[slug]/route.tsx` → `astro-migration/src/pages/blog/ogp/[slug].png.ts`
+- `src/app/blog/ogp/[slug]/route.tsx` → `astro-app/src/pages/blog/ogp/[slug].png.ts`
 - `next/og` の `ImageResponse` → `@vercel/og` の `ImageResponse`
 - `getStaticPaths` で全記事のOGP画像を静的生成
 
