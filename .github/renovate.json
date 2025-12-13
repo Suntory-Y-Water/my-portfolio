@@ -20,7 +20,7 @@
 
   "packageRules": [
     {
-      "description": "Patch, Minor は自動マージ",
+      "description": "Patch, Minor, Pin, Digest は自動マージ",
       "matchUpdateTypes": ["patch", "minor", "pin", "digest"],
       "automerge": true,
       "platformAutomerge": true,
@@ -31,22 +31,15 @@
       "matchUpdateTypes": ["major"],
       "automerge": false,
       "minimumReleaseAge": "0 days"
-    },
-    {
-      "description": "脆弱性は待機時間を無視して即時自動マージ",
-      "matchUpdateTypes": ["patch", "minor", "major"],
-      "matchDatasources": ["*"],
-      "vulnerabilityAlerts": {
-        "enabled": true,
-        "stabilityDays": 0,
-        "automerge": true,
-        "labels": ["security"]
-      }
     }
   ],
 
   "vulnerabilityAlerts": {
-    "enabled": true
+    "enabled": true,
+    "automerge": true,
+    "minimumReleaseAge": "0 days",
+    "labels": ["security"],
+    "assignees": []
   },
 
   "osvVulnerabilityAlerts": true,
