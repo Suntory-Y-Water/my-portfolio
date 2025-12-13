@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%; /* #fafafa */
+    --foreground: 0 0% 20%; /* #333333 */
+
+    --card: 0 0% 100%; /* #ffffff */
+    --card-foreground: 0 0% 20%; /* #333333 */
+
+    --popover: 0 0% 100%; /* #ffffff */
+    --popover-foreground: 0 0% 20%; /* #333333 */
+
+    --primary: 214 100% 27%; /* inori-track blue */
+    --primary-foreground: 0 0% 100%; /* #ffffff */
+
+    --secondary: 220 14% 96%; /* #f3f4f8 */
+    --secondary-foreground: 0 0% 20%; /* #333333 */
+
+    --muted: 220 14% 96%; /* #f3f4f8 */
+    --muted-foreground: 0 0% 45%; /* #737373 */
+
+    --accent: 199 100% 78%; /* #8ED0FF */
+    --accent-foreground: 0 0% 20%; /* #333333 */
+
+    --destructive: 0 84% 60%; /* #ef4444 */
+    --destructive-foreground: 0 0% 98%; /* #fafafa */
+
+    --border: 0 0% 86%; /* #dbdbdb */
+    --input: 0 0% 86%; /* #dbdbdb */
+    --ring: 199 100% 78%; /* #8ED0FF */
+
+    --radius: 0.5rem;
+
+    --chart-1: 199 100% 78%; /* #8ED0FF */
+    --chart-2: 152 76% 80%; /* #a5f3c4 */
+    --chart-3: 266 100% 87%; /* #d8b4fe */
+    --chart-4: 358 100% 86%; /* #fecaca */
+    --chart-5: 41 94% 75%; /* #fcd34d */
+
+    font-family: "noto-sans", sans-serif;
+  }
+
+  .dark {
+    --background: 0 0% 12%; /* #1f1f1f */
+    --foreground: 0 0% 95%; /* #f2f2f2 */
+
+    --card: 0 0% 15%; /* #262626 */
+    --card-foreground: 0 0% 95%; /* #f2f2f2 */
+
+    --popover: 0 0% 15%; /* #262626 */
+    --popover-foreground: 0 0% 95%; /* #f2f2f2 */
+
+    --primary: 199 100% 78%; /* #8ED0FF */
+    --primary-foreground: 0 0% 12%; /* #1f1f1f */
+
+    --secondary: 0 0% 20%; /* #333333 */
+    --secondary-foreground: 0 0% 95%; /* #f2f2f2 */
+
+    --muted: 0 0% 20%; /* #333333 */
+    --muted-foreground: 0 0% 65%; /* #a6a6a6 */
+
+    --accent: 199 100% 78%; /* #8ED0FF */
+    --accent-foreground: 0 0% 12%; /* #1f1f1f */
+
+    --destructive: 0 84% 60%; /* #ef4444 */
+    --destructive-foreground: 0 0% 98%; /* #fafafa */
+
+    --border: 0 0% 28%; /* #474747 */
+    --input: 0 0% 28%; /* #474747 */
+    --ring: 199 100% 78%; /* #8ED0FF */
+
+    --radius: 0.5rem;
+
+    --chart-1: 199 100% 78%; /* #8ED0FF */
+    --chart-2: 152 76% 80%; /* #a5f3c4 */
+    --chart-3: 266 100% 87%; /* #d8b4fe */
+    --chart-4: 358 100% 86%; /* #fecaca */
+    --chart-5: 41 94% 75%; /* #fcd34d */
+  }
+
+  p,
+  li,
+  tr,
+  label {
+    line-height: 2;
+    letter-spacing: 0.16px;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border; /* Use updated border color */
+  }
+  body {
+    @apply bg-background font-sans text-foreground antialiased; /* Add antialiasing */
+    /* Apply default font from tailwind.config.ts [476] */
+    font-family: var(--font-sans);
+  }
+  /* Improve focus visibility globally */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+  /* Adjust heading styles */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold tracking-tight; /* Consistent tracking */
+  }
+  h1 {
+    @apply text-3xl md:text-4xl;
+  } /* Adjust sizes */
+  h2 {
+    @apply mb-4 border-b text-2xl md:text-3xl;
+  } /* Add bottom border to h2 */
+  p,
+  li {
+    @apply leading-relaxed text-foreground/90; /* Slightly relaxed leading [166] */
+  }
+}
+
+/* PagefindUIのスタイルをテーマに合わせてカスタマイズ
+ * @layer を使用せず、グローバルスコープで定義してPagefindUIの動的要素に確実に適用
+ */
+
+/* ライトモード用のスタイル */
+.pagefind-ui__result {
+  background-color: hsl(0 0% 100%) !important;
+}
+
+.pagefind-ui__result-title,
+.pagefind-ui__result-link,
+.pagefind-ui__result-link:hover {
+  color: hsl(0 0% 5%) !important;
+}
+
+.pagefind-ui__result-excerpt,
+.pagefind-ui__result-inner p,
+.pagefind-ui__result-inner span {
+  color: hsl(0 0% 20%) !important;
+}
+
+.pagefind-ui__message,
+.pagefind-ui__results-area {
+  color: hsl(0 0% 20%) !important;
+}
+
+.pagefind-ui__button {
+  margin-bottom: 1rem !important;
+}
+
+/* クリアボタン - ライトモード */
+.pagefind-ui__search-clear {
+  color: hsl(0 0% 40%) !important;
+}
+
+.pagefind-ui__result-nested {
+  color: hsl(0 0% 20%) !important;
+}
+
+/* ハイライト(mark要素)の色 - ライトモード */
+mark {
+  background-color: hsl(60 100% 70%) !important;
+  color: hsl(0 0% 0%) !important;
+}
+
+/* ダークモード用のスタイル */
+.dark .pagefind-ui__result {
+  background-color: hsl(0 0% 15%) !important;
+}
+
+.dark .pagefind-ui__result-title,
+.dark .pagefind-ui__result-link,
+.dark .pagefind-ui__result-link:hover {
+  color: hsl(0 0% 95%) !important;
+}
+
+.dark .pagefind-ui__result-excerpt,
+.dark .pagefind-ui__result-inner p,
+.dark .pagefind-ui__result-inner span {
+  color: hsl(0 0% 80%) !important;
+}
+
+.dark .pagefind-ui__message,
+.dark .pagefind-ui__results-area {
+  color: hsl(0 0% 80%) !important;
+}
+
+.dark .pagefind-ui__button {
+  margin-bottom: 1rem !important;
+}
+
+.dark .pagefind-ui__result-nested {
+  color: hsl(0 0% 80%) !important;
+}
+
+/* ハイライト(mark要素)の色 - ダークモード */
+.dark mark {
+  background-color: hsl(45 100% 40%) !important;
+  color: hsl(0 0% 100%) !important;
+}
+
+/* Custom font */
+@font-face {
+  font-family: 'PlemolJP35Console';
+  src: url('/fonts/PlemolJP35Console-Regular.woff2') format('woff2');
+  font-display: swap;
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --font-plemol-jp-35-console: 'PlemolJP35Console', monospace;
+}

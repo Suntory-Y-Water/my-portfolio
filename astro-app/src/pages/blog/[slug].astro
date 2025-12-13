@@ -1,0 +1,139 @@
+---
+import '@/styles/markdown.css';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/markdown';
+import { getRelatedPosts } from '@/lib/recommend';
+import { extractTOC } from '@/lib/toc';
+import { getInlineIcon } from '@/lib/inline-icons';
+import { absoluteUrl, formatDate } from '@/lib/utils';
+import { siteConfig } from '@/config/site';
+import { getTagSlug } from '@/config/tag-slugs';
+import { BLOG_CONSTANTS } from '@/constants';
+import BlogBackButton from '@/components/feature/content/blog-back-button';
+import CustomMarkdown from '@/components/feature/content/custom-markdown';
+import GitHubEditButton from '@/components/feature/content/github-edit-button';
+import MarkdownCopyButton from '@/components/feature/content/markdown-copy-button';
+import RelatedArticles from '@/components/feature/content/related-articles';
+import SelfAssessment from '@/components/feature/content/self-assessment';
+import TableOfContents from '@/components/feature/content/table-of-contents';
+import BlogViewTransition from '@/components/feature/content/view-transition';
+import * as Icons from '@/components/icons';
+import { Badge } from '@/components/ui/badge';
+
+export async function getStaticPaths() {
+  const allPosts = await getAllBlogPosts();
+  return allPosts.map((post) => ({
+    params: { slug: post.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const post = await getBlogPostBySlug(slug);
+
+if (!post) {
+  return Astro.redirect('/404');
+}
+
+const allPosts = await getAllBlogPosts();
+const relatedPosts = getRelatedPosts({
+  currentSlug: slug,
+  allPosts,
+  count: BLOG_CONSTANTS.RELATED_POSTS_COUNT,
+});
+
+const tableOfContents = extractTOC(post.rawContent);
+const displayUrl = post.metadata.icon_url || (post.metadata.icon?.startsWith('https://') ? post.metadata.icon : null);
+const inlineSvg = displayUrl ? getInlineIcon(displayUrl) : undefined;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.metadata.title,
+  datePublished: post.metadata.date,
+  dateModified: post.metadata.date,
+  description: post.metadata.description,
+  image: absoluteUrl(`/blog/ogp/${post.slug}`),
+  author: { '@type': 'Person', name: siteConfig.name, url: siteConfig.url },
+  publisher: {
+    '@type': 'Person',
+    name: siteConfig.name,
+    image: { '@type': 'ImageObject', url: absoluteUrl('/opengraph-image.png?20251122') },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': absoluteUrl(`/blog/${post.slug}`) },
+};
+
+const canonicalUrl = absoluteUrl(`/blog/${post.slug}`);
+---
+
+<BaseLayout title={post.metadata.title} description={post.metadata.description} ogImage={absoluteUrl(`/blog/ogp/${post.slug}`)} canonicalUrl={canonicalUrl}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <div>
+    <article class="min-h-[500px]">
+      <div class="mb-6 flex items-center justify-between">
+        <BlogBackButton client:load class="h-9 px-2" />
+      </div>
+      {(displayUrl || post.metadata.icon) && (
+        <div class="mb-6 flex justify-center">
+          <BlogViewTransition client:load name={`blog-icon-${post.slug}`}>
+            {inlineSvg ? (
+              <span class="h-20 w-20 [&>svg]:h-full [&>svg]:w-full [&>svg]:object-contain" aria-hidden set:html={inlineSvg} />
+            ) : displayUrl ? (
+              <img src={displayUrl} alt={`Icon for ${post.metadata.title}`} width={80} height={80} loading="eager" />
+            ) : (
+              <div class="text-6xl">{post.metadata.icon}</div>
+            )}
+          </BlogViewTransition>
+        </div>
+      )}
+      <div class="mb-6 flex flex-wrap items-center justify-between text-sm text-muted-foreground">
+        {post.metadata.date && (
+          <BlogViewTransition client:load name={`blog-date-${post.slug}`}>
+            <div class="inline-flex items-center gap-1">
+              <Icons.Calendar client:load class="size-4" />
+              <time datetime={new Date(post.metadata.date).toISOString()}>{formatDate(post.metadata.date)}</time>
+            </div>
+          </BlogViewTransition>
+        )}
+        {post.metadata.tags && post.metadata.tags.length > 0 && (
+          <BlogViewTransition client:load name={`blog-tags-${post.slug}`}>
+            <div class="inline-flex flex-wrap gap-2">
+              {post.metadata.tags.map((tag) => (
+                <a key={tag} href={`/tags/${getTagSlug(tag)}`}>
+                  <Badge client:load class="px-2 py-0.5 text-xs">{tag}</Badge>
+                </a>
+              ))}
+            </div>
+          </BlogViewTransition>
+        )}
+      </div>
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <BlogViewTransition client:load name={`blog-title-${post.slug}`}>
+          <h1 class="text-2xl font-bold leading-snug tracking-normal">{post.metadata.title}</h1>
+        </BlogViewTransition>
+        <div class="self-start sm:self-auto">
+          <MarkdownCopyButton client:idle content={post.rawContent} />
+        </div>
+      </div>
+      {post.metadata.description && (
+        <BlogViewTransition client:load name={`blog-desc-${post.slug}`}>
+          <p class="mt-4 text-foreground/80">{post.metadata.description}</p>
+        </BlogViewTransition>
+      )}
+      {tableOfContents.length > 0 && <TableOfContents client:load items={tableOfContents} />}
+      <div class="mt-8">
+        <CustomMarkdown client:load source={post.rawContent} />
+      </div>
+      {post.metadata.selfAssessment && <SelfAssessment client:load selfAssessment={post.metadata.selfAssessment} />}
+      <footer class="mt-10 flex flex-wrap items-center justify-between gap-4 border-t pt-8">
+        <div class="flex items-center space-x-2">
+          <a href={`/blog/${slug}.md`} class="inline-flex items-center gap-1.5 px-2 py-1 text-sm text-muted-foreground hover:text-primary">
+            <Icons.FileText client:load class="size-4" />
+            <span>Markdown ver</span>
+          </a>
+          <GitHubEditButton client:load filePath={post.filePath} />
+        </div>
+      </footer>
+    </article>
+    <RelatedArticles client:visible relatedPosts={relatedPosts} />
+  </div>
+</BaseLayout>
