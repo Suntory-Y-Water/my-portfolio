@@ -650,9 +650,9 @@ PUBLIC_APP_URL=https://example.com
 - [x] コミット完了
 
 #### Phase 2-2: UIコンポーネント
-- [ ] ui/コンポーネント移植（13ファイル）
-- [ ] icons/コンポーネント移植（3ファイル）
-- [ ] shared/コンポーネント移植（7ファイル）
+- [x] ui/コンポーネント移植（13ファイル）
+- [x] icons/コンポーネント移植（3ファイル）
+- [ ] shared/コンポーネント移植（7ファイル） - 進行中
 - [ ] feature/contentコンポーネント移植（14ファイル）
 - [ ] feature/searchコンポーネント移植（2ファイル）
 
@@ -694,6 +694,152 @@ PUBLIC_APP_URL=https://example.com
 - [ ] SEO確認
 - [ ] `feature-migrate-astro-blog`にマージ
 - [ ] `main`へマージ
+
+---
+
+### Phase 5: Astro最適化 - Islands Architectureへの移行（ブランチ: `feature-migrate-astro-blog-phase5`）
+**目的**: Astroの本質的な利点を最大化し、ゼロJS原則とIslands Architectureを実現
+
+**Astroの思想**:
+- **デフォルトでゼロJS**: 全てのコンポーネントはビルド時にHTMLとして静的生成
+- **Islands Architecture**: インタラクティブな部分だけを「島」として分離し、必要最小限のJSのみクライアントに送信
+- **Progressive Enhancement**: 基本機能はJSなしで動作し、JSは追加の体験向上のみに使用
+
+**Phase 2で移植したReactコンポーネント(.tsx)の分類**:
+
+#### 1. 完全静的化すべきコンポーネント (.tsx → .astro)
+**特徴**: インタラクティビティ不要、純粋な表示のみ
+
+**ui/コンポーネント**:
+- `Badge.tsx` → `Badge.astro` - タグバッジ表示（静的）
+- `Card.tsx` → `Card.astro` - カードレイアウト（静的）
+- `Separator.tsx` → `Separator.astro` - 区切り線（静的）
+- `Skeleton.tsx` → `Skeleton.astro` - ローディング表示（静的）
+- `Breadcrumb.tsx` → `Breadcrumb.astro` - パンくずリスト（静的）
+
+**shared/コンポーネント**:
+- `Footer.tsx` → `Footer.astro` - フッター（リンクは<a>タグ、JS不要）
+- `page-header.tsx` → `page-header.astro` - ページヘッダー（静的）
+- `callout.tsx` → `callout.astro` - コールアウト（静的）
+- `Pagination.tsx` → `Pagination.astro` - ページネーション（<a>タグ、JS不要）
+
+**feature/content/コンポーネント**:
+- `blog-card.tsx` → `blog-card.astro` - ブログカード（ホバーはCSS、JS不要）
+- `markdown-content.tsx` → `markdown-content.astro` - Markdown表示（静的）
+- `table-of-contents.tsx` → `table-of-contents.astro` - 目次（<a>タグ、JS不要）
+- `related-articles.tsx` → `related-articles.astro` - 関連記事（静的カード）
+- `github-edit-button.tsx` → `github-edit-button.astro` - GitHubリンク（<a>タグ、JS不要）
+- `self-assessment.tsx` → `self-assessment.astro` - 自己評価表示（静的）
+
+#### 2. Islands として残すReactコンポーネント (.tsx維持 + client:*)
+**特徴**: ユーザーインタラクション・状態管理・動的な振る舞いが必要
+
+**ui/コンポーネント** (client:load):
+- `theme-provider.tsx` - ダークモード管理（LocalStorage、state）
+- `ModeToggle.tsx` - テーマ切り替えボタン（onClick、state）
+- `Dialog.tsx` - モーダルダイアログ（open/close state）
+- `DropdownMenu.tsx` - ドロップダウンメニュー（open/close state）
+- `Command.tsx` - コマンドパレット（検索state、キーボード操作）
+- `Button.tsx` - インタラクティブなボタン（onClick等）※必要な箇所のみ
+
+**shared/コンポーネント** (client:load):
+- `Header.tsx` - ヘッダー（検索ダイアログ開閉、モバイルメニュー、state）
+- `MenuMobile.tsx` - モバイルメニュー（開閉state）
+- `image-with-fallback.tsx` - 画像フォールバック（onError state）
+
+**feature/search/コンポーネント** (client:idle):
+- `search-dialog.tsx` - 検索ダイアログ（Pagefind UI、state、キーボード操作）
+- `search-trigger.tsx` - 検索トリガーボタン（onClick）
+
+**feature/content/コンポーネント** (client:visible or client:idle):
+- `blog-back-button.tsx` - 戻るボタン（onClick、sessionStorage操作）
+- `remember-blog-list-path.tsx` - スクロール位置記憶（sessionStorage、useEffect）
+- `restore-scroll-position.tsx` - スクロール位置復元（sessionStorage、useLayoutEffect）
+- `view-transition.tsx` - View Transitions API（React state）
+- `markdown-copy-button.tsx` - コードコピーボタン（onClick、クリップボードAPI）
+- `code-block.tsx` - コードブロック（コピーボタン含む、インタラクティブ）
+- `link-preview.tsx` - リンクプレビュー（画像フォールバック state）
+
+**custom-markdown.tsx** (特殊):
+- Markdown表示コンポーネント
+- `dangerouslySetInnerHTML`使用のため、`.astro`の`set:html`に変換可能
+- ただし、内部にReactコンポーネント（コピーボタン等）を含む場合はReact維持
+
+#### 3. Client Directiveの最適化
+
+**Phase 2での指定**:
+```astro
+<!-- 全てclient:load（ページ読み込み時に即座にJS実行） -->
+<Header client:load />
+<BlogCard client:load />
+<SearchDialog client:load />
+```
+
+**Phase 5での最適化**:
+```astro
+<!-- 重要なUI: client:load -->
+<Header client:load />
+<ModeToggle client:load />
+
+<!-- 画面に入った時だけ: client:visible -->
+<BlogCard client:visible />
+<RelatedArticles client:visible />
+
+<!-- アイドル時に遅延ロード: client:idle -->
+<SearchDialog client:idle />
+<MarkdownCopyButton client:idle />
+
+<!-- 完全静的化: Islandなし -->
+<Footer />
+<Pagination />
+<TableOfContents />
+```
+
+**Client Directive選択基準**:
+- `client:load` - 初期表示に必要（Header、ダークモード等）
+- `client:visible` - スクロールして見える時だけ必要（BlogCard等）
+- `client:idle` - 補助的機能（検索、コピーボタン等）
+- **なし** - 静的HTML（Footer、Pagination等）
+
+#### 4. 具体的な作業手順
+
+**Step 1: 静的コンポーネントの.astro変換**
+1. `src/components/ui/Badge.tsx` を読み込み
+2. Reactの構文をAstro構文に変換:
+   - `export function Badge({ ... })` → `---` ブロック + `<badge>`
+   - Props型定義 → Astro型定義
+   - JSX → Astro template syntax
+   - `className` → `class`
+3. `src/components/ui/Badge.astro` として保存
+4. 使用箇所で `<Badge />` → `<Badge />`（client:なし）
+5. ビルド・動作確認
+
+**Step 2: Islandsの最適化**
+1. 各Reactコンポーネント使用箇所を確認
+2. `client:load` → `client:visible` or `client:idle` に変更
+3. バンドルサイズ測定（`bun run build`）
+4. Lighthouse計測
+
+**Step 3: カスタムMarkdownコンポーネント検討**
+1. `custom-markdown.tsx`の内容確認
+2. `dangerouslySetInnerHTML` → Astroの`set:html`検討
+3. 内部コンポーネントがReactの場合は維持
+
+**確認項目**:
+- [ ] 静的コンポーネント変換完了（ui/ 5ファイル）
+- [ ] 静的コンポーネント変換完了（shared/ 4ファイル）
+- [ ] 静的コンポーネント変換完了（feature/content/ 6ファイル）
+- [ ] Client Directive最適化完了
+- [ ] バンドルサイズ削減確認（ビルドログ確認）
+- [ ] Lighthouse スコア改善確認（90+目標）
+- [ ] 全機能の動作確認
+- [ ] `feature-migrate-astro-blog`にマージ
+
+**期待される効果**:
+- **JSバンドルサイズ**: 50%以上削減（静的化により）
+- **初期ロード時間**: 30%以上改善
+- **Lighthouse Performance**: 90+達成
+- **TTI (Time to Interactive)**: 大幅改善
 
 ---
 
