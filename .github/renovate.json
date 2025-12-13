@@ -16,7 +16,7 @@
   "internalChecksFilter": "strict",
 
   "prHourlyLimit": 5,
-  "concurrentPRsLimit": 0,
+  "prConcurrentLimit": 0,
 
   "packageRules": [
     {
