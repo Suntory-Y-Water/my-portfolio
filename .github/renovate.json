@@ -1,4 +1,59 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"]
+  "extends": [
+    "config:recommended",
+    ":timezone(Asia/Tokyo)",
+    ":semanticCommits",
+    ":enablePreCommit",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "description": "Patch/Minorは3日待機後CI成功で自動マージ。脆弱性は即時対応。",
+
+  "dependencyDashboard": true,
+  "dependencyDashboardTitle": "Dependency Dashboard 🤖",
+
+  "minimumReleaseAge": "3 days",
+  "internalChecksFilter": "strict",
+
+  "prHourlyLimit": 5,
+  "concurrentPRsLimit": 0,
+
+  "packageRules": [
+    {
+      "description": "Patch, Minor は自動マージ",
+      "matchUpdateTypes": ["patch", "minor", "pin", "digest"],
+      "automerge": true,
+      "platformAutomerge": true,
+      "rebaseWhen": "auto"
+    },
+    {
+      "description": "Major は自動マージしない",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "minimumReleaseAge": "0 days"
+    },
+    {
+      "description": "脆弱性は待機時間を無視して即時自動マージ",
+      "matchUpdateTypes": ["patch", "minor", "major"],
+      "matchDatasources": ["*"],
+      "vulnerabilityAlerts": {
+        "enabled": true,
+        "stabilityDays": 0,
+        "automerge": true,
+        "labels": ["security"]
+      }
+    }
+  ],
+
+  "vulnerabilityAlerts": {
+    "enabled": true
+  },
+
+  "osvVulnerabilityAlerts": true,
+
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": ["before 5am on monday"]
+  }
 }
