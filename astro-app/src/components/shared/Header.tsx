@@ -1,5 +1,3 @@
-'use client';
-
 import { Search } from 'lucide-react';
 import { type ReactElement, useState } from 'react';
 import { IoMdPerson } from 'react-icons/io';
@@ -146,7 +144,7 @@ export default function Header({ pathname }: HeaderProps) {
       </div>
 
       {/* Search Dialog */}
-      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
+      <SearchDialog pathname={pathname} open={searchOpen} onOpenChange={setSearchOpen} />
     </header>
   );
 }

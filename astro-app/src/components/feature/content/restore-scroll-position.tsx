@@ -1,5 +1,3 @@
-'use client';
-
 import { useLayoutEffect } from 'react';
 import { BLOG_NAVIGATION_CONSTANTS } from '@/constants';
 

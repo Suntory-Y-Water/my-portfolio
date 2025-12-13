@@ -1,13 +1,12 @@
-import { ViewTransition } from 'react';
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
-import { getInlineIcon } from '@/lib/inline-icons';
 import type { BlogPost } from '@/lib/markdown';
 import { cn, formatDate } from '@/lib/utils';
 
 type BlogCardProps = {
   data: BlogPost;
   priority?: boolean;
+  inlineSvg?: string;
 };
 
 /**
@@ -18,9 +17,10 @@ type BlogCardProps = {
  * クリックすると記事ページに遷移します。ホバー時にはカードが拡大し、視覚的なフィードバックを提供します。
  *
  * @param data - 表示するブログ記事データ。metadata(title、description、date、icon、tagsなど)とslugを含みます
+ * @param inlineSvg - インラインSVGデータ(サーバーサイドで取得済み)
  * @returns ブログカードコンポーネント
  */
-export function BlogCard({ data, priority }: BlogCardProps) {
+export function BlogCard({ data, priority, inlineSvg }: BlogCardProps) {
   const { metadata, slug } = data;
   const dateISO = new Date(metadata.date).toISOString();
   const formattedDate = formatDate(metadata.date).replace(/\//g, '.');
@@ -29,7 +29,6 @@ export function BlogCard({ data, priority }: BlogCardProps) {
   const displayUrl =
     metadata.icon_url ||
     (metadata.icon?.startsWith('https://') ? metadata.icon : null);
-  const inlineSvg = displayUrl ? getInlineIcon(displayUrl) : undefined;
 
   return (
     <a
@@ -43,7 +42,6 @@ export function BlogCard({ data, priority }: BlogCardProps) {
       <div className='relative aspect-video w-full bg-muted overflow-hidden'>
         <div className='absolute inset-0 bg-gradient-to-br from-secondary to-background' />
         <div className='absolute inset-0 flex items-center justify-center transition-transform duration-500 group-hover:scale-110'>
-          <ViewTransition name={`blog-icon-${slug}`}>
             {inlineSvg ? (
               <span
                 className='h-16 w-16 [&>svg]:h-full [&>svg]:w-full [&>svg]:object-contain [&>svg]:drop-shadow-md'
@@ -64,18 +62,14 @@ export function BlogCard({ data, priority }: BlogCardProps) {
                 {metadata.icon || '📝'}
               </div>
             )}
-          </ViewTransition>
         </div>
-        <ViewTransition name={`blog-date-${slug}`}>
           <div className='absolute bottom-3 left-3 rounded bg-background/80 px-2 py-0.5 font-mono text-xs text-muted-foreground backdrop-blur'>
             <time dateTime={dateISO}>{formattedDate}</time>
           </div>
-        </ViewTransition>
       </div>
 
       <div className='flex flex-1 flex-col p-4 md:p-5'>
         <div className='mb-3 flex flex-wrap gap-2'>
-          <ViewTransition name={`blog-tags-${slug}`}>
             <div className='flex flex-wrap gap-2'>
               {metadata.tags?.slice(0, 3).map((tag) => (
                 <Badge
@@ -87,21 +81,16 @@ export function BlogCard({ data, priority }: BlogCardProps) {
                 </Badge>
               ))}
             </div>
-          </ViewTransition>
         </div>
 
-        <ViewTransition name={`blog-title-${slug}`}>
           <h3 className='mb-3 text-lg font-bold transition-colors group-hover:text-primary leading-[1.5]'>
             {metadata.title}
           </h3>
-        </ViewTransition>
 
         {metadata.description && (
-          <ViewTransition name={`blog-desc-${slug}`}>
             <p className='mb-4 flex-1 text-sm leading-relaxed text-muted-foreground line-clamp-4'>
               {metadata.description}
             </p>
-          </ViewTransition>
         )}
 
         <div className='mt-auto flex items-center justify-between border-t border-border pt-4'>

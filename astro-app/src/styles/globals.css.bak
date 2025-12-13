@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   :root {
@@ -88,18 +90,20 @@
   }
 }
 
-/* Phase 2-5で対応: カスタムクラスを使ったスタイルは一時的にコメントアウト
 @layer base {
   * {
-    @apply border-border;
+    /* Phase 2-5で対応: @apply border-border; */
   }
   body {
-    @apply bg-background font-sans text-foreground antialiased;
+    /* Phase 2-5で対応: @apply bg-background font-sans text-foreground antialiased; */
+    @apply antialiased;
     font-family: var(--font-sans);
   }
+  /* Improve focus visibility globally */
   *:focus-visible {
-    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+    /* Phase 2-5で対応: @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background; */
   }
+  /* Adjust heading styles */
   h1,
   h2,
   h3,
@@ -116,10 +120,10 @@
   }
   p,
   li {
-    @apply leading-relaxed text-foreground/90;
+    /* Phase 2-5で対応: @apply leading-relaxed text-foreground/90; */
+    @apply leading-relaxed;
   }
 }
-*/
 
 /* PagefindUIのスタイルをテーマに合わせてカスタマイズ
  * @layer を使用せず、グローバルスコープで定義してPagefindUIの動的要素に確実に適用

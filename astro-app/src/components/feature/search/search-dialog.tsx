@@ -1,6 +1,3 @@
-'use client';
-
-
 import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -129,12 +126,14 @@ export function SearchDialog({
         await import(/* webpackIgnore: true */ '/pagefind/pagefind-ui.js');
 
         // PagefindUIはグローバルに登録されるため、windowオブジェクトから取得
+        // @ts-ignore TODO: ビルド設定のため        
         if (!window.PagefindUI) {
           console.warn('PagefindUI not found in window object');
           return;
         }
 
         // PagefindUI インスタンスを生成
+        // @ts-ignore TODO: ビルド設定のため
         new window.PagefindUI({
           element: '#search',
           bundlePath: '/pagefind/',
@@ -238,7 +237,7 @@ export function SearchDialog({
 
     container.addEventListener('click', handleResultClick);
     return () => container.removeEventListener('click', handleResultClick);
-  }, [open, pagefindLoaded, router, isNavigating]);
+  }, [open, pagefindLoaded, isNavigating]);
 
   /**
    * ルート変更完了時にダイアログを閉じ、ナビゲーション状態をリセット

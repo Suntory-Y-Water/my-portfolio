@@ -55,11 +55,6 @@ function isInternalBlogLink(url: string): boolean {
  * @param url - slug抽出対象のURL
  * @returns 抽出されたslug(パスの最後のセグメント)
  *
- * @example
- * ```ts
- * getSlugFromUrl('https://example.com/blog/my-post') // => 'my-post'
- * getSlugFromUrl('/blog/my-post') // => 'my-post'
- * ```
  */
 function getSlugFromUrl(url: string): string {
   try {

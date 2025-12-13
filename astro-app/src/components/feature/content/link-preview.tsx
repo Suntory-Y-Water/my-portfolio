@@ -4,7 +4,6 @@ import { getOGData } from '@/actions/fetch-og-metadata';
 import { Icons } from '@/components/icons';
 import { ImageWithFallback } from '@/components/shared/image-with-fallback';
 import { siteConfig } from '@/config/site';
-import { getBlogPostBySlug } from '@/lib/markdown';
 import { cn } from '@/lib/utils';
 
 type LinkCardProps = {
@@ -47,13 +46,6 @@ function isInternalBlogLink(url: string): boolean {
  *
  * @param url - スラッグを抽出するURL(例: '/blog/typescript', 'https://example.com/blog/react')
  * @returns 抽出されたスラッグ(例: 'typescript', 'react')
- *
- * @example
- * ```tsx
- * getSlugFromUrl('/blog/typescript');  // 'typescript'
- * getSlugFromUrl('https://example.com/blog/react');  // 'react'
- * getSlugFromUrl('/blog/nested/path/article');  // 'article'
- * ```
  */
 function getSlugFromUrl(url: string): string {
   try {
@@ -81,21 +73,6 @@ function getSlugFromUrl(url: string): string {
  * @param error - エラー状態かどうか(デフォルト: false)。trueの場合は'Page Not Found'と表示されます
  * @returns リンクカードコンポーネント
  *
- * @example
- * ```tsx
- * import { LinkCard } from '@/components/feature/content/link-preview';
- *
- * // 外部リンクのプレビュー
- * <LinkCard
- *   url='https://zenn.dev/example/articles/typescript'
- *   title='TypeScriptの型定義について'
- *   description='TypeScriptの基本的な型定義を解説します'
- *   image='https://example.com/og-image.png'
- * />
- *
- * // エラー状態
- * <LinkCard url='https://example.com/404' error={true} />
- * ```
  */
 export function LinkCard({
   url,
@@ -116,16 +93,15 @@ export function LinkCard({
             {isExternal ? (
               <>
                 <div className='relative size-4 overflow-hidden rounded-full bg-muted'>
-                  {hostname && (
-                    <Image
-                      src={`https://www.google.com/s2/favicons?domain=${hostname}&sz=32`}
-                      alt=''
+                  {/* {hostname && (
+                    <a
+                      href={`https://www.google.com/s2/favicons?domain=${hostname}&sz=32`}
                       className='object-cover'
                       fill
                       sizes='12px'
                       loading='lazy'
                     />
-                  )}
+                  )} */}
                 </div>
                 <span>{hostname.replace(/^www\./, '')}</span>
                 <Icons.externalLink className='size-3 text-muted-foreground/70' />
@@ -186,7 +162,7 @@ export function LinkCard({
     className,
   );
 
-  return isExternal ? (
+  return (
     <a
       href={url}
       target='_blank'
@@ -195,49 +171,41 @@ export function LinkCard({
     >
       {CardContent}
     </a>
-  ) : (
-    <a href={url} className={cardClasses} prefetch={false} target='_blank'>
-      {CardContent}
-    </a>
-  );
+  )
 }
 
 /**
- * 内部ブログリンクのプレビューカードを表示する非同期コンポーネント
+ * 内部ブログリンクのプレビューカードを表示するコンポーネント
  *
- * このコンポーネントは内部ブログ記事のURLからスラッグを抽出し、
- * ブログ記事のメタデータを取得してLinkCardコンポーネントで表示します。
- * 記事が見つからない場合はエラー状態のカードを表示します。
+ * このコンポーネントは内部ブログ記事のメタデータを受け取り、
+ * LinkCardコンポーネントで表示します。
  *
  * @param url - 内部ブログ記事のURL(例: '/blog/typescript')
+ * @param title - 記事タイトル
+ * @param description - 記事説明文
  * @param className - 追加のCSSクラス名(任意)
  * @returns 内部リンクカードコンポーネント
- *
- * @example
- * ```tsx
- * // LinkPreviewコンポーネント内で自動的に使用されます
- * <InternalLinkCard url='/blog/typescript' />
- * ```
  */
-async function InternalLinkCard({
+function InternalLinkCard({
   url,
+  title,
+  description,
   className,
 }: {
   url: string;
+  title?: string;
+  description?: string;
   className?: string;
 }) {
-  const slug = getSlugFromUrl(url);
-  const post = await getBlogPostBySlug(slug);
-
-  if (!post) {
+  if (!title) {
     return <LinkCard url={url} error={true} className={className} />;
   }
 
   return (
     <LinkCard
       url={url}
-      title={post.metadata.title}
-      description={post.metadata.description}
+      title={title}
+      description={description}
       image={siteConfig.ogImage}
       className={className}
     />
@@ -254,12 +222,6 @@ async function InternalLinkCard({
  * @param url - 外部リンクのURL(例: 'https://zenn.dev/example/articles/typescript')
  * @param className - 追加のCSSクラス名(任意)
  * @returns 外部リンクカードコンポーネント
- *
- * @example
- * ```tsx
- * // LinkPreviewコンポーネント内で自動的に使用されます
- * <ExternalLinkCard url='https://zenn.dev/example/articles/typescript' />
- * ```
  */
 async function ExternalLinkCard({
   url,
@@ -298,35 +260,12 @@ async function ExternalLinkCard({
  * Markdown記事内で自動的にリンクをカード形式に変換するために使用されます。
  *
  * @param url - プレビューを表示するURL(内部: '/blog/typescript', 外部: 'https://zenn.dev/article')
+ * @param internalTitle - 内部リンクのタイトル(サーバーサイドで取得済み)
+ * @param internalDescription - 内部リンクの説明文(サーバーサイドで取得済み)
  * @param className - 追加のCSSクラス名(任意)
  * @returns リンクプレビューコンポーネント
- *
- * @example
- * ```tsx
- * import { LinkPreview } from '@/components/feature/content/link-preview';
- *
- * // 内部ブログリンクのプレビュー
- * export default function Article() {
- *   return (
- *     <article>
- *       <p>関連記事:</p>
- *       <LinkPreview url='/blog/typescript' />
- *     </article>
- *   );
- * }
- *
- * // 外部リンクのプレビュー
- * export default function References() {
- *   return (
- *     <div>
- *       <h2>参考資料</h2>
- *       <LinkPreview url='https://zenn.dev/example/articles/react' />
- *     </div>
- *   );
- * }
- * ```
  */
-export function LinkPreview({ url, className }: LinkPreviewProps) {
+export function LinkPreview({ url, internalTitle, internalDescription, className }: LinkPreviewProps & { internalTitle?: string; internalDescription?: string }) {
   const isInternal = !url.startsWith('http') && isInternalBlogLink(url);
 
   return (
@@ -341,7 +280,7 @@ export function LinkPreview({ url, className }: LinkPreviewProps) {
       }
     >
       {isInternal ? (
-        <InternalLinkCard url={url} className={className} />
+        <InternalLinkCard url={url} title={internalTitle} description={internalDescription} className={className} />
       ) : (
         <ExternalLinkCard url={url} className={className} />
       )}

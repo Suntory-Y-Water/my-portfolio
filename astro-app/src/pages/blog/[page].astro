@@ -2,13 +2,14 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getAllBlogPosts } from '@/lib/markdown';
 import { paginateItems } from '@/lib/pagination';
+import { getInlineIcon } from '@/lib/inline-icons';
 import { BLOG_CONSTANTS } from '@/constants';
 import { absoluteUrl } from '@/lib/utils';
-import BlogCard from '@/components/feature/content/blog-card';
-import Pagination from '@/components/shared/pagination';
-import RememberBlogListPath from '@/components/feature/content/remember-blog-list-path';
-import RestoreScrollPosition from '@/components/feature/content/restore-scroll-position';
-import * as Icons from '@/components/icons';
+import {BlogCard} from '@/components/feature/content/blog-card';
+import {Pagination} from '@/components/shared/pagination';
+import {RememberBlogListPath} from '@/components/feature/content/remember-blog-list-path';
+import {RestoreScrollPosition} from '@/components/feature/content/restore-scroll-position';
+import { Icons } from '@/components/icons';
 
 export async function getStaticPaths() {
   const allPosts = await getAllBlogPosts();
@@ -42,6 +43,12 @@ if (currentPage > totalPages) {
   return Astro.redirect('/404');
 }
 
+const postsWithIcons = paginatedPosts.map((blog) => {
+  const displayUrl = blog.metadata.icon_url || (blog.metadata.icon?.startsWith('https://') ? blog.metadata.icon : null);
+  const inlineSvg = displayUrl ? getInlineIcon(displayUrl) : undefined;
+  return { blog, inlineSvg };
+});
+
 const canonicalUrl = absoluteUrl(`/blog/page/${page}`);
 ---
 
@@ -69,8 +76,8 @@ const canonicalUrl = absoluteUrl(`/blog/page/${page}`);
     </div>
 
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {paginatedPosts.map((blog) => (
-        <BlogCard key={blog.slug} data={blog} client:visible />
+      {postsWithIcons.map(({ blog, inlineSvg }) => (
+        <BlogCard key={blog.slug} data={blog} inlineSvg={inlineSvg} />
       ))}
     </div>
 

@@ -1,5 +1,3 @@
-'use client';
-
 import { useCallback } from 'react';
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
@@ -13,12 +11,6 @@ type Props = {
 /**
  * ブログ詳細ページで「元の一覧へ戻る」ナビゲーションを提供するボタン。
  * 優先度: 保存済みパス → 自サイト referrer が一覧系 → `/blog` フォールバック。
- *
- * @example
- * ```tsx
- * // 詳細ページの先頭などで配置
- * <BlogBackButton className="h-9 px-2" />
- * ```
  */
 export function BlogBackButton({ className }: Props) {
   const handleClick = useCallback(() => {

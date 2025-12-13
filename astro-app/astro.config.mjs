@@ -1,6 +1,8 @@
 // @ts-check
 
+import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 
 import remarkGfm from 'remark-gfm';
@@ -10,14 +12,25 @@ import rehypeSlug from 'rehype-slug';
 import rehypePrettyCode from 'rehype-pretty-code';
 
 // カスタムrehypeプラグイン
-import { rehypeLinkCard } from './src/lib/rehype-link-card.ts';
-import { rehypeMermaidCodeToDiv } from './src/lib/rehype-mermaid-code.ts';
-import { rehypeCodeCopyButton } from './src/lib/rehype-code-copy-button.ts';
+// import { rehypeLinkCard } from './src/lib/rehype-link-card.js';
+// import { rehypeMermaidCodeToDiv } from './src/lib/rehype-mermaid-code.js';
+// import { rehypeCodeCopyButton } from './src/lib/rehype-code-copy-button.js';
 
 // https://astro.build/config
 export default defineConfig({
+	integrations: [react()],
 	vite: {
 		plugins: [tailwindcss()],
+		resolve: {
+			alias: {
+				'@': fileURLToPath(new URL('./src', import.meta.url))
+			}
+		},
+		build: {
+			rollupOptions: {
+				external: ['/pagefind/pagefind-ui.js']
+			}
+		}
 	},
 	markdown: {
 		// シンタックスハイライト設定（rehypePrettyCodeを使用するため無効化）
@@ -31,13 +44,14 @@ export default defineConfig({
 		// rehypeプラグイン
 		rehypePlugins: [
 			rehypeSlug,
-			rehypeLinkCard,
-			rehypeMermaidCodeToDiv,
+			// rehypeLinkCard,
+			// rehypeMermaidCodeToDiv,
 			[rehypePrettyCode, {
 				theme: 'slack-dark',
 				keepBackground: true,
 				defaultLang: 'plaintext',
 				// ファイル名をtitle属性に変換
+				// @ts-ignore - .mjs file cannot have type annotations
 				filterMetaString: (meta) => {
 					if (!meta) {
 						return meta;
@@ -56,7 +70,7 @@ export default defineConfig({
 					return meta;
 				},
 			}],
-			rehypeCodeCopyButton,
+			// rehypeCodeCopyButton,
 		],
 	},
 });

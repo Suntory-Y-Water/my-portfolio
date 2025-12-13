@@ -2,12 +2,13 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getAllBlogPosts } from '@/lib/markdown';
 import { paginateItems } from '@/lib/pagination';
+import { getInlineIcon } from '@/lib/inline-icons';
 import { BLOG_CONSTANTS } from '@/constants';
-import BlogCard from '@/components/feature/content/blog-card';
-import Pagination from '@/components/shared/pagination';
-import RememberBlogListPath from '@/components/feature/content/remember-blog-list-path';
-import RestoreScrollPosition from '@/components/feature/content/restore-scroll-position';
-import * as Icons from '@/components/icons';
+import {BlogCard} from '@/components/feature/content/blog-card';
+import {Pagination} from '@/components/shared/pagination';
+import {RememberBlogListPath} from '@/components/feature/content/remember-blog-list-path';
+import {RestoreScrollPosition} from '@/components/feature/content/restore-scroll-position';
+import { Icons } from '@/components/icons';
 
 const allPosts = await getAllBlogPosts();
 const totalPosts = allPosts.length;
@@ -19,6 +20,12 @@ const {
   items: allPosts,
   page: 1,
   pageSize: BLOG_CONSTANTS.POSTS_PER_PAGE,
+});
+
+const postsWithIcons = paginatedPosts.map((blog) => {
+  const displayUrl = blog.metadata.icon_url || (blog.metadata.icon?.startsWith('https://') ? blog.metadata.icon : null);
+  const inlineSvg = displayUrl ? getInlineIcon(displayUrl) : undefined;
+  return { blog, inlineSvg };
 });
 ---
 
@@ -46,8 +53,8 @@ const {
     </div>
 
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {paginatedPosts.map((blog, index) => (
-        <BlogCard key={blog.slug} data={blog} priority={index < 6} client:visible />
+      {postsWithIcons.map(({ blog, inlineSvg }, index) => (
+        <BlogCard key={blog.slug} data={blog} priority={index < 6} inlineSvg={inlineSvg} />
       ))}
     </div>
 

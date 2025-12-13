@@ -1,5 +1,5 @@
-import { BlogCard } from '@/components/feature/content/blog-card';
 import type { RelatedPost } from '@/lib/recommend';
+import {BlogCard} from './blog-card';
 
 type RelatedArticlesProps = {
   relatedPosts: RelatedPost[];

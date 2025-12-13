@@ -22,6 +22,7 @@ const {
 } = Astro.props;
 
 const pageTitle = title === siteConfig.name ? title : `${title} | ${siteConfig.name}`;
+const pathname = Astro.url.pathname;
 
 // WebSite構造化データの定義
 const jsonLdWebsite = {
@@ -94,13 +95,13 @@ const jsonLdWebsite = {
     defaultTheme="system"
     enableSystem
     disableTransitionOnChange
-    client:load
+    client:only="react"
   >
-    <Header client:load />
+    <Header pathname={pathname} client:only="react" />
     <main class="mx-auto w-full max-w-6xl flex-1 px-4 py-12 sm:px-6 md:px-8">
       <slot />
     </main>
-    <Footer client:load />
+    <Footer client:only="react" />
   </ThemeProvider>
 </body>
 </html>

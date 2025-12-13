@@ -21,14 +21,6 @@ type PageHeaderProps = {
  *
  * @param props - ページヘッダーのプロパティ
  * @returns ページヘッダー要素
- *
- * @example
- * ```tsx
- * <PageHeader
- *   heading="ブログ記事一覧"
- *   text="技術記事や開発メモを公開しています"
- * />
- * ```
  */
 export function PageHeader({ heading, text, className }: PageHeaderProps) {
   return (

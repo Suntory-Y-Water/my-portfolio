@@ -649,32 +649,45 @@ PUBLIC_APP_URL=https://example.com
 - [x] `astro.config.mjs`設定（remark/rehypeプラグイン）
 - [x] コミット完了
 
-#### Phase 2-2: UIコンポーネント
+#### Phase 2-2: UIコンポーネント（完了 - 2025-12-13）
 - [x] ui/コンポーネント移植（13ファイル）
 - [x] icons/コンポーネント移植（3ファイル）
-- [ ] shared/コンポーネント移植（7ファイル） - 進行中
-- [ ] feature/contentコンポーネント移植（14ファイル）
-- [ ] feature/searchコンポーネント移植（2ファイル）
+- [x] shared/コンポーネント移植（7ファイル）
+- [x] feature/contentコンポーネント移植（14ファイル）
+- [x] feature/searchコンポーネント移植（2ファイル）
+- [x] コミット完了
 
-#### Phase 2-3: ページ
-- [ ] トップページ
-- [ ] ブログ一覧
-- [ ] ブログ一覧（ページネーション）
-- [ ] ブログ詳細
-- [ ] タグ一覧
-- [ ] タグ詳細
-- [ ] Aboutページ
+#### Phase 2-3: ページ（完了 - 2025-12-13）
+- [x] トップページ
+- [x] ブログ一覧
+- [x] ブログ一覧（ページネーション）
+- [x] ブログ詳細
+- [x] タグ一覧
+- [x] タグ詳細
+- [x] Aboutページ
+- [x] コミット完了
 
-#### Phase 2-4: API Routes
-- [ ] OGP画像生成
-- [ ] RSS配信
-- [ ] llms.txt配信
-- [ ] Markdown表示
+#### Phase 2-4: API Routes（完了 - 2025-12-13）
+- [x] OGP画像生成
+- [x] RSS配信
+- [x] llms.txt配信
+- [x] Markdown表示
+- [x] React統合設定（@astrojs/react、tsconfig.json）
+- [x] ビルド成功（216ページ生成）
+- **残存問題**：
+  - ❌ Biome設定競合（astro-app/biome.jsonc削除が必要）
+  - ❌ 型エラー2件（SearchDialog pathname props、Command showCloseButton props）
+- ⚠️ **phase2-4-api-routes-migration-progress.md は削除予定**（phase2-4-completion-summary.md に統合）
 
-#### Phase 2-5: スタイル・設定
-- [ ] `tailwind.config.ts`移植
-- [ ] `src/styles/globals.css`移植
-- [ ] `biome.json`調整
+#### Phase 2-5: スタイル・設定・最終調整
+- [ ] **Biome設定競合の解消**（astro-app/biome.jsonc削除）← 最優先
+- [ ] **型エラー修正**（SearchDialog、Command）
+- [ ] Tailwind CSS v4のカスタムトークン設定（CSS変数直接使用）
+- [ ] `markdown.css.phase2-5`の内容を正しく移植
+- [ ] カスタムrehypeプラグインの有効化（rehypeLinkCard、rehypeMermaidCodeToDiv、rehypeCodeCopyButton）
+- [ ] `tailwind.config.ts`最終調整
+- [ ] `biome.json`最終調整
+- [ ] 全ページの動作確認
 
 ### Phase 2完了後
 - [ ] Phase 2全体を`feature-migrate-astro-blog`にマージ

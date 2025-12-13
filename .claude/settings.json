@@ -54,11 +54,6 @@
       "Write(.env*)",
       "Write(**/secrets/**)",
       "Bash(wget:*)",
-      "Edit",
-      "Glob",
-      "Grep",
-      "Read",
-      "Write",
       "NotebookEdit",
       "NotebookRead",
       "ExitPlanMode"

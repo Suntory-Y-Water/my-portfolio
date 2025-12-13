@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import BlogCard from '@/components/feature/content/blog-card';
-import * as Icons from '@/components/icons';
-import PageHeader from '@/components/shared/page-header';
+import {BlogCard }from '@/components/feature/content/blog-card';
+import { Icons } from '@/components/icons';
 import { siteConfig } from '@/config/site';
 import { getTagNameFromSlug } from '@/config/tag-slugs';
 import { getAllTagSlugs, getBlogPostsByTagSlug } from '@/lib/markdown';
+import { getInlineIcon } from '@/lib/inline-icons';
 import { absoluteUrl } from '@/lib/utils';
 
 export async function getStaticPaths() {
@@ -21,6 +21,13 @@ if (!tagName) {
 }
 
 const posts = await getBlogPostsByTagSlug(slug);
+
+const postsWithIcons = posts.map((blog) => {
+  const displayUrl = blog.metadata.icon_url || (blog.metadata.icon?.startsWith('https://') ? blog.metadata.icon : null);
+  const inlineSvg = displayUrl ? getInlineIcon(displayUrl) : undefined;
+  return { blog, inlineSvg };
+});
+
 const title = `「${tagName}」タグの記事一覧`;
 const description = `「${tagName}」タグの記事一覧を表示しています。`;
 const canonicalUrl = absoluteUrl(`/tags/${slug}`);
@@ -44,8 +51,8 @@ const canonicalUrl = absoluteUrl(`/tags/${slug}`);
     </div>
 
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {posts.map((blog) => (
-        <BlogCard key={blog.slug} data={blog} client:visible />
+      {postsWithIcons.map(({ blog, inlineSvg }) => (
+        <BlogCard key={blog.slug} data={blog} inlineSvg={inlineSvg} />
       ))}
     </div>
   </section>

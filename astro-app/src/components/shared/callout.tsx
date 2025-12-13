@@ -80,13 +80,6 @@ const calloutStyles: Record<
  *
  * @param props - コールアウトのプロパティ
  * @returns コールアウト要素
- *
- * @example
- * ```tsx
- * <Callout type="warning" title="注意">
- *   この機能は現在ベータ版です。
- * </Callout>
- * ```
  */
 export function Callout({
   children,
