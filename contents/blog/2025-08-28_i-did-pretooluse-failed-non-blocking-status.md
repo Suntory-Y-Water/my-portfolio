@@ -77,10 +77,6 @@ Linux カーネルが shebang 行を読み込む時、CRLF 形式だと以下の
 sed -i 's/\r$//' /home/sui/.claude/scripts/hook_stop_words.sh
 ```
 
-## 参考
-
-https://wa3.i-3-i.info/word14689.html
-
 ## おまけ：なんでこれが起きた？
 
 おそらく serena を導入したときに `git config --global core.autocrlf true` にしたからかなと思っています..。
