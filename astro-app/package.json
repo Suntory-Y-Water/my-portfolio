@@ -6,7 +6,15 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "lint": "biome lint .",
+    "lint:ai": "set -o pipefail && biome lint . --reporter=github 2>&1 | { grep '^::' || true; }",
+    "lint:fix": "biome lint --write .",
+    "lint:unsage-fix": "biome lint --write --unsafe .",
+    "type-check": "tsc --noEmit",
+    "type-check:ai": "tsc --noEmit --pretty false"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",

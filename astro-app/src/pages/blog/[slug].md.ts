@@ -11,12 +11,12 @@ export async function getStaticPaths() {
 export async function GET({ params }: APIContext) {
   const { slug } = params;
 
-  if(!slug){
-    return 
+  if (!slug) {
+    return;
   }
 
   // slugから`.md`を削除してブログ検索する
-  const post = await getBlogPostBySlug((slug).replace('.md', ''));
+  const post = await getBlogPostBySlug(slug.replace('.md', ''));
   if (!post) {
     return new Response('Not found', { status: 404 });
   }

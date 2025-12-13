@@ -88,7 +88,7 @@ export async function GET({ params }: APIContext) {
           {iconDataUrl && (
             <img
               src={iconDataUrl}
-              alt=""
+              alt=''
               style={{
                 position: 'absolute',
                 right: 0,
@@ -159,10 +159,10 @@ export async function GET({ params }: APIContext) {
               }}
             >
               <img
-                src="https://avatars.githubusercontent.com/u/116779921?v=4"
+                src='https://avatars.githubusercontent.com/u/116779921?v=4'
                 width={60}
                 height={60}
-                alt="avatar"
+                alt='avatar'
                 style={{ borderRadius: 9999, marginRight: 24 }}
               />
               sui

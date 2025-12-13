@@ -144,7 +144,11 @@ export default function Header({ pathname }: HeaderProps) {
       </div>
 
       {/* Search Dialog */}
-      <SearchDialog pathname={pathname} open={searchOpen} onOpenChange={setSearchOpen} />
+      <SearchDialog
+        pathname={pathname}
+        open={searchOpen}
+        onOpenChange={setSearchOpen}
+      />
     </header>
   );
 }

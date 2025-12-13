@@ -676,41 +676,17 @@ PUBLIC_APP_URL=https://example.com
 - [x] ビルド成功（216ページ生成）
 - **残存問題**：
   - ❌ Biome設定競合（astro-app/biome.jsonc削除が必要）
-  - ❌ 型エラー2件（SearchDialog pathname props、Command showCloseButton props）
-- ⚠️ **phase2-4-api-routes-migration-progress.md は削除予定**（phase2-4-completion-summary.md に統合）
 
 #### Phase 2-5: スタイル・設定・最終調整
-- [ ] **Biome設定競合の解消**（astro-app/biome.jsonc削除）← 最優先
-- [ ] **型エラー修正**（SearchDialog、Command）
-- [ ] Tailwind CSS v4のカスタムトークン設定（CSS変数直接使用）
+- [ ] **Tailwind CSS v4のカスタムトークン設定（CSS変数直接使用）** が最重要
 - [ ] `markdown.css.phase2-5`の内容を正しく移植
 - [ ] カスタムrehypeプラグインの有効化（rehypeLinkCard、rehypeMermaidCodeToDiv、rehypeCodeCopyButton）
 - [ ] `tailwind.config.ts`最終調整
 - [ ] `biome.json`最終調整
 - [ ] 全ページの動作確認
 
-### Phase 2完了後
-- [ ] Phase 2全体を`feature-migrate-astro-blog`にマージ
 
-### Phase 3: クリーンアップ（ブランチ: `feature-migrate-astro-blog-phase3`）
-- [ ] Astroプロジェクト動作確認
-- [ ] Next.js関連ファイル削除
-- [ ] `astro-app/`をルートに移動
-- [ ] `feature-migrate-astro-blog`にマージ
-
-### Phase 4: 最終確認（ブランチ: `feature-migrate-astro-blog-phase4`）
-- [ ] 全ページ表示確認
-- [ ] OGP画像・メタデータ確認
-- [ ] 検索・配信確認
-- [ ] UI/UX確認
-- [ ] パフォーマンス確認
-- [ ] SEO確認
-- [ ] `feature-migrate-astro-blog`にマージ
-- [ ] `main`へマージ
-
----
-
-### Phase 5: Astro最適化 - Islands Architectureへの移行（ブランチ: `feature-migrate-astro-blog-phase5`）
+### Phase 3: Astro最適化 - Islands Architectureへの移行
 **目的**: Astroの本質的な利点を最大化し、ゼロJS原則とIslands Architectureを実現
 
 **Astroの思想**:
@@ -853,6 +829,22 @@ PUBLIC_APP_URL=https://example.com
 - **初期ロード時間**: 30%以上改善
 - **Lighthouse Performance**: 90+達成
 - **TTI (Time to Interactive)**: 大幅改善
+
+### Phase 4: クリーンアップ（ブランチ: `feature-migrate-astro-blog-phase3`）
+- [ ] Astroプロジェクト動作確認
+- [ ] Next.js関連ファイル削除
+- [ ] `astro-app/`をルートに移動
+- [ ] `feature-migrate-astro-blog`にマージ
+
+### Phase 5: 最終確認（ブランチ: `feature-migrate-astro-blog-phase4`）
+- [ ] 全ページ表示確認
+- [ ] OGP画像・メタデータ確認
+- [ ] 検索・配信確認
+- [ ] UI/UX確認
+- [ ] パフォーマンス確認
+- [ ] SEO確認
+- [ ] `feature-migrate-astro-blog`にマージ
+- [ ] `main`へマージ
 
 ---
 

@@ -1,4 +1,3 @@
-
 import { Suspense } from 'react';
 import { getOGData } from '@/actions/fetch-og-metadata';
 import { Icons } from '@/components/icons';
@@ -47,7 +46,7 @@ function isInternalBlogLink(url: string): boolean {
  * @param url - スラッグを抽出するURL(例: '/blog/typescript', 'https://example.com/blog/react')
  * @returns 抽出されたスラッグ(例: 'typescript', 'react')
  */
-function getSlugFromUrl(url: string): string {
+function _getSlugFromUrl(url: string): string {
   try {
     const urlObj = new URL(url);
     const parts = urlObj.pathname.split('/');
@@ -171,7 +170,7 @@ export function LinkCard({
     >
       {CardContent}
     </a>
-  )
+  );
 }
 
 /**
@@ -265,7 +264,15 @@ async function ExternalLinkCard({
  * @param className - 追加のCSSクラス名(任意)
  * @returns リンクプレビューコンポーネント
  */
-export function LinkPreview({ url, internalTitle, internalDescription, className }: LinkPreviewProps & { internalTitle?: string; internalDescription?: string }) {
+export function LinkPreview({
+  url,
+  internalTitle,
+  internalDescription,
+  className,
+}: LinkPreviewProps & {
+  internalTitle?: string;
+  internalDescription?: string;
+}) {
   const isInternal = !url.startsWith('http') && isInternalBlogLink(url);
 
   return (
@@ -280,7 +287,12 @@ export function LinkPreview({ url, internalTitle, internalDescription, className
       }
     >
       {isInternal ? (
-        <InternalLinkCard url={url} title={internalTitle} description={internalDescription} className={className} />
+        <InternalLinkCard
+          url={url}
+          title={internalTitle}
+          description={internalDescription}
+          className={className}
+        />
       ) : (
         <ExternalLinkCard url={url} className={className} />
       )}
