@@ -1,84 +1,48 @@
 @import "tailwindcss";
 
+/* Tailwind CSS v4: カスタムトークン定義 */
+@theme {
+  /* カスタムカラー */
+  --color-twitter: #1DA1F2;
+
+  /* デザインシステムカラー（hsl形式） */
+  --color-border: hsl(0 0% 86%);
+  --color-input: hsl(0 0% 86%);
+  --color-ring: hsl(199 100% 78%);
+  --color-background: hsl(0 0% 98%);
+  --color-foreground: hsl(0 0% 20%);
+  --color-primary: hsl(214 100% 27%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --color-secondary: hsl(220 14% 96%);
+  --color-secondary-foreground: hsl(0 0% 20%);
+  --color-muted: hsl(220 14% 96%);
+  --color-muted-foreground: hsl(0 0% 45%);
+  --color-accent: hsl(199 100% 78%);
+  --color-accent-foreground: hsl(0 0% 20%);
+  --color-destructive: hsl(0 84% 60%);
+  --color-destructive-foreground: hsl(0 0% 98%);
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(0 0% 20%);
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(0 0% 20%);
+
+  /* フォントファミリー */
+  --font-sans: "noto-sans", sans-serif;
+  --font-mono: 'PlemolJP35Console', monospace;
+
+  /* コンテナ設定（v4ではCSS変数として定義） */
+  --container-center: true;
+  --container-padding: 2rem;
+  --container-max-width-2xl: 1400px;
+
+  /* ボーダーradius */
+  --radius: 0.5rem;
+  --radius-lg: 0.5rem;
+  --radius-md: calc(0.5rem - 2px);
+  --radius-sm: calc(0.5rem - 4px);
+}
+
 @layer base {
-  :root {
-    --background: 0 0% 98%; /* #fafafa */
-    --foreground: 0 0% 20%; /* #333333 */
-
-    --card: 0 0% 100%; /* #ffffff */
-    --card-foreground: 0 0% 20%; /* #333333 */
-
-    --popover: 0 0% 100%; /* #ffffff */
-    --popover-foreground: 0 0% 20%; /* #333333 */
-
-    --primary: 214 100% 27%; /* inori-track blue */
-    --primary-foreground: 0 0% 100%; /* #ffffff */
-
-    --secondary: 220 14% 96%; /* #f3f4f8 */
-    --secondary-foreground: 0 0% 20%; /* #333333 */
-
-    --muted: 220 14% 96%; /* #f3f4f8 */
-    --muted-foreground: 0 0% 45%; /* #737373 */
-
-    --accent: 199 100% 78%; /* #8ED0FF */
-    --accent-foreground: 0 0% 20%; /* #333333 */
-
-    --destructive: 0 84% 60%; /* #ef4444 */
-    --destructive-foreground: 0 0% 98%; /* #fafafa */
-
-    --border: 0 0% 86%; /* #dbdbdb */
-    --input: 0 0% 86%; /* #dbdbdb */
-    --ring: 199 100% 78%; /* #8ED0FF */
-
-    --radius: 0.5rem;
-
-    --chart-1: 199 100% 78%; /* #8ED0FF */
-    --chart-2: 152 76% 80%; /* #a5f3c4 */
-    --chart-3: 266 100% 87%; /* #d8b4fe */
-    --chart-4: 358 100% 86%; /* #fecaca */
-    --chart-5: 41 94% 75%; /* #fcd34d */
-
-    font-family: "noto-sans", sans-serif;
-  }
-
-  .dark {
-    --background: 0 0% 12%; /* #1f1f1f */
-    --foreground: 0 0% 95%; /* #f2f2f2 */
-
-    --card: 0 0% 15%; /* #262626 */
-    --card-foreground: 0 0% 95%; /* #f2f2f2 */
-
-    --popover: 0 0% 15%; /* #262626 */
-    --popover-foreground: 0 0% 95%; /* #f2f2f2 */
-
-    --primary: 199 100% 78%; /* #8ED0FF */
-    --primary-foreground: 0 0% 12%; /* #1f1f1f */
-
-    --secondary: 0 0% 20%; /* #333333 */
-    --secondary-foreground: 0 0% 95%; /* #f2f2f2 */
-
-    --muted: 0 0% 20%; /* #333333 */
-    --muted-foreground: 0 0% 65%; /* #a6a6a6 */
-
-    --accent: 199 100% 78%; /* #8ED0FF */
-    --accent-foreground: 0 0% 12%; /* #1f1f1f */
-
-    --destructive: 0 84% 60%; /* #ef4444 */
-    --destructive-foreground: 0 0% 98%; /* #fafafa */
-
-    --border: 0 0% 28%; /* #474747 */
-    --input: 0 0% 28%; /* #474747 */
-    --ring: 199 100% 78%; /* #8ED0FF */
-
-    --radius: 0.5rem;
-
-    --chart-1: 199 100% 78%; /* #8ED0FF */
-    --chart-2: 152 76% 80%; /* #a5f3c4 */
-    --chart-3: 266 100% 87%; /* #d8b4fe */
-    --chart-4: 358 100% 86%; /* #fecaca */
-    --chart-5: 41 94% 75%; /* #fcd34d */
-  }
-
   p,
   li,
   tr,
@@ -88,7 +52,6 @@
   }
 }
 
-/* Phase 2-5で対応: カスタムクラスを使ったスタイルは一時的にコメントアウト
 @layer base {
   * {
     @apply border-border;
@@ -119,7 +82,6 @@
     @apply leading-relaxed text-foreground/90;
   }
 }
-*/
 
 /* PagefindUIのスタイルをテーマに合わせてカスタマイズ
  * @layer を使用せず、グローバルスコープで定義してPagefindUIの動的要素に確実に適用

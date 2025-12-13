@@ -61,7 +61,7 @@ const canonicalUrl = absoluteUrl(`/blog/page/${page}`);
         <a href="/" class="transition-colors hover:text-primary">
           Home
         </a>
-        <Icons.ChevronRight client:load class="size-4" />
+        <Icons.ChevronRight client:load className="size-4" />
         <span class="text-foreground">Blog</span>
       </nav>
 
@@ -77,7 +77,7 @@ const canonicalUrl = absoluteUrl(`/blog/page/${page}`);
 
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {postsWithIcons.map(({ blog, inlineSvg }) => (
-        <BlogCard key={blog.slug} data={blog} inlineSvg={inlineSvg} />
+        <BlogCard data={blog} inlineSvg={inlineSvg} />
       ))}
     </div>
 

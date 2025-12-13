@@ -673,17 +673,32 @@ PUBLIC_APP_URL=https://example.com
 - [x] llms.txt配信
 - [x] Markdown表示
 - [x] React統合設定（@astrojs/react、tsconfig.json）
-- [x] ビルド成功（216ページ生成）
-- **残存問題**：
-  - ❌ Biome設定競合（astro-app/biome.jsonc削除が必要）
 
 #### Phase 2-5: スタイル・設定・最終調整
-- [ ] **Tailwind CSS v4のカスタムトークン設定（CSS変数直接使用）** が最重要
-- [ ] `markdown.css.phase2-5`の内容を正しく移植
-- [ ] カスタムrehypeプラグインの有効化（rehypeLinkCard、rehypeMermaidCodeToDiv、rehypeCodeCopyButton）
-- [ ] `tailwind.config.ts`最終調整
-- [ ] `biome.json`最終調整
-- [ ] 全ページの動作確認
+- [x] **Tailwind CSS v4のカスタムトークン設定完了**
+  - `@theme`ディレクティブで全カラートークン定義（--color-border, --color-background等）
+  - `:root`と`.dark`のCSS変数定義を削除（v4では不要）
+  - hsl形式で統一
+- [ ] ダークモード修正
+  - ヘッダー部にあるトグル設定がうまくできておらず、ダークモードなのに背景が白い
+- [x] `markdown.css.phase2-5`の内容を正しく移植
+  - rehype-pretty-code、Mermaid、リンクカード等のスタイル完全移植
+  - @apply構文そのまま使用可能
+- [x] カスタムrehypeプラグインの有効化（一部）
+  - rehypeMermaidCodeToDiv: 有効化完了
+  - rehypeCodeCopyButton: 有効化完了
+  - **rehypeLinkCard: 未完了**（コピー済み、有効化は後回し - OGデータ取得が重いため）
+  - 依存パッケージ（dompurify, jsdom, unist-util-visit）インストール完了
+  - `astro-app/src/actions/fetch-og-metadata.ts`作成（Reactの`cache`削除版）
+- [x] **開発用最適化**
+  - `getAllBlogPosts()`を最新9件のみ返すように制限（TODOコメント付き）
+  - ビルド時間短縮のため
+- [x] ビルド成功確認（216ページ生成、49.15秒）
+- **残存タスク（ユーザー側で実施）**:
+  - rehypeLinkCardの有効化（`astro.config.mjs`のコメント解除）
+  - 開発用制限の解除（`src/lib/markdown.ts`のTODOコメント箇所）
+  - 全ページの動作確認
+  - コミット作成
 
 
 ### Phase 3: Astro最適化 - Islands Architectureへの移行

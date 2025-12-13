@@ -13,8 +13,8 @@ import rehypePrettyCode from 'rehype-pretty-code';
 
 // カスタムrehypeプラグイン
 // import { rehypeLinkCard } from './src/lib/rehype-link-card.js';
-// import { rehypeMermaidCodeToDiv } from './src/lib/rehype-mermaid-code.js';
-// import { rehypeCodeCopyButton } from './src/lib/rehype-code-copy-button.js';
+import { rehypeMermaidCodeToDiv } from './src/lib/rehype-mermaid-code.js';
+import { rehypeCodeCopyButton } from './src/lib/rehype-code-copy-button.js';
 
 // https://astro.build/config
 export default defineConfig({
@@ -32,6 +32,7 @@ export default defineConfig({
 			}
 		}
 	},
+	// TODO: これ消しても src/components/feature/content/custom-markdown.tsx で定義しているから今動いちゃうぞ
 	markdown: {
 		// シンタックスハイライト設定（rehypePrettyCodeを使用するため無効化）
 		syntaxHighlight: false,
@@ -45,7 +46,7 @@ export default defineConfig({
 		rehypePlugins: [
 			rehypeSlug,
 			// rehypeLinkCard,
-			// rehypeMermaidCodeToDiv,
+			rehypeMermaidCodeToDiv,
 			[rehypePrettyCode, {
 				theme: 'slack-dark',
 				keepBackground: true,
@@ -70,7 +71,7 @@ export default defineConfig({
 					return meta;
 				},
 			}],
-			// rehypeCodeCopyButton,
+			rehypeCodeCopyButton,
 		],
 	},
 });
