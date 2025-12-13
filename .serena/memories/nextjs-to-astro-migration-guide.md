@@ -147,15 +147,12 @@ sui-blog/
 - **ベースブランチ**: `feature-migrate-astro-blog`
 - このブランチから各Phase用のブランチを切って作業
 - ブランチ命名規則:
-  - Phase 1: `feature-migrate-astro-blog-phase1-init`
-  - Phase 2-1: `feature-migrate-astro-blog-phase2-1-libs`
-  - Phase 2-2: `feature-migrate-astro-blog-phase2-2-components`
-  - Phase 2-3: `feature-migrate-astro-blog-phase2-3-pages`
-  - Phase 2-4: `feature-migrate-astro-blog-phase2-4-api-routes`
-  - Phase 2-5: `feature-migrate-astro-blog-phase2-5-styles`
-  - Phase 3: `feature-migrate-astro-blog-phase3-cleanup`
-  - Phase 4: `feature-migrate-astro-blog-phase4-final-check`
-- Phase 1完了後、Phase 2全体（2-1～2-5）完了後、Phase 3完了後、Phase 4完了後にそれぞれ `feature-migrate-astro-blog` にマージ
+  - Phase 1: `feature-migrate-astro-blog-phase1-init` (完了済み)
+  - Phase 2: `feature-migrate-astro-blog-phase2` (段階的移植全体: 2-1～2-5をコミット単位で管理)
+  - Phase 3: `feature-migrate-astro-blog-phase3` (クリーンアップ)
+  - Phase 4: `feature-migrate-astro-blog-phase4` (最終確認)
+- **コミット管理**: Phase 2内のサブフェーズ（2-1～2-5）はそれぞれ個別のコミットとして管理
+- 各Phase完了後、`feature-migrate-astro-blog` にマージ
 - 最終的に `feature-migrate-astro-blog` を `main` にマージ
 
 ### 段階的移行の方針
@@ -629,6 +626,74 @@ PUBLIC_APP_URL=https://example.com
 - rehype: https://github.com/rehypejs/rehype
 - Tailwind CSS: https://tailwindcss.com/
 - Radix UI: https://www.radix-ui.com/
+
+---
+
+## 進捗チェックリスト
+
+### Phase 1: Astroプロジェクト初期化
+- [x] `astro-app/`フォルダ作成
+- [x] Astro初期化（minimal template）
+- [x] 必要なパッケージインストール
+- [x] 初期ビルド確認
+- [x] ブランチ: `feature-migrate-astro-blog-phase1-init`
+
+### Phase 2: 段階的移植（ブランチ: `feature-migrate-astro-blog-phase2`）
+
+#### Phase 2-1: 共通ライブラリ・ユーティリティ
+- [x] `src/constants/index.ts` 移植（環境変数修正）
+- [x] `src/config/site.ts`, `src/config/tag-slugs.ts` 移植
+- [x] `src/lib/` 全11ファイル移植（パス修正）
+- [x] `src/types/` 全5ファイル移植
+- [x] Markdown処理用パッケージインストール
+- [x] `astro.config.mjs`設定（remark/rehypeプラグイン）
+- [x] コミット完了
+
+#### Phase 2-2: UIコンポーネント
+- [ ] ui/コンポーネント移植（13ファイル）
+- [ ] icons/コンポーネント移植（3ファイル）
+- [ ] shared/コンポーネント移植（7ファイル）
+- [ ] feature/contentコンポーネント移植（14ファイル）
+- [ ] feature/searchコンポーネント移植（2ファイル）
+
+#### Phase 2-3: ページ
+- [ ] トップページ
+- [ ] ブログ一覧
+- [ ] ブログ一覧（ページネーション）
+- [ ] ブログ詳細
+- [ ] タグ一覧
+- [ ] タグ詳細
+- [ ] Aboutページ
+
+#### Phase 2-4: API Routes
+- [ ] OGP画像生成
+- [ ] RSS配信
+- [ ] llms.txt配信
+- [ ] Markdown表示
+
+#### Phase 2-5: スタイル・設定
+- [ ] `tailwind.config.ts`移植
+- [ ] `src/styles/globals.css`移植
+- [ ] `biome.json`調整
+
+### Phase 2完了後
+- [ ] Phase 2全体を`feature-migrate-astro-blog`にマージ
+
+### Phase 3: クリーンアップ（ブランチ: `feature-migrate-astro-blog-phase3`）
+- [ ] Astroプロジェクト動作確認
+- [ ] Next.js関連ファイル削除
+- [ ] `astro-app/`をルートに移動
+- [ ] `feature-migrate-astro-blog`にマージ
+
+### Phase 4: 最終確認（ブランチ: `feature-migrate-astro-blog-phase4`）
+- [ ] 全ページ表示確認
+- [ ] OGP画像・メタデータ確認
+- [ ] 検索・配信確認
+- [ ] UI/UX確認
+- [ ] パフォーマンス確認
+- [ ] SEO確認
+- [ ] `feature-migrate-astro-blog`にマージ
+- [ ] `main`へマージ
 
 ---
 
