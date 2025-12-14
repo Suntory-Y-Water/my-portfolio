@@ -2,7 +2,6 @@
 
 import { fileURLToPath } from 'node:url';
 import react from '@astrojs/react';
-import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 import rehypePrettyCode from 'rehype-pretty-code';
@@ -19,7 +18,7 @@ import { rehypeMermaidCodeToDiv } from './src/lib/rehype-mermaid-code.js';
 // https://astro.build/config
 export default defineConfig({
   site: siteConfig.url,
-  integrations: [react(), sitemap()],
+  integrations: [react()],
   vite: {
     plugins: [tailwindcss()],
     resolve: {
