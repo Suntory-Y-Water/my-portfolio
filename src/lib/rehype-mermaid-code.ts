@@ -2,19 +2,7 @@ import type { Element, Root } from 'hast';
 import { visit } from 'unist-util-visit';
 
 /**
- * ```mermaid コードブロックを <div class="mermaid"> に変換する rehype プラグイン
- *
- * ```mermaid
- * graph TD;
- *   A --> B;
- * ```
- *
- * ↓
- *
- * <div class="mermaid">
- * graph TD;
- *   A --> B;
- * </div>
+ * mermaid コードブロックを <div class="mermaid"> に変換する rehype プラグイン
  */
 export function rehypeMermaidCodeToDiv() {
   return (tree: Root) => {

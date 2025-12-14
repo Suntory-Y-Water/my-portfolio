@@ -1,49 +1,15 @@
-'use client';
-
-import mermaid from 'mermaid';
 import { useEffect, useRef } from 'react';
 
 type MarkdownContentProps = {
   html: string;
 };
 
-let mermaidInitialized = false;
-
 /**
- * コンパイル済みMarkdown HTMLを表示するクライアントコンポーネント
- *
- * このコンポーネントはサーバーサイドでコンパイルされたMarkdown HTMLを受け取り、
- * クライアント側でコードブロックにコピーボタンを動的に追加します。
- * dangerouslySetInnerHTMLを使用してHTMLを直接レンダリングし、
- * useEffectフックでコードブロックを検出してコピー機能を付与します。
- *
- * 元のCodeBlockコンポーネント(src/components/feature/content/code-block.tsx)と
- * 同じレイアウト・動作を再現しています。
- *
- * @param html - サーバーサイドでコンパイルされたHTML文字列。rehypeプラグインで処理されたMarkdownのHTML出力です
- * @returns Markdownコンテンツコンポーネント
- *
- * @example
- * ```tsx
- * import { MarkdownContent } from '@/components/feature/content/markdown-content';
- *
- * // サーバーコンポーネントでMarkdownをHTMLに変換
- * export default async function BlogPost() {
- *   const html = await compileMarkdownToHTML(markdownSource);
- *
- *   return (
- *     <article>
- *       <h1>記事タイトル</h1>
- *       <MarkdownContent html={html} />
- *     </article>
- *   );
- * }
- * ```
+ * コンパイル済みMarkdown HTMLを表示する
  */
 export function MarkdownContent({ html }: MarkdownContentProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: html変更時にボタンを再作成する必要がある
   useEffect(() => {
     if (!containerRef.current) {
       return;
@@ -128,41 +94,6 @@ export function MarkdownContent({ html }: MarkdownContentProps) {
         }
       });
     };
-  }, [html]);
-
-  useEffect(() => {
-    if (!html) {
-      return;
-    }
-
-    const renderMermaid = async () => {
-      const container = containerRef.current;
-      if (!container) {
-        return;
-      }
-
-      const mermaidBlocks = container.querySelectorAll<HTMLElement>('.mermaid');
-      if (mermaidBlocks.length === 0) {
-        return;
-      }
-
-      if (!mermaidInitialized) {
-        mermaid.initialize({
-          startOnLoad: false,
-          securityLevel: 'strict',
-        });
-        mermaidInitialized = true;
-      }
-      await mermaid.run({
-        querySelector: '.mermaid',
-        nodes: Array.from(mermaidBlocks),
-        suppressErrors: true,
-      });
-    };
-
-    renderMermaid().catch((error) => {
-      console.error('Failed to render Mermaid diagrams:', error);
-    });
   }, [html]);
 
   return (

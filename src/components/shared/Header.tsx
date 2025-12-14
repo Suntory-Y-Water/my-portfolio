@@ -1,17 +1,12 @@
-'use client';
-
 import { Search } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { type ReactElement, useState } from 'react';
 import { IoMdPerson } from 'react-icons/io';
 import { MdOutlineBook } from 'react-icons/md';
 import { SearchDialog } from '@/components/feature/search/search-dialog';
 import { Icons } from '@/components/icons';
-import HamburgerMenu from '@/components/shared/MenuMobile';
+import HamburgerMenu from '@/components/shared/mobile-menu';
 import { Button } from '@/components/ui/button';
-import { ModeToggle } from '@/components/ui/ModeToggle';
+import { ModeToggle } from '@/components/ui/mode-toggle';
 import { cn } from '@/lib/utils';
 
 type MenuItemLinkProps = {
@@ -38,6 +33,10 @@ const NAVIGATION_LINKS: MenuItemLinkProps[] = [
   },
 ];
 
+type HeaderProps = {
+  pathname: string;
+};
+
 /**
  * アプリケーション全体のヘッダーコンポーネント
  *
@@ -45,24 +44,10 @@ const NAVIGATION_LINKS: MenuItemLinkProps[] = [
  * テーマ切り替えボタン、モバイルメニューを含みます。
  * 現在のページに応じてナビゲーションリンクがアクティブ状態で表示されます。
  *
+ * @param pathname - 現在のページパス
  * @returns ヘッダーコンポーネント
- *
- * @example
- * ```tsx
- * import Header from '@/components/shared/Header';
- *
- * export default function Layout({ children }) {
- *   return (
- *     <>
- *       <Header />
- *       <main>{children}</main>
- *     </>
- *   );
- * }
- * ```
  */
-export default function Header() {
-  const pathname = usePathname();
+export default function Header({ pathname }: HeaderProps) {
   const [searchOpen, setSearchOpen] = useState(false);
 
   /**
@@ -73,14 +58,6 @@ export default function Header() {
    *
    * @param linkHref - 判定対象のリンクパス(例: '/', '/posts', '/blog')
    * @returns リンクがアクティブな場合はtrue、それ以外はfalse
-   *
-   * @example
-   * ```tsx
-   * // 現在のパスが '/posts/123' の場合
-   * isLinkActive('/');        // false (完全一致が必要)
-   * isLinkActive('/posts');   // true (前方一致)
-   * isLinkActive('/blog');    // false
-   * ```
    */
   function isLinkActive(linkHref: string): boolean {
     // Exact match required for the root path to avoid highlighting on all pages
@@ -95,23 +72,22 @@ export default function Header() {
       {/* Maintain container and alignment */}
       <div className='container relative mx-auto flex h-full max-w-5xl items-center justify-between px-4'>
         {/* Logo */}
-        <Link
+        <a
           href='/'
           className='group flex items-center gap-2 transition-transform duration-300 hover:scale-105'
           aria-label='最初の画面に戻る'
         >
-          <Image
+          <img
             src='/images/icon.webp'
             alt='ブログサイトのロゴ'
             width={32}
             height={32}
-            priority
             className='rounded-full'
           />
           <span className='font-bold tracking-tight text-base transition-colors group-hover:text-primary'>
             sui Tech Blog
           </span>
-        </Link>
+        </a>
 
         {/* Desktop Navigation */}
         <nav className='hidden items-center gap-1 rounded-full border border-border/50 bg-secondary/20 px-2 py-1 backdrop-blur-md md:flex'>
@@ -127,7 +103,7 @@ export default function Header() {
                   'bg-background text-foreground font-bold',
               )}
             >
-              <Link href={link.href}>{link.title}</Link>
+              <a href={link.href}>{link.title}</a>
             </Button>
           ))}
         </nav>
@@ -168,7 +144,11 @@ export default function Header() {
       </div>
 
       {/* Search Dialog */}
-      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
+      <SearchDialog
+        pathname={pathname}
+        open={searchOpen}
+        onOpenChange={setSearchOpen}
+      />
     </header>
   );
 }

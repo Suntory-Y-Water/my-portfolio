@@ -2,8 +2,8 @@ import DOMPurify from 'dompurify';
 import type { Element, Root } from 'hast';
 import { JSDOM } from 'jsdom';
 import { visit } from 'unist-util-visit';
-import { getOGData } from '@/actions/fetch-og-metadata';
 import { siteConfig } from '@/config/site';
+import { getOGData } from '@/lib/fetch-og-metadata';
 import { getBlogPostBySlug } from '@/lib/markdown';
 
 // Node.js環境でDOMPurifyを初期化
@@ -54,12 +54,6 @@ function isInternalBlogLink(url: string): boolean {
  *
  * @param url - slug抽出対象のURL
  * @returns 抽出されたslug(パスの最後のセグメント)
- *
- * @example
- * ```ts
- * getSlugFromUrl('https://example.com/blog/my-post') // => 'my-post'
- * getSlugFromUrl('/blog/my-post') // => 'my-post'
- * ```
  */
 function getSlugFromUrl(url: string): string {
   try {
@@ -331,19 +325,6 @@ function isPureUrlParagraph(node: Element): boolean {
  * `<p><a href="url">url</a></p>` 形式の段落を検出し、
  * OGデータを取得してリンクカード表示に変換します。
  * 内部ブログリンクと外部リンクの両方に対応しています。
- *
- * @returns rehypeプラグイン関数
- *
- * @example
- * ```ts
- * import { unified } from 'unified';
- * import remarkRehype from 'remark-rehype';
- * import { rehypeLinkCard } from '@/lib/rehype-link-card';
- *
- * const processor = unified()
- *   .use(remarkRehype, { allowDangerousHtml: true })
- *   .use(rehypeLinkCard());
- * ```
  */
 export function rehypeLinkCard() {
   return async (tree: Root) => {

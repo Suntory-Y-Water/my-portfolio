@@ -1,3 +1,5 @@
+@reference "./globals.css";
+
 [data-rehype-pretty-code-fragment] {
   @apply relative;
 }
@@ -149,21 +151,7 @@
   @apply h-auto w-full;
 }
 
-/* Mermaid ダークモード対応: 文字色と矢印・線を白に上書き */
-.dark .markdown-content .mermaid svg text {
-  fill: white !important;
-}
-
-.dark .markdown-content .mermaid svg .edgePath path,
-.dark .markdown-content .mermaid svg .edgePath marker path,
-.dark .markdown-content .mermaid svg line[class*="messageLine"],
-.dark .markdown-content .mermaid svg path[class*="messageLine"] {
-  stroke: white !important;
-}
-
-.dark .markdown-content .mermaid svg marker path {
-  fill: white !important;
-}
+/* Mermaid ダークモード対応は rehype-mermaid の theme: 'dark' で対応 */
 
 .markdown-content hr {
   @apply my-8 border-border/50;

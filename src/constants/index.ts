@@ -5,7 +5,7 @@
  * 変更が必要な場合は、このファイルのみを編集してください。
  */
 
-const url = process.env.NEXT_PUBLIC_APP_URL || 'https://suntory-n-water.com';
+const url = import.meta.env.PUBLIC_APP_URL || 'https://suntory-n-water.com';
 
 /**
  * サイト基本情報

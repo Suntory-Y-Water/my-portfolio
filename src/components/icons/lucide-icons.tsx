@@ -21,6 +21,26 @@ import {
 } from 'lucide-react';
 
 export const Icons = {
+  AlertTriangle,
+  ArrowLeft,
+  Calendar,
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  Copy,
+  ExternalLink,
+  FileHeart,
+  FileText,
+  Home,
+  Info,
+  Laptop,
+  Mail,
+  Moon,
+  Rss,
+  Sun,
+  Tag,
+  XCircle,
+  // キャメルケースのエイリアスも保持
   alertTriangle: AlertTriangle,
   arrowLeft: ArrowLeft,
   calendar: Calendar,

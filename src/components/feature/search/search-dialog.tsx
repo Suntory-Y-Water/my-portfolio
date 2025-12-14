@@ -1,27 +1,8 @@
-'use client';
-
-import { usePathname, useRouter } from 'next/navigation';
 import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { SEARCH_CONSTANTS } from '@/constants';
-
-/**
- * PagefindのURLを正しいNext.jsのルートに変換
- *
- * Pagefindは`.next/server/app/xxx.html`のようなパスを返すため、
- * これを実際のルート(例: `/blog/xxx`)に変換する必要があります。
- *
- * @param pagefindUrl - Pagefindが返すURL(例: `/server/app/blog/article-title.html`)
- * @returns Next.jsの正しいルート(例: `/blog/article-title`)
- */
-function normalizePagefindUrl(pagefindUrl: string): string {
-  // `/server/app/`を削除して、`.html`拡張子も削除
-  return pagefindUrl
-    .replace(/^\/server\/app\//, '/') // /server/app/ を削除
-    .replace(/\.html$/, ''); // .html を削除
-}
 
 /**
  * 検索ダイアログコンポーネント
@@ -34,28 +15,21 @@ function normalizePagefindUrl(pagefindUrl: string): string {
  *
  * @param open - ダイアログの開閉状態
  * @param onOpenChange - ダイアログの開閉状態を変更する関数
- *
- * @example
- * ```tsx
- * const [open, setOpen] = useState(false);
- * <SearchDialog open={open} onOpenChange={setOpen} />
- * ```
- *
  * @see https://pagefind.app/docs/ui/
  * @see https://www.petemillspaugh.com/using-pagefind-with-nextjs
  */
 export function SearchDialog({
+  pathname,
   open,
   onOpenChange,
 }: {
+  pathname: string;
   open: boolean;
   onOpenChange: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const [pagefindLoaded, setPagefindLoaded] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [pagefindLoaded, setPagefindLoaded] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
-  const router = useRouter();
-  const pathname = usePathname();
   const searchContainerRef = useRef<HTMLDivElement>(null);
   const previousPathnameRef = useRef(pathname);
 
@@ -133,8 +107,11 @@ export function SearchDialog({
         }
 
         // JSを動的にロード
-        await import(/* webpackIgnore: true */ '/pagefind/pagefind-ui.js');
-
+        // 開発モードでは /dist 配下のファイルを参照
+        const jsPath = import.meta.env.DEV
+          ? '/dist/pagefind/pagefind-ui.js'
+          : '/pagefind/pagefind-ui.js';
+        await import(/* webpackIgnore: true */ /* @vite-ignore */ jsPath);
         // PagefindUIはグローバルに登録されるため、windowオブジェクトから取得
         if (!window.PagefindUI) {
           console.warn('PagefindUI not found in window object');
@@ -165,7 +142,6 @@ export function SearchDialog({
             url: string;
             meta: { image?: string };
           }) => {
-            result.url = normalizePagefindUrl(result.url);
             if (result.meta.image) {
               result.meta.image = result.meta.image.replaceAll('&amp;', '&');
             }
@@ -240,12 +216,12 @@ export function SearchDialog({
 
       event.preventDefault();
       setIsNavigating(true);
-      router.push(anchor.pathname + anchor.search);
+      window.location.href = anchor.pathname + anchor.search;
     };
 
     container.addEventListener('click', handleResultClick);
     return () => container.removeEventListener('click', handleResultClick);
-  }, [open, pagefindLoaded, router, isNavigating]);
+  }, [open, pagefindLoaded, isNavigating]);
 
   /**
    * ルート変更完了時にダイアログを閉じ、ナビゲーション状態をリセット

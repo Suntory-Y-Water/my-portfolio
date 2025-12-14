@@ -1,84 +1,95 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* Tailwind CSS v4: ダークモードカスタムバリアント */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Tailwind CSS v4: カスタムトークン定義 */
+@theme {
+  /* カスタムカラー */
+  --color-twitter: #1DA1F2;
+
+  /* デザインシステムカラー */
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  /* フォントファミリー */
+  --font-sans: "noto-sans", sans-serif;
+  --font-mono: 'PlemolJP35Console', monospace;
+
+  /* コンテナ設定（v4ではCSS変数として定義） */
+  --container-center: true;
+  --container-padding: 2rem;
+  --container-max-width-2xl: 1400px;
+
+  /* ボーダーradius */
+  --radius: 0.5rem;
+  --radius-lg: 0.5rem;
+  --radius-md: calc(0.5rem - 2px);
+  --radius-sm: calc(0.5rem - 4px);
+}
 
 @layer base {
+  /* ライトモード（デフォルト） */
   :root {
-    --background: 0 0% 98%; /* #fafafa */
-    --foreground: 0 0% 20%; /* #333333 */
-
-    --card: 0 0% 100%; /* #ffffff */
-    --card-foreground: 0 0% 20%; /* #333333 */
-
-    --popover: 0 0% 100%; /* #ffffff */
-    --popover-foreground: 0 0% 20%; /* #333333 */
-
-    --primary: 214 100% 27%; /* inori-track blue */
-    --primary-foreground: 0 0% 100%; /* #ffffff */
-
-    --secondary: 220 14% 96%; /* #f3f4f8 */
-    --secondary-foreground: 0 0% 20%; /* #333333 */
-
-    --muted: 220 14% 96%; /* #f3f4f8 */
-    --muted-foreground: 0 0% 45%; /* #737373 */
-
-    --accent: 199 100% 78%; /* #8ED0FF */
-    --accent-foreground: 0 0% 20%; /* #333333 */
-
-    --destructive: 0 84% 60%; /* #ef4444 */
-    --destructive-foreground: 0 0% 98%; /* #fafafa */
-
-    --border: 0 0% 86%; /* #dbdbdb */
-    --input: 0 0% 86%; /* #dbdbdb */
-    --ring: 199 100% 78%; /* #8ED0FF */
-
-    --radius: 0.5rem;
-
-    --chart-1: 199 100% 78%; /* #8ED0FF */
-    --chart-2: 152 76% 80%; /* #a5f3c4 */
-    --chart-3: 266 100% 87%; /* #d8b4fe */
-    --chart-4: 358 100% 86%; /* #fecaca */
-    --chart-5: 41 94% 75%; /* #fcd34d */
-
-    font-family: "noto-sans", sans-serif;
+    --border: hsl(0 0% 86%);
+    --input: hsl(0 0% 86%);
+    --ring: hsl(199 100% 78%);
+    --background: hsl(0 0% 98%);
+    --foreground: hsl(0 0% 20%);
+    --primary: hsl(214 100% 27%);
+    --primary-foreground: hsl(0 0% 100%);
+    --secondary: hsl(220 14% 96%);
+    --secondary-foreground: hsl(0 0% 20%);
+    --muted: hsl(220 14% 96%);
+    --muted-foreground: hsl(0 0% 45%);
+    --accent: hsl(199 100% 78%);
+    --accent-foreground: hsl(0 0% 20%);
+    --destructive: hsl(0 84% 60%);
+    --destructive-foreground: hsl(0 0% 98%);
+    --card: hsl(0 0% 100%);
+    --card-foreground: hsl(0 0% 20%);
+    --popover: hsl(0 0% 100%);
+    --popover-foreground: hsl(0 0% 20%);
   }
 
+  /* ダークモード */
   .dark {
-    --background: 0 0% 12%; /* #1f1f1f */
-    --foreground: 0 0% 95%; /* #f2f2f2 */
-
-    --card: 0 0% 15%; /* #262626 */
-    --card-foreground: 0 0% 95%; /* #f2f2f2 */
-
-    --popover: 0 0% 15%; /* #262626 */
-    --popover-foreground: 0 0% 95%; /* #f2f2f2 */
-
-    --primary: 199 100% 78%; /* #8ED0FF */
-    --primary-foreground: 0 0% 12%; /* #1f1f1f */
-
-    --secondary: 0 0% 20%; /* #333333 */
-    --secondary-foreground: 0 0% 95%; /* #f2f2f2 */
-
-    --muted: 0 0% 20%; /* #333333 */
-    --muted-foreground: 0 0% 65%; /* #a6a6a6 */
-
-    --accent: 199 100% 78%; /* #8ED0FF */
-    --accent-foreground: 0 0% 12%; /* #1f1f1f */
-
-    --destructive: 0 84% 60%; /* #ef4444 */
-    --destructive-foreground: 0 0% 98%; /* #fafafa */
-
-    --border: 0 0% 28%; /* #474747 */
-    --input: 0 0% 28%; /* #474747 */
-    --ring: 199 100% 78%; /* #8ED0FF */
-
-    --radius: 0.5rem;
-
-    --chart-1: 199 100% 78%; /* #8ED0FF */
-    --chart-2: 152 76% 80%; /* #a5f3c4 */
-    --chart-3: 266 100% 87%; /* #d8b4fe */
-    --chart-4: 358 100% 86%; /* #fecaca */
-    --chart-5: 41 94% 75%; /* #fcd34d */
+    --border: hsl(0 0% 28%);
+    --input: hsl(0 0% 28%);
+    --ring: hsl(199 100% 78%);
+    --background: hsl(0 0% 12%);
+    --foreground: hsl(0 0% 95%);
+    --primary: hsl(199 100% 78%);
+    --primary-foreground: hsl(0 0% 12%);
+    --secondary: hsl(0 0% 20%);
+    --secondary-foreground: hsl(0 0% 95%);
+    --muted: hsl(0 0% 20%);
+    --muted-foreground: hsl(0 0% 65%);
+    --accent: hsl(199 100% 78%);
+    --accent-foreground: hsl(0 0% 12%);
+    --destructive: hsl(0 84% 60%);
+    --destructive-foreground: hsl(0 0% 98%);
+    --card: hsl(0 0% 15%);
+    --card-foreground: hsl(0 0% 95%);
+    --popover: hsl(0 0% 15%);
+    --popover-foreground: hsl(0 0% 95%);
   }
 
   p,
@@ -92,35 +103,32 @@
 
 @layer base {
   * {
-    @apply border-border; /* Use updated border color */
+    @apply border-border;
   }
   body {
-    @apply bg-background font-sans text-foreground antialiased; /* Add antialiasing */
-    /* Apply default font from tailwind.config.ts [476] */
+    @apply bg-background font-sans text-foreground antialiased;
     font-family: var(--font-sans);
   }
-  /* Improve focus visibility globally */
   *:focus-visible {
     @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
   }
-  /* Adjust heading styles */
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    @apply font-semibold tracking-tight; /* Consistent tracking */
+    @apply font-semibold tracking-tight;
   }
   h1 {
     @apply text-3xl md:text-4xl;
-  } /* Adjust sizes */
+  }
   h2 {
     @apply mb-4 border-b text-2xl md:text-3xl;
-  } /* Add bottom border to h2 */
+  }
   p,
   li {
-    @apply leading-relaxed text-foreground/90; /* Slightly relaxed leading [166] */
+    @apply leading-relaxed text-foreground/90;
   }
 }
 
@@ -203,4 +211,17 @@ mark {
 .dark mark {
   background-color: hsl(45 100% 40%) !important;
   color: hsl(0 0% 100%) !important;
+}
+
+/* Custom font */
+@font-face {
+  font-family: 'PlemolJP35Console';
+  src: url('/fonts/PlemolJP35Console-Regular.woff2') format('woff2');
+  font-display: swap;
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --font-plemol-jp-35-console: 'PlemolJP35Console', monospace;
 }
