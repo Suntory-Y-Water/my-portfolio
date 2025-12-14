@@ -1,5 +1,3 @@
-'use client';
-
 import mermaid from 'mermaid';
 import { useEffect, useRef } from 'react';
 
@@ -22,28 +20,10 @@ let mermaidInitialized = false;
  *
  * @param html - サーバーサイドでコンパイルされたHTML文字列。rehypeプラグインで処理されたMarkdownのHTML出力です
  * @returns Markdownコンテンツコンポーネント
- *
- * @example
- * ```tsx
- * import { MarkdownContent } from '@/components/feature/content/markdown-content';
- *
- * // サーバーコンポーネントでMarkdownをHTMLに変換
- * export default async function BlogPost() {
- *   const html = await compileMarkdownToHTML(markdownSource);
- *
- *   return (
- *     <article>
- *       <h1>記事タイトル</h1>
- *       <MarkdownContent html={html} />
- *     </article>
- *   );
- * }
- * ```
  */
 export function MarkdownContent({ html }: MarkdownContentProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: html変更時にボタンを再作成する必要がある
   useEffect(() => {
     if (!containerRef.current) {
       return;

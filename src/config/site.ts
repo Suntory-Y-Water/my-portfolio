@@ -2,8 +2,8 @@ import {
   REPOSITORY_CONSTANTS,
   SITE_CONSTANTS,
   SOCIAL_CONSTANTS,
-} from '@/constants';
-import type { SiteConfig } from '@/types/site-config';
+} from '../constants';
+import type { SiteConfig } from '../types/site-config';
 
 export const siteConfig: SiteConfig = {
   name: SITE_CONSTANTS.NAME,

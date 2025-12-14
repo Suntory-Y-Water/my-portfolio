@@ -2,10 +2,10 @@
   "ci": {
     "collect": {
       "numberOfRuns": 3,
-      "startServerCommand": "bun run start",
+      "startServerCommand": "bun run preview",
       "url": [
-        "http://localhost:3000/",
-        "http://localhost:3000/blog/enforce-rules-with-stop-hooks-and-biome-v2"
+        "http://localhost:4321/",
+        "http://localhost:4321/blog/enforce-rules-with-stop-hooks-and-biome-v2"
       ],
       "settings": {
         "preset": "desktop",

@@ -1,5 +1,3 @@
-'use client';
-
 import { Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -11,11 +9,6 @@ import { Button } from '@/components/ui/button';
  * モバイルでは検索アイコンのみを表示します。
  *
  * @param onClick - ボタンクリック時のハンドラー
- *
- * @example
- * ```tsx
- * <SearchTrigger onClick={() => setSearchOpen(true)} />
- * ```
  */
 export function SearchTrigger({ onClick }: { onClick: () => void }) {
   return (

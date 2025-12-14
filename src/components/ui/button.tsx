@@ -1,6 +1,7 @@
+import type * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
-import * as React from 'react';
+
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
@@ -32,30 +33,27 @@ const buttonVariants = cva(
   },
 );
 
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+function Button({
+  className,
+  variant = 'default',
+  size = 'default',
+  asChild = false,
+  ...props
+}: React.ComponentProps<'button'> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
-  };
+  }) {
+  const Comp = asChild ? Slot : 'button';
 
-/**
- * shadcn/ui ボタンコンポーネント
- *
- * @param variant - ボタンのスタイルバリアント(default, destructive, outline, secondary, ghost, link)
- * @param size - ボタンのサイズ(default, sm, lg, icon)
- * @param asChild - trueの場合、Radix UIのSlotコンポーネントとして描画
- */
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : 'button';
-    return (
-      <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        {...props}
-      />
-    );
-  },
-);
-Button.displayName = 'Button';
+  return (
+    <Comp
+      data-slot='button'
+      data-variant={variant}
+      data-size={size}
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    />
+  );
+}
 
 export { Button, buttonVariants };

@@ -1,5 +1,3 @@
-'use client';
-
 import { Check, Copy } from 'lucide-react';
 import { type ReactNode, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -21,23 +19,6 @@ type CodeBlockProps = {
  * @param children - コードブロック内に表示する内容。通常はcodeタグでラップされたコード文字列です
  * @returns コードブロックコンポーネント
  *
- * @example
- * ```tsx
- * import { CodeBlock } from '@/components/feature/content/code-block';
- *
- * export default function Documentation() {
- *   return (
- *     <CodeBlock className='language-typescript'>
- *       <code>
- *         {`function greet(name: string): string {
- *   return \`Hello, \${name}!\`;
- * }`}
- *       </code>
- *     </CodeBlock>
- *   );
- * }
- * // 出力: シンタックスハイライト付きのコードブロックと、
- * // 右上にコピーボタンが表示されます
  * ```
  */
 export function CodeBlock({ className, children, ...props }: CodeBlockProps) {
@@ -49,12 +30,6 @@ export function CodeBlock({ className, children, ...props }: CodeBlockProps) {
    *
    * preタグのテキスト内容を取得し、navigator.clipboard APIを使用してクリップボードにコピーします。
    * コピー成功後、1秒間コピー完了状態を表示します。
-   *
-   * @example
-   * ```tsx
-   * // コピーボタンがクリックされたときに自動的に呼び出されます
-   * // ユーザーが明示的に呼び出す必要はありません
-   * ```
    */
   function copyToClipboard() {
     // 現在のコンポーネント内のpreタグを参照

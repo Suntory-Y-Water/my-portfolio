@@ -37,7 +37,7 @@ function sanitizeSVG(svg: string): string {
  * セキュリティ: すべてのSVGはDOMPurifyでサニタイズされる
  */
 function loadIcons(): Record<string, string> {
-  const iconsDir = path.join(process.cwd(), 'public', 'icons');
+  const iconsDir = path.join(process.cwd(), '..', 'public', 'icons');
   const cache: Record<string, string> = {};
 
   if (!fs.existsSync(iconsDir)) {
