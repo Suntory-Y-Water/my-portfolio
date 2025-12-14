@@ -107,7 +107,11 @@ export function SearchDialog({
         }
 
         // JSを動的にロード
-        await import(/* webpackIgnore: true */ '/pagefind/pagefind-ui.js');
+        // 開発モードでは /dist 配下のファイルを参照
+        const jsPath = import.meta.env.DEV
+          ? '/dist/pagefind/pagefind-ui.js'
+          : '/pagefind/pagefind-ui.js';
+        await import(/* webpackIgnore: true */ /* @vite-ignore */ jsPath);
         // PagefindUIはグローバルに登録されるため、windowオブジェクトから取得
         if (!window.PagefindUI) {
           console.warn('PagefindUI not found in window object');

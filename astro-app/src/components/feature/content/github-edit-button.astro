@@ -1,6 +1,6 @@
 ---
 import { SocialIcons } from '@/components/icons/social-icons';
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
 import { REPOSITORY_CONSTANTS } from '@/constants';
 
@@ -25,10 +25,8 @@ const editUrl = shouldShow ? `${GITHUB_EDIT_URL_BASE}${filePath}` : '';
 ---
 
 {shouldShow && (
-  <Button variant='outline' size='sm' asChild client:load>
-    <a href={editUrl} target='_blank' rel='noopener noreferrer'>
-      <SocialIcons.github className='mr-2 size-4' client:load />
-      GitHubで修正を提案する
-    </a>
-  </Button>
+  <a href={editUrl} target='_blank' rel='noopener noreferrer' class={buttonVariants({ variant: 'outline', size: 'sm' })}>
+    <SocialIcons.github className='mr-2 size-4' client:load />
+    GitHubで修正を提案する
+  </a>
 )}
