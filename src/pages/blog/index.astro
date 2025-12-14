@@ -6,7 +6,7 @@ import { getInlineIcon } from '@/lib/inline-icons';
 import { BLOG_CONSTANTS } from '@/constants';
 import BlogCard from '@/components/feature/content/blog-card.astro';
 import { Icons } from '@/components/icons';
-import Pagination from '@/components/shared/pagination.astro';
+import Pagination from '@/components/shared/pagination-item.astro';
 
 const allPosts = await getAllBlogPosts();
 const totalPosts = allPosts.length;
