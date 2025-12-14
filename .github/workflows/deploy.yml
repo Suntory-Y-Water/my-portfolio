@@ -2,6 +2,8 @@ name: Deploy to Vercel
 
 on:
   push:
+    branches:
+      - main
   pull_request:
 
 defaults:
@@ -35,7 +37,7 @@ jobs:
         run: echo "version=$(node -p "require('./package.json').devDependencies.playwright || require('./package.json').dependencies.playwright" | tr -d '^~')" >> "$GITHUB_OUTPUT"
 
       - name: Cache Playwright browsers
-        uses: actions/cache@3624ceb22c1c5a301c8db4169662070a689d9ea8 # v4.2.0
+        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
@@ -71,7 +73,7 @@ jobs:
 
   deploy-production:
     name: Deploy Production
-    if: github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     timeout-minutes: 20
     runs-on: ubuntu-latest
     permissions:
@@ -89,7 +91,7 @@ jobs:
         run: echo "version=$(node -p "require('./package.json').devDependencies.playwright || require('./package.json').dependencies.playwright" | tr -d '^~')" >> "$GITHUB_OUTPUT"
 
       - name: Cache Playwright browsers
-        uses: actions/cache@3624ceb22c1c5a301c8db4169662070a689d9ea8 # v4.2.0
+        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
