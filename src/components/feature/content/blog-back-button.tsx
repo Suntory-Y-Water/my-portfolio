@@ -1,6 +1,3 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
@@ -14,16 +11,8 @@ type Props = {
 /**
  * ブログ詳細ページで「元の一覧へ戻る」ナビゲーションを提供するボタン。
  * 優先度: 保存済みパス → 自サイト referrer が一覧系 → `/blog` フォールバック。
- *
- * @example
- * ```tsx
- * // 詳細ページの先頭などで配置
- * <BlogBackButton className="h-9 px-2" />
- * ```
  */
 export function BlogBackButton({ className }: Props) {
-  const router = useRouter();
-
   const handleClick = useCallback(() => {
     if (typeof window === 'undefined') {
       return;
@@ -33,7 +22,7 @@ export function BlogBackButton({ className }: Props) {
     const savedKey = BLOG_NAVIGATION_CONSTANTS.LIST_PATH_STORAGE_KEY;
     const saved = window.sessionStorage.getItem(savedKey);
     if (saved && isBlogListPath(saved)) {
-      router.push(saved, { scroll: false });
+      window.location.href = saved;
       return;
     }
 
@@ -45,7 +34,7 @@ export function BlogBackButton({ className }: Props) {
         const url = new URL(referrer);
         const refPath = url.pathname + url.search;
         if (url.origin === currentOrigin && isBlogListPath(refPath)) {
-          router.push(refPath, { scroll: false });
+          window.location.href = refPath;
           return;
         }
       } catch {
@@ -54,8 +43,8 @@ export function BlogBackButton({ className }: Props) {
     }
 
     // 3. どれもなければ /blog
-    router.push('/blog', { scroll: false });
-  }, [router]);
+    window.location.href = '/blog';
+  }, []);
 
   return (
     <Button

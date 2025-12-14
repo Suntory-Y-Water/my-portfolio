@@ -19,6 +19,10 @@
     "source.fixAll.biome": "always",
     "source.organizeImports.biome": "always"
   },
+  "prettier.documentSelectors": ["**/*.astro"],
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   // @see https://qiita.com/nolanlover0527/items/071277263f8851012e6b
   // 不要なファイル監視を除外してパフォーマンスを向上させる
   "files.watcherExclude": {

@@ -1,15 +1,6 @@
-import { type ClassValue, clsx } from 'clsx';
+import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-/**
- * Tailwind CSSのクラス名を結合してマージする
- *
- * clsxとtailwind-mergeを組み合わせて、条件付きクラス名の結合と
- * 競合するTailwindクラスの自動マージを行います。
- *
- * @param inputs - 結合するクラス名(文字列、配列、オブジェクト形式)
- * @returns マージされたクラス名文字列
- */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -37,12 +28,12 @@ export function formatDate(input: string | number): string {
  * 相対パスを絶対URLに変換する
  *
  * アプリケーションのベースURLと相対パスを結合して、
- * 完全な絶対URLを生成します。環境変数NEXT_PUBLIC_APP_URLが
- * 設定されていない場合は、開発環境用のデフォルトURL(http://localhost:3000)を使用します。
+ * 完全な絶対URLを生成します。環境変数PUBLIC_SITE_URLが
+ * 設定されていない場合は、開発環境用のデフォルトURL(http://localhost:4321)を使用します。
  *
  * @param path - 変換する相対パス(例：/blog/post-1)
  * @returns 絶対URL(例：https://example.com/blog/post-1)
  */
 export function absoluteUrl(path: string) {
-  return `${process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'}${path}`;
+  return `${import.meta.env.PUBLIC_SITE_URL ?? 'http://localhost:4321'}${path}`;
 }

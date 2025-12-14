@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
@@ -20,25 +18,6 @@ type Props = {
  *
  * @param props - コンポーネントのプロパティ
  * @param props.content - コピーするMarkdownテキスト(ブログ記事のrawContent)
- *
- * @example
- * ```tsx
- * // ブログ記事のフッターで使用
- * const post = await getBlogPostBySlug(slug);
- * <MarkdownCopyButton content={post.rawContent} />
- * ```
- *
- * 動作:
- * - 初期状態: コピーアイコン + "Markdownをコピー"
- * - クリック後: チェックアイコン + "コピーしました" (2秒間表示)
- * - 2秒後: 初期状態に戻る
- *
- * 入力:
- * - content: string型のMarkdownテキスト(例: "# タイトル\n\n本文...")
- *
- * 出力:
- * - クリップボードにcontentがコピーされる
- * - UIが2秒間コピー完了状態になる
  */
 export function MarkdownCopyButton({ content }: Props) {
   const [copied, setCopied] = useState(false);

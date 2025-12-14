@@ -40,13 +40,6 @@ type FluentEmojiParams = {
  *
  * @param params - FluentUI Emojiの生成パラメータ
  * @returns FluentUI EmojiのURL
- *
- * @example
- * ```ts
- * const emojiInfo = emojiData['🔥'];
- * const url = generateFluentEmojiUrl({ emojiInfo });
- * // => 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire/Flat/fire_flat.svg'
- * ```
  */
 async function generateFluentEmojiUrl({
   emojiInfo,
@@ -90,15 +83,6 @@ async function generateFluentEmojiUrl({
  *
  * @param icon - 変換する絵文字文字列(例: "🔥", "😎")
  * @returns FluentUI EmojiのURL、または変換できない場合は元の文字列
- *
- * @example
- * ```ts
- * const url = convertEmojiToFluentUrl({ icon: '🔥' });
- * // => 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire/Flat/fire_flat.svg'
- *
- * const unchanged = convertEmojiToFluentUrl({ icon: 'already-a-url' });
- * // => 'already-a-url' (絵文字データが見つからないため元の値を返す)
- * ```
  */
 export async function convertEmojiToFluentUrl({
   icon,

@@ -1,0 +1,73 @@
+---
+/**
+ * ダークモードテーマ管理コンポーネント
+ *
+ * Astro公式推奨の方法でダークモードを実装します。
+ * LocalStorageとシステム設定を組み合わせてテーマを管理し、
+ * FOUC (Flash of Unstyled Content) を防ぎます。
+ */
+---
+
+<script is:inline>
+  /**
+   * テーマの初期化とトグル機能を提供
+   *
+   * - localStorage.theme から保存済みテーマを取得
+   * - なければ prefers-color-scheme を確認
+   * - 最終的に 'light' をデフォルトとする
+   * - document.documentElement に 'dark' クラスを追加/削除
+   */
+
+  function getTheme() {
+    // LocalStorageから取得
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+      return localStorage.getItem('theme');
+    }
+    // システム設定を確認
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    return 'light';
+  }
+
+  const theme = getTheme();
+
+  // 初期テーマを適用（FOUC防止）
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+
+  /**
+   * テーマをトグル（ライト⇔ダーク）
+   */
+  function toggleTheme() {
+    const element = document.documentElement;
+    const isDark = element.classList.toggle('dark');
+
+    // LocalStorageに保存
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  }
+
+  // グローバルに公開（ModeToggleから呼び出せるように）
+  window.toggleTheme = toggleTheme;
+
+  /**
+   * システムテーマ変更を監視
+   *
+   * ユーザーがOSのテーマ設定を変更した場合、
+   * LocalStorageに明示的な設定がなければ自動追従
+   */
+  window
+    .matchMedia('(prefers-color-scheme: dark)')
+    .addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        if (e.matches) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+    });
+</script>

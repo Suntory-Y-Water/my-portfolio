@@ -1,6 +1,3 @@
-'use client';
-
-import Image from 'next/image';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -25,14 +22,6 @@ type ImageWithFallbackProps = {
  *
  * @param props - 画像コンポーネントのプロパティ
  * @returns 画像要素またはフォールバック要素
- *
- * @example
- * ```tsx
- * <ImageWithFallback
- *   src="https://example.com/image.jpg"
- *   alt="サンプル画像"
- * />
- * ```
  */
 export function ImageWithFallback({
   src,
@@ -50,14 +39,11 @@ export function ImageWithFallback({
   }
 
   return (
-    <Image
+    <img
       src={src || '/placeholder.svg'}
       alt={alt}
-      className={cn('object-cover', className)}
-      fill
-      sizes='148px'
+      className={cn('object-cover w-full h-full', className)}
       onError={() => setError(true)}
-      unoptimized={src.startsWith('http')}
     />
   );
 }
