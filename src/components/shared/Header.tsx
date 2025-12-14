@@ -45,21 +45,6 @@ const NAVIGATION_LINKS: MenuItemLinkProps[] = [
  * テーマ切り替えボタン、モバイルメニューを含みます。
  * 現在のページに応じてナビゲーションリンクがアクティブ状態で表示されます。
  *
- * @returns ヘッダーコンポーネント
- *
- * @example
- * ```tsx
- * import Header from '@/components/shared/Header';
- *
- * export default function Layout({ children }) {
- *   return (
- *     <>
- *       <Header />
- *       <main>{children}</main>
- *     </>
- *   );
- * }
- * ```
  */
 export default function Header() {
   const pathname = usePathname();
@@ -73,14 +58,6 @@ export default function Header() {
    *
    * @param linkHref - 判定対象のリンクパス(例: '/', '/posts', '/blog')
    * @returns リンクがアクティブな場合はtrue、それ以外はfalse
-   *
-   * @example
-   * ```tsx
-   * // 現在のパスが '/posts/123' の場合
-   * isLinkActive('/');        // false (完全一致が必要)
-   * isLinkActive('/posts');   // true (前方一致)
-   * isLinkActive('/blog');    // false
-   * ```
    */
   function isLinkActive(linkHref: string): boolean {
     // Exact match required for the root path to avoid highlighting on all pages

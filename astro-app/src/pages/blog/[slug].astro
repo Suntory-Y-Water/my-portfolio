@@ -9,7 +9,8 @@ import { absoluteUrl, formatDate } from '@/lib/utils';
 import { siteConfig } from '@/config/site';
 import { getTagSlug } from '@/config/tag-slugs';
 import { BLOG_CONSTANTS } from '@/constants';
-import {CustomMarkdown} from '@/components/feature/content/custom-markdown';
+import { compileMarkdown } from '@/components/feature/content/custom-markdown';
+import { MarkdownContent } from '@/components/feature/content/markdown-content';
 import GitHubEditButton from '@/components/feature/content/github-edit-button.astro';
 import {MarkdownCopyButton} from '@/components/feature/content/markdown-copy-button';
 import RelatedArticles from '@/components/feature/content/related-articles.astro';
@@ -67,6 +68,9 @@ const jsonLd = {
 };
 
 const canonicalUrl = absoluteUrl(`/blog/${post.slug}`);
+
+// サーバーサイドでMarkdownをコンパイル
+const compiledHtml = await compileMarkdown({ source: post.rawContent });
 ---
 
 <BaseLayout title={post.metadata.title} description={post.metadata.description} ogImage={absoluteUrl(`/blog/ogp/${post.slug}`)} canonicalUrl={canonicalUrl}>
@@ -115,7 +119,7 @@ const canonicalUrl = absoluteUrl(`/blog/${post.slug}`);
       )}
       {tableOfContents.length > 0 && <TableOfContents items={tableOfContents} />}
       <div class="mt-8">
-        <CustomMarkdown source={post.rawContent} />
+        <MarkdownContent client:load html={compiledHtml} />
       </div>
       {post.metadata.selfAssessment && <SelfAssessment client:load selfAssessment={post.metadata.selfAssessment} />}
       <footer class="mt-10 flex flex-wrap items-center justify-between gap-4 border-t pt-8">
