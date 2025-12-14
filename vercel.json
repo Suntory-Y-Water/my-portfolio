@@ -1,5 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "bunVersion": "1.x",
-  "regions": ["hnd1"]
+  "regions": ["hnd1"],
+  "installCommand": "bun install && bunx --bun playwright install --with-deps chromium"
 }
