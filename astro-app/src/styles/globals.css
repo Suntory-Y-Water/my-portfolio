@@ -5,26 +5,26 @@
   /* カスタムカラー */
   --color-twitter: #1DA1F2;
 
-  /* デザインシステムカラー（hsl形式） - ライトモード */
-  --color-border: hsl(0 0% 86%);
-  --color-input: hsl(0 0% 86%);
-  --color-ring: hsl(199 100% 78%);
-  --color-background: hsl(0 0% 98%);
-  --color-foreground: hsl(0 0% 20%);
-  --color-primary: hsl(214 100% 27%);
-  --color-primary-foreground: hsl(0 0% 100%);
-  --color-secondary: hsl(220 14% 96%);
-  --color-secondary-foreground: hsl(0 0% 20%);
-  --color-muted: hsl(220 14% 96%);
-  --color-muted-foreground: hsl(0 0% 45%);
-  --color-accent: hsl(199 100% 78%);
-  --color-accent-foreground: hsl(0 0% 20%);
-  --color-destructive: hsl(0 84% 60%);
-  --color-destructive-foreground: hsl(0 0% 98%);
-  --color-card: hsl(0 0% 100%);
-  --color-card-foreground: hsl(0 0% 20%);
-  --color-popover: hsl(0 0% 100%);
-  --color-popover-foreground: hsl(0 0% 20%);
+  /* デザインシステムカラー */
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
 
   /* フォントファミリー */
   --font-sans: "noto-sans", sans-serif;
@@ -42,32 +42,53 @@
   --radius-sm: calc(0.5rem - 4px);
 }
 
-/* Tailwind CSS v4: ダークモード用カラーオーバーライド */
-@variant dark {
-  @theme {
-    --color-background: hsl(0 0% 12%);
-    --color-foreground: hsl(0 0% 95%);
-    --color-card: hsl(0 0% 15%);
-    --color-card-foreground: hsl(0 0% 95%);
-    --color-popover: hsl(0 0% 15%);
-    --color-popover-foreground: hsl(0 0% 95%);
-    --color-primary: hsl(199 100% 78%);
-    --color-primary-foreground: hsl(0 0% 12%);
-    --color-secondary: hsl(0 0% 20%);
-    --color-secondary-foreground: hsl(0 0% 95%);
-    --color-muted: hsl(0 0% 20%);
-    --color-muted-foreground: hsl(0 0% 65%);
-    --color-accent: hsl(199 100% 78%);
-    --color-accent-foreground: hsl(0 0% 12%);
-    --color-destructive: hsl(0 84% 60%);
-    --color-destructive-foreground: hsl(0 0% 98%);
-    --color-border: hsl(0 0% 28%);
-    --color-input: hsl(0 0% 28%);
-    --color-ring: hsl(199 100% 78%);
-  }
-}
-
 @layer base {
+  /* ライトモード（デフォルト） */
+  :root {
+    --border: hsl(0 0% 86%);
+    --input: hsl(0 0% 86%);
+    --ring: hsl(199 100% 78%);
+    --background: hsl(0 0% 98%);
+    --foreground: hsl(0 0% 20%);
+    --primary: hsl(214 100% 27%);
+    --primary-foreground: hsl(0 0% 100%);
+    --secondary: hsl(220 14% 96%);
+    --secondary-foreground: hsl(0 0% 20%);
+    --muted: hsl(220 14% 96%);
+    --muted-foreground: hsl(0 0% 45%);
+    --accent: hsl(199 100% 78%);
+    --accent-foreground: hsl(0 0% 20%);
+    --destructive: hsl(0 84% 60%);
+    --destructive-foreground: hsl(0 0% 98%);
+    --card: hsl(0 0% 100%);
+    --card-foreground: hsl(0 0% 20%);
+    --popover: hsl(0 0% 100%);
+    --popover-foreground: hsl(0 0% 20%);
+  }
+
+  /* ダークモード */
+  .dark {
+    --border: hsl(0 0% 28%);
+    --input: hsl(0 0% 28%);
+    --ring: hsl(199 100% 78%);
+    --background: hsl(0 0% 12%);
+    --foreground: hsl(0 0% 95%);
+    --primary: hsl(199 100% 78%);
+    --primary-foreground: hsl(0 0% 12%);
+    --secondary: hsl(0 0% 20%);
+    --secondary-foreground: hsl(0 0% 95%);
+    --muted: hsl(0 0% 20%);
+    --muted-foreground: hsl(0 0% 65%);
+    --accent: hsl(199 100% 78%);
+    --accent-foreground: hsl(0 0% 12%);
+    --destructive: hsl(0 84% 60%);
+    --destructive-foreground: hsl(0 0% 98%);
+    --card: hsl(0 0% 15%);
+    --card-foreground: hsl(0 0% 95%);
+    --popover: hsl(0 0% 15%);
+    --popover-foreground: hsl(0 0% 95%);
+  }
+
   p,
   li,
   tr,

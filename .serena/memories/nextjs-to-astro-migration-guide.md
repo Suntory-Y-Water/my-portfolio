@@ -847,6 +847,20 @@ PUBLIC_APP_URL=https://example.com
 - **Lighthouse Performance**: 90+達成
 - **TTI (Time to Interactive)**: 大幅改善
 
+### Phase 3.5: 残タスク整理
+
+MUST
+- [ ] ページファインドが機能していない
+- [ ] blog/{slut} ページにて `Failed to load resource: the server responded with a status of 404 (Not Found)`のようなブログカードのアイコンがとれなくて 404 になっている
+- [ ] 同ファイルで `self-assessment.tsx`の色合いが今までのものと異なる
+- [x] ダークモード対応ができていない。現在は next の色をそのまま使っているため、一時的にコメントアウト済み
+- [ ] 自作したプラグインが全滅？
+  - [ ] マーメイド記法がぶっ壊れてレンダリングできていない
+  - [ ] ブログにあるコピーボタンが表示されていない
+
+WANT
+- [ ] ViewTransition設定の実施
+
 ### Phase 4: クリーンアップ（ブランチ: `feature-migrate-astro-blog-phase3`）
 - [ ] Astroプロジェクト動作確認
 - [ ] Next.js関連ファイル削除

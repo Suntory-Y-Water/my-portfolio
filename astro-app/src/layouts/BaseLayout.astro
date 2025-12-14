@@ -5,6 +5,7 @@ import { siteConfig } from '@/config/site';
 import { absoluteUrl } from '@/lib/utils';
 import Header from '@/components/shared/header';
 import Footer from '@/components/shared/footer.astro';
+import ThemeProvider from '@/components/ui/theme-provider.astro';
 
 export type Props = {
   title?: string;
@@ -85,6 +86,8 @@ const jsonLdWebsite = {
     gtag('js', new Date());
     gtag('config', 'G-VJECTY2TM6');
   </script>
+
+  <ThemeProvider />
 </head>
 <body class="flex min-h-screen flex-col overflow-x-hidden">
   <div aria-hidden class="pointer-events-none fixed inset-0 -z-10 opacity-20"></div>
