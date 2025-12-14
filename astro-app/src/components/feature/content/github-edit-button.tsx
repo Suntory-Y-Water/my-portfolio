@@ -1,0 +1,37 @@
+import { SocialIcons } from '@/components/icons/social-icons';
+import { Button } from '@/components/ui/button';
+import { siteConfig } from '@/config/site';
+import { REPOSITORY_CONSTANTS } from '@/constants';
+
+type GitHubEditButtonProps = {
+  filePath?: string;
+};
+
+const GITHUB_EDIT_URL_BASE = `${siteConfig.links.github}/${REPOSITORY_CONSTANTS.NAME}/blob/${siteConfig.repository?.branch ?? 'main'}/`;
+
+/**
+ * GitHubで記事の修正を提案するボタンコンポーネント
+ *
+ * このコンポーネントはブログ記事やドキュメントページに表示され、
+ * クリックするとGitHub上の該当ファイルを開いて修正提案を行えるようにします。
+ * filePathが指定されていない場合や、GitHubのURLが設定されていない場合は何も表示されません。
+ *
+ * @param filePath - GitHubリポジトリ内のファイルパス(任意)。例: 'contents/blog/2025-01-15-typescript.md'。指定されていない場合はボタンを表示しません
+ * @returns GitHubで編集ボタンコンポーネント。filePathがない場合はnullを返します
+ */
+export function GitHubEditButton({ filePath }: GitHubEditButtonProps) {
+  if (!filePath || !siteConfig.links.github || !siteConfig.repository?.branch) {
+    return null;
+  }
+
+  const editUrl = `${GITHUB_EDIT_URL_BASE}${filePath}`;
+
+  return (
+    <Button variant='outline' size='sm' asChild>
+      <a href={editUrl} target='_blank' rel='noopener noreferrer'>
+        <SocialIcons.github className='mr-2 size-4' />
+        GitHubで修正を提案する
+      </a>
+    </Button>
+  );
+}
