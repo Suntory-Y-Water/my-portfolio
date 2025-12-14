@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { getOGData } from '@/actions/fetch-og-metadata';
+import { getOGData } from '@/lib/fetch-og-metadata';
 import { Icons } from '@/components/icons';
 import { ImageWithFallback } from '@/components/shared/image-with-fallback';
 import { siteConfig } from '@/config/site';

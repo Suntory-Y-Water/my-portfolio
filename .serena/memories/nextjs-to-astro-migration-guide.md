@@ -850,9 +850,9 @@ PUBLIC_APP_URL=https://example.com
 ### Phase 3.5: 残タスク整理
 
 MUST
-- [ ] ページファインドが機能していない
+- [x] ページファインドが機能していない
 - [ ] blog/{slut} ページにて `Failed to load resource: the server responded with a status of 404 (Not Found)`のようなブログカードのアイコンがとれなくて 404 になっている
-- [ ] 同ファイルで `self-assessment.tsx`の色合いが今までのものと異なる
+  - [ ] 同ファイルで `self-assessment.tsx`の色合いが今までのものと異なる
 - [x] ダークモード対応ができていない。現在は next の色をそのまま使っているため、一時的にコメントアウト済み
 - [ ] 自作したプラグインが全滅？
   - [ ] マーメイド記法がぶっ壊れてレンダリングできていない

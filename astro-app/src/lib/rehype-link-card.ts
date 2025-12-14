@@ -2,7 +2,7 @@ import DOMPurify from 'dompurify';
 import type { Element, Root } from 'hast';
 import { JSDOM } from 'jsdom';
 import { visit } from 'unist-util-visit';
-import { getOGData } from '@/actions/fetch-og-metadata';
+import { getOGData } from '@/lib/fetch-og-metadata';
 import { siteConfig } from '@/config/site';
 import { getBlogPostBySlug } from '@/lib/markdown';
 

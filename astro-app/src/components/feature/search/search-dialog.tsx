@@ -5,22 +5,6 @@ import { createPortal } from 'react-dom';
 import { SEARCH_CONSTANTS } from '@/constants';
 
 /**
- * PagefindのURLを正しいNext.jsのルートに変換
- *
- * Pagefindは`.next/server/app/xxx.html`のようなパスを返すため、
- * これを実際のルート(例: `/blog/xxx`)に変換する必要があります。
- *
- * @param pagefindUrl - Pagefindが返すURL(例: `/server/app/blog/article-title.html`)
- * @returns Next.jsの正しいルート(例: `/blog/article-title`)
- */
-function normalizePagefindUrl(pagefindUrl: string): string {
-  // `/server/app/`を削除して、`.html`拡張子も削除
-  return pagefindUrl
-    .replace(/^\/server\/app\//, '/') // /server/app/ を削除
-    .replace(/\.html$/, ''); // .html を削除
-}
-
-/**
  * 検索ダイアログコンポーネント
  *
  * PagefindUIを使用したブログ記事の検索機能を提供します。
@@ -154,7 +138,6 @@ export function SearchDialog({
             url: string;
             meta: { image?: string };
           }) => {
-            result.url = normalizePagefindUrl(result.url);
             if (result.meta.image) {
               result.meta.image = result.meta.image.replaceAll('&amp;', '&');
             }
