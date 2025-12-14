@@ -1,0 +1,72 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__serena",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr checks:*)",
+      "Bash(gh run view:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh search issues:*)",
+      "Bash(gh issue view:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(sudo:*)",
+      "Read(.env.*)",
+      "Read(.credentials.*)",
+      "Read(id_rsa)",
+      "Read(id_ed25519)",
+      "Read(**/*token*)",
+      "Read(**/*key*)",
+      "Bash(wget:*)",
+      "Edit",
+      "Glob",
+      "Grep",
+      "Read",
+      "Write",
+      "NotebookEdit",
+      "NotebookRead",
+      "ExitPlanMode"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(git switch:*)",
+      "Bash(bun add:*)",
+      "Bash(bun remove:*)",
+      "Bash(curl:*)",
+      "Bash(rm:*)",
+      "WebFetch"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run --silent -i ~/.claude/scripts/typescript/multi-command-check.ts -c format,lint:ai,type-check:ai"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run --silent -i ~/.claude/scripts/typescript/no-restricted-edit.ts"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "node ~/.claude/scripts/statusline.js"
+  }
+}
