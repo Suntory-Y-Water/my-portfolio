@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Tailwind CSS v4: ダークモードカスタムバリアント */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Tailwind CSS v4: カスタムトークン定義 */
 @theme {
   /* カスタムカラー */

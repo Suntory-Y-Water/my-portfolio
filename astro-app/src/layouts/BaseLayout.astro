@@ -78,6 +78,9 @@ const jsonLdWebsite = {
   <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#1f1f1f" media="(prefers-color-scheme: dark)" />
   
+  <!-- Theme Provider: FOUC防止のため最初に読み込む -->
+  <ThemeProvider />
+
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VJECTY2TM6"></script>
   <script is:inline>
@@ -86,8 +89,6 @@ const jsonLdWebsite = {
     gtag('js', new Date());
     gtag('config', 'G-VJECTY2TM6');
   </script>
-
-  <ThemeProvider />
 </head>
 <body class="flex min-h-screen flex-col overflow-x-hidden">
   <div aria-hidden class="pointer-events-none fixed inset-0 -z-10 opacity-20"></div>
