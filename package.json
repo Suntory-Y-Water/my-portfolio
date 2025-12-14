@@ -4,7 +4,7 @@
   "version": "2.0.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "bunx --bun playwright install --with-deps chromium && astro build",
+    "build": "astro build",
     "postbuild": "pagefind --site dist",
     "start": "astro preview",
     "astro": "astro",
