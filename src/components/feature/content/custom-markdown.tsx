@@ -1,8 +1,8 @@
+import rehypeMermaid from 'rehype-mermaid';
 import rehypePrettyCode, { type Options } from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import remarkBreaks from 'remark-breaks';
-// TODO: なんでこれあるんだっけ？
 import remarkGfm from 'remark-gfm';
 import { remarkAlert } from 'remark-github-blockquote-alert';
 import remarkParse from 'remark-parse';
@@ -10,7 +10,7 @@ import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 import { rehypeCodeCopyButton } from '@/lib/rehype-code-copy-button';
 import { rehypeLinkCard } from '@/lib/rehype-link-card';
-import { rehypeMermaidCodeToDiv } from '@/lib/rehype-mermaid-code';
+import { rehypeAddMermaidClass } from '@/lib/rehype-mermaid-class';
 import { MarkdownContent } from './markdown-content';
 
 type CustomMarkdownProps = {
@@ -48,24 +48,6 @@ const rehypePrettyCodeOptions: Options = {
 
 /**
  * Markdownコンテンツをremark/rehypeプラグインを使用してレンダリングするコンポーネント
- *
- * このコンポーネントはMarkdownソースを受け取り、HTMLとして処理・表示します。
- * GFM(GitHub Flavored Markdown)、リンクカード、GitHubスタイルのアラート、
- * シンタックスハイライト、コードコピーボタンなど、多くの機能をサポートしています。
- * エラーが発生した場合は、エラーメッセージを表示します。
- *
- * セキュリティ: allowDangerousHtml を有効化していますが、
- * リンクカード生成時にDOMPurifyでサニタイズしているため安全です。
- *
- * @param source - レンダリングするMarkdownソース文字列
- * @returns レンダリングされたMarkdownコンポーネント。エラー時はエラーメッセージを含むdivを返します
- *
- */
-/**
- * Markdownソースをunifiedパイプラインを使ってHTMLに変換
- *
- * @param source - Markdownソース文字列
- * @returns コンパイルされたHTML文字列
  */
 export async function compileMarkdown({ source }: { source: string }) {
   const result = await unified()
@@ -76,7 +58,11 @@ export async function compileMarkdown({ source }: { source: string }) {
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeSlug)
     .use(rehypeLinkCard)
-    .use(rehypeMermaidCodeToDiv)
+    .use(rehypeAddMermaidClass)
+    .use(rehypeMermaid, {
+      strategy: 'img-svg',
+      dark: true,
+    })
     .use(rehypePrettyCode, rehypePrettyCodeOptions)
     .use(rehypeCodeCopyButton)
     .use(rehypeStringify, { allowDangerousHtml: true })
@@ -87,18 +73,6 @@ export async function compileMarkdown({ source }: { source: string }) {
 
 /**
  * Markdownコンテンツをremark/rehypeプラグインを使用してレンダリングするコンポーネント
- *
- * このコンポーネントはMarkdownソースを受け取り、HTMLとして処理・表示します。
- * GFM(GitHub Flavored Markdown)、リンクカード、GitHubスタイルのアラート、
- * シンタックスハイライト、コードコピーボタンなど、多くの機能をサポートしています。
- * エラーが発生した場合は、エラーメッセージを表示します。
- *
- * セキュリティ: allowDangerousHtml を有効化していますが、
- * リンクカード生成時にDOMPurifyでサニタイズしているため安全です。
- *
- * @param source - レンダリングするMarkdownソース文字列
- * @returns レンダリングされたMarkdownコンポーネント。エラー時はエラーメッセージを含むdivを返します
- *
  */
 export async function CustomMarkdown({ source }: CustomMarkdownProps) {
   try {

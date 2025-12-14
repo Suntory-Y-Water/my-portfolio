@@ -6,8 +6,8 @@ import { getInlineIcon } from '@/lib/inline-icons';
 import { BLOG_CONSTANTS } from '@/constants';
 import { absoluteUrl } from '@/lib/utils';
 import BlogCard from '@/components/feature/content/blog-card.astro';
-import Pagination from '@/components/shared/pagination.astro';
 import { Icons } from '@/components/icons';
+import Pagination from '@/components/shared/pagination.astro';
 
 export async function getStaticPaths() {
   const allPosts = await getAllBlogPosts();

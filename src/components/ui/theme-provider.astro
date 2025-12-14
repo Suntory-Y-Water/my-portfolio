@@ -30,14 +30,20 @@
     return 'light';
   }
 
-  const theme = getTheme();
+  function applyTheme() {
+    const theme = getTheme();
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }
 
   // 初期テーマを適用（FOUC防止）
-  if (theme === 'dark') {
-    document.documentElement.classList.add('dark');
-  } else {
-    document.documentElement.classList.remove('dark');
-  }
+  applyTheme();
+
+  // View Transitions対応: ページ遷移後もテーマを適用
+  document.addEventListener('astro:after-swap', applyTheme);
 
   /**
    * テーマをトグル（ライト⇔ダーク）

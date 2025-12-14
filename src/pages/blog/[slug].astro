@@ -18,7 +18,7 @@ import { SelfAssessment } from '@/components/feature/content/self-assessment';
 import TableOfContents from '@/components/feature/content/table-of-contents.astro';
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
-import { BlogBackButton } from '@/components/feature/content/blog-back-button';
+import { buttonVariants } from '@/components/ui/button';
 
 /**
  * TODO: 型推論出来るらしい？
@@ -87,15 +87,33 @@ const compiledHtml = await compileMarkdown({ source: post.rawContent });
   ogImage={absoluteUrl(`/blog/ogp/${post.slug}`)}
   canonicalUrl={canonicalUrl}
 >
-  <script type='application/ld+json' set:html={JSON.stringify(jsonLd)} />
+  <script
+    type='application/ld+json'
+    is:inline
+    set:html={JSON.stringify(jsonLd)}
+  />
   <div>
     <article class='min-h-[500px]'>
       <div class='mb-6 flex items-center justify-between'>
-        <BlogBackButton client:load className='h-9 px-2' />
+        <a
+          href='/blog'
+          class={buttonVariants({ variant: 'ghost', size: 'sm' })}
+        >
+          <span class='group inline-flex items-center'>
+            <Icons.arrowLeft
+              client:load
+              className='mr-2 size-4 transition-transform group-hover:-translate-x-1'
+            />
+            ブログ一覧に戻る
+          </span>
+        </a>
       </div>
       {
         (displayUrl || post.metadata.icon) && (
-          <div class='mb-6 flex justify-center'>
+          <div
+            class='mb-6 flex justify-center'
+            transition:name={`blog-icon-${slug}`}
+          >
             {inlineSvg ? (
               <span
                 class='h-20 w-20 [&>svg]:h-full [&>svg]:w-full [&>svg]:object-contain'
@@ -121,7 +139,10 @@ const compiledHtml = await compileMarkdown({ source: post.rawContent });
       >
         {
           post.metadata.date && (
-            <div class='inline-flex items-center gap-1'>
+            <div
+              class='inline-flex items-center gap-1'
+              transition:name={`blog-date-${slug}`}
+            >
               <Icons.Calendar client:load className='size-4' />
               <time datetime={new Date(post.metadata.date).toISOString()}>
                 {formatDate(post.metadata.date)}
@@ -146,7 +167,10 @@ const compiledHtml = await compileMarkdown({ source: post.rawContent });
       <div
         class='flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'
       >
-        <h1 class='text-2xl font-bold leading-snug tracking-normal'>
+        <h1
+          class='text-2xl font-bold leading-snug tracking-normal'
+          transition:name={`blog-title-${slug}`}
+        >
           {post.metadata.title}
         </h1>
         <div class='self-start sm:self-auto'>

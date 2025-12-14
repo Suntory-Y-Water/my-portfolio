@@ -861,23 +861,23 @@ MUST
 - [x] OGP 画像が生成されていない
 
 WANT
-- [ ] ViewTransition設定の実施
+- [x] ViewTransition設定の実施
 
 ### Phase 4: クリーンアップ（ブランチ: `feature-migrate-astro-blog-phase3`）
-- [ ] Astroプロジェクト動作確認
-- [ ] Next.js関連ファイル削除
-- [ ] `astro-app/`をルートに移動
-- [ ] `feature-migrate-astro-blog`にマージ
+- [x] Astroプロジェクト動作確認
+- [x] Next.js関連ファイル削除
+- [x] `astro-app/`をルートに移動
+- [x] `feature-migrate-astro-blog`にマージ
 
 ### Phase 5: 最終確認（ブランチ: `feature-migrate-astro-blog-phase4`）
-- [ ] 全ページ表示確認
-- [ ] OGP画像・メタデータ確認
+- [x] 全ページ表示確認
+- [x] OGP画像・メタデータ確認
 - [ ] 検索・配信確認
-- [ ] UI/UX確認
-- [ ] パフォーマンス確認
-- [ ] SEO確認
-- [ ] `feature-migrate-astro-blog`にマージ
-- [ ] `main`へマージ
+- [x] UI/UX確認
+- [x] パフォーマンス確認
+- [x] SEO確認
+- [x] `feature-migrate-astro-blog`にマージ
+- [x] `main`へマージ
 
 ---
 
