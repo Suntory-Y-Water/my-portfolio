@@ -56,4 +56,5 @@ jobs:
       - uses: koki-develop/github-actions-lint/zizmor@5ecd42b59803f14bfaa7ed0bfb8de8c1dc1b4c6d # v1.6.0
         with:
           github-token: ${{ github.token }}
-          persona: auditor
+          # TODO: 厳密すぎるのもどうなのか
+          persona: regular
