@@ -58,7 +58,7 @@ export default defineConfig({
           keepBackground: true,
           defaultLang: 'plaintext',
           // ファイル名をtitle属性に変換
-          filterMetaString: (meta) => {
+          filterMetaString: (meta: string) => {
             if (!meta) {
               return meta;
             }

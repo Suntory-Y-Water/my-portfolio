@@ -6,7 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "postbuild": "pagefind --site dist",
-    "preview": "astro preview",
+    "start": "astro preview",
     "astro": "astro",
     "format": "biome format --write . && prettier --write '**/*.astro'",
     "format:check": "biome format . && prettier --check '**/*.astro'",

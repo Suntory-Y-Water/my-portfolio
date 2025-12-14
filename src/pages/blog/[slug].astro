@@ -87,7 +87,11 @@ const compiledHtml = await compileMarkdown({ source: post.rawContent });
   ogImage={absoluteUrl(`/blog/ogp/${post.slug}`)}
   canonicalUrl={canonicalUrl}
 >
-  <script type='application/ld+json' set:html={JSON.stringify(jsonLd)} />
+  <script
+    type='application/ld+json'
+    is:inline
+    set:html={JSON.stringify(jsonLd)}
+  />
   <div>
     <article class='min-h-[500px]'>
       <div class='mb-6 flex items-center justify-between'>

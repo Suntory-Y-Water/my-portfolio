@@ -5,8 +5,8 @@ import { paginateItems } from '@/lib/pagination';
 import { getInlineIcon } from '@/lib/inline-icons';
 import { BLOG_CONSTANTS } from '@/constants';
 import BlogCard from '@/components/feature/content/blog-card.astro';
-import Pagination from '@/components/shared/pagination.astro';
 import { Icons } from '@/components/icons';
+import Pagination from '@/components/shared/pagination.astro';
 
 const allPosts = await getAllBlogPosts();
 const totalPosts = allPosts.length;
@@ -61,7 +61,6 @@ const postsWithIcons = paginatedPosts.map((blog) => {
             currentPage={currentPage}
             totalPages={totalPages}
             basePath='/blog/page'
-            client:load
           />
         </div>
       )
