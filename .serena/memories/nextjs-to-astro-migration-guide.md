@@ -757,7 +757,6 @@ PUBLIC_APP_URL=https://example.com
 - `blog-back-button.tsx` - 戻るボタン（onClick、sessionStorage操作）
 - `remember-blog-list-path.tsx` - スクロール位置記憶（sessionStorage、useEffect）
 - `restore-scroll-position.tsx` - スクロール位置復元（sessionStorage、useLayoutEffect）
-- `view-transition.tsx` - View Transitions API（React state）
 - `markdown-copy-button.tsx` - コードコピーボタン（onClick、クリップボードAPI）
 - `code-block.tsx` - コードブロック（コピーボタン含む、インタラクティブ）
 - `link-preview.tsx` - リンクプレビュー（画像フォールバック state）
@@ -851,12 +850,15 @@ PUBLIC_APP_URL=https://example.com
 
 MUST
 - [x] ページファインドが機能していない
-- [ ] blog/{slut} ページにて `Failed to load resource: the server responded with a status of 404 (Not Found)`のようなブログカードのアイコンがとれなくて 404 になっている
-  - [ ] 同ファイルで `self-assessment.tsx`の色合いが今までのものと異なる
-- [x] ダークモード対応ができていない。現在は next の色をそのまま使っているため、一時的にコメントアウト済み
+- [x] blog/{slut} ページにて `Failed to load resource: the server responded with a status of 404 (Not Found)`のようなブログカードのアイコンがとれなくて 404 になっている
+- [ ] ダークモード対応ができていない。現在は next の色をそのまま使っているため、一時的にコメントアウト済み
+  - [x] テーマが変わること
+  - [ ] ダークモード時にテーマは変わるけどアイコンが変化しない
+  - [ ] `blog/{slut}`で ダークモード時の `self-assessment.tsx`の色合いがことなる。
 - [ ] 自作したプラグインが全滅？
   - [ ] マーメイド記法がぶっ壊れてレンダリングできていない
   - [ ] ブログにあるコピーボタンが表示されていない
+- [ ] OGP 画像が生成されていない
 
 WANT
 - [ ] ViewTransition設定の実施

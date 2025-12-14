@@ -1,6 +1,7 @@
 ---
 import type { RelatedPost } from '@/lib/recommend';
 import BlogCard from './blog-card.astro';
+import { getInlineIcon } from '@/lib/inline-icons';
 
 type Props = {
   relatedPosts: RelatedPost[];
@@ -14,14 +15,19 @@ const { relatedPosts } = Astro.props;
  * TF-IDF + Cosine Similarityで計算された関連記事のリストを
  * グリッドレイアウトで表示します。
  */
+const postsWithIcons = relatedPosts.map(({ post }) => {
+  const displayUrl = post.metadata.icon_url || (post.metadata.icon?.startsWith('https://') ? post.metadata.icon : null);
+  const inlineSvg = displayUrl ? getInlineIcon(displayUrl) : undefined;
+  return { post, inlineSvg };
+});
 ---
 
 {relatedPosts.length > 0 && (
   <section class='mt-16 border-t pt-12'>
     <h2 class='mb-8 text-2xl font-bold'>関連記事</h2>
     <div class='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'>
-      {relatedPosts.map(({ post }) => (
-        <BlogCard data={post} />
+      {postsWithIcons.map(({ post, inlineSvg }) => (
+        <BlogCard data={post} inlineSvg={inlineSvg} />
       ))}
     </div>
   </section>
