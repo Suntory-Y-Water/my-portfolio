@@ -5,6 +5,8 @@ import tailwindcss from '@tailwindcss/vite';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 
+import sitemap from '@astrojs/sitemap';
+
 import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
 import remarkAlert from 'remark-github-blockquote-alert';
@@ -15,10 +17,12 @@ import rehypePrettyCode from 'rehype-pretty-code';
 // import { rehypeLinkCard } from './src/lib/rehype-link-card.js';
 import { rehypeMermaidCodeToDiv } from './src/lib/rehype-mermaid-code.js';
 import { rehypeCodeCopyButton } from './src/lib/rehype-code-copy-button.js';
+import { siteConfig } from './src/config/site.js';
 
 // https://astro.build/config
 export default defineConfig({
-	integrations: [react()],
+	site: siteConfig.url,
+	integrations: [react(), sitemap()],
 	vite: {
 		plugins: [tailwindcss()],
 		resolve: {
