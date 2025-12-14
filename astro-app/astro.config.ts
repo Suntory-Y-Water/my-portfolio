@@ -30,6 +30,13 @@ export default defineConfig({
 				'@': fileURLToPath(new URL('./src', import.meta.url))
 			}
 		},
+		optimizeDeps: {
+			exclude: ['@resvg/resvg-js']
+		},
+		ssr: {
+			noExternal: ['satori'],
+			external: ['@resvg/resvg-js']
+		},
 		build: {
 			rollupOptions: {
 				external: ['/pagefind/pagefind-ui.js']
