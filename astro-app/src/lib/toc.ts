@@ -1,5 +1,5 @@
 import { slug } from 'github-slugger';
-import type { TOCItem } from '@/components/feature/content/table-of-contents';
+import type { TOCItem } from '@/types/toc';
 
 /**
  * MarkdownからH2とH3の見出しを抽出して階層的な目次を生成する

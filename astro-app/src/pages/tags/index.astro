@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import {PageHeader} from '@/components/shared/page-header';
+import PageHeader from '@/components/shared/page-header.astro';
 import { Card, CardContent } from '@/components/ui/card';
 import { siteConfig } from '@/config/site';
 import { getTagSlug } from '@/config/tag-slugs';
@@ -23,9 +23,9 @@ const canonicalUrl = absoluteUrl('/tags');
     {sortedTags.length > 0 ? (
       <div class="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4 pt-4">
         {sortedTags.map((tag) => (
-          <a href={`/tags/${getTagSlug(tag)}`} key={tag} class="no-underline">
-            <Card client:load class={cn('flex h-full items-center justify-center p-4 text-center transition-all duration-200', 'hover:shadow-md hover:ring-1 hover:ring-primary/50', 'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2')}>
-              <CardContent client:load class="p-0">
+          <a href={`/tags/${getTagSlug(tag)}`} class="no-underline">
+            <Card client:load className={cn('flex h-full items-center justify-center p-4 text-center transition-all duration-200', 'hover:shadow-md hover:ring-1 hover:ring-primary/50', 'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2')}>
+              <CardContent client:load className="p-0">
                 <span class="font-medium text-foreground group-hover:text-primary"># {tag}</span>
               </CardContent>
             </Card>

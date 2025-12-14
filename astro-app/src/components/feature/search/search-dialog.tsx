@@ -124,16 +124,13 @@ export function SearchDialog({
 
         // JSを動的にロード
         await import(/* webpackIgnore: true */ '/pagefind/pagefind-ui.js');
-
         // PagefindUIはグローバルに登録されるため、windowオブジェクトから取得
-        // @ts-expect-error TODO: ビルド設定のため
         if (!window.PagefindUI) {
           console.warn('PagefindUI not found in window object');
           return;
         }
 
         // PagefindUI インスタンスを生成
-        // @ts-expect-error TODO: ビルド設定のため
         new window.PagefindUI({
           element: '#search',
           bundlePath: '/pagefind/',

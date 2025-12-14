@@ -37,25 +37,25 @@ function isInternalBlogLink(url: string): boolean {
   }
 }
 
-/**
- * URLからスラッグ(最後のパス部分)を抽出
- *
- * URLのパスから最後の部分を抽出してスラッグとして返します。
- * 絶対URLと相対URLの両方に対応しています。
- *
- * @param url - スラッグを抽出するURL(例: '/blog/typescript', 'https://example.com/blog/react')
- * @returns 抽出されたスラッグ(例: 'typescript', 'react')
- */
-function _getSlugFromUrl(url: string): string {
-  try {
-    const urlObj = new URL(url);
-    const parts = urlObj.pathname.split('/');
-    return parts[parts.length - 1];
-  } catch {
-    const parts = url.split('/');
-    return parts[parts.length - 1];
-  }
-}
+// /**
+//  * URLからスラッグ(最後のパス部分)を抽出
+//  *
+//  * URLのパスから最後の部分を抽出してスラッグとして返します。
+//  * 絶対URLと相対URLの両方に対応しています。
+//  *
+//  * @param url - スラッグを抽出するURL(例: '/blog/typescript', 'https://example.com/blog/react')
+//  * @returns 抽出されたスラッグ(例: 'typescript', 'react')
+//  */
+// function _getSlugFromUrl(url: string): string {
+//   try {
+//     const urlObj = new URL(url);
+//     const parts = urlObj.pathname.split('/');
+//     return parts[parts.length - 1];
+//   } catch {
+//     const parts = url.split('/');
+//     return parts[parts.length - 1];
+//   }
+// }
 
 /**
  * リンクプレビューカードを表示するコンポーネント

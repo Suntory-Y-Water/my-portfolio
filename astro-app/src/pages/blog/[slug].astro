@@ -10,15 +10,20 @@ import { siteConfig } from '@/config/site';
 import { getTagSlug } from '@/config/tag-slugs';
 import { BLOG_CONSTANTS } from '@/constants';
 import {CustomMarkdown} from '@/components/feature/content/custom-markdown';
-import {GitHubEditButton} from '@/components/feature/content/github-edit-button';
+import GitHubEditButton from '@/components/feature/content/github-edit-button.astro';
 import {MarkdownCopyButton} from '@/components/feature/content/markdown-copy-button';
-import {RelatedArticles} from '@/components/feature/content/related-articles';
+import RelatedArticles from '@/components/feature/content/related-articles.astro';
 import {SelfAssessment} from '@/components/feature/content/self-assessment';
-import {TableOfContents} from '@/components/feature/content/table-of-contents';
+import TableOfContents from '@/components/feature/content/table-of-contents.astro';
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 import { BlogBackButton } from '@/components/feature/content/blog-back-button';
 
+/**
+ * TODO: 型推論出来るらしい？
+ * 
+ * @see https://docs.astro.build/en/guides/typescript/#infer-getstaticpaths-types
+ */
 export async function getStaticPaths() {
   const allPosts = await getAllBlogPosts();
   return allPosts.map((post) => ({
@@ -108,7 +113,7 @@ const canonicalUrl = absoluteUrl(`/blog/${post.slug}`);
       {post.metadata.description && (
         <p class="mt-4 text-foreground/80">{post.metadata.description}</p>
       )}
-      {tableOfContents.length > 0 && <TableOfContents client:load items={tableOfContents} />}
+      {tableOfContents.length > 0 && <TableOfContents items={tableOfContents} />}
       <div class="mt-8">
         <CustomMarkdown source={post.rawContent} />
       </div>
@@ -119,10 +124,10 @@ const canonicalUrl = absoluteUrl(`/blog/${post.slug}`);
             <Icons.FileText client:load className="size-4" />
             <span>Markdown ver</span>
           </a>
-          <GitHubEditButton client:load filePath={post.filePath} />
+          <GitHubEditButton filePath={post.filePath} />
         </div>
       </footer>
     </article>
-    <RelatedArticles client:visible relatedPosts={relatedPosts} />
+    <RelatedArticles relatedPosts={relatedPosts} />
   </div>
 </BaseLayout>

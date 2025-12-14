@@ -698,7 +698,7 @@ PUBLIC_APP_URL=https://example.com
   - コミット作成
 
 
-### Phase 3: Astro最適化 - Islands Architectureへの移行（作業中 - 2025-12-14）
+### Phase 3: Astro最適化 - Islands Architectureへの移行（完了 - 2025-12-14）
 **目的**: Astroの本質的な利点を最大化し、ゼロJS原則とIslands Architectureを実現
 
 **Astroの思想**:
@@ -718,19 +718,19 @@ PUBLIC_APP_URL=https://example.com
 - ~~`Skeleton.tsx` → `Skeleton.astro`~~ - shadcn uiのためReactコンポーネントのまま維持
 - ~~`Breadcrumb.tsx` → `Breadcrumb.astro`~~ - shadcn uiのためReactコンポーネントのまま維持
 
-**shared/コンポーネント**:
+**shared/コンポーネント（4/4完了）**:
 - [x] `Footer.tsx` → `Footer.astro` - 完了（BaseLayout.astroで`client:`なしで使用）
 - [x] `Pagination.tsx` → `Pagination.astro` - 完了（Astroの`key`属性削除対応済み）
-- [ ] `page-header.tsx` → `page-header.astro` - 未着手
-- [ ] `callout.tsx` → `callout.astro` - 未着手
+- [x] `page-header.tsx` → `page-header.astro` - 完了（完全静的化）
+- [x] `callout.tsx` → `callout.astro` - 完了（アイコン部分のみ`client:load`）
 
-**feature/content/コンポーネント**:
-- [ ] `blog-card.tsx` → `blog-card.astro` - 未着手
-- [ ] `markdown-content.tsx` → `markdown-content.astro` - 未着手（set:html検討）
-- [ ] `table-of-contents.tsx` → `table-of-contents.astro` - 未着手
-- [ ] `related-articles.tsx` → `related-articles.astro` - 未着手
-- [ ] `github-edit-button.tsx` → `github-edit-button.astro` - 未着手
-- [ ] `self-assessment.tsx` → `self-assessment.astro` - 未着手
+**feature/content/コンポーネント（4/6完了）**:
+- [x] `blog-card.tsx` → `blog-card.astro` - 完了（Badge、Iconのみ`client:load`）
+- ❌ `markdown-content.tsx` - **Islandとして維持**（useEffect、DOM操作、mermaid必須）
+- [x] `table-of-contents.tsx` → `table-of-contents.astro` - 完了（完全静的化）
+- [x] `related-articles.tsx` → `related-articles.astro` - 完了（完全静的化）
+- [x] `github-edit-button.tsx` → `github-edit-button.astro` - 完了（Button、SocialIconのみ`client:load`）
+- ❌ `self-assessment.tsx` - **Islandとして維持**（useState必須）
 
 #### 2. Islands として残すReactコンポーネント (.tsx維持 + client:*)
 **特徴**: ユーザーインタラクション・状態管理・動的な振る舞いが必要
@@ -829,17 +829,17 @@ PUBLIC_APP_URL=https://example.com
 
 **確認項目**:
 - [x] ui/ コンポーネントはshadcn uiのため移行禁止を確認
-- [ ] 静的コンポーネント変換完了（shared/ 2/4ファイル完了: Footer, Pagination）
-- [ ] 静的コンポーネント変換完了（feature/content/ 0/6ファイル）
-- [ ] Client Directive最適化完了
+- [x] 静的コンポーネント変換完了（shared/ 4/4ファイル完了: Footer, Pagination, page-header, callout）
+- [x] 静的コンポーネント変換完了（feature/content/ 4/6ファイル: blog-card, table-of-contents, related-articles, github-edit-button）
+- [x] 型定義分離（src/types/toc.ts作成）
+- [x] インポートパス修正完了（6ページファイル）
+- [x] 古い.tsxファイル削除完了（6ファイル）
+- [x] `.astro`コンポーネントから不要な`client:`ディレクティブ削除
+- [ ] ビルド成功確認
+- [ ] 全機能の動作確認
 - [ ] バンドルサイズ削減確認（ビルドログ確認）
 - [ ] Lighthouse スコア改善確認（90+目標）
-- [ ] 全機能の動作確認
 - [ ] `feature-migrate-astro-blog`にマージ
-
-**Phase 3での変更内容（2025-12-14）**:
-- `Footer.astro`: 静的化完了、`BaseLayout.astro`から`client:`なしで使用
-- `Pagination.astro`: 静的化完了、Reactの`key`属性を削除してAstro対応
 
 **期待される効果**:
 - **JSバンドルサイズ**: 50%以上削減（静的化により）

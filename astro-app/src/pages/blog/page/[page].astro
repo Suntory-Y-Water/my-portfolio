@@ -5,11 +5,11 @@ import { paginateItems } from '@/lib/pagination';
 import { getInlineIcon } from '@/lib/inline-icons';
 import { BLOG_CONSTANTS } from '@/constants';
 import { absoluteUrl } from '@/lib/utils';
-import {BlogCard} from '@/components/feature/content/blog-card';
-import {Pagination} from '@/components/shared/pagination';
-import {RememberBlogListPath} from '@/components/feature/content/remember-blog-list-path';
-import {RestoreScrollPosition} from '@/components/feature/content/restore-scroll-position';
+import BlogCard from '@/components/feature/content/blog-card.astro';
+import Pagination from '@/components/shared/pagination.astro';
 import { Icons } from '@/components/icons';
+import { RememberBlogListPath } from '@/components/feature/content/remember-blog-list-path';
+import { RestoreScrollPosition } from '@/components/feature/content/restore-scroll-position';
 
 export async function getStaticPaths() {
   const allPosts = await getAllBlogPosts();
@@ -54,8 +54,8 @@ const canonicalUrl = absoluteUrl(`/blog/page/${page}`);
 
 <BaseLayout title="Blog" canonicalUrl={canonicalUrl}>
   <section data-pagefind-ignore class="space-y-10">
-    <RememberBlogListPath client:load />
-    <RestoreScrollPosition client:load />
+    <RememberBlogListPath client:load pathname={Astro.url.pathname} />
+    <RestoreScrollPosition client:load pathname={Astro.url.pathname} />
     <div class="space-y-3 border-b border-border/60 pb-4">
       <nav class="flex items-center gap-2 text-sm text-muted-foreground">
         <a href="/" class="transition-colors hover:text-primary">

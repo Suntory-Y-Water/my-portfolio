@@ -4,8 +4,8 @@ import { getAllBlogPosts } from '@/lib/markdown';
 import { paginateItems } from '@/lib/pagination';
 import { getInlineIcon } from '@/lib/inline-icons';
 import { BLOG_CONSTANTS } from '@/constants';
-import {BlogCard} from '@/components/feature/content/blog-card';
-import {Pagination} from '@/components/shared/pagination';
+import BlogCard from '@/components/feature/content/blog-card.astro';
+import Pagination from '@/components/shared/pagination.astro';
 import {RememberBlogListPath} from '@/components/feature/content/remember-blog-list-path';
 import {RestoreScrollPosition} from '@/components/feature/content/restore-scroll-position';
 import { Icons } from '@/components/icons';
@@ -31,14 +31,14 @@ const postsWithIcons = paginatedPosts.map((blog) => {
 
 <BaseLayout title="Blog">
   <section data-pagefind-ignore class="space-y-10">
-    <RememberBlogListPath client:load />
-    <RestoreScrollPosition client:load />
+    <RememberBlogListPath client:load pathname={Astro.url.pathname} />
+    <RestoreScrollPosition client:load pathname={Astro.url.pathname} />
     <div class="space-y-3 border-b border-border/60 pb-4">
       <nav class="flex items-center gap-2 text-sm text-muted-foreground">
         <a href="/" class="transition-colors hover:text-primary">
           Home
         </a>
-        <Icons.ChevronRight client:load class="size-4" />
+        <Icons.ChevronRight client:load className="size-4" />
         <span class="text-foreground">Blog</span>
       </nav>
 
@@ -54,7 +54,7 @@ const postsWithIcons = paginatedPosts.map((blog) => {
 
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {postsWithIcons.map(({ blog, inlineSvg }, index) => (
-        <BlogCard key={blog.slug} data={blog} priority={index < 6} inlineSvg={inlineSvg} />
+        <BlogCard data={blog} priority={index < 6} inlineSvg={inlineSvg} />
       ))}
     </div>
 

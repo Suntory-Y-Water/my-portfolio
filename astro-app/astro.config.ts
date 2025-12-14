@@ -52,7 +52,6 @@ export default defineConfig({
 				keepBackground: true,
 				defaultLang: 'plaintext',
 				// ファイル名をtitle属性に変換
-				// @ts-ignore - .mjs file cannot have type annotations
 				filterMetaString: (meta) => {
 					if (!meta) {
 						return meta;

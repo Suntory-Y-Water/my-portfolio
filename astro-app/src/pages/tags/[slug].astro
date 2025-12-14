@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import {BlogCard }from '@/components/feature/content/blog-card';
+import BlogCard from '@/components/feature/content/blog-card.astro';
 import { Icons } from '@/components/icons';
 import { siteConfig } from '@/config/site';
 import { getTagNameFromSlug } from '@/config/tag-slugs';
@@ -38,9 +38,9 @@ const canonicalUrl = absoluteUrl(`/tags/${slug}`);
     <div class="space-y-3 border-b border-border/60 pb-4">
       <nav class="flex items-center gap-2 text-sm text-muted-foreground">
         <a href="/" class="transition-colors hover:text-primary">Home</a>
-        <Icons.ChevronRight client:load class="size-4" />
+        <Icons.ChevronRight client:load className="size-4" />
         <a href="/tags" class="transition-colors hover:text-primary">Tags</a>
-        <Icons.ChevronRight client:load class="size-4" />
+        <Icons.ChevronRight client:load className="size-4" />
         <span class="text-foreground">{tagName}</span>
       </nav>
 
@@ -52,7 +52,7 @@ const canonicalUrl = absoluteUrl(`/tags/${slug}`);
 
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {postsWithIcons.map(({ blog, inlineSvg }) => (
-        <BlogCard key={blog.slug} data={blog} inlineSvg={inlineSvg} />
+        <BlogCard data={blog} inlineSvg={inlineSvg} />
       ))}
     </div>
   </section>

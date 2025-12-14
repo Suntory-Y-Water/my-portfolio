@@ -86,3 +86,13 @@ type PagefindUIInterface = {
 declare module '/pagefind/*' {
   export const PagefindUI: PagefindUIInterface;
 }
+
+
+interface Window {
+  /**
+   * @see https://docs.astro.build/en/guides/typescript/
+   * 
+   * If you only want to type a property on the window object, provide a Window interface instead:
+   */
+  PagefindUI: PagefindUIInterface;
+}

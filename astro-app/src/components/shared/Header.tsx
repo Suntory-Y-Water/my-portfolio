@@ -4,7 +4,7 @@ import { IoMdPerson } from 'react-icons/io';
 import { MdOutlineBook } from 'react-icons/md';
 import { SearchDialog } from '@/components/feature/search/search-dialog';
 import { Icons } from '@/components/icons';
-import HamburgerMenu from '@/components/shared/MenuMobile';
+import HamburgerMenu from '@/components/shared/mobile-menu';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
