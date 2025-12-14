@@ -681,19 +681,16 @@ PUBLIC_APP_URL=https://example.com
   - hsl形式で統一
 - [ ] ダークモード修正
   - ヘッダー部にあるトグル設定がうまくできておらず、ダークモードなのに背景が白い
+  - theme-provider が Next.js 依存なので動かない
 - [x] `markdown.css.phase2-5`の内容を正しく移植
   - rehype-pretty-code、Mermaid、リンクカード等のスタイル完全移植
   - @apply構文そのまま使用可能
-- [x] カスタムrehypeプラグインの有効化（一部）
+- [ ] カスタムrehypeプラグインの有効化（一部）
   - rehypeMermaidCodeToDiv: 有効化完了
   - rehypeCodeCopyButton: 有効化完了
   - **rehypeLinkCard: 未完了**（コピー済み、有効化は後回し - OGデータ取得が重いため）
   - 依存パッケージ（dompurify, jsdom, unist-util-visit）インストール完了
   - `astro-app/src/actions/fetch-og-metadata.ts`作成（Reactの`cache`削除版）
-- [x] **開発用最適化**
-  - `getAllBlogPosts()`を最新9件のみ返すように制限（TODOコメント付き）
-  - ビルド時間短縮のため
-- [x] ビルド成功確認（216ページ生成、49.15秒）
 - **残存タスク（ユーザー側で実施）**:
   - rehypeLinkCardの有効化（`astro.config.mjs`のコメント解除）
   - 開発用制限の解除（`src/lib/markdown.ts`のTODOコメント箇所）
@@ -701,7 +698,7 @@ PUBLIC_APP_URL=https://example.com
   - コミット作成
 
 
-### Phase 3: Astro最適化 - Islands Architectureへの移行
+### Phase 3: Astro最適化 - Islands Architectureへの移行（作業中 - 2025-12-14）
 **目的**: Astroの本質的な利点を最大化し、ゼロJS原則とIslands Architectureを実現
 
 **Astroの思想**:
@@ -714,33 +711,34 @@ PUBLIC_APP_URL=https://example.com
 #### 1. 完全静的化すべきコンポーネント (.tsx → .astro)
 **特徴**: インタラクティビティ不要、純粋な表示のみ
 
-**ui/コンポーネント**:
-- `Badge.tsx` → `Badge.astro` - タグバッジ表示（静的）
-- `Card.tsx` → `Card.astro` - カードレイアウト（静的）
-- `Separator.tsx` → `Separator.astro` - 区切り線（静的）
-- `Skeleton.tsx` → `Skeleton.astro` - ローディング表示（静的）
-- `Breadcrumb.tsx` → `Breadcrumb.astro` - パンくずリスト（静的）
+**ui/コンポーネント**: **移行禁止（shadcn ui）**
+- ~~`Badge.tsx` → `Badge.astro`~~ - shadcn uiのためReactコンポーネントのまま維持
+- ~~`Card.tsx` → `Card.astro`~~ - shadcn uiのためReactコンポーネントのまま維持
+- ~~`Separator.tsx` → `Separator.astro`~~ - shadcn uiのためReactコンポーネントのまま維持
+- ~~`Skeleton.tsx` → `Skeleton.astro`~~ - shadcn uiのためReactコンポーネントのまま維持
+- ~~`Breadcrumb.tsx` → `Breadcrumb.astro`~~ - shadcn uiのためReactコンポーネントのまま維持
 
 **shared/コンポーネント**:
-- `Footer.tsx` → `Footer.astro` - フッター（リンクは<a>タグ、JS不要）
-- `page-header.tsx` → `page-header.astro` - ページヘッダー（静的）
-- `callout.tsx` → `callout.astro` - コールアウト（静的）
-- `Pagination.tsx` → `Pagination.astro` - ページネーション（<a>タグ、JS不要）
+- [x] `Footer.tsx` → `Footer.astro` - 完了（BaseLayout.astroで`client:`なしで使用）
+- [x] `Pagination.tsx` → `Pagination.astro` - 完了（Astroの`key`属性削除対応済み）
+- [ ] `page-header.tsx` → `page-header.astro` - 未着手
+- [ ] `callout.tsx` → `callout.astro` - 未着手
 
 **feature/content/コンポーネント**:
-- `blog-card.tsx` → `blog-card.astro` - ブログカード（ホバーはCSS、JS不要）
-- `markdown-content.tsx` → `markdown-content.astro` - Markdown表示（静的）
-- `table-of-contents.tsx` → `table-of-contents.astro` - 目次（<a>タグ、JS不要）
-- `related-articles.tsx` → `related-articles.astro` - 関連記事（静的カード）
-- `github-edit-button.tsx` → `github-edit-button.astro` - GitHubリンク（<a>タグ、JS不要）
-- `self-assessment.tsx` → `self-assessment.astro` - 自己評価表示（静的）
+- [ ] `blog-card.tsx` → `blog-card.astro` - 未着手
+- [ ] `markdown-content.tsx` → `markdown-content.astro` - 未着手（set:html検討）
+- [ ] `table-of-contents.tsx` → `table-of-contents.astro` - 未着手
+- [ ] `related-articles.tsx` → `related-articles.astro` - 未着手
+- [ ] `github-edit-button.tsx` → `github-edit-button.astro` - 未着手
+- [ ] `self-assessment.tsx` → `self-assessment.astro` - 未着手
 
 #### 2. Islands として残すReactコンポーネント (.tsx維持 + client:*)
 **特徴**: ユーザーインタラクション・状態管理・動的な振る舞いが必要
 
 **ui/コンポーネント** (client:load):
-- `theme-provider.tsx` - ダークモード管理（LocalStorage、state）
-- `ModeToggle.tsx` - テーマ切り替えボタン（onClick、state）
+<!-- TODO: ダークモード対応ができていないので一部対応しない -->
+~~- `theme-provider.tsx` - ダークモード管理（LocalStorage、state）~~ 
+~~- `ModeToggle.tsx` - テーマ切り替えボタン（onClick、state）~~
 - `Dialog.tsx` - モーダルダイアログ（open/close state）
 - `DropdownMenu.tsx` - ドロップダウンメニュー（open/close state）
 - `Command.tsx` - コマンドパレット（検索state、キーボード操作）
@@ -830,14 +828,18 @@ PUBLIC_APP_URL=https://example.com
 3. 内部コンポーネントがReactの場合は維持
 
 **確認項目**:
-- [ ] 静的コンポーネント変換完了（ui/ 5ファイル）
-- [ ] 静的コンポーネント変換完了（shared/ 4ファイル）
-- [ ] 静的コンポーネント変換完了（feature/content/ 6ファイル）
+- [x] ui/ コンポーネントはshadcn uiのため移行禁止を確認
+- [ ] 静的コンポーネント変換完了（shared/ 2/4ファイル完了: Footer, Pagination）
+- [ ] 静的コンポーネント変換完了（feature/content/ 0/6ファイル）
 - [ ] Client Directive最適化完了
 - [ ] バンドルサイズ削減確認（ビルドログ確認）
 - [ ] Lighthouse スコア改善確認（90+目標）
 - [ ] 全機能の動作確認
 - [ ] `feature-migrate-astro-blog`にマージ
+
+**Phase 3での変更内容（2025-12-14）**:
+- `Footer.astro`: 静的化完了、`BaseLayout.astro`から`client:`なしで使用
+- `Pagination.astro`: 静的化完了、Reactの`key`属性を削除してAstro対応
 
 **期待される効果**:
 - **JSバンドルサイズ**: 50%以上削減（静的化により）

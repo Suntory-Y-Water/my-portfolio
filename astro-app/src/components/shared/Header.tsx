@@ -6,7 +6,6 @@ import { SearchDialog } from '@/components/feature/search/search-dialog';
 import { Icons } from '@/components/icons';
 import HamburgerMenu from '@/components/shared/MenuMobile';
 import { Button } from '@/components/ui/button';
-import { ModeToggle } from '@/components/ui/ModeToggle';
 import { cn } from '@/lib/utils';
 
 type MenuItemLinkProps = {
@@ -132,9 +131,9 @@ export default function Header({ pathname }: HeaderProps) {
             <Search className='h-4 w-4' />
           </button>
 
-          <div className='inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg border border-border/50 bg-secondary/20 text-muted-foreground transition-all hover:border-border/80 hover:bg-secondary/60'>
+          {/* <div className='inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg border border-border/50 bg-secondary/20 text-muted-foreground transition-all hover:border-border/80 hover:bg-secondary/60'>
             <ModeToggle />
-          </div>
+          </div> */}
 
           {/* Pass updated links to mobile menu */}
           <div className='md:hidden'>

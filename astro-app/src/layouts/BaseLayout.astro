@@ -4,8 +4,7 @@ import '@/styles/markdown.css';
 import { siteConfig } from '@/config/site';
 import { absoluteUrl } from '@/lib/utils';
 import Header from '@/components/shared/Header';
-import Footer from '@/components/shared/Footer';
-import { ThemeProvider } from '@/components/ui/theme-provider';
+import Footer from '@/components/shared/Footer.astro';
 
 export type Props = {
   title?: string;
@@ -89,19 +88,10 @@ const jsonLdWebsite = {
 </head>
 <body class="flex min-h-screen flex-col overflow-x-hidden">
   <div aria-hidden class="pointer-events-none fixed inset-0 -z-10 opacity-20"></div>
-  
-  <ThemeProvider
-    attribute="class"
-    defaultTheme="system"
-    enableSystem
-    disableTransitionOnChange
-    client:only="react"
-  >
-    <Header pathname={pathname} client:only="react" />
+    <Header pathname={pathname} client:load />
     <main class="mx-auto w-full max-w-6xl flex-1 px-4 py-12 sm:px-6 md:px-8">
       <slot />
     </main>
-    <Footer client:only="react" />
-  </ThemeProvider>
+    <Footer />
 </body>
 </html>
