@@ -240,14 +240,6 @@ import { Button, Card } from '@/components/ui';
 ```typescript
 /**
  * ユーザー情報を取得する
- *
- * @param {Object} params - パラメータ
- * @param {string} params.userId - ユーザーID
- * @returns {Promise<User>} ユーザー情報
- *
- * @example
- * const user = await fetchUser({ userId: '123' });
- * console.log(user.name); // 'John Doe'
  */
 function fetchUser({ userId }: { userId: string }): Promise<User> {
   // ...

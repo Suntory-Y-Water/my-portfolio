@@ -19,6 +19,7 @@ import TableOfContents from '@/components/feature/content/table-of-contents.astr
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
+import { Image } from 'astro:assets';
 
 /**
  * TODO: 型推論出来るらしい？
@@ -66,7 +67,7 @@ const jsonLd = {
     name: siteConfig.name,
     image: {
       '@type': 'ImageObject',
-      url: absoluteUrl('/opengraph-image.png?20251122'),
+      url: absoluteUrl('/opengraph-image.png'),
     },
   },
   mainEntityOfPage: {
@@ -121,7 +122,7 @@ const compiledHtml = await compileMarkdown({ source: post.rawContent });
                 set:html={inlineSvg}
               />
             ) : displayUrl ? (
-              <img
+              <Image
                 src={displayUrl}
                 alt={`Icon for ${post.metadata.title}`}
                 width={80}

@@ -3,6 +3,7 @@ import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 import type { BlogPost } from '@/lib/markdown';
 import { cn, formatDate } from '@/lib/utils';
+import { Image } from 'astro:assets';
 
 type Props = {
   data: BlogPost;
@@ -22,7 +23,7 @@ const { data, priority, inlineSvg } = Astro.props;
 
 const { metadata, slug } = data;
 const dateISO = new Date(metadata.date).toISOString();
-const formattedDate = formatDate(metadata.date).replace(/\//g, '.');
+const formattedDate = formatDate(metadata.date);
 
 // icon_urlを優先、なければiconのURLを使用
 const displayUrl =
@@ -53,7 +54,7 @@ const displayUrl =
             set:html={inlineSvg}
           />
         ) : displayUrl ? (
-          <img
+          <Image
             src={displayUrl}
             alt={metadata.title}
             width={64}
