@@ -3,6 +3,10 @@
     "context7": {
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp@latest"]
+    },
+    "kiri": {
+      "command": "kiri",
+      "args": ["--repo", ".", "--db", ".kiri/index.duckdb", "--watch"]
     }
   }
 }
