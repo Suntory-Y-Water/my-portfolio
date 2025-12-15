@@ -1,4 +1,4 @@
-import { clsx, type ClassValue } from 'clsx';
+import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
@@ -26,14 +26,7 @@ export function formatDate(input: string | number): string {
 
 /**
  * 相対パスを絶対URLに変換する
- *
- * アプリケーションのベースURLと相対パスを結合して、
- * 完全な絶対URLを生成します。環境変数PUBLIC_SITE_URLが
- * 設定されていない場合は、開発環境用のデフォルトURL(http://localhost:4321)を使用します。
- *
- * @param path - 変換する相対パス(例：/blog/post-1)
- * @returns 絶対URL(例：https://example.com/blog/post-1)
  */
 export function absoluteUrl(path: string) {
-  return `${import.meta.env.PUBLIC_SITE_URL ?? 'http://localhost:4321'}${path}`;
+  return `${import.meta.env.PUBLIC_APP_URL ?? 'http://localhost:4321'}${path}`;
 }
