@@ -2,20 +2,15 @@ import rehypeMermaid from 'rehype-mermaid';
 import rehypePrettyCode, { type Options } from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
+import { remark } from 'remark';
 import remarkBreaks from 'remark-breaks';
 import remarkGfm from 'remark-gfm';
 import { remarkAlert } from 'remark-github-blockquote-alert';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
-import { unified } from 'unified';
 import { rehypeCodeCopyButton } from '@/lib/rehype-code-copy-button';
 import { rehypeLinkCard } from '@/lib/rehype-link-card';
 import { rehypeAddMermaidClass } from '@/lib/rehype-mermaid-class';
-import { MarkdownContent } from './markdown-content';
-
-type CustomMarkdownProps = {
-  source: string;
-};
 
 const rehypePrettyCodeOptions: Options = {
   theme: 'slack-dark',
@@ -50,7 +45,7 @@ const rehypePrettyCodeOptions: Options = {
  * Markdownコンテンツをremark/rehypeプラグインを使用してレンダリングするコンポーネント
  */
 export async function compileMarkdown({ source }: { source: string }) {
-  const result = await unified()
+  const result = await remark()
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkBreaks)
@@ -69,21 +64,4 @@ export async function compileMarkdown({ source }: { source: string }) {
     .process(source);
 
   return String(result);
-}
-
-/**
- * Markdownコンテンツをremark/rehypeプラグインを使用してレンダリングするコンポーネント
- */
-export async function CustomMarkdown({ source }: CustomMarkdownProps) {
-  try {
-    const html = await compileMarkdown({ source });
-    return <MarkdownContent html={html} />;
-  } catch (error) {
-    console.error('Error rendering Markdown:', error);
-    return (
-      <div className='rounded-md border border-destructive/50 bg-destructive/10 p-4 text-destructive'>
-        An error occurred while rendering the content.
-      </div>
-    );
-  }
 }

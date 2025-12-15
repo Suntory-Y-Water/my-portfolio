@@ -4,6 +4,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { siteConfig } from '@/config/site';
 import { absoluteUrl, cn } from '@/lib/utils';
+import { Image } from 'astro:assets';
 
 const aboutDescription =
   'プロフィール、経歴、SNSや連絡先のリンクをまとめたページです。';
@@ -64,7 +65,7 @@ const careerData = [
       <div class='order-2 space-y-6 md:order-1'>
         <h1 class='text-4xl font-bold tracking-tight md:text-5xl'>
           <span
-            class='bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent'
+            class='bg-linear-to-r from-primary to-blue-400 bg-clip-text text-transparent'
             >Hello, I'm Sui.</span
           >
         </h1>
@@ -107,7 +108,7 @@ const careerData = [
           <div
             class='relative h-40 w-40 overflow-hidden rounded-full border-4 border-background bg-muted shadow-xl md:h-48 md:w-48'
           >
-            <img
+            <Image
               src='https://avatars.githubusercontent.com/u/116779921?v=4'
               alt='sui avatar'
               width='192'
