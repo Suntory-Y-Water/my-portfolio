@@ -259,3 +259,81 @@ import { Search, User, Book } from 'lucide-react';
 **効果**: バンドルサイズ削減 (約5-10 KiB)
 
 **注意**: 一般的なベストプラクティスだが、Astro公式の推奨事項ではない。
+
+---
+
+## 追加作業手順（R2画像キャッシュ制御・URL正規化）
+
+### 目的
+
+* 既存Markdownを変更せず、R2画像をCloudflare Workers経由で配信する
+* ブラウザ配信時のURLを統一し、キャッシュ制御を一元化する
+
+### 手順
+
+#### 1. Workers配信用ドメインの用意
+
+* 例: `img.example.com`
+* Cloudflare DNSでWorkersルート用に設定
+
+#### 2. Cloudflare WorkersでR2画像配信を実装
+
+* R2バケットをWorkersにバインド
+* リクエストパスをそのままR2キーとして取得
+* `Cache-Control` を付与してエッジキャッシュを有効化
+
+参考コード(let使っているので要リファクタリング)
+```ts 
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    const key = url.pathname.replace(/^\/+/, '');
+
+    const cache = caches.default;
+    let response = await cache.match(request);
+
+    if (!response) {
+      const object = await env.IMG_BUCKET.get(key);
+      if (!object) return new Response('Not Found', { status: 404 });
+
+      response = new Response(object.body, {
+        headers: {
+          'Content-Type': object.httpMetadata?.contentType || 'image/webp',
+          'Cache-Control': 'public, max-age=86400, stale-while-revalidate=604800'
+        }
+      });
+
+      ctx.waitUntil(cache.put(request, response.clone()));
+    }
+
+    return response;
+  }
+};
+```
+
+#### 3. Astroビルド時にMarkdown画像URLを書き換え
+
+* `r2.dev` ドメインを検出し、Workers配信ドメインへ変換
+* 元のMarkdownファイルは変更しない
+
+```ts
+import { visit } from 'unist-util-visit';
+
+export function rewriteR2ImageUrl() {
+  return (tree) => {
+    visit(tree, 'image', (node) => {
+      if (typeof node.url === 'string' && node.url.includes('.r2.dev')) {
+        node.url = node.url.replace(
+          /^https:\/\/[^/]+\.r2\.dev/,
+          'https://img.example.com'
+        );
+      }
+    });
+  };
+}
+```
+
+#### 4. 運用ルール
+
+* URL構造（`/images/...`）は今後も変更しない
+* 画像差し替え時はファイル名変更を原則とする
