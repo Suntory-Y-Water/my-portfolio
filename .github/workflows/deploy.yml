@@ -62,15 +62,16 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
-      - name: Comment Preview URL on PR
-        if: github.event_name == 'pull_request'
-        run: |
-          gh pr comment ${{ github.event.pull_request.number }} --body "### Preview Deployment
+      # TODO: gh がコンテナにないため一旦削除してる
+      # - name: Comment Preview URL on PR
+      #   if: github.event_name == 'pull_request'
+      #   run: |
+      #     gh pr comment ${{ github.event.pull_request.number }} --body "### Preview Deployment
 
-          Preview URL: $DEPLOYMENT_URL"
-        env:
-          GH_TOKEN: ${{ github.token }}
-          DEPLOYMENT_URL: ${{ steps.deploy.outputs.url }}
+      #     Preview URL: $DEPLOYMENT_URL"
+      #   env:
+      #     GH_TOKEN: ${{ github.token }}
+      #     DEPLOYMENT_URL: ${{ steps.deploy.outputs.url }}
 
   deploy-production:
     name: Deploy Production
