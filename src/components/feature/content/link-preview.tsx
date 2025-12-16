@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
-import { getOGData } from '@/lib/fetch-og-metadata';
 import { Icons } from '@/components/icons';
 import { ImageWithFallback } from '@/components/shared/image-with-fallback';
 import { siteConfig } from '@/config/site';
+import { getOGData } from '@/lib/fetch-og-metadata';
 import { cn } from '@/lib/utils';
 
 type LinkCardProps = {
@@ -21,12 +21,6 @@ type LinkPreviewProps = {
 
 /**
  * URLが内部ブログリンクかどうかを判定
- *
- * 指定されたURLが'/blog/'で始まる内部リンクかどうかをチェックします。
- * 絶対URLと相対URLの両方に対応しています。
- *
- * @param url - 判定対象のURL(例: '/blog/typescript', 'https://example.com/blog/react')
- * @returns 内部ブログリンクの場合はtrue、それ以外はfalse
  */
 function isInternalBlogLink(url: string): boolean {
   try {
@@ -37,41 +31,17 @@ function isInternalBlogLink(url: string): boolean {
   }
 }
 
-// /**
-//  * URLからスラッグ(最後のパス部分)を抽出
-//  *
-//  * URLのパスから最後の部分を抽出してスラッグとして返します。
-//  * 絶対URLと相対URLの両方に対応しています。
-//  *
-//  * @param url - スラッグを抽出するURL(例: '/blog/typescript', 'https://example.com/blog/react')
-//  * @returns 抽出されたスラッグ(例: 'typescript', 'react')
-//  */
-// function _getSlugFromUrl(url: string): string {
-//   try {
-//     const urlObj = new URL(url);
-//     const parts = urlObj.pathname.split('/');
-//     return parts[parts.length - 1];
-//   } catch {
-//     const parts = url.split('/');
-//     return parts[parts.length - 1];
-//   }
-// }
+/**
+ * URLからスラッグ(最後のパス部分)を抽出
+ */
+function getSlugFromUrl(url: string): string {
+  const urlObj = new URL(url);
+  const parts = urlObj.pathname.split('/');
+  return parts[parts.length - 1];
+}
 
 /**
  * リンクプレビューカードを表示するコンポーネント
- *
- * このコンポーネントは指定されたURLのプレビューカードを表示します。
- * タイトル、説明文、画像、ファビコンを含むカード形式でリンクを視覚的に表現します。
- * 内部リンクと外部リンクの両方に対応し、外部リンクの場合は新しいタブで開きます。
- *
- * @param url - リンク先のURL
- * @param title - リンクのタイトル(任意)。指定されていない場合は'Untitled'と表示されます
- * @param description - リンクの説明文(任意)。指定されている場合は最大2行まで表示されます
- * @param image - プレビュー画像のURL(任意)。指定されていない場合はプレースホルダーが表示されます
- * @param className - 追加のCSSクラス名(任意)
- * @param error - エラー状態かどうか(デフォルト: false)。trueの場合は'Page Not Found'と表示されます
- * @returns リンクカードコンポーネント
- *
  */
 export function LinkCard({
   url,
@@ -92,15 +62,17 @@ export function LinkCard({
             {isExternal ? (
               <>
                 <div className='relative size-4 overflow-hidden rounded-full bg-muted'>
-                  {/* {hostname && (
-                    <a
-                      href={`https://www.google.com/s2/favicons?domain=${hostname}&sz=32`}
+                  {hostname && (
+                    <img
+                      src={`https://www.google.com/s2/favicons?domain=${hostname}&sz=32`}
+                      alt=''
                       className='object-cover'
-                      fill
-                      sizes='12px'
                       loading='lazy'
+                      width='16'
+                      height='16'
+                      style={{ width: '16px', height: '16px' }}
                     />
-                  )} */}
+                  )}
                 </div>
                 <span>{hostname.replace(/^www\./, '')}</span>
                 <Icons.externalLink className='size-3 text-muted-foreground/70' />
@@ -199,13 +171,15 @@ function InternalLinkCard({
   if (!title) {
     return <LinkCard url={url} error={true} className={className} />;
   }
+  const slug = getSlugFromUrl(url);
+  const ogImageUrl = `${siteConfig.url}/blog/ogp/${slug}.png`;
 
   return (
     <LinkCard
       url={url}
       title={title}
       description={description}
-      image={siteConfig.ogImage}
+      image={ogImageUrl}
       className={className}
     />
   );
