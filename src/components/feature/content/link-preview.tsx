@@ -32,6 +32,15 @@ function isInternalBlogLink(url: string): boolean {
 }
 
 /**
+ * URLからスラッグ(最後のパス部分)を抽出
+ */
+function getSlugFromUrl(url: string): string {
+  const urlObj = new URL(url);
+  const parts = urlObj.pathname.split('/');
+  return parts[parts.length - 1];
+}
+
+/**
  * リンクプレビューカードを表示するコンポーネント
  */
 export function LinkCard({
@@ -162,13 +171,15 @@ function InternalLinkCard({
   if (!title) {
     return <LinkCard url={url} error={true} className={className} />;
   }
+  const slug = getSlugFromUrl(url);
+  const ogImageUrl = `${siteConfig.url}/blog/ogp/${slug}.png`;
 
   return (
     <LinkCard
       url={url}
       title={title}
       description={description}
-      image={siteConfig.ogImage}
+      image={ogImageUrl}
       className={className}
     />
   );
