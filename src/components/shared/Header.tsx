@@ -78,7 +78,7 @@ export default function Header({ pathname }: HeaderProps) {
           aria-label='最初の画面に戻る'
         >
           <img
-            src='/images/icon.webp'
+            src='/icons/icon.webp'
             alt='ブログサイトのロゴ'
             width={32}
             height={32}
