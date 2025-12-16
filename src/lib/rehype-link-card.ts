@@ -33,13 +33,15 @@ type LinkCardData = {
 
 /**
  * URLが内部ブログリンクかどうかを判定する
- *
- * @param url - 判定対象のURL
- * @returns 内部ブログリンク(/blog/で始まる)の場合true
  */
 function isInternalBlogLink(url: string): boolean {
   try {
     const urlObj = new URL(url);
+    // 自サイトのドメインかつ /blog/ パスの場合は内部リンク
+    const siteUrlObj = new URL(siteConfig.url);
+    if (urlObj.hostname === siteUrlObj.hostname) {
+      return urlObj.pathname.startsWith('/blog/');
+    }
     return urlObj.pathname.startsWith('/blog/');
   } catch {
     return url.startsWith('/blog/');
@@ -48,12 +50,6 @@ function isInternalBlogLink(url: string): boolean {
 
 /**
  * URLからslugを抽出する
- *
- * URLのパス部分から最後のセグメントをslugとして抽出します。
- * 絶対URL、相対URLの両方に対応しています。
- *
- * @param url - slug抽出対象のURL
- * @returns 抽出されたslug(パスの最後のセグメント)
  */
 function getSlugFromUrl(url: string): string {
   try {
@@ -99,7 +95,7 @@ async function fetchLinkCardData(url: string): Promise<LinkCardData> {
         url,
         title: post.metadata.title,
         description: post.metadata.description || '',
-        image: siteConfig.ogImage,
+        image: `${siteConfig.url}/blog/ogp/${slug}.png`,
         isInternal: true,
         error: false,
       };
