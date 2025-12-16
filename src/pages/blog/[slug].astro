@@ -60,14 +60,14 @@ const jsonLd = {
   datePublished: post.metadata.date,
   dateModified: post.metadata.date,
   description: post.metadata.description,
-  image: absoluteUrl(`/blog/ogp/${post.slug}`),
+  image: absoluteUrl(`/blog/ogp/${post.slug}.png`),
   author: { '@type': 'Person', name: siteConfig.name, url: siteConfig.url },
   publisher: {
     '@type': 'Person',
     name: siteConfig.name,
     image: {
       '@type': 'ImageObject',
-      url: absoluteUrl('/opengraph-image.png'),
+      url: absoluteUrl(`/blog/ogp/${post.slug}.png`),
     },
   },
   mainEntityOfPage: {
@@ -85,7 +85,7 @@ const compiledHtml = await compileMarkdown({ source: post.rawContent });
 <BaseLayout
   title={post.metadata.title}
   description={post.metadata.description}
-  ogImage={absoluteUrl(`/blog/ogp/${post.slug}`)}
+  ogImage={absoluteUrl(`/blog/ogp/${post.slug}.png`)}
   canonicalUrl={canonicalUrl}
 >
   <script
