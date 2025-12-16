@@ -21,7 +21,7 @@ export const SITE_CONSTANTS = {
   /** サイトURL */
   URL: url,
   /** OGP画像URL */
-  OG_IMAGE: `${url}/opengraph-image.png?20251122`,
+  OG_IMAGE: `${url}/opengraph-image.png`,
   /** 著作権表記 */
   COPYRIGHT: 'Suntory-N-Water',
 } as const;
