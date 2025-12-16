@@ -54,39 +54,32 @@ const jsonLdWebsite = {
     <title>{pageTitle}</title>
     <meta name='description' content={description} />
 
-    <!-- Open Graph -->
     <meta property='og:title' content={pageTitle} />
     <meta property='og:description' content={description} />
     <meta property='og:image' content={ogImage} />
     <meta property='og:locale' content='ja_JP' />
     <meta property='og:site_name' content={siteConfig.name} />
 
-    <!-- Twitter Card -->
     <meta name='twitter:card' content='summary_large_image' />
     <meta name='twitter:title' content={pageTitle} />
     <meta name='twitter:description' content={description} />
     <meta name='twitter:image' content={ogImage} />
 
-    <!-- Canonical -->
     {canonicalUrl && <link rel='canonical' href={canonicalUrl} />}
 
-    <!-- JSON-LD -->
     <script
       type='application/ld+json'
       is:inline
       set:html={JSON.stringify(jsonLdWebsite)}
     />
 
-    <!-- Favicon -->
     <link rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.jpg' />
 
-    <!-- Google Site Verification -->
     <meta
       name='google-site-verification'
       content='pd5OEQeX8d8I7AOZbR5U3SPIyZyXYxd392aatHH48yk'
     />
 
-    <!-- Theme Color -->
     <meta
       name='theme-color'
       content='#fafafa'
@@ -102,7 +95,6 @@ const jsonLdWebsite = {
 
     <ClientRouter />
 
-    <!-- Google Analytics -->
     <script
       is:inline
       async

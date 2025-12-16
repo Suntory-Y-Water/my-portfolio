@@ -56,11 +56,21 @@ export async function getOGData(url: string): Promise<Partial<OGData>> {
     const html = await response.text();
 
     const getMetaContent = (property: string): string | undefined => {
-      const regex = new RegExp(
+      const regex1 = new RegExp(
         `<meta[^>]+(?:property|name)="${property}"[^>]+content="([^"]+)"`,
         'i',
       );
-      return regex.exec(html)?.[1];
+      const match1 = regex1.exec(html)?.[1];
+      if (match1) {
+        return match1;
+      }
+
+      // パターン2: content が先
+      const regex2 = new RegExp(
+        `<meta[^>]+content="([^"]+)"[^>]+(?:property|name)="${property}"`,
+        'i',
+      );
+      return regex2.exec(html)?.[1];
     };
 
     const titleMatch = /<title>(.*?)<\/title>/i.exec(html);
