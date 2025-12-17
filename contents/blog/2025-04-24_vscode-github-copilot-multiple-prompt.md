@@ -161,7 +161,7 @@ Follow these instructions carefully to ensure a reliable, high-quality implement
 
 ルールが正しく読み込まれているかは以下の手順で確認できます。VScode を開き、`Ctrl + Alt + I` を押してチャットを起動すると、ファイルが読み込まれたことが確認できます。
 今回設定したルールでは、読み込み時にファイル名を出力するよう指定しているため、これによって動作確認ができます(長いため画像は省略しています)。
-![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-f633910d-8802-498f-88f1-9fd8cfe3bd8a.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-f633910d-8802-498f-88f1-9fd8cfe3bd8a.png)
+![https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-f633910d-8802-498f-88f1-9fd8cfe3bd8a.png](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-f633910d-8802-498f-88f1-9fd8cfe3bd8a.png)
 
 ### ルールが読み込まれなかったときにやること
 
@@ -292,10 +292,10 @@ Example: "Loaded copilot-instructions.md".
 2. ドロップダウン メニューの**プロンプト**を選択し、使うプロンプトファイルを選択します。
 
 読み込みが完了するとこのようにラベルのようなアイコンでファイルが設定されます。
-![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-4afc8f45-1bc6-414a-8047-63dc9f5431db.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-4afc8f45-1bc6-414a-8047-63dc9f5431db.png)
+![https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-4afc8f45-1bc6-414a-8047-63dc9f5431db.png](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-4afc8f45-1bc6-414a-8047-63dc9f5431db.png)
 
 プロンプトを送信すると、正しく読み込まれていることが確認できます。
-![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-48494a54-0281-4daf-b96b-a242cb60e962.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-48494a54-0281-4daf-b96b-a242cb60e962.png)
+![https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-48494a54-0281-4daf-b96b-a242cb60e962.png](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-48494a54-0281-4daf-b96b-a242cb60e962.png)
 
 ## 注意点
 
@@ -309,7 +309,7 @@ https://docs.github.com/ja/enterprise-cloud@latest/copilot/customizing-copilot/a
 
 また、Cursor と異なり、GitHub Copilot では `copilot-instructions.md` 内から他のファイルをパス指定で読み込むことができません。
 `copilot-instructions.md` から `coding-rules.prompt.md` を読み込むようなプロンプトを入れて試してみると、読み込めないと Copilot からエラーが表示されます。
-![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-e6375277-0150-4ea2-a6b7-7346605364f4.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-e6375277-0150-4ea2-a6b7-7346605364f4.png)
+![https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-e6375277-0150-4ea2-a6b7-7346605364f4.png](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-e6375277-0150-4ea2-a6b7-7346605364f4.png)
 
 
 ## まとめ

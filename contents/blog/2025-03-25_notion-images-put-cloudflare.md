@@ -211,7 +211,7 @@ async function processImage(
 - 処理結果をマッピング情報として保存
 
 格納した画像はこのような形式になっています。
-![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-1742870665994.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-1742870665994.png)
+![https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-1742870665994.png](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-1742870665994.png)
 
 ### extractFileName関数
 
