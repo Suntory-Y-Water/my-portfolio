@@ -8,10 +8,10 @@ import remarkGfm from 'remark-gfm';
 import { remarkAlert } from 'remark-github-blockquote-alert';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
+import { rehypeCloudflareImages } from '@/lib/rehype-cloudflare-images';
 import { rehypeCodeCopyButton } from '@/lib/rehype-code-copy-button';
 import { rehypeLinkCard } from '@/lib/rehype-link-card';
 import { rehypeAddMermaidClass } from '@/lib/rehype-mermaid-class';
-
 import { rehypeR2ImageUrl } from '@/lib/rehype-r2-image-url';
 
 const rehypePrettyCodeOptions: Options = {
@@ -55,6 +55,7 @@ export async function compileMarkdown({ source }: { source: string }) {
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeSlug)
     .use(rehypeR2ImageUrl)
+    .use(rehypeCloudflareImages)
     .use(rehypeLinkCard)
     .use(rehypeAddMermaidClass)
     .use(rehypeMermaid, {

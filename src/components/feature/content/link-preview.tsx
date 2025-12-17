@@ -226,17 +226,7 @@ async function ExternalLinkCard({
 }
 
 /**
- * リンクプレビューを表示するコンポーネント(メインエクスポート)
- *
- * このコンポーネントは指定されたURLが内部リンクか外部リンクかを自動判定し、
- * 適切なプレビューカードを表示します。データ取得中はローディング状態を表示します。
- * Markdown記事内で自動的にリンクをカード形式に変換するために使用されます。
- *
- * @param url - プレビューを表示するURL(内部: '/blog/typescript', 外部: 'https://zenn.dev/article')
- * @param internalTitle - 内部リンクのタイトル(サーバーサイドで取得済み)
- * @param internalDescription - 内部リンクの説明文(サーバーサイドで取得済み)
- * @param className - 追加のCSSクラス名(任意)
- * @returns リンクプレビューコンポーネント
+ * リンクプレビューを表示するコンポーネント
  */
 export function LinkPreview({
   url,
