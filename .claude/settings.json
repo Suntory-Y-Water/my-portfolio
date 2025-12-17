@@ -45,7 +45,7 @@
     "deny": [
       "Bash(rm -rf:*)",
       "Bash(sudo:*)",
-      "Read(.env.*)",
+      "Read(.env)",
       "Read(.credentials.*)",
       "Read(id_rsa)",
       "Read(id_ed25519)",
