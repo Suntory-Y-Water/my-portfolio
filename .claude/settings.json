@@ -51,6 +51,7 @@
       "Read(id_ed25519)",
       "Read(**/*token*)",
       "Read(**/*key*)",
+      "Read(.dev.vars)",
       "Write(.env*)",
       "Write(**/secrets/**)",
       "Bash(wget:*)",

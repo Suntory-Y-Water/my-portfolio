@@ -12,6 +12,8 @@ import { rehypeCodeCopyButton } from '@/lib/rehype-code-copy-button';
 import { rehypeLinkCard } from '@/lib/rehype-link-card';
 import { rehypeAddMermaidClass } from '@/lib/rehype-mermaid-class';
 
+import { rehypeR2ImageUrl } from '@/lib/rehype-r2-image-url';
+
 const rehypePrettyCodeOptions: Options = {
   theme: 'slack-dark',
   keepBackground: true,
@@ -52,6 +54,7 @@ export async function compileMarkdown({ source }: { source: string }) {
     .use(remarkAlert)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeSlug)
+    .use(rehypeR2ImageUrl)
     .use(rehypeLinkCard)
     .use(rehypeAddMermaidClass)
     .use(rehypeMermaid, {

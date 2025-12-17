@@ -29,7 +29,7 @@ Cloudflare でドメインを購入するには、以下の手順に従います
 5. 支払い情報を入力して購入手続きを完了します
 
 購入が完了すると、下図のようにドメイン一覧にあなたのドメインが表示されます。
-![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-1742693786925.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-1742693786925.png)
+![https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-1742693786925.png](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-1742693786925.png)
 
 ## Cloudflareで必要なDNSレコードを設定する
 
@@ -44,7 +44,7 @@ Cloudflare でドメインを購入するには、以下の手順に従います
 
 下図のように設定されていることを確認してください。
 
-![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-1742693788045.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-1742693788045.png)
+![https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-1742693788045.png](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-1742693788045.png)
 
 ## Vercelでドメインをプロジェクトに追加する
 
@@ -59,7 +59,7 @@ Vercel のプロジェクトに購入したドメインを紐づけます。
 7. 「Add」ボタンをクリックして確定します
 
 設定後は、下図のように初期設定のドメインから購入したドメインへのリダイレクトが設定されます。
-![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-1742693789166.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-1742693789166.png)
+![https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-1742693789166.png](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-1742693789166.png)
 
 ## Vercelの検証を確認する
 

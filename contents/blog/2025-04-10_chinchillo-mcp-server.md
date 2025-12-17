@@ -532,13 +532,13 @@ main().catch((error) => {
 
 Claude Desktop を開くと MCP サーバーが使用可能になっています。
 早速チンチロをやっていきましょう。
-![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-549a9b13-b0d1-4614-a169-26578d3d0a42.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-549a9b13-b0d1-4614-a169-26578d3d0a42.png)
+![https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-549a9b13-b0d1-4614-a169-26578d3d0a42.png](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-549a9b13-b0d1-4614-a169-26578d3d0a42.png)
 
 実行したところチンチロができていることが確認できます。
 コンピュータは 3 で私は 456 なので私の勝ちです🎲
-![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-20387efb-9979-4066-9712-8df0af141355.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-20387efb-9979-4066-9712-8df0af141355.png)
+![https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-20387efb-9979-4066-9712-8df0af141355.png](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-20387efb-9979-4066-9712-8df0af141355.png)
 試しに 5 回振りなおそうと送ったら、ルール通り振ることはできませんでした。
-![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-24988621-6eb2-48a8-9591-6f06c1602e2f.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/image.png-24988621-6eb2-48a8-9591-6f06c1602e2f.png)
+![https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-24988621-6eb2-48a8-9591-6f06c1602e2f.png](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/image.png-24988621-6eb2-48a8-9591-6f06c1602e2f.png)
 
 ## まとめ
 

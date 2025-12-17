@@ -29,10 +29,10 @@ Unicode はデザインを指定していません。
 
 実際に絵文字の違いを見ていきましょう。
 例えば「😎＝サングラスをかけた顔」の絵文字は iOS ではこのようなアイコンになっています。
-![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9132.jpeg-1743294181758.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9132.jpeg-1743294181758.png)
+![https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/IMG_9132.jpeg-1743294181758.png](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/IMG_9132.jpeg-1743294181758.png)
 
 Windows の PC で見たときはこのようなアイコンになっています。
-![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9133.jpeg-1743294181758.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9133.jpeg-1743294181758.png)
+![https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/IMG_9133.jpeg-1743294181758.png](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/IMG_9133.jpeg-1743294181758.png)
 これは Microsoft の Fluent UI Emoji コレクションの一部です。
 このコレクションはオープンソースで公開されており、以下のリポジトリからダウンロードできます。
 
@@ -174,10 +174,10 @@ https://suntory-n-water.com/blog/messaging-api-github-pr
 
 確認したところ、iOS で[Fluent
 Emoji](https://fluentemoji.com/)の内容が反映されていますね。
-![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9137.png-1743294181758.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9137.png-1743294181758.png)
+![https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/IMG_9137.png-1743294181758.png](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/IMG_9137.png-1743294181758.png)
 
 見づらいですが救急車と波が iOS のものではないことが確認できます。
-![https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9138.jpeg-1743294181758.png](https://pub-37c337e4f6b74be784982bc3041040b4.r2.dev/images/IMG_9138.jpeg-1743294181758.png)
+![https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/IMG_9138.jpeg-1743294181758.png](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/IMG_9138.jpeg-1743294181758.png)
 
 ## まとめ
 
