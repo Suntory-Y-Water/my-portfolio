@@ -16,7 +16,6 @@ tags:
 Serena MCP は MCP サーバー起動時に毎回ダッシュボード画面がブラウザで起動します。
 
 ![](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/dbe1707cf98a1a175d33741b5f1e3e30.png)
-*Serena MCPのダッシュボード画面*
 
 こちらの[Zenn記事](https://zenn.dev/soramarjr/articles/c0210f128a4d2a)では、グローバル設定ファイル `~/.serena/serena_config.yml` で以下を設定することが推奨されています。
 

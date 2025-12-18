@@ -1,7 +1,5 @@
-import { Search } from 'lucide-react';
+import { Book, Search, User } from 'lucide-react';
 import { type ReactElement, useState } from 'react';
-import { IoMdPerson } from 'react-icons/io';
-import { MdOutlineBook } from 'react-icons/md';
 import { SearchDialog } from '@/components/feature/search/search-dialog';
 import { Icons } from '@/components/icons';
 import HamburgerMenu from '@/components/shared/mobile-menu';
@@ -19,12 +17,12 @@ const NAVIGATION_LINKS: MenuItemLinkProps[] = [
   {
     href: '/blog',
     title: 'Blog',
-    icon: <MdOutlineBook size='1.2em' />,
+    icon: <Book className='size-5' />,
   },
   {
     href: '/about',
     title: 'About',
-    icon: <IoMdPerson size='1.2em' />,
+    icon: <User className='size-5' />,
   },
   {
     href: '/tags',

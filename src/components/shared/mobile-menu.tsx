@@ -1,5 +1,5 @@
+import { Menu } from 'lucide-react';
 import type { ReactElement } from 'react';
-import { FiMenu } from 'react-icons/fi';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,7 +29,7 @@ export default function HamburgerMenu({ params }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className='p-1 md:hidden'>
-        <FiMenu size='28px' aria-label='モバイルメニュー' />
+        <Menu className='size-7' aria-label='モバイルメニュー' />
       </DropdownMenuTrigger>
       <DropdownMenuContent className='mr-4 w-[200px] py-1.5'>
         {params.map((param) => (
