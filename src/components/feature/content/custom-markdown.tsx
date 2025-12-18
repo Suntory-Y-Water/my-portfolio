@@ -44,28 +44,32 @@ const rehypePrettyCodeOptions: Options = {
 };
 
 /**
+ * remarkプロセッサーをモジュールレベルで構築
+ * プラグインの初期化オーバーヘッドを削減し、ビルド速度を向上
+ */
+const processor = remark()
+  .use(remarkParse)
+  .use(remarkGfm)
+  .use(remarkBreaks)
+  .use(remarkAlert)
+  .use(remarkRehype, { allowDangerousHtml: true })
+  .use(rehypeSlug)
+  .use(rehypeR2ImageUrl)
+  .use(rehypeCloudflareImages)
+  .use(rehypeLinkCard)
+  .use(rehypeAddMermaidClass)
+  .use(rehypeMermaid, {
+    strategy: 'img-svg',
+    dark: true,
+  })
+  .use(rehypePrettyCode, rehypePrettyCodeOptions)
+  .use(rehypeCodeCopyButton)
+  .use(rehypeStringify, { allowDangerousHtml: true });
+
+/**
  * Markdownコンテンツをremark/rehypeプラグインを使用してレンダリングするコンポーネント
  */
 export async function compileMarkdown({ source }: { source: string }) {
-  const result = await remark()
-    .use(remarkParse)
-    .use(remarkGfm)
-    .use(remarkBreaks)
-    .use(remarkAlert)
-    .use(remarkRehype, { allowDangerousHtml: true })
-    .use(rehypeSlug)
-    .use(rehypeR2ImageUrl)
-    .use(rehypeCloudflareImages)
-    .use(rehypeLinkCard)
-    .use(rehypeAddMermaidClass)
-    .use(rehypeMermaid, {
-      strategy: 'img-svg',
-      dark: true,
-    })
-    .use(rehypePrettyCode, rehypePrettyCodeOptions)
-    .use(rehypeCodeCopyButton)
-    .use(rehypeStringify, { allowDangerousHtml: true })
-    .process(source);
-
+  const result = await processor.process(source);
   return String(result);
 }

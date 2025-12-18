@@ -4,7 +4,7 @@ import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/markdown';
 export async function getStaticPaths() {
   const allPosts = await getAllBlogPosts();
   return allPosts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
   }));
 }
 
@@ -21,9 +21,9 @@ export async function GET({ params }: APIContext) {
     return new Response('Not found', { status: 404 });
   }
 
-  const body = `# ${post.metadata.title}
+  const body = `# ${post.data.title}
 
-  ${post.rawContent}
+  ${post.body}
     `;
 
   return new Response(body, {

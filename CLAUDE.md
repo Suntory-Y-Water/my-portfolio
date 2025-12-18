@@ -1,6 +1,6 @@
 # sui Tech Blog - Claude Code AI リファレンス
 
-本システムは **Next.js 16 App Router** で構築された個人技術ブログプラットフォームです。Markdown形式で記事を管理し、静的生成により高速な配信を実現しています。
+本システムは **Astro** で構築された個人技術ブログプラットフォームです。Markdown形式で記事を管理し、静的生成により高速な配信を実現しています。
 
 ---
 
@@ -16,54 +16,13 @@
 - **リンクプレビュー** - URLをカード形式で表示
 
 ### 技術スタック
-- **フレームワーク**: Next.js 16 App Router + React 19
+- **フレームワーク**: Astro
 - **ランタイム**: Bun
-- **言語**: TypeScript (strict mode)
+- **言語**: TypeScript
 - **スタイリング**: Tailwind CSS + Radix UI
-- **Markdown処理**: unified, remark, rehype
+- **Markdown処理**: remark, rehype
 - **コード品質**: Biome (ESLint/Prettier代替)
 - **検索**: Pagefind (静的全文検索)
-
----
-
-## ディレクトリ構造
-
-```
-/
-├── src/
-│   ├── app/              # Next.js App Router (ページ・API)
-│   ├── components/       # コンポーネント (ui/shared/feature の3層)
-│   │   ├── ui/          # 汎用UIコンポーネント (Button, Card等)
-│   │   ├── shared/      # 共有コンポーネント (Header, Footer等)
-│   │   └── feature/     # 機能別コンポーネント (content/, search/)
-│   ├── lib/             # ビジネスロジック・ユーティリティ
-│   ├── config/          # サイト設定・タグマッピング
-│   └── constants/       # 定数定義
-├── contents/blog/       # Markdownブログ記事 (YYYY-MM-DD_title.md)
-├── public/              # 静的ファイル
-├── scripts/             # ビルド・自動化スクリプト
-└── docs/adr/            # Architecture Decision Records
-```
-
----
-
-## コーディング規約
-
-詳細なコーディング規約は `.claude/rules/` ディレクトリに整理されています:
-
-### 全体適用 (常時ロード)
-- **コーディング規約**: `.claude/rules/coding-standards.md`
-
-### パス固有ルール (動的ロード)
-- **UI Component規約**: `.claude/rules/components/ui.md`
-- **Feature Component規約**: `.claude/rules/components/feature.md`
-- **ブログ記事執筆規約**: `.claude/rules/markdown/content.md`
-- **セキュリティ原則**: `.claude/rules/security/xss-prevention.md`
-
-### 重要な原則
-- **YAGNI原則**: 将来的な拡張性の考慮は禁止、現時点で必要な機能のみ実装
-- **関数ベース**: クラスは使わない
-- **Server Components優先**: `'use client'` は最小限に
 
 ---
 
@@ -78,24 +37,6 @@ bun run type-check:ai
 
 # Lint
 bun run lint:ai
-
-# タグ整合性チェック
-bun run check:tags
-```
-
----
-
-## アーキテクチャパターン
-
-### コンポーネント階層
-```
-app/          (ページコンポーネント)
-  ↓
-feature/      (機能別コンポーネント)
-  ↓
-shared/       (共有コンポーネント)
-  ↓
-ui/           (汎用UIコンポーネント)
 ```
 
 ### 静的生成 (SSG)
@@ -130,34 +71,6 @@ bun run new-blog
 
 ## MCP使い分けガイド
 
-### Serena MCP - シンボルベースのコード操作
-**コード編集、リネーム、挿入・置換、読み込みに使用**
-
-```typescript
-// シンボルの置換
-mcp__serena__replace_symbol_body
-name_path: 'getAllBlogPosts'
-relative_path: 'src/lib/markdown.ts'
-body: '新しい関数実装'
-
-// 新しいコードの挿入
-mcp__serena__insert_after_symbol
-name_path: 'getBlogPostBySlug'
-relative_path: 'src/lib/markdown.ts'
-body: '新しい関数の実装'
-
-// シンボルのリネーム
-mcp__serena__rename_symbol
-name_path: 'getPostMetadata'
-relative_path: 'src/lib/markdown.ts'
-new_name: 'getBlogPostMetadata'
-
-// 参照の確認
-mcp__serena__find_referencing_symbols
-name_path: 'getAllBlogPosts'
-relative_path: 'src/lib/markdown.ts'
-```
-
 ### Context7 MCP - ライブラリドキュメント取得
 **最新のライブラリドキュメント取得に使用 (有効化されていない場合あり)**
 
@@ -171,9 +84,43 @@ mcp__context7__get-library-docs
 library_id: 'resolved-library-id'
 ```
 
----
+### Kiri MCP - コードのRead
 
-## 参考ドキュメント
+**1-1. コンテキスト自動取得（推奨）**
+```
+mcp__kiri__context_pnpmdle
+goal: 'user authentication, login flow, JWT validation'
+limit: 10
+compact: true
+```
+- タスクに関連するコードスニペットを自動でランク付けして取得
+- `goal`には具体的なキーワードを使用（抽象的な動詞は避ける）
+- `compact: true`でトークン消費を95%削減
 
-- **Serenaメモリ**: `.serena/memories/` (プロジェクト全体の理解)
-- **ADR**: `docs/adr/` (アーキテクチャ決定記録)
+**1-2. 具体的なキーワード検索**
+```
+mcp__kiri__files_search
+query: 'validateToken'
+lang: 'typescript'
+path_prefix: 'src/auth/'
+```
+- 関数名、クラス名、エラーメッセージなど具体的な識別子で検索
+- 広範な調査には`context_pnpmdle`を使用
+
+**1-3. 依存関係の調査**
+```
+mcp__kiri__deps_closure
+path: 'src/auth/login.ts'
+direction: 'inbound'
+max_depth: 3
+```
+- 影響範囲分析（inbound）や依存チェーン（outbound）を取得
+- リファクタリング時の影響調査に最適
+
+**1-4. コードの詳細取得**
+```
+mcp__kiri__snippets_get
+path: 'src/auth/login.ts'
+```
+- ファイルパスがわかっている場合に使用
+- シンボル境界を認識して適切なセクションを抽出
