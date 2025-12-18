@@ -1,8 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { Resvg } from '@resvg/resvg-js';
 import type { ReactElement } from 'react';
 import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
 import { siteConfig } from '@/config/site';
 
 type OgpImageProps = {

@@ -12,9 +12,6 @@ tags:
   - Docker
 description: Debian 11 bullseyeベースのdevcontainerでNext.js 15 + OpenNext.jsの開発サーバーが起動せず、Debian 12 bookwormベースに変更して解決した事例。glibcバージョン要件とworkerdの実行互換について整理。
 ---
-
-
-
 ## TL;DR
 
 devcontainer で Next.js 15 + Cloudflare 環境が起動しない問題に遭遇しました。
