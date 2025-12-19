@@ -60,6 +60,13 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
+      - name: Check environment variables
+        run: |
+          if [ -f .vercel/.env.preview.local ]; then
+            echo ".env.preview.local exists"
+            grep -q "API_SECRET" .vercel/.env.preview.local && echo "API_SECRET found in .env.preview.local" || echo "API_SECRET NOT found in .env.preview.local"
+          fi
+
       - name: Build Project Artifacts
         run: bunx vercel build --token=${{ secrets.VERCEL_TOKEN }}
         env:
