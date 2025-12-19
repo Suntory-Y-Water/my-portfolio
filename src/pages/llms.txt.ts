@@ -20,7 +20,7 @@ ${
 ${posts
   .map(
     (post) =>
-      `- [${post.metadata.title}](${siteConfig.url}/blog/${post.slug}.md): ${post.metadata.description || ''}`,
+      `- [${post.data.title}](${siteConfig.url}/blog/${post.id}.md): ${post.data.description || ''}`,
   )
   .join('\n')}
 `

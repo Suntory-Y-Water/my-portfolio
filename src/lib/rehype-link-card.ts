@@ -93,8 +93,8 @@ async function fetchLinkCardData(url: string): Promise<LinkCardData> {
 
       return {
         url,
-        title: post.metadata.title,
-        description: post.metadata.description || '',
+        title: post.data.title,
+        description: post.data.description || '',
         image: `${siteConfig.url}/blog/ogp/${slug}.png`,
         isInternal: true,
         error: false,

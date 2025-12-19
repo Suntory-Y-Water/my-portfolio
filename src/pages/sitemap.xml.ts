@@ -53,8 +53,8 @@ export const GET: APIRoute = async () => {
   const blogEntries: SitemapEntry[] = [];
   for (const post of posts) {
     blogEntries.push({
-      url: `${baseUrl}/blog/${post.slug}`,
-      lastmod: new Date(post.metadata.date).toISOString(),
+      url: `${baseUrl}/blog/${post.id}`,
+      lastmod: new Date(post.data.date).toISOString(),
       changefreq: 'weekly',
     });
   }

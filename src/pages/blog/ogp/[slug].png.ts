@@ -9,7 +9,7 @@ import { generateFallbackOgpImage, generateOgpImage } from '@/lib/ogp';
 export async function getStaticPaths() {
   const posts = await getAllBlogPosts();
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
   }));
 }
 
@@ -40,9 +40,9 @@ export async function GET({ params }: APIContext) {
       });
     }
 
-    const title = post.metadata.title;
-    const tags = post.metadata.tags || [];
-    const iconPath = post.metadata.icon_url;
+    const title = post.data.title;
+    const tags = post.data.tags || [];
+    const iconPath = post.data.icon_url;
 
     // OGP画像生成
     const png = await generateOgpImage({ title, tags, iconPath });

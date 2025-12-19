@@ -43,8 +43,8 @@ if (currentPage > totalPages) {
 
 const postsWithIcons = paginatedPosts.map((blog) => {
   const displayUrl =
-    blog.metadata.icon_url ||
-    (blog.metadata.icon?.startsWith('https://') ? blog.metadata.icon : null);
+    blog.data.icon_url ||
+    (blog.data.icon?.startsWith('https://') ? blog.data.icon : null);
   const inlineSvg = displayUrl ? getInlineIcon(displayUrl) : undefined;
   return { blog, inlineSvg };
 });

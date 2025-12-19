@@ -63,8 +63,8 @@ function calculateTfIdfVectors(posts: BlogPost[]): Map<string, number[]> {
 
   // 各記事のタグを取得(タグがない場合は空配列)
   const documents = posts.map((post) => ({
-    slug: post.slug,
-    tags: post.metadata.tags ?? [],
+    slug: post.id,
+    tags: post.data.tags ?? [],
   }));
 
   // IDF計算: 各タグが何個の記事に出現するかをカウント
@@ -165,11 +165,11 @@ export function getRelatedPosts({
   const similarities: RelatedPost[] = [];
   for (const post of allPosts) {
     // 自分自身は除外
-    if (post.slug === currentSlug) {
+    if (post.id === currentSlug) {
       continue;
     }
 
-    const postVector = slugToVector.get(post.slug);
+    const postVector = slugToVector.get(post.id);
     if (!postVector) {
       continue;
     }

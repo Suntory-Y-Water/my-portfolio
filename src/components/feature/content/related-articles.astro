@@ -17,8 +17,8 @@ const { relatedPosts } = Astro.props;
  */
 const postsWithIcons = relatedPosts.map(({ post }) => {
   const displayUrl =
-    post.metadata.icon_url ||
-    (post.metadata.icon?.startsWith('https://') ? post.metadata.icon : null);
+    post.data.icon_url ||
+    (post.data.icon?.startsWith('https://') ? post.data.icon : null);
   const inlineSvg = displayUrl ? getInlineIcon(displayUrl) : undefined;
   return { post, inlineSvg };
 });

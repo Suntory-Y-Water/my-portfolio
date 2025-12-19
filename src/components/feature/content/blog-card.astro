@@ -21,9 +21,10 @@ const { data, priority, inlineSvg } = Astro.props;
  * クリックすると記事ページに遷移します。ホバー時にはカードが拡大し、視覚的なフィードバックを提供します。
  */
 
-const { metadata, slug } = data;
-const dateISO = new Date(metadata.date).toISOString();
-const formattedDate = formatDate(metadata.date);
+const metadata = data.data;
+const slug = data.id;
+const dateISO = metadata.date.toISOString();
+const formattedDate = formatDate(metadata.date.getTime());
 
 // icon_urlを優先、なければiconのURLを使用
 const displayUrl =

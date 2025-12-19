@@ -23,14 +23,14 @@ export async function GET() {
           .map((post) => {
             return `
               <item>
-                <title><![CDATA[${post.metadata.title}]]></title>
-                <link>${baseUrl}/blog/${post.slug}</link>
-                <guid isPermaLink="true">${baseUrl}/blog/${post.slug}</guid>
-                <pubDate>${new Date(post.metadata.date).toUTCString()}</pubDate>
-                <description><![CDATA[${post.metadata.description || ''}]]></description>
+                <title><![CDATA[${post.data.title}]]></title>
+                <link>${baseUrl}/blog/${post.id}</link>
+                <guid isPermaLink="true">${baseUrl}/blog/${post.id}</guid>
+                <pubDate>${new Date(post.data.date).toUTCString()}</pubDate>
+                <description><![CDATA[${post.data.description || ''}]]></description>
                 ${
-                  post.metadata.tags
-                    ? post.metadata.tags
+                  post.data.tags
+                    ? post.data.tags
                         .map((tag) => `<category>${tag}</category>`)
                         .join('')
                     : ''

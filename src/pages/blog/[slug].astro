@@ -22,70 +22,74 @@ import { buttonVariants } from '@/components/ui/button';
 import { Image } from 'astro:assets';
 
 /**
- * TODO: 型推論出来るらしい？
- *
  * @see https://docs.astro.build/en/guides/typescript/#infer-getstaticpaths-types
  */
 export async function getStaticPaths() {
   const allPosts = await getAllBlogPosts();
   return allPosts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
+    props: { allPosts }, // 全記事データをprops経由で渡す
   }));
 }
 
 const { slug } = Astro.params;
+const { allPosts } = Astro.props; // props経由で受け取る
 const post = await getBlogPostBySlug(slug);
 
 if (!post) {
   return Astro.redirect('/404');
 }
 
-const allPosts = await getAllBlogPosts();
 const relatedPosts = getRelatedPosts({
   currentSlug: slug,
   allPosts,
   count: BLOG_CONSTANTS.RELATED_POSTS_COUNT,
 });
 
-const tableOfContents = extractTOC(post.rawContent);
+const tableOfContents = extractTOC(post.body);
 const displayUrl =
-  post.metadata.icon_url ||
-  (post.metadata.icon?.startsWith('https://') ? post.metadata.icon : null);
+  post.data.icon_url ||
+  (post.data.icon?.startsWith('https://') ? post.data.icon : null);
 const inlineSvg = displayUrl ? getInlineIcon(displayUrl) : undefined;
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
-  headline: post.metadata.title,
-  datePublished: post.metadata.date,
-  dateModified: post.metadata.date,
-  description: post.metadata.description,
-  image: absoluteUrl(`/blog/ogp/${post.slug}.png`),
+  headline: post.data.title,
+  datePublished: post.data.date,
+  dateModified: post.data.date,
+  description: post.data.description,
+  image: absoluteUrl(`/blog/ogp/${post.id}.png`),
   author: { '@type': 'Person', name: siteConfig.name, url: siteConfig.url },
   publisher: {
     '@type': 'Person',
     name: siteConfig.name,
     image: {
       '@type': 'ImageObject',
-      url: absoluteUrl(`/blog/ogp/${post.slug}.png`),
+      url: absoluteUrl(`/blog/ogp/${post.id}.png`),
     },
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': absoluteUrl(`/blog/${post.slug}`),
+    '@id': absoluteUrl(`/blog/${post.id}`),
   },
 };
 
-const canonicalUrl = absoluteUrl(`/blog/${post.slug}`);
+const canonicalUrl = absoluteUrl(`/blog/${post.id}`);
 
-// サーバーサイドでMarkdownをコンパイル
-const compiledHtml = await compileMarkdown({ source: post.rawContent });
+// GitHubEditButton用のファイルパスを生成
+// フロントマターのdateとslugから元のファイル名を復元
+const dateStr = post.data.date.toISOString().split('T')[0]; // YYYY-MM-DD
+const githubFilePath = `contents/blog/${dateStr}_${post.id}.md`;
+
+// Content Collectionsでコンパイル（Astroが最適化）
+const compiledHtml = await compileMarkdown({ source: post.body });
 ---
 
 <BaseLayout
-  title={post.metadata.title}
-  description={post.metadata.description}
-  ogImage={absoluteUrl(`/blog/ogp/${post.slug}.png`)}
+  title={post.data.title}
+  description={post.data.description}
+  ogImage={absoluteUrl(`/blog/ogp/${post.id}.png`)}
   canonicalUrl={canonicalUrl}
 >
   <script
@@ -110,7 +114,7 @@ const compiledHtml = await compileMarkdown({ source: post.rawContent });
         </a>
       </div>
       {
-        (displayUrl || post.metadata.icon) && (
+        (displayUrl || post.data.icon) && (
           <div
             class='mb-6 flex justify-center'
             transition:name={`blog-icon-${slug}`}
@@ -124,13 +128,13 @@ const compiledHtml = await compileMarkdown({ source: post.rawContent });
             ) : displayUrl ? (
               <Image
                 src={displayUrl}
-                alt={`Icon for ${post.metadata.title}`}
+                alt={`Icon for ${post.data.title}`}
                 width={80}
                 height={80}
                 priority
               />
             ) : (
-              <div class='text-6xl'>{post.metadata.icon}</div>
+              <div class='text-6xl'>{post.data.icon}</div>
             )}
           </div>
         )
@@ -139,22 +143,22 @@ const compiledHtml = await compileMarkdown({ source: post.rawContent });
         class='mb-6 flex flex-wrap items-center justify-between text-sm text-muted-foreground'
       >
         {
-          post.metadata.date && (
+          post.data.date && (
             <div
               class='inline-flex items-center gap-1'
               transition:name={`blog-date-${slug}`}
             >
               <Icons.Calendar client:load className='size-4' />
-              <time datetime={new Date(post.metadata.date).toISOString()}>
-                {formatDate(post.metadata.date)}
+              <time datetime={post.data.date.toISOString()}>
+                {formatDate(post.data.date.getTime())}
               </time>
             </div>
           )
         }
         {
-          post.metadata.tags && post.metadata.tags.length > 0 && (
+          post.data.tags && post.data.tags.length > 0 && (
             <div class='inline-flex flex-wrap gap-2'>
-              {post.metadata.tags.map((tag) => (
+              {post.data.tags.map((tag) => (
                 <a href={`/tags/${getTagSlug(tag)}`}>
                   <Badge client:load className='px-2 py-0.5 text-xs'>
                     {tag}
@@ -172,15 +176,15 @@ const compiledHtml = await compileMarkdown({ source: post.rawContent });
           class='text-2xl font-bold leading-snug tracking-normal'
           transition:name={`blog-title-${slug}`}
         >
-          {post.metadata.title}
+          {post.data.title}
         </h1>
         <div class='self-start sm:self-auto'>
-          <MarkdownCopyButton client:idle content={post.rawContent} />
+          <MarkdownCopyButton client:idle content={post.body} />
         </div>
       </div>
       {
-        post.metadata.description && (
-          <p class='mt-4 text-foreground/80'>{post.metadata.description}</p>
+        post.data.description && (
+          <p class='mt-4 text-foreground/80'>{post.data.description}</p>
         )
       }
       {
@@ -192,10 +196,10 @@ const compiledHtml = await compileMarkdown({ source: post.rawContent });
         <MarkdownContent client:load html={compiledHtml} />
       </div>
       {
-        post.metadata.selfAssessment && (
+        post.data.selfAssessment && (
           <SelfAssessment
             client:load
-            selfAssessment={post.metadata.selfAssessment}
+            selfAssessment={post.data.selfAssessment}
           />
         )
       }
@@ -210,7 +214,7 @@ const compiledHtml = await compileMarkdown({ source: post.rawContent });
             <Icons.FileText client:load className='size-4' />
             <span>Markdown ver</span>
           </a>
-          <GitHubEditButton filePath={post.filePath} />
+          <GitHubEditButton filePath={githubFilePath} />
         </div>
       </footer>
     </article>
