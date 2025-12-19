@@ -49,6 +49,7 @@ jobs:
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          API_SECRET: ${{ secrets.API_SECRET }}
 
       - name: Generate Pagefind Index
         run: bunx pagefind --site .vercel/output/static
@@ -105,6 +106,7 @@ jobs:
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          API_SECRET: ${{ secrets.API_SECRET }}
 
       - name: Generate Pagefind Index
         run: bunx pagefind --site .vercel/output/static
