@@ -60,12 +60,12 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
-      - name: Check environment variables
+      - name: Add API_SECRET to Vercel env
         run: |
-          if [ -f .vercel/.env.preview.local ]; then
-            echo ".env.preview.local exists"
-            grep -q "API_SECRET" .vercel/.env.preview.local && echo "API_SECRET found in .env.preview.local" || echo "API_SECRET NOT found in .env.preview.local"
-          fi
+          echo "API_SECRET=$API_SECRET" >> .vercel/.env.preview.local
+          echo "Added API_SECRET to .env.preview.local"
+        env:
+          API_SECRET: ${{ secrets.API_SECRET }}
 
       - name: Build Project Artifacts
         run: bunx vercel build --token=${{ secrets.VERCEL_TOKEN }}
@@ -137,6 +137,13 @@ jobs:
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Add API_SECRET to Vercel env
+        run: |
+          echo "API_SECRET=$API_SECRET" >> .vercel/.env.production.local
+          echo "Added API_SECRET to .env.production.local"
+        env:
+          API_SECRET: ${{ secrets.API_SECRET }}
 
       - name: Build Project Artifacts
         run: bunx vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
