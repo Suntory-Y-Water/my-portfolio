@@ -5,47 +5,167 @@ type OGData = {
   url: string;
 };
 
+const OG_API_ENDPOINT = 'https://suntory-n-water.com/api/og';
+const API_SECRET = process.env.API_SECRET || '';
+
 /**
- * OGP画像のURLを絶対URLに変換する
+ * Cloudflare Workers KVからOGデータを取得
  *
- * 相対URLの場合は元ページのoriginを基準に絶対URLに変換します。
- * 既に絶対URLの場合はそのまま返します。
- *
- * @param imageUrl - OGP画像のURL(相対または絶対)
- * @param baseUrl - 基準となるページのURL
- * @returns 絶対URL形式の画像URL、変換できない場合は空文字列
+ * @param url - OGデータを取得するURL
+ * @returns KVにキャッシュされたOGデータ、キャッシュがない場合はnull
  */
-function resolveImageUrl({
-  imageUrl,
-  baseUrl,
-}: {
-  imageUrl: string | undefined;
-  baseUrl: string;
-}): string {
-  if (!imageUrl) {
-    return '';
-  }
+async function fetchFromCache(url: string): Promise<Partial<OGData> | null> {
+  try {
+    const response = await fetch(
+      `${OG_API_ENDPOINT}?url=${encodeURIComponent(url)}`,
+    );
 
-  // 絶対URLかどうかを判定
-  const isAbsoluteUrl = /^https?:\/\//i.test(imageUrl);
-  if (isAbsoluteUrl) {
-    return imageUrl;
-  }
+    if (response.status === 404) {
+      return null;
+    }
 
-  // 相対URLの場合は元のURLのoriginを基準に絶対URLに変換
-  const base = new URL(baseUrl);
-  const absoluteUrl = new URL(imageUrl, base.origin);
-  return absoluteUrl.href;
+    if (!response.ok) {
+      return null;
+    }
+
+    const data = await response.json();
+    return data;
+  } catch {
+    return null;
+  }
 }
 
 /**
- * URLからOGP(Open Graph Protocol)データを取得する
+ * Cloudflare Workers KVにOGデータを保存
+ *
+ * 本番ビルド時のみ保存する。開発環境ではスキップ。
+ *
+ * @param url - OGデータの元URL
+ * @param data - 保存するOGデータ
+ */
+async function saveToCache({
+  url,
+  data,
+}: {
+  url: string;
+  data: Partial<OGData>;
+}): Promise<void> {
+  // 本番ビルド時のみ保存
+  if (process.env.NODE_ENV !== 'production') {
+    return;
+  }
+
+  // API_SECRETがない場合はスキップ
+  if (!API_SECRET) {
+    return;
+  }
+
+  try {
+    const response = await fetch(OG_API_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${API_SECRET}`,
+      },
+      body: JSON.stringify({
+        url,
+        data: {
+          title: data.title || '',
+          description: data.description || '',
+          image: data.image || '',
+          url: data.url || url,
+        },
+      }),
+    });
+
+    if (!response.ok) {
+      console.error(`Failed to save OG cache: ${response.status} for ${url}`);
+    }
+  } catch (error) {
+    console.error('Error saving to cache:', error);
+  }
+}
+
+/**
+ * 画像をR2にアップロードしてキーを取得
+ *
+ * @param imageUrl - アップロードする画像のURL
+ * @returns R2にアップロードされた画像のキー（例: "abc123.png"）、失敗時はnull
+ */
+async function uploadImageToR2(imageUrl: string): Promise<string | null> {
+  // 本番ビルド時のみアップロード
+  if (process.env.NODE_ENV !== 'production') {
+    return null;
+  }
+
+  // API_SECRETがない場合はスキップ
+  if (!API_SECRET) {
+    return null;
+  }
+
+  try {
+    // 1. 画像を取得
+    const imageResponse = await fetch(imageUrl);
+    if (!imageResponse.ok) {
+      console.error(
+        `Failed to fetch image: ${imageResponse.status} for ${imageUrl}`,
+      );
+      return null;
+    }
+
+    const imageBuffer = await imageResponse.arrayBuffer();
+    const contentType =
+      imageResponse.headers.get('Content-Type') || 'image/png';
+
+    // 2. ファイル名を生成（URLのハッシュ）
+    const encoder = new TextEncoder();
+    const data = encoder.encode(imageUrl);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('');
+
+    // 拡張子を取得（デフォルトは .png）
+    const ext = imageUrl.match(/\.(png|jpg|jpeg|gif|webp)$/i)?.[1] || 'png';
+    const filename = `${hashHex}.${ext}`;
+
+    // 3. R2にアップロード
+    const uploadResponse = await fetch(
+      `https://suntory-n-water.com/images/${filename}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': contentType,
+          Authorization: `Bearer ${API_SECRET}`,
+        },
+        body: imageBuffer,
+      },
+    );
+
+    if (!uploadResponse.ok) {
+      console.error(
+        `Failed to upload to R2: ${uploadResponse.status} for ${imageUrl}`,
+      );
+      return null;
+    }
+
+    const result: { success: boolean; key: string } =
+      await uploadResponse.json();
+    return result.key;
+  } catch (error) {
+    console.error('Error uploading image to R2:', error);
+    return null;
+  }
+}
+
+/**
+ * 外部URLから直接OGデータを取得（従来のロジック）
  *
  * @param url - OGPデータを取得するURL
  * @returns OGPデータの部分的なオブジェクト(title、description、image、url)
- *
  */
-export async function getOGData(url: string): Promise<Partial<OGData>> {
+async function fetchOGDataDirect(url: string): Promise<Partial<OGData>> {
   try {
     const response = await fetch(url, {
       headers: {
@@ -65,7 +185,6 @@ export async function getOGData(url: string): Promise<Partial<OGData>> {
         return match1;
       }
 
-      // パターン2: content が先
       const regex2 = new RegExp(
         `<meta[^>]+content="([^"]+)"[^>]+(?:property|name)="${property}"`,
         'i',
@@ -89,4 +208,71 @@ export async function getOGData(url: string): Promise<Partial<OGData>> {
     console.error('Error fetching OG data:', error);
     return { url };
   }
+}
+
+/**
+ * URLからOGP(Open Graph Protocol)データを取得する
+ *
+ * 本番ビルド時はCloudflare Workers KVキャッシュを使用。
+ * キャッシュミス時は外部URLから取得し、KVに保存する。
+ *
+ * @param url - OGPデータを取得するURL
+ * @returns OGPデータの部分的なオブジェクト(title、description、image、url)
+ */
+export async function getOGData(url: string): Promise<Partial<OGData>> {
+  // 本番ビルド時はキャッシュを使用
+  if (process.env.NODE_ENV === 'production') {
+    // 1. キャッシュ確認
+    const cachedData = await fetchFromCache(url);
+    if (cachedData) {
+      return cachedData;
+    }
+
+    // 2. 外部URLから取得
+    const freshData = await fetchOGDataDirect(url);
+
+    // 3. 画像をR2にアップロード
+    if (freshData.image) {
+      const imageKey = await uploadImageToR2(freshData.image);
+      if (imageKey) {
+        // R2のURLに置き換え
+        freshData.image = `https://suntory-n-water.com/images/${imageKey}`;
+      }
+    }
+
+    // 4. キャッシュに保存
+    await saveToCache({ url, data: freshData });
+
+    return freshData;
+  }
+
+  // 開発環境では従来通り直接fetch
+  return fetchOGDataDirect(url);
+}
+
+/**
+ * OGP画像のURLを絶対URLに変換する
+ *
+ * 相対URLの場合は元ページのoriginを基準に絶対URLに変換します。
+ * 既に絶対URLの場合はそのまま返します。
+ */
+function resolveImageUrl({
+  imageUrl,
+  baseUrl,
+}: {
+  imageUrl: string | undefined;
+  baseUrl: string;
+}): string {
+  if (!imageUrl) {
+    return '';
+  }
+
+  const isAbsoluteUrl = /^https?:\/\//i.test(imageUrl);
+  if (isAbsoluteUrl) {
+    return imageUrl;
+  }
+
+  const base = new URL(baseUrl);
+  const absoluteUrl = new URL(imageUrl, base.origin);
+  return absoluteUrl.href;
 }
