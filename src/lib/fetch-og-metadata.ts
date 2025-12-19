@@ -8,6 +8,11 @@ type OGData = {
 const OG_API_ENDPOINT = 'https://suntory-n-water.com/api/og';
 const API_SECRET = process.env.API_SECRET || '';
 
+// デバッグログ
+console.log('[OG] NODE_ENV:', process.env.NODE_ENV);
+console.log('[OG] API_SECRET exists:', !!API_SECRET);
+console.log('[OG] API_SECRET length:', API_SECRET.length);
+
 /**
  * Cloudflare Workers KVからOGデータを取得
  *
@@ -20,17 +25,22 @@ async function fetchFromCache(url: string): Promise<Partial<OGData> | null> {
       `${OG_API_ENDPOINT}?url=${encodeURIComponent(url)}`,
     );
 
+    console.log(`[OG] fetchFromCache: ${url} -> ${response.status}`);
+
     if (response.status === 404) {
       return null;
     }
 
     if (!response.ok) {
+      console.log(`[OG] fetchFromCache failed: ${response.status}`);
       return null;
     }
 
     const data = await response.json();
+    console.log(`[OG] fetchFromCache success: ${url}`);
     return data;
-  } catch {
+  } catch (error) {
+    console.log(`[OG] fetchFromCache error:`, error);
     return null;
   }
 }
@@ -50,17 +60,24 @@ async function saveToCache({
   url: string;
   data: Partial<OGData>;
 }): Promise<void> {
+  console.log(`[OG] saveToCache called for: ${url}`);
+  console.log(`[OG] NODE_ENV: ${process.env.NODE_ENV}`);
+  console.log(`[OG] API_SECRET exists: ${!!API_SECRET}`);
+
   // 本番ビルド時のみ保存
   if (process.env.NODE_ENV !== 'production') {
+    console.log(`[OG] saveToCache skipped: not production`);
     return;
   }
 
   // API_SECRETがない場合はスキップ
   if (!API_SECRET) {
+    console.log(`[OG] saveToCache skipped: no API_SECRET`);
     return;
   }
 
   try {
+    console.log(`[OG] saveToCache: sending POST to ${OG_API_ENDPOINT}`);
     const response = await fetch(OG_API_ENDPOINT, {
       method: 'POST',
       headers: {
@@ -78,8 +95,11 @@ async function saveToCache({
       }),
     });
 
+    console.log(`[OG] saveToCache response: ${response.status}`);
     if (!response.ok) {
       console.error(`Failed to save OG cache: ${response.status} for ${url}`);
+    } else {
+      console.log(`[OG] saveToCache success for: ${url}`);
     }
   } catch (error) {
     console.error('Error saving to cache:', error);
