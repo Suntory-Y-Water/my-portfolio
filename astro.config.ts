@@ -10,6 +10,7 @@ import { siteConfig } from './src/config/site.js';
 // https://astro.build/config
 export default defineConfig({
   site: siteConfig.url,
+  cacheDir: './node_modules/.astro',
   integrations: [
     react(),
     partytown({
@@ -20,6 +21,7 @@ export default defineConfig({
   ],
   build: {
     inlineStylesheets: 'auto',
+    concurrency: 4,
   },
   vite: {
     plugins: [tailwindcss()],
@@ -39,6 +41,18 @@ export default defineConfig({
       assetsInlineLimit: 4096,
       rollupOptions: {
         external: ['/pagefind/pagefind-ui.js'],
+        output: {
+          manualChunks: {
+            'react-vendor': ['react', 'react-dom'],
+            'radix-ui': [
+              '@radix-ui/react-dialog',
+              '@radix-ui/react-dropdown-menu',
+              '@radix-ui/react-select',
+              '@radix-ui/react-separator',
+              '@radix-ui/react-slot',
+            ],
+          },
+        },
       },
     },
   },
