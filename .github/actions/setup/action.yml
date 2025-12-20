@@ -1,5 +1,5 @@
 name: 'Setup Bun Environment'
-description: 'Setup Bun and install dependencies with caching'
+description: 'Setup Bun and install dependencies'
 runs:
   using: composite
   steps:
@@ -8,33 +8,6 @@ runs:
       with:
         bun-version: latest
 
-    - name: Cache Bun dependencies
-      uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
-      id: bun-cache
-      with:
-        path: |
-          ~/.bun/install/cache
-          node_modules
-        key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-bun-
-
-    - name: Cache Astro build
-      uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
-      with:
-        path: |
-          node_modules/.astro
-          .astro
-        key: ${{ runner.os }}-astro-${{ hashFiles('**/*.astro', '**/*.ts', '**/*.tsx', '**/package.json') }}
-        restore-keys: |
-          ${{ runner.os }}-astro-
-
     - name: Install dependencies
-      if: steps.bun-cache.outputs.cache-hit != 'true'
       run: bun install --frozen-lockfile
-      shell: bash
-
-    - name: Verify dependencies
-      if: steps.bun-cache.outputs.cache-hit == 'true'
-      run: bun install --frozen-lockfile --verify
       shell: bash
