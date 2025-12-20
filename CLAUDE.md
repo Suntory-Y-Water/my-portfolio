@@ -2,42 +2,25 @@
 
 本システムは **Astro** で構築された個人技術ブログプラットフォームです。Markdown形式で記事を管理し、静的生成により高速な配信を実現しています。
 
----
+## 目的
+個人技術ブログプラットフォーム。Markdown形式で記事を管理し、静的生成により高速な配信を実現する。
 
-## プロジェクト概要
+## 主要機能
+- **Markdown記事管理**: `contents/blog/` 配下にMarkdownファイルで記事を管理
+- **全文検索**: Pagefindによるクライアントサイド検索
+- **OGP画像生成**: 記事ごとに自動生成された静的OGP画像
 
-### 主要機能
-- **Markdown記事管理** - `/contents/blog/` 配下にMarkdownファイルで記事を管理
-- **タグ分類** - タグによる記事分類とタグページ自動生成
-- **全文検索** - Pagefindによるクライアントサイド検索
-- **OGP画像生成** - 記事ごとに自動生成された静的OGP画像
-- **コードハイライト** - rehype-pretty-codeによるシンタックスハイライトとコピーボタン
-- **Mermaid図** - フロー図・シーケンス図のサポート
-- **リンクプレビュー** - URLをカード形式で表示
-
-### 技術スタック
-- **フレームワーク**: Astro
+## 技術スタック
+- **フレームワーク**: Astro 5.x (SSG)
 - **ランタイム**: Bun
-- **言語**: TypeScript
-- **スタイリング**: Tailwind CSS + Radix UI
+- **UIライブラリ**: React (一部コンポーネント)
+- **スタイリング**: Tailwind CSS 4.x + Radix UI
 - **Markdown処理**: remark, rehype
-- **コード品質**: Biome (ESLint/Prettier代替)
-- **検索**: Pagefind (静的全文検索)
 
----
-
-## よく使うコマンド (AI向け)
-
-```bash
-# フォーマットチェック
-bun run format
-
-# 型チェック
-bun run type-check:ai
-
-# Lint
-bun run lint:ai
-```
+## アーキテクチャ
+- **静的生成 (SSG)**: ビルド時にすべての記事ページを静的生成
+- **OGP画像**: ビルド時にSatoriで静的生成し、キャッシュ最適化
+- **検索インデックス**: postbuildスクリプトでPagefindインデックス生成
 
 ### 静的生成 (SSG)
 - ビルド時にすべての記事ページを静的生成
@@ -51,23 +34,6 @@ remark (Markdown AST)
   → カスタムプラグイン (コピーボタン、Mermaid、リンクカード)
   → HTML生成
 ```
-
----
-
-## よくあるタスク
-
-### ブログ記事作成
-```bash
-# ブログテンプレート作成スクリプト実行
-bun run new-blog
-```
-
-### タグ追加時の手順
-1. `src/config/tag-slugs.ts` にタグIDと表示名を追加
-2. 記事のフロントマターに追加: `tags: ["new-tag"]`
-3. `bun run check:tags` で確認 (commit時に自動検証)
-
----
 
 ## MCP使い分けガイド
 

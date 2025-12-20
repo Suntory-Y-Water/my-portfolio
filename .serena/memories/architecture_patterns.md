@@ -1,361 +1,139 @@
-# アーキテクチャパターンと設計思想
+# アーキテクチャとデザインパターン
 
-## 全体アーキテクチャ
+## アーキテクチャ概要
 
-### 採用アーキテクチャ
-- **フレームワーク**: Next.js 16 App Router
-- **レンダリング戦略**: Static Site Generation (SSG) + Server Components
-- **状態管理**: React Server Components + Client Components(最小限)
-- **スタイリング**: Tailwind CSS + CSS Modules(一部)
+### 静的サイト生成 (SSG)
+- **フレームワーク**: Astro (SSG特化)
+- **戦略**: ビルド時に全ページを静的HTML生成
+- **メリット**: 高速配信、SEO最適化、ホスティングコスト削減
 
-### 設計原則
+### Markdown中心のコンテンツ管理
+- 記事は `contents/blog/*.md` に配置
+- フロントマター + Markdown
 
-#### YAGNI(You Aren't Gonna Need It)
-将来的な拡張性の考慮は禁止。現時点で必要な機能のみを実装する。
+## コンポーネント戦略
 
-#### KISS(Keep It Simple, Stupid)
-シンプルで読みやすいコードを重視。過度な抽象化を避ける。
+### Astro Islands (部分的ハイドレーション)
+- 基本はHTML/CSS (静的)
+- インタラクティブ部分のみReactコンポーネント
+- クライアントサイドJS最小化
 
-#### 関数型プログラミング
-- クラスは使用しない
-- 純粋関数を優先
-- 副作用を最小化
-- 関数合成の活用
-
----
-
-## コンポーネント設計
-
-### コンポーネント階層
-
-```
-app/                  (ページコンポーネント)
-  ↓
-feature/             (機能別コンポーネント)
-  ↓
-shared/              (共有コンポーネント)
-  ↓
-ui/                  (汎用UIコンポーネント)
-```
-
-#### 各層の責務
-
-##### `ui/` - 汎用UIコンポーネント
-- **責務**: 再利用可能な最小単位のUIコンポーネント
-- **依存**: 他のコンポーネントに依存しない
-- **例**: Button, Card, Dialog, Select
-
-##### `shared/` - 共有コンポーネント
-- **責務**: アプリケーション全体で使用される共有コンポーネント
-- **依存**: `ui/`を使用
-- **例**: Header, Footer, Pagination
-
-##### `feature/` - 機能別コンポーネント
-- **責務**: 特定の機能に特化したコンポーネント
-- **依存**: `ui/`, `shared/`を使用
-- **例**: BlogCard, MarkdownContent, SearchDialog
-
-##### `app/` - ページコンポーネント
-- **責務**: ルーティングとページ構成
-- **依存**: すべてのコンポーネント層を使用
-- **例**: Blog詳細ページ, トップページ
-
-### Server Components vs Client Components
-
-#### Server Componentsを優先
-デフォルトではServer Componentsを使用し、以下の場合のみClient Componentsを使用する：
-
-- イベントハンドラーが必要な場合(`onClick`, `onChange`など)
-- React Hooksが必要な場合(`useState`, `useEffect`など)
-- ブラウザAPIが必要な場合(`localStorage`, `window`など)
-
-#### Client Componentsの最小化
-Client Componentsは必要最小限の範囲に限定し、子コンポーネントはできるだけServer Componentsにする。
-
-```tsx
-// ✅ Good - Client Componentは最小限
-'use client';
-
-import { useState } from 'react';
-import { ServerChildComponent } from './server-child'; // Server Component
-
-export function MinimalClientComponent() {
-  const [count, setCount] = useState(0);
-  
-  return (
-    <div>
-      <button onClick={() => setCount(count + 1)}>Count: {count}</button>
-      <ServerChildComponent /> {/* Server Component as child */}
-    </div>
-  );
-}
-```
-
----
-
-## データフェッチング
-
-### 静的生成(SSG)を優先
-ブログ記事など、ビルド時に生成できるページは静的生成を使用する。
-
-```tsx
-// src/app/blog/[slug]/page.tsx
-export async function generateStaticParams() {
-  const posts = await getAllBlogPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-}
-
-export default async function BlogPost({ params }: { params: { slug: string } }) {
-  const post = await getBlogPostBySlug({ slug: params.slug });
-  return <article>{/* ... */}</article>;
-}
-```
-
-### Server Actionsの活用
-フォーム送信やデータ更新には、Server Actionsを使用する。
-
-```tsx
-// src/actions/fetch-og-metadata.ts
-'use server';
-
-export async function fetchOgMetadata({ url }: { url: string }) {
-  // ...
-}
-```
-
----
+### Reactコンポーネント
+- `src/components/` に配置
+- Radix UIベースのアクセシブルUI
+- client:loadディレクティブで選択的ハイドレーション
 
 ## Markdownパイプライン
 
-### unified/remark/rehypeパイプライン
-
-Markdownの処理は、unified/remark/rehypeパイプラインを使用する。
-
-```typescript
-// src/lib/markdown.ts
-unified()
-  .use(remarkParse)                    // Markdown → mdast
-  .use(remarkBreaks)                   // 改行処理
-  .use(remarkGfm)                      // GitHub Flavored Markdown
-  .use(remarkGithubBlockquoteAlert)    // GitHub Alert記法
-  .use(remarkRehype, { allowDangerousHtml: true })  // mdast → hast
-  .use(rehypeSlug)                     // 見出しにIDを付与
-  .use(rehypePrettyCode)               // コードブロックのシンタックスハイライト
-  .use(rehypeCodeCopyButton)           // コピーボタン追加(カスタムプラグイン)
-  .use(rehypeLinkCard)                 // リンクカード生成(カスタムプラグイン)
-  .use(rehypeMermaidCode)              // Mermaid図生成(カスタムプラグイン)
-  .use(rehypeStringify)                // hast → HTML
+### 処理フロー
 ```
-
-### カスタムrehypeプラグイン
-
-プロジェクト固有の処理は、カスタムrehypeプラグインとして実装する。
-
-**既存カスタムプラグイン:**
-- `rehype-code-copy-button.ts` - コードブロックにコピーボタンを追加
-- `rehype-link-card.ts` - リンクをカード形式で表示
-- `rehype-mermaid-code.ts` - Mermaid記法を図に変換
-
----
-
-## セキュリティアーキテクチャ
-
-### 多層防御(Defense in Depth)
-
-複数の層でセキュリティ対策を実施する。
-
-#### レイヤー1: 入力検証
-- フロントマターの検証
-- URLパラメータの検証
-
-#### レイヤー2: サニタイゼーション
-- DOMPurify + jsdomによるHTMLサニタイゼーション
-- SVGファイルのスクリプト除去
-
-#### レイヤー3: セキュリティヘッダー
-- Content Security Policy(CSP)
-- X-Frame-Options
-- X-Content-Type-Options
-- Strict-Transport-Security
-
-#### レイヤー4: 自動チェック
-- pre-commitフックでのSVGセキュリティチェック
-- ビルド時の静的解析
-
-### DOMPurifyの実装パターン
-
-```typescript
-// Server-side sanitization
-import DOMPurify from 'dompurify';
-import { JSDOM } from 'jsdom';
-
-const window = new JSDOM('').window;
-const purify = DOMPurify(window);
-
-const sanitized = purify.sanitize(dirtyHtml, {
-  ALLOWED_TAGS: ['p', 'a', 'strong', /* ... */],
-  ALLOWED_ATTR: ['href', 'title', /* ... */],
-  ALLOWED_URI_REGEXP: /^https?:\/\//,
-});
-```
-
----
-
-## 定数・設定の一元管理
-
-### 設定ファイルの階層
-
-```
-src/config/site.ts       (サイト全体の設定)
+Markdown (.md)
   ↓
-src/constants/index.ts   (アプリケーション定数)
+remark (Markdown AST)
   ↓
-各コンポーネント          (設定を参照)
+rehype (HTML AST)
+  ↓
+カスタムプラグイン
+  ├─ rehype-pretty-code (シンタックスハイライト)
+  ├─ rehype-slug (見出しID)
+  ├─ rehype-mermaid (図表)
+  ├─ remark-breaks (改行処理)
+  └─ remark-github-blockquote-alert (アラート)
+  ↓
+HTML生成
 ```
 
-### サイト設定パターン
+### カスタムプラグイン
+- コピーボタン自動挿入
+- リンクカード生成
+- Mermaid図レンダリング
 
-```typescript
-// src/config/site.ts
-export const siteConfig = {
-  name: 'sui Tech Blog',
-  description: '...',
-  url: 'https://example.com',
-  ogImage: 'https://example.com/og.png',
-  links: {
-    twitter: 'https://twitter.com/...',
-    github: 'https://github.com/...',
-  },
-} as const; // as const で型安全に
-```
+## OGP画像生成
 
----
+### 技術スタック
+- **Satori**: HTML/CSS → SVG変換
+- **@resvg/resvg-js**: SVG → PNG変換
 
-## 型安全性の確保
+### 生成戦略
+- ビルド時に記事ごとに静的生成
+- `dist/` に画像出力
+- キャッシュ最適化 (再ビルド時の効率化)
 
-### 型定義の方針
+## 検索機能
 
-#### typeを使用(interfaceは使用しない)
-```typescript
-// ✅ Good
-type User = {
-  id: string;
-  name: string;
-};
+### Pagefind (静的全文検索)
+- **生成タイミング**: `postbuild` スクリプト
+- **インデックス**: `dist/pagefind/` に生成
+- **動作**: クライアントサイドで検索実行
+- **メリット**: サーバー不要、高速、オフライン対応
 
-// ❌ Bad
-interface User {
-  id: string;
-  name: string;
-}
-```
+## スタイリングアーキテクチャ
 
-#### as constで不変性を保証
-```typescript
-export const ALLOWED_TAGS = ['p', 'a', 'strong'] as const;
-type AllowedTag = typeof ALLOWED_TAGS[number]; // 'p' | 'a' | 'strong'
-```
+### Tailwind CSS 4.x
+- **統合**: `@tailwindcss/vite` プラグイン
+- **設定**: `astro.config.ts` のVite設定
+- **戦略**: ユーティリティファーストCSS
 
-#### Pick/Omitで型を再利用
-```typescript
-type BlogPost = {
-  slug: string;
-  title: string;
-  content: string;
-  published: Date;
-};
+### コンポーネント設計
+- **Radix UI**: 低レベルUIプリミティブ
+- **class-variance-authority**: バリアントベーススタイル
+- **tailwind-merge**: クラス名競合解決
 
-type BlogPostPreview = Pick<BlogPost, 'slug' | 'title' | 'published'>;
-type BlogPostWithoutContent = Omit<BlogPost, 'content'>;
-```
+## 型安全性
 
----
+### TypeScript設定
+- `verbatimModuleSyntax`: import/exportの明示化
+- パスエイリアス: `@/*` → `src/*`
+- Astro型定義: `.astro/types.d.ts` 自動生成
+
+### Content Collections
+- `src/content.config.ts`: スキーマ定義
+- フロントマターの型安全性
+- Astroネイティブの型推論
+
+## コード品質保証
+
+### Biome (統合ツール)
+- **Lint**: ESLint代替
+- **Format**: Prettier代替 (JS/TS/JSON)
+- **CI**: 変更ファイル検出
+
+### カスタムルール
+- 関数引数2個以上 → オブジェクト形式強制
+- `any` 型禁止
+- `interface` 禁止、`type` 使用
+
+### Git Hooks (Husky)
+- pre-commit: SVGセキュリティ、タグチェック、textlint
+- 自動修正 + 再ステージング
 
 ## パフォーマンス最適化
 
 ### ビルド時最適化
+- Vite: `assetsInlineLimit: 4096` (小画像インライン化)
+- Partytown: サードパーティスクリプトWeb Worker化
+- 静的アセット最適化
 
-#### 静的生成(SSG)
-ブログ記事など、変更頻度の低いページは静的生成する。
+### 配信最適化
+- 静的HTML配信
+- CDNフレンドリー
+- ゼロJavaScript (インタラクティブ部分以外)
 
-#### バンドルサイズ最適化
-- 不要なライブラリの削除(depcheck)
-- 動的インポート(`next/dynamic`)
-- Tree Shaking(Biome + Next.js)
+## 開発ワークフロー
 
-### ランタイム最適化
+### ローカル開発
+1. `bun run dev`: 開発サーバー起動
+2. ホットリロード (Astro HMR)
+3. 型チェック: VSCode + `astro check`
 
-#### 画像最適化
-- Next.js Image Componentの使用
-- WebP形式への変換
-- 遅延ロード
+### デプロイフロー
+1. `bun run build`: 静的生成
+2. `pagefind`: 検索インデックス生成
+3. `dist/` をVercelにデプロイ
 
-#### フォント最適化
-- カスタムフォントのサブセット化
-- `font-display: swap`
-
----
-
-## テスト戦略(現状)
-
-現在、このプロジェクトにはテストがありません。将来的に追加する場合は、以下のような戦略を検討してください：
-
-### 推奨テスト戦略
-- **単体テスト**: Vitest + React Testing Library
-- **E2Eテスト**: Playwright
-- **型チェック**: TypeScript(`bun run typecheck`)
-- **Lint**: Biome(`bun run check`)
-
----
-
-## デプロイ戦略
-
-### Vercelへのデプロイ
-
-#### ビルドコマンド
-```bash
-bun run build
-```
-
-#### ビルド後処理(postbuild)
-```bash
-pagefind --site .next --output-path public/pagefind
-```
-
-#### 環境変数
-- `ANALYZE`: バンドル分析の有効化
-- `ANALYZE_MODE`: 分析モード(static/json)
-- `ANALYZE_STATS`: stats.jsonの生成
-
----
-
-## ADR(Architecture Decision Records)
-
-重要なアーキテクチャ決定は、ADRとして記録する。
-
-### ADRの形式
-- JSON形式で機械可読性を重視
-- `docs/adr/decisions/*.json`に配置
-- `docs/adr/index.json`でインデックス管理
-
-### 既存ADR
-1. **ADR-0001**: ブログ記事作成スクリプトでの自動ブランチ作成
-2. **ADR-0002**: 定数とURL設定の一元化
-3. **ADR-0003**: SVGとMarkdownにおけるXSS脆弱性の対策
-4. **ADR-0004**: DOMPurify実装方法の変更とリンクカードサニタイズの追加
-
----
-
-## まとめ
-
-このプロジェクトのアーキテクチャは、以下の原則に基づいています：
-
-1. **シンプルさ優先** - YAGNI、KISS原則
-2. **型安全性** - TypeScriptの厳格な型チェック
-3. **セキュリティ** - 多層防御、サニタイゼーション
-4. **パフォーマンス** - 静的生成、最適化
-5. **保守性** - 明確な階層構造、一元管理
-
-新しい機能を追加する際は、これらの原則に従い、既存のパターンを踏襲してください。
+### 品質チェックフロー
+1. コード修正
+2. `bun run format`: フォーマット
+3. `bun run type-check:ai`: 型チェック
+4. `bun run lint:ai`: Lint
+5. コミット (pre-commitフック自動実行)
