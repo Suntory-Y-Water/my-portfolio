@@ -21,10 +21,10 @@ console.log('[OG] API_SECRET length:', API_SECRET.length);
  */
 async function fetchFromCache(url: string): Promise<Partial<OGData> | null> {
   try {
-    const response = await fetch(
-      `${OG_API_ENDPOINT}?url=${encodeURIComponent(url)}`,
-    );
+    const requestsUrl = `${OG_API_ENDPOINT}?url=${encodeURIComponent(url)}`;
+    const response = await fetch(requestsUrl);
 
+    console.log(`url: ${requestsUrl}`);
     console.log(`[OG] fetchFromCache: ${url} -> ${response.status}`);
 
     if (response.status === 404) {
