@@ -12,6 +12,7 @@ export const TAG_SLUG_MAP: Record<string, string> = {
   Angular: 'angular',
   API: 'api',
   AppRouter: 'app-router',
+  Astro: 'astro',
   Biome: 'biome',
   BeautifulSoup: 'beautifulsoup',
   'chart.js': 'chartjs',
