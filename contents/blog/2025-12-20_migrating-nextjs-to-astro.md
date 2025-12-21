@@ -1,6 +1,6 @@
 ---
-slug: migrating-nextjs-to-astro
 title: Next.js から Astro へ。拡張性を捨て、シンプルさを選んだ理由
+slug: migrating-nextjs-to-astro
 date: 2025-12-20
 modified_time: 2025-12-20
 description: ブログに「何でもできる」Next.jsは過剰スペックでした。新機能に追いつけず、Web標準APIとの相性に悩んだ末、SSGに特化したAstroへ移行しました。拡張性を捨て、「必要最小限」を選んだ技術選択の記録です。
@@ -9,6 +9,8 @@ icon_url: /icons/face_with_monocle_flat.svg
 tags:
   - Astro
   - Next.js
+  - Playwright
+  - ブログ
 ---
 Next.js は Web アプリ開発で一線級を走るフレームワークの 1 つです。
 この業界で働き出した 3 年前、Web 開発のいろはも知らなかった私にとって、Next.js は魔法のようなフレームワークでした。当時から React が Web 開発でいいらしいということはわかっていたのですが、React はフロントエンドでの使用が主流だったため、サーバー部分、いわゆるバックエンドの選択が必須でした。
@@ -28,17 +30,24 @@ Server Actions？これどう便利になるんだっけ？PPR(Partial Pre-Rende
 SSG のように明らかメリットが大きいものなら分かりますが、当時開発していた Web アプリの実態に結びつけることができず、次第に追いつけないと感じていました。
 
 とはいえ、気になる技術があれば試してみたくなるのがエンジニアです。
-View Transitions API(ページ遷移時にぬるっと動くアニメーションを実現する Web 標準 API)が React でも実装されたと聞いて、さっそく試してみました。動くには動くんですが、「ブラウザバック」で動作をさせることができませんでした。
+[View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API)(ページ遷移時にぬるっと動くアニメーションを実現する Web 標準 API)が React でも実装されたと聞いて、さっそく試してみました。動くには動くんですが、「ブラウザバック」で動作をさせることができませんでした。
 
 Web 標準であれば動くんですが、React は仮想 DOM の関係で Web 標準 API との統合がうまくいかないようです。結局、私の技術力では実現できず諦めてしまいました。
 
 ## 深刻な脆弱性の発覚
 
 2025 年 12 月 10 日ごろ、React Server Components で重大な脆弱性が発見されました。この脆弱性は CVSS スコア 10.0(セキュリティ評価の最高危険度)であり、俗に言う社会問題レベルの脆弱性です。今すぐ全ての作業を停止してでも対応しなければなりません。実際に IPA が公表している内容では、2025 年 12 月 13 日現在、日本国内でも被害が報告されています。
+
+https://www.ipa.go.jp/security/security-alert/2025/alert20251209.html
+
 私自身、趣味で公開しているサービスでもいくつか Next.js を使用しています。その中でも当然、今回脆弱性が発見されたバージョンを使用しており、対応が急務となりました。
 いくらユーザーがほぼいないとしても、そこがセキュリティホールとなって踏み台にされるようなことは絶対にあってはなりません。
 
-また、12 月 12 日ごろにも新たに脆弱性が発見されました。立て続けに問題が起きていることから、React Server Components 自体のセキュリティ、そもそもフロントエンドとバックエンドを一体化するというアーキテクチャ自体に対して、やはり何かあるのではないかという懸念を個人的に感じました。
+また、12 月 12 日ごろにも新たな脆弱性が発見されました。
+
+https://react.dev/blog/2025/12/11/denial-of-service-and-source-code-exposure-in-react-server-components
+
+立て続けに問題が起きていることから、React Server Components 自体のセキュリティ、そもそもフロントエンドとバックエンドを一体化するというアーキテクチャ自体に対して、やはり何かあるのではないかという懸念を個人的に感じました。
 
 しかし、正直に言えば、脆弱性はきっかけに過ぎず、前から「Next.js から Astro に移行してみたいなー」という憧れがありました。
 ですが「面倒くさいからいいや」という怠惰な気持ちもあって、なかなか重い腰を上げられずにいましたが、脆弱性という緊急事態が重い腰を上げるキッカケになりました。
@@ -54,7 +63,7 @@ Web 標準であれば動くんですが、React は仮想 DOM の関係で Web 
 
 今回そのような経緯もあった上で、Web フレームワークとして Astro を採用することにしました。SSG でブログを作成し、Web 標準の技術を極力取り入れて、そちらに特化しているフレームワークを使うのがベストだと思ったからです。
 
-他に検討した候補としては Hono が挙げられます。Hono も Web 標準を謳っているため、実装しても良いかなと思いました。しかし、フロントエンドは React に準拠したものを利用している関係から、Next.js と似たような課題が発生する可能性がある懸念もありました。
+他に検討した候補としては Hono が挙げられます。Hono も Web 標準を謳っているため、実装しても良いかなと思いました。しかし、フロントエンドは [React に準拠したものを利用している](https://hono.dev/docs/guides/jsx)関係から、Next.js と似たような課題が発生する可能性がある懸念もありました。
 また、View Transitions API 周りなどの実装がまだ十分ではないため、私のブログという用途に限って言えば、Astro が最適だろうという判断です。実際にベンチマークを見ても、JavaScript をほとんど配信しないブログのようなサービスでは Astro の数値が良く、今の私の課題に合っていると感じました。
 
 
@@ -65,16 +74,14 @@ Web 標準であれば動くんですが、React は仮想 DOM の関係で Web 
 
 | 機能           | 移行可否      | 実装方法                         | 備考                             |
 | ------------ | --------- | ---------------------------- | ------------------------------ |
-| SSG          | ✅ 移行可能    | Astroデフォルト                   | -                              |
-| Markdown読み込み | ✅ 移行可能    | `import.meta.glob`           | -                              |
-| 動的OGP生成      | ✅ 移行可能    | `satori` + `@resvg/resvg-js` | 既存コードほぼ流用可能                    |
-| Pagefind検索   | ✅ 移行可能    | Astro Integration            | むしろ統合しやすい                      |
-| SVG直接埋め込み    | ✅ 移行可能    | `import.meta.glob` + `?raw`  | -                              |
-| リンクカードキャッシュ  | ⚠️ 追加実装必要 | プラグインがある(らしい)                | Next.jsでは `Server Actions` を利用 |
+| SSG          | 👍️ 移行可能  | Astroデフォルト                   | -                              |
+| Markdown読み込み | 👍️ 移行可能  | `import.meta.glob`           | -                              |
+| 動的OGP生成      | 👍️ 移行可能  | `satori` + `@resvg/resvg-js` | 既存コードほぼ流用可能                    |
+| Pagefind検索   | 👍️ 移行可能  | Astro Integration            | むしろ統合しやすい                      |
+| SVG直接埋め込み    | 👍️ 移行可能  | `import.meta.glob` + `?raw`  | -                              |
+| リンクカードキャッシュ  | 🤔 追加実装必要 | プラグインがある(らしい)                | Next.jsでは `Server Actions` を利用 |
 
 ## 移行で躓いたこと
-
-移行作業は順風満帆というわけにはいきませんでした。いくつかの技術的な壁にぶつかり、それぞれを乗り越える必要がありました。
 
 ### ビルド時に画像処理ライブラリでエラーになる
 
@@ -93,19 +100,10 @@ Astro はアイランドアーキテクチャを採用しているにも関わ�
 実際のデータを見てみると、ビルド時に生成される実際の Markdown を表示する JavaScript ファイルが 495KB もありました。一般的には Mermaid を使用するページに対してのみ動的インポート(Dynamic Import)をして削減することも可能なのですが、一度でも使用した場合はすべての JavaScript バンドルに含まれてしまうため、動的インポートもあまり意味をなしていませんでした。
 他にも Mermaid でしか使用しないライブラリが多数バンドルに含まれていることも JavaScript が多くなってしまった理由の 1 つです。
 
-```bash
-20:25:28 [vite] dist/_astro/client.SlIoTHO_.js                                             182.74 kB │ gzip:  57.60 kB
-20:25:28 [vite] dist/_astro/katex.XbL3y5x-.js                                              265.42 kB │ gzip:  77.51 kB
-20:25:28 [vite] dist/_astro/treemap-KMMF4GRG.BW_A3qz5.js                                   329.94 kB │ gzip:  80.28 kB
-20:25:28 [vite] dist/_astro/cytoscape.esm.DtBltrT8.js                                      442.41 kB │ gzip: 141.91 kB
-20:25:28 [vite] dist/_astro/markdown-content.MPw3XyOH.js                                   495.59 kB │ gzip: 139.84 kB
-20:25:28 [vite] ✓ built in 3.41s
-```
-
-解決策を見つけたときは、「これ、本当に動くの？」と半信半疑でした。その解決策とは、Playwright を使用した[rehype-mermaid](https://github.com/remcohaszing/rehype-mermaid)プラグインです。このプラグインは、クライアントサイドで Mermaid をレンダリングするのではなく、ビルド時に Playwright でブラウザを起動します。その中で Mermaid.js を実行して SVG を生成し、最終的にそれを Markdown の中に埋め込むという手法をとっています。
+解決策を見つけたときは、「これ、本当に動くのか…？」と半信半疑でした。その解決策とは、Playwright を使用した[rehype-mermaid](https://github.com/remcohaszing/rehype-mermaid)プラグインです。このプラグインは、クライアントサイドで Mermaid をレンダリングするのではなく、ビルド時に Playwright でブラウザを起動します。その中で Mermaid.js を実行して SVG を生成し、最終的にそれを Markdown の中に埋め込むという手法をとっています。
 
 正直この話を見たときは「嘘だよな？」と思ったのですが、調べてみた感じではこれが一番まともというか、実装が楽そうだったので採用しました。
-その結果、実際の数値を見てみると 95%削減という極端な数字が出ました。これを見ると、Mermaid のライブラリに入っている JavaScript の量がいかに多かったかがわかります。
+その結果、実際の数値を見てみると `markdown-content.js` だけで 138.67 kB 削減、全体で 500kB 以上削減という極端な数字が出ました。これを見ると、Mermaid のライブラリに入っている JavaScript の量がいかに多かったかがわかります。
 
 | 項目                  | 削減量 (gzip)    |
 | ------------------- | ------------- |
@@ -145,7 +143,7 @@ Astro はアイランドアーキテクチャを採用しているにも関わ�
 ### Vercelのビルド環境でPlaywrightが動かない
 しかし、ここでは新たな問題が発生します。それは Vercel などの CI/CD 環境では、Playwright のシステム依存関係のインストールが失敗して動かなかったことです。Playwright 内部で使うシステム依存関係が Vercel 環境とは相性が悪いため、どうしても GitHub Actions 上でビルドプロセスを実行する必要がありました。
 
-そもそもの話として Playwright 自体が重いため、ビルド時間を改善するための対策が必要です。主な選択肢は 2 つあります。1 つ目は、GitHub Actions 上のランナーで Playwright 自体のブラウザとシステム依存関係だけをインストールしてキャッシュする方法です。もう 1 つは、Playwright 公式が出している Docker コンテナ内でビルドしてデプロイを行う方法です。
+そもそもの話として Playwright 自体が重いため、ビルド時間を改善するための対策が必要です。主な選択肢は 2 つあります。1 つ目は、GitHub Actions 上のランナーで Playwright 自体のブラウザとシステム依存関係だけをインストールしてキャッシュする方法です。もう 1 つは、[Playwright 公式](https://playwright.dev/docs/docker)が出している Docker コンテナ内でビルドしてデプロイを行う方法です。
 両方試したところ、私の設定ミスかもしれませんが、GitHub Actions 上でブラウザをキャッシュしてからビルドした方がビルド時間が早かったです。
 ```yml .github/workflows/deploy.yml
 name: Deploy to Vercel
@@ -390,6 +388,7 @@ export const getOGData = cache(getOGDataImpl);
 2. なければ OG 画像、タイトル、説明などを取得
 3. OG 画像を R2 に保存
 4. KV にタイトル、説明、URL、R2 に保存した OG 画像の URL、をハッシュした URL キーで登録
+
 このような実装を行うことで、一度ビルドを行えば、あとはキャッシュから meta 情報を取得できます。そのため、サイトごとに動作が不安定でも、安定したビルド時間を担保できました。
 
 ## まだ試せていないもの
@@ -412,8 +411,6 @@ https://blog.eno1220.dev/posts/pagefind-astro
 
 https://techblog.roxx.co.jp/entry/2025/11/27/123135
 
-https://playwright.dev/docs/docker
-
 https://zenn.dev/0fuzimaru0/articles/395467a73cb045
 
 https://nextjs.org/blog/security-update-2025-12-11
@@ -421,7 +418,3 @@ https://nextjs.org/blog/security-update-2025-12-11
 https://github.com/gladevise/remark-link-card
 
 https://github.com/okaryo/remark-link-card-plus
-
-https://www.cve.org/CVERecord?id=CVE-2025-55182
-
-https://react.dev/blog/2025/12/11/denial-of-service-and-source-code-exposure-in-react-server-components
