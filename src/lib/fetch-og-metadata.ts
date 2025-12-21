@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 type OGData = {
   title: string;
   description: string;
@@ -219,7 +221,7 @@ async function fetchOGDataDirect(url: string): Promise<Partial<OGData>> {
  * @param url - OGPデータを取得するURL
  * @returns OGPデータの部分的なオブジェクト(title、description、image、url)
  */
-export async function getOGData(url: string): Promise<Partial<OGData>> {
+export async function getOGDataImpl(url: string): Promise<Partial<OGData>> {
   // 本番ビルド時はキャッシュを使用
   if (process.env.NODE_ENV === 'production') {
     // 1. キャッシュ確認
@@ -276,3 +278,5 @@ function resolveImageUrl({
   const absoluteUrl = new URL(imageUrl, base.origin);
   return absoluteUrl.href;
 }
+
+export const getOGData = cache(getOGDataImpl);
