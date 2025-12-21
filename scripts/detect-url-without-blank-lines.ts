@@ -150,6 +150,4 @@ function printReport(issues: IssueReport[]) {
 }
 
 // 実行
-checkAllBlogPosts()
-  .then(printReport)
-  .catch(console.error);
+checkAllBlogPosts().then(printReport).catch(console.error);

@@ -1,8 +1,8 @@
 // @ts-check
 
 import { fileURLToPath } from 'node:url';
-import react from '@astrojs/react';
 import partytown from '@astrojs/partytown';
+import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 import { siteConfig } from './src/config/site.js';

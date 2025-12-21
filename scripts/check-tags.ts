@@ -29,7 +29,9 @@ async function checkTags() {
 
   // マッピングテーブルに登録されているタグ
   const mappedTags = Object.keys(TAG_SLUG_MAP);
-  console.log(`✅ マッピングテーブルに登録済み: ${mappedTags.length}個のタグ\n`);
+  console.log(
+    `✅ マッピングテーブルに登録済み: ${mappedTags.length}個のタグ\n`,
+  );
 
   // Markdownファイルから全タグを抽出
   const files = await fs.readdir(blogDir);
@@ -53,7 +55,7 @@ async function checkTags() {
 
   // 未登録タグを検出
   const unmappedTags = Array.from(allTags).filter(
-    (tag) => !mappedTags.includes(tag)
+    (tag) => !mappedTags.includes(tag),
   );
 
   if (unmappedTags.length === 0) {
@@ -82,7 +84,7 @@ async function checkTags() {
 
   console.error('\n📋 修正方法:');
   console.error(
-    '  1. src/config/tag-slugs.ts にマッピングを追加してください\n'
+    '  1. src/config/tag-slugs.ts にマッピングを追加してください\n',
   );
   console.error('  例:\n');
   for (const tag of unmappedTags.slice(0, 3)) {

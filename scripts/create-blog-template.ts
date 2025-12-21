@@ -102,7 +102,9 @@ tags:
     }
   } catch (error) {
     console.error('⚠️  警告: ブランチの作成に失敗しました');
-    console.error(`   エラー: ${error instanceof Error ? error.message : String(error)}`);
+    console.error(
+      `   エラー: ${error instanceof Error ? error.message : String(error)}`,
+    );
     console.error('   手動でブランチを作成してください\n');
   }
 

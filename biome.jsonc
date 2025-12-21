@@ -10,12 +10,13 @@
   "files": {
     "ignoreUnknown": false,
     "includes": [
-      "src/**/*.{js,jsx,ts,tsx}",
+      "**/*.{js,jsx,ts,tsx}",
       "**/*.json",
+      "**/*.jsonc",
       "**/*.html",
       "!node_modules",
       "!!**/dist",
-      "!!**/.next"
+      "!worker-configuration.d.ts"
     ]
   },
   "formatter": {
@@ -26,12 +27,12 @@
     "indentWidth": 2,
     "lineWidth": 80,
     "includes": [
-      "src/**/*.{js,jsx,ts,tsx}",
+      "**/*.{js,jsx,ts,tsx}",
       "**/*.json",
+      "**/*.jsonc",
       "**/*.html",
       "!node_modules",
-      "!!**/dist",
-      "!!**/.next"
+      "!!**/dist"
     ]
   },
   "linter": {

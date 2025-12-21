@@ -137,9 +137,7 @@ function printReport(
   dryRun: boolean,
 ) {
   console.log('='.repeat(80));
-  console.log(
-    dryRun ? 'URL空行修正プレビュー(Dry Run)' : 'URL空行修正結果',
-  );
+  console.log(dryRun ? 'URL空行修正プレビュー(Dry Run)' : 'URL空行修正結果');
   console.log('='.repeat(80));
   console.log();
 

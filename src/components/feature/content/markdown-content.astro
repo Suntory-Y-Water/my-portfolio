@@ -1,0 +1,13 @@
+---
+import { CodeCopyButtons } from './code-copy-buttons';
+
+type Props = {
+  html: string;
+};
+
+const { html } = Astro.props;
+---
+
+<div class='markdown-content' set:html={html} />
+
+<CodeCopyButtons client:idle />
