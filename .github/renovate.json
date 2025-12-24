@@ -24,13 +24,15 @@
       "matchUpdateTypes": ["patch", "minor", "pin", "digest"],
       "automerge": true,
       "platformAutomerge": true,
-      "rebaseWhen": "auto"
+      "rebaseWhen": "auto",
+      "labels": ["automerge", "dependencies"]
     },
     {
       "description": "Major は自動マージしない",
       "matchUpdateTypes": ["major"],
       "automerge": false,
-      "minimumReleaseAge": "0 days"
+      "minimumReleaseAge": "0 days",
+      "labels": ["dependencies"]
     }
   ],
 
@@ -38,7 +40,7 @@
     "enabled": true,
     "automerge": true,
     "minimumReleaseAge": "0 days",
-    "labels": ["security"],
+    "labels": ["automerge", "security"],
     "assignees": []
   },
 
@@ -47,6 +49,7 @@
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true,
-    "schedule": ["before 5am on monday"]
+    "schedule": ["before 5am on monday"],
+    "labels": ["automerge", "dependencies"]
   }
 }
