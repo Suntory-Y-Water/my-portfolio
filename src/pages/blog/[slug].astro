@@ -10,7 +10,7 @@ import { siteConfig } from '@/config/site';
 import { getTagSlug } from '@/config/tag-slugs';
 import { BLOG_CONSTANTS } from '@/constants';
 import { compileMarkdown } from '@/components/feature/content/custom-markdown';
-import { MarkdownContent } from '@/components/feature/content/markdown-content';
+import MarkdownContent from '@/components/feature/content/markdown-content.astro';
 import GitHubEditButton from '@/components/feature/content/github-edit-button.astro';
 import { MarkdownCopyButton } from '@/components/feature/content/markdown-copy-button';
 import RelatedArticles from '@/components/feature/content/related-articles.astro';
@@ -193,7 +193,7 @@ const compiledHtml = await compileMarkdown({ source: post.body });
         )
       }
       <div class='mt-8'>
-        <MarkdownContent client:load html={compiledHtml} />
+        <MarkdownContent html={compiledHtml} />
       </div>
       {
         post.data.selfAssessment && (

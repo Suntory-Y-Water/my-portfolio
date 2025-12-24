@@ -61,7 +61,9 @@ function detectSecurityIssues(svg: string): string[] {
 
   // JavaScriptプロトコルの検出
   if (/href\s*=\s*["']?\s*javascript:/i.test(svg)) {
-    issues.push('JavaScriptプロトコル (href="javascript:...") が含まれています');
+    issues.push(
+      'JavaScriptプロトコル (href="javascript:...") が含まれています',
+    );
   }
 
   // 外部URL参照の検出(相対パスは許可)
@@ -80,7 +82,7 @@ function getStagedSvgFiles(): string[] {
   try {
     const output = execSync(
       'git diff --cached --name-only --diff-filter=ACMR',
-      { encoding: 'utf-8' }
+      { encoding: 'utf-8' },
     );
 
     return output

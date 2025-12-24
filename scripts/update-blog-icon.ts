@@ -57,7 +57,10 @@ function insertOrReplaceIconUrl(content: string, localIconUrl: string): string {
   }
 
   if (iconRegex.test(content)) {
-    return content.replace(iconRegex, (match) => `${match}\nicon_url: ${localIconUrl}`);
+    return content.replace(
+      iconRegex,
+      (match) => `${match}\nicon_url: ${localIconUrl}`,
+    );
   }
 
   // icon行も無い場合は末尾に追記
@@ -89,7 +92,10 @@ async function updateBlogIconUrl({
   const content = await fs.readFile(filePath, 'utf-8');
   const { data: frontmatter } = matter(content);
 
-  const remoteIconUrl = await resolveRemoteIconUrl(frontmatter.icon, frontmatter.icon_url);
+  const remoteIconUrl = await resolveRemoteIconUrl(
+    frontmatter.icon,
+    frontmatter.icon_url,
+  );
   if (!remoteIconUrl) {
     return `ℹ️  Skipped: ${path.basename(filePath)} (no icon)`;
   }
