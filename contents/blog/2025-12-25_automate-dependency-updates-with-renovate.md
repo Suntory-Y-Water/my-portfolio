@@ -119,7 +119,7 @@ TypeScript のエコシステムは更新スピードが非常に早く、脆弱
 2 つ目は、当然ながらパフォーマンスの向上や新機能を利用できる点です。パッチバージョンは軽微なバグ修正が中心ですが、マイナーバージョンでは新機能が追加されることもあるため、常に互換性を維持しながら最新のライブラリを活用し続けることができます。
 
 これらのメリットは、セキュリティ面だけでなく、最新の開発環境の維持や、実際にバグが起こった際の調査においても重要な要素です。
-しかし、今回の Renovate 設定では、最新バージョンをすぐさま取り込むようなことはしません。というのも、公開直後のタイミングに特有のリスクが存在するからです。それが、2025 年に多発した**サプライチェーン攻撃正規のソフトウェアに悪意のあるコードを混入させる攻撃)**のリスクです。
+しかし、今回の Renovate 設定では、最新バージョンをすぐさま取り込むようなことはしません。というのも、公開直後のタイミングに特有のリスクが存在するからです。それが、2025 年に多発した **サプライチェーン攻撃(正規のソフトウェアに悪意のあるコードを混入させる攻撃)** のリスクです。
 
 https://github.com/nrwl/nx/security/advisories/GHSA-cxm3-wv7p-598c
 
@@ -353,3 +353,4 @@ GitHub App トークンを使用すれば、この制約を回避でき、緊急
 - [GitHub Triggering a workflow](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow#triggering-a-workflow-from-a-workflow)
 - [サプライチェーン攻撃への防御策](https://blog.jxck.io/entries/2025-09-20/mitigate-risk-of-oss-dependencies.html)
 - [renovate-config](https://github.com/koki-develop/renovate-config)
+- [システム運用アンチパターン ― エンジニアがDevOpsで解決する組織・自動化・コミュニケーション](https://www.oreilly.co.jp//books/9784873119847/)
