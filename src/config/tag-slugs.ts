@@ -78,6 +78,7 @@ export const TAG_SLUG_MAP: Record<string, string> = {
   pytest: 'pytest',
   Python: 'python',
   React: 'react',
+  Renovate: 'renovate',
   Recharts: 'recharts',
   Selenium: 'selenium',
   Serena: 'serena',
