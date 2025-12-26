@@ -20,7 +20,9 @@
 
   "packageRules": [
     {
-      "description": "Patch, Minor, Pin, Digest は自動マージ",
+      "description": "すべてのPatch, Minor, Pin, Digestを1つのPRにまとめる",
+      "groupName": "all non-major dependencies",
+      "matchPackageNames": ["*"],
       "matchUpdateTypes": ["patch", "minor", "pin", "digest"],
       "automerge": true,
       "platformAutomerge": true,

@@ -1,0 +1,11 @@
+# robots.txt for suntory-n-water.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://suntory-n-water.com/sitemap.xml
+
+# Block common non-content paths
+Disallow: /api/
+Disallow: /_astro/

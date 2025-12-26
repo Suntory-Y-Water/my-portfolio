@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
-import { BLOG_CONSTANTS, SITE_CONSTANTS } from '@/constants';
-import { getAllBlogPosts, getAllTagSlugs } from '@/lib/markdown';
+import { SITE_CONSTANTS } from '@/constants';
+import { getAllBlogPosts } from '@/lib/markdown';
 
 /**
  * サイトマップのエントリ型定義
@@ -23,7 +23,6 @@ export const GET: APIRoute = async () => {
   const baseUrl = SITE_CONSTANTS.URL;
 
   const posts = await getAllBlogPosts();
-  const tagSlugs = await getAllTagSlugs();
 
   // 静的ページ
   const staticPages: SitemapEntry[] = [
@@ -58,35 +57,8 @@ export const GET: APIRoute = async () => {
       changefreq: 'weekly',
     });
   }
-
-  // タグページ
-  const tagEntries: SitemapEntry[] = [];
-  for (const slug of tagSlugs) {
-    tagEntries.push({
-      url: `${baseUrl}/tags/${slug}`,
-      lastmod: new Date().toISOString(),
-      changefreq: 'weekly',
-    });
-  }
-
-  // ページネーション
-  const totalPages = Math.ceil(posts.length / BLOG_CONSTANTS.POSTS_PER_PAGE);
-  const paginationEntries: SitemapEntry[] = [];
-  for (let i = 0; i < totalPages; i++) {
-    paginationEntries.push({
-      url: `${baseUrl}/blog/page/${i + 1}`,
-      lastmod: new Date().toISOString(),
-      changefreq: 'daily',
-    });
-  }
-
   // すべてのエントリを結合
-  const allEntries = [
-    ...staticPages,
-    ...blogEntries,
-    ...tagEntries,
-    ...paginationEntries,
-  ];
+  const allEntries = [...staticPages, ...blogEntries];
 
   // XML生成
   const urlEntries: string[] = [];
