@@ -2,5 +2,23 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "bunVersion": "1.x",
   "regions": ["hnd1"],
-  "installCommand": "bun install && bunx --bun playwright install chromium"
+  "installCommand": "bun install && bunx --bun playwright install chromium",
+  "redirects": [
+    {
+      "source": "/:path(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.suntory-n-water.com"
+        }
+      ],
+      "destination": "https://suntory-n-water.com/:path",
+      "permanent": true
+    },
+    {
+      "source": "/blog/page/1",
+      "destination": "/blog",
+      "permanent": true
+    }
+  ]
 }
