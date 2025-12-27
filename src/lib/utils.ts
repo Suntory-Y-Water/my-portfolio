@@ -28,5 +28,9 @@ export function formatDate(input: string | number): string {
  * 相対パスを絶対URLに変換する
  */
 export function absoluteUrl(path: string) {
-  return `${import.meta.env.PUBLIC_APP_URL ?? 'http://localhost:4321'}${path}`;
+  const baseUrl =
+    import.meta.env.PUBLIC_APP_URL ??
+    import.meta.env.SITE ??
+    'http://localhost:4321';
+  return `${baseUrl}${path}`;
 }
