@@ -9,6 +9,7 @@
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "types": ["@types/node", "./worker-configuration.d.ts"]
   }
 }

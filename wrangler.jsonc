@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "sui-tech-blog",
+  "compatibility_date": "2025-12-27",
+  "assets": {
+    "directory": "./dist"
+  },
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "PUBLIC_APP_URL": "https://suntory-n-water.com"
+  },
+  "env": {
+    "preview": {
+      "name": "sui-tech-blog-preview",
+      "vars": {
+        "PUBLIC_APP_URL": "https://suntory-n-water.com"
+      }
+    }
+  }
+}
