@@ -3,6 +3,7 @@
 import { fileURLToPath } from 'node:url';
 import partytown from '@astrojs/partytown';
 import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 import { siteConfig } from './src/config/site.js';
@@ -11,7 +12,16 @@ import { siteConfig } from './src/config/site.js';
 export default defineConfig({
   site: siteConfig.url,
   cacheDir: './node_modules/.astro',
+  prefetch: true,
   integrations: [
+    sitemap({
+      serialize(item) {
+        // ブログ記事の場合、最終更新日を設定するなどのカスタマイズが可能
+        // 現在はデフォルトの挙動（ビルド日時またはGitの最終コミット）に任せていますが、
+        // 必要に応じてここで item.lastmod を上書きできます。
+        return item;
+      },
+    }),
     react(),
     partytown({
       config: {
