@@ -1,6 +1,7 @@
 ---
 import '@/styles/globals.css';
 import { siteConfig } from '@/config/site';
+import { absoluteUrl } from '@/lib/utils';
 
 type Props = {
   title?: string;
@@ -16,7 +17,7 @@ const {
   url,
 } = Astro.props;
 
-const canonicalUrl = url || Astro.url.href;
+const canonicalUrl = url || absoluteUrl(Astro.url.pathname);
 ---
 
 <!doctype html>

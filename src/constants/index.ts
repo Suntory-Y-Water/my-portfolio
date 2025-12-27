@@ -5,7 +5,10 @@
  * 変更が必要な場合は、このファイルのみを編集してください。
  */
 
-const url = import.meta.env.PUBLIC_APP_URL || 'https://suntory-n-water.com';
+const url =
+  import.meta.env.SITE ||
+  import.meta.env.PUBLIC_APP_URL ||
+  'https://suntory-n-water.com';
 
 /**
  * サイト基本情報
