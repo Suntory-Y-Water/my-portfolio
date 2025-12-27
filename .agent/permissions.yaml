@@ -1,0 +1,13 @@
+terminal:
+  policy: auto # auto | always | never
+
+  allow:
+    - 'ls'
+    - 'ls -la'
+    - 'cat'
+    - 'pwd'
+    - 'git status'
+    - 'git diff'
+
+  deny:
+    - 'rm -rf'
