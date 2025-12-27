@@ -221,7 +221,7 @@ const sortedPosts = [...posts2025].sort(
             <span class='text-purple-600'>Astro</span>へ。
           </h2>
           <p class='text-lg text-gray-600 leading-relaxed mt-6 font-medium'>
-            長年使っていたNext.jsから、Astroへと技術スタックを移行しました。
+            Next.jsから、Astroへと技術スタックを移行しました。
             ブログという用途に特化したシンプルさと、パフォーマンスの高さが決め手でした。
             最適な構成を探すための試行錯誤は、これからも終わることはありません。
           </p>
@@ -256,7 +256,11 @@ const sortedPosts = [...posts2025].sort(
               !displayUrl && post.data.icon ? post.data.icon : null;
 
             return (
-              <ScrollReveal animation='fade-in' delay={i * 50} class='h-full'>
+              <ScrollReveal
+                animation='fade-in'
+                delay={Math.min(i * 20, 300)}
+                class='h-full'
+              >
                 <a href={`/blog/${post.id}`} class='block h-full group'>
                   <Card className='h-full flex flex-col bg-white border-gray-300 border hover:border-blue-400 hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1'>
                     <CardHeader className='block space-y-4 p-6'>
@@ -322,7 +326,7 @@ const sortedPosts = [...posts2025].sort(
             class='hidden md:block'
           />
           本当にありがとうございました。<br />
-          2026年も、よろしくお願いします。
+          2026年もよろしくお願いします。
         </p>
       </ScrollReveal>
     </section>

@@ -8,7 +8,9 @@ type Props = {
 export function SelfAssessment({ selfAssessment }: Props) {
   return (
     <div className='my-8 space-y-6'>
-      <h2 className='text-2xl font-bold'>理解度チェック</h2>
+      <h2 className='mt-12 scroll-m-20 border-b-2 border-border/50 pb-2 text-2xl font-bold tracking-tight'>
+        理解度チェック
+      </h2>
       {selfAssessment.quizzes.map((quiz, index) => (
         <QuizItem
           key={`quiz-${quiz.question.slice(0, 20)}-${index}`}
@@ -28,7 +30,7 @@ type QuizItemProps = {
 function QuizItem({ quiz, quizNumber }: QuizItemProps) {
   return (
     <div className='flex flex-col justify-center'>
-      <h3 className='rounded-t-md bg-gray-200 px-4 py-8 text-lg font-medium dark:bg-zinc-600'>
+      <h3 className='rounded-t-md bg-gray-200 px-4 py-8 text-base font-semibold dark:bg-zinc-600'>
         問題{quizNumber}: {quiz.question}
       </h3>
       <ul className='flex flex-col justify-center'>
@@ -55,7 +57,7 @@ function AnswerItem({ answer }: AnswerItemProps) {
       open={isOpen}
       onToggle={(e) => setIsOpen(e.currentTarget.open)}
     >
-      <summary className='flex cursor-pointer items-center gap-3 p-4 text-lg hover:bg-gray-100 dark:hover:bg-zinc-700 [&::-webkit-details-marker]:hidden'>
+      <summary className='flex cursor-pointer items-center gap-3 p-4 text-base leading-7 hover:bg-gray-100 dark:hover:bg-zinc-700 [&::-webkit-details-marker]:hidden'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           viewBox='0 0 20 20'
@@ -72,7 +74,7 @@ function AnswerItem({ answer }: AnswerItemProps) {
         <span>{answer.text}</span>
       </summary>
       <div className='animate-in fade-in-50 slide-in-from-top-2 border-t border-gray-200 bg-gray-50 p-4 duration-300 dark:border-zinc-700 dark:bg-zinc-800/50'>
-        <p>
+        <p className='leading-7'>
           {answer.correct ? (
             <span className='flex items-center gap-1 text-green-500'>
               <svg
@@ -111,7 +113,9 @@ function AnswerItem({ answer }: AnswerItemProps) {
             </span>
           )}
         </p>
-        {answer.explanation && <p className='mt-4'>{answer.explanation}</p>}
+        {answer.explanation && (
+          <p className='mt-4 leading-7'>{answer.explanation}</p>
+        )}
       </div>
     </details>
   );
