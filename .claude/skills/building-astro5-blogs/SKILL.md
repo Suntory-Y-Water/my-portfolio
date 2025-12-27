@@ -1,6 +1,6 @@
 ---
-name: astro5-blog-best-practices
-description: Astro 5.x静的ブログ構築のベストプラクティス集。Islands Architecture、SSG、Content Layer API、画像最適化、ビルド最適化、SEOなど、パフォーマンスとUXを最大化するための公式推奨手法を提供。Use when: (0) Astro でベストプラクティスに従ってと指示されたとき (1) Astroでブログ機能を実装・修正する時、(2) Content Collectionsを設定する時、(3) 画像最適化やビルドパフォーマンスを改善する時、(4) クライアントディレクティブ(client:load/visible/idle)の選択が必要な時、(5) RSSフィードやサイトマップを実装する時。
+name: building-astro5-blogs
+description: Astro 5.x静的ブログ構築のベストプラクティス集。Islands Architecture、SSG、Content Layer API、画像最適化、ビルド最適化、SEOなど、パフォーマンスとUXを最大化するための公式推奨手法を提供。Astroコンポーネント/ページ作成時、Content Collections設定、画像最適化、クライアントディレクティブ選択、SEO実装時に使用。
 ---
 
 # Astro 5.x Blog Best Practices
