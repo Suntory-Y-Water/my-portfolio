@@ -1,0 +1,63 @@
+---
+import '@/styles/globals.css';
+import { siteConfig } from '@/config/site';
+
+type Props = {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  url?: string;
+};
+
+const {
+  title = `Recap | ${siteConfig.name}`,
+  description = 'A look back at the code and stories.',
+  ogImage,
+  url,
+} = Astro.props;
+
+const canonicalUrl = url || Astro.url.href;
+---
+
+<!doctype html>
+<html lang='ja' class='scroll-smooth'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/x-icon' href='/favicon.ico' />
+    <meta name='generator' content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name='description' content={description} />
+    <link rel='canonical' href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property='og:type' content='article' />
+    <meta property='og:url' content={canonicalUrl} />
+    <meta property='og:title' content={title} />
+    <meta property='og:description' content={description} />
+    {ogImage && <meta property='og:image' content={ogImage} />}
+
+    <!-- Twitter -->
+    <meta property='twitter:card' content='summary_large_image' />
+    <meta property='twitter:url' content={canonicalUrl} />
+    <meta property='twitter:title' content={title} />
+    <meta property='twitter:description' content={description} />
+    {ogImage && <meta property='twitter:image' content={ogImage} />}
+
+    <style>
+      @import 'tailwindcss';
+
+      body {
+        background-color: #ffffff;
+        color: #1a1a1a;
+        font-family: 'Inter', sans-serif;
+        overflow-x: hidden;
+      }
+    </style>
+    <slot name='head' />
+  </head>
+  <body class='antialiased selection:bg-black/10'>
+    <slot />
+  </body>
+</html>

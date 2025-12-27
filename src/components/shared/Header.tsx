@@ -1,4 +1,4 @@
-import { Book, Search, User } from 'lucide-react';
+import { Book, History, Search, User } from 'lucide-react';
 import { type ReactElement, useState } from 'react';
 import { SearchDialog } from '@/components/feature/search/search-dialog';
 import { Icons } from '@/components/icons';
@@ -28,6 +28,11 @@ const NAVIGATION_LINKS: MenuItemLinkProps[] = [
     href: '/tags',
     title: 'Tags',
     icon: <Icons.tag className='size-5' />,
+  },
+  {
+    href: '/recap',
+    title: 'Recap',
+    icon: <History className='size-5' />,
   },
 ];
 
