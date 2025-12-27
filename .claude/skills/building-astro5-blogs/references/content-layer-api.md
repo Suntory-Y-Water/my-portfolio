@@ -1,5 +1,14 @@
 # Content Layer API (Astro 5.0)
 
+## 目次
+- [概要](#概要)
+- [Content Collectionsの利点](#content-collectionsの利点)
+- [基本的なセットアップ](#基本的なセットアップ)
+- [高度なクエリパターン](#高度なクエリパターン)
+- [パフォーマンス最適化](#パフォーマンス最適化)
+- [Legacy Content Collections APIからの移行](#legacy-content-collections-apiからの移行)
+- [ベストプラクティス](#ベストプラクティス)
+
 ## 概要
 
 Astro 5.0で導入されたContent Layer APIは、パフォーマンスと拡張性が大幅に向上した新しいコンテンツ管理システム。
