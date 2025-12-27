@@ -58,16 +58,12 @@ jobs:
         run: bun run build
 
       - name: Deploy to Cloudflare Workers (Preview)
-        run: bunx wrangler deploy --env preview
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      - name: Get Deployment URL
-        id: deployment-url
+        id: deploy
         run: |
-          WORKER_NAME=$(bunx wrangler deployments list --env preview --json | jq -r '.[0].id' | cut -d'@' -f1)
-          echo "worker_name=$WORKER_NAME" >> "$GITHUB_OUTPUT"
+          DEPLOY_OUTPUT=$(bunx wrangler deploy --env preview 2>&1)
+          echo "$DEPLOY_OUTPUT"
+          PREVIEW_URL=$(echo "$DEPLOY_OUTPUT" | grep -oP 'https://[^\s]+\.workers\.dev' | head -n 1)
+          echo "preview_url=$PREVIEW_URL" >> "$GITHUB_OUTPUT"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -79,12 +75,12 @@ jobs:
 
           ✅ Deployed to Cloudflare Workers (Preview Environment)
 
-          **Worker Name**: \`${WORKER_NAME}\`
+          **Preview URL**: ${PREVIEW_URL}
 
           Note: Access the worker via your configured routes or custom domain."
         env:
           GH_TOKEN: ${{ github.token }}
-          WORKER_NAME: ${{ steps.deployment-url.outputs.worker_name }}
+          PREVIEW_URL: ${{ steps.deploy.outputs.preview_url }}
 
   deploy-production:
     name: Deploy Production
