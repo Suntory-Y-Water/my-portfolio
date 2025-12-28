@@ -1,6 +1,7 @@
 name: Short投稿
 description: 技術的な知見をShortsとして投稿
 labels: ["short"]
+title: "[Short] "
 body:
   - type: markdown
     attributes:
@@ -8,16 +9,9 @@ body:
         ## Shorts投稿
 
         ブログ記事にするには軽すぎるが、共有しておきたい技術的な知見を投稿します。
-        このIssueを作成すると、自動的にMarkdownファイルが生成されPRが作成されます。
 
-  - type: input
-    id: title
-    attributes:
-      label: タイトル
-      description: Shortのタイトルを入力してください
-      placeholder: "例: AstroでResponseヘッダーを指定する際の注意点"
-    validations:
-      required: true
+        **Issueタイトル**がそのままShortsのタイトルになります。
+        このIssueを作成すると、自動的にMarkdownファイルが生成されPRが作成されます。
 
   - type: textarea
     id: content

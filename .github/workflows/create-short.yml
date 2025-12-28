@@ -32,7 +32,6 @@ jobs:
           repositories: ${{ github.event.repository.name }}
           permission-contents: write
           permission-pull-requests: write
-          permission-issues: write
 
       - name: Generate UUID and Date
         id: meta
@@ -54,14 +53,16 @@ jobs:
           ISSUE_BODY: ${{ github.event.issue.body }}
           ISSUE_TITLE: ${{ github.event.issue.title }}
         run: |
-          # Issue本文からタイトルと本文を抽出
-          # 本文を抽出（### 本文セクション以降を取得）
-          CONTENT=$(echo "$ISSUE_BODY" | sed -n '/### 本文/,$ p' | tail -n +3)
+          # タイトルはIssueタイトルから"[Short] "を除去
+          TITLE="${ISSUE_TITLE#\[Short\] }"
+
+          # 本文を抽出（### 本文 セクション以降、確認事項の前まで）
+          CONTENT=$(echo "$ISSUE_BODY" | sed -n "/### 本文/,/^### 確認事項/ {/### 本文/d; /^### 確認事項/d; p}" | sed "s/^\`\`\`markdown\$//; s/^\`\`\`\$//" | sed "/^$/d" | sed "1{/^$/d}")
 
           # マルチライン対応
           {
             echo "title<<EOF"
-            echo "$ISSUE_TITLE"
+            echo "$TITLE"
             echo "EOF"
             echo "content<<EOF"
             echo "$CONTENT"
