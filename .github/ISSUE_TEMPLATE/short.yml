@@ -24,7 +24,6 @@ body:
         ```js
         // コード例
         ```
-      render: markdown
     validations:
       required: true
 
