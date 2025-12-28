@@ -33,10 +33,12 @@ export async function GET() {
   const posts = await getAllBlogPosts();
   const markdownContent = renderLlmsTxt(posts);
 
+  const headers = new Headers({
+    'Content-Type': 'text/plain; charset=utf-8',
+  });
+
   return new Response(markdownContent, {
     status: 200,
-    headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
-    },
+    headers,
   });
 }

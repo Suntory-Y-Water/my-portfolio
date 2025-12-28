@@ -26,10 +26,12 @@ export async function GET({ params }: APIContext) {
   ${post.body}
     `;
 
+  const headers = new Headers({
+    'Content-Type': 'text/markdown; charset=utf-8',
+  });
+
   return new Response(body, {
     status: 200,
-    headers: {
-      'Content-Type': 'text/markdown; charset=utf-8',
-    },
+    headers,
   });
 }
