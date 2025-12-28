@@ -23,6 +23,17 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Generate GitHub App Token
+        id: generate-token
+        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          repositories: ${{ github.event.repository.name }}
+          permission-contents: write
+          permission-pull-requests: write
+          permission-issues: write
+
       - name: Generate UUID and Date
         id: meta
         run: |
@@ -88,7 +99,7 @@ jobs:
           TITLE: ${{ steps.issue.outputs.title }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
         with:
-          token: ${{ github.token }}
+          token: ${{ steps.generate-token.outputs.token }}
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           commit-message: |
@@ -106,28 +117,13 @@ jobs:
 
             ## Details
 
-            - **Issue**: #${{ github.event.issue.number }}
             - **UUID**: `${{ steps.meta.outputs.uuid }}`
             - **File**: `contents/shorts/${{ steps.meta.outputs.uuid }}.md`
+
+            Closes #${{ github.event.issue.number }}
 
             ---
 
             🤖 This PR was automatically created by GitHub Actions.
           labels: short
           assignees: ${{ github.event.issue.user.login }}
-
-      - name: Close Issue
-        if: steps.cpr.outputs.pull-request-operation == 'created'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          UUID: ${{ steps.meta.outputs.uuid }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-          PR_URL: ${{ steps.cpr.outputs.pull-request-url }}
-        run: |
-          gh issue close "${ISSUE_NUMBER}" --comment "✅ Shortファイルを作成し、PRを作成しました。
-
-          - **PR**: ${PR_URL}
-          - **File**: \`contents/shorts/${UUID}.md\`
-          - **Branch**: \`short/${UUID}\`
-
-          PRをマージすると、自動的にデプロイされます。"
