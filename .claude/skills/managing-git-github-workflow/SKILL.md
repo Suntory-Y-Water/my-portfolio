@@ -1,10 +1,18 @@
 ---
-name: git-github-workflow
-description: Git操作(add, commit, switch, push)とGitHub CLI(PR作成・編集、Issue作成、コメント取得)を実行。コミット、PR作成、Issue作成が必要な場合に使用。
+name: managing-git-github-workflow
+description: Git操作(add, commit, switch, push)とGitHub CLI(PR作成・編集、Issue作成、コメント取得)を実行。コミット作成、ブランチ管理、プルリクエスト作成・編集、Issue管理が必要な場合に使用。「コミットして」「PRを作成」「Issueを作成」「ブランチを切って」などのリクエストで起動。
 allowed-tools: Bash, Read, Grep, Glob
 ---
 
 # Git & GitHub ワークフロー
+
+## 基本ワークフロー
+
+1. ブランチ作成
+2. 変更のコミット
+3. リモートへプッシュ
+4. PR作成
+5. レビュー対応・確認
 
 ## コミット規約
 
@@ -14,6 +22,8 @@ allowed-tools: Bash, Read, Grep, Glob
 git commit -m "feat: 新機能の概要"
 ```
 
+詳細なテンプレートは [references/commit-templates.md](references/commit-templates.md) を参照。
+
 ## ブランチ作成とコミット
 
 ```bash
@@ -22,7 +32,14 @@ git switch -c feature-<機能名>
 
 git add .
 git commit -m "feat: 変更内容"
+
+# コミット後の確認
+git log -1
+
 git push -u origin feature-<機能名>
+
+# プッシュ後の確認
+git status
 ```
 
 ## PR作成
@@ -42,6 +59,8 @@ gh pr create --title "feat: 機能追加" --body "$(cat <<'EOF'
 EOF
 )"
 ```
+
+詳細なPRテンプレートは [references/pr-templates.md](references/pr-templates.md) を参照。
 
 ## PR編集・確認
 
@@ -73,6 +92,8 @@ gh issue create --title "タイトル" --body "$(cat <<'EOF'
 EOF
 )"
 ```
+
+詳細なIssueテンプレートは [references/issue-templates.md](references/issue-templates.md) を参照。
 
 ## 注意事項
 
