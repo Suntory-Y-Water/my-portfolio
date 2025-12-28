@@ -10,6 +10,10 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "verbatimModuleSyntax": true,
-    "types": ["@types/node", "./worker-configuration.d.ts"]
+    "types": [
+      "@types/node",
+      "./worker-configuration.d.ts",
+      "typed-query-selector"
+    ]
   }
 }

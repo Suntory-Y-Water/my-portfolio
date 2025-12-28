@@ -1,0 +1,38 @@
+---
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import type { CollectionEntry } from 'astro:content';
+import MarkdownContent from '@/components/feature/content/markdown-content.astro';
+
+type Props = {
+  short: CollectionEntry<'shorts'> & { body?: string };
+};
+
+const { short } = Astro.props;
+---
+
+<a
+  href={`/shorts/${short.id}`}
+  class='block transition-all duration-300 hover:-translate-y-1'
+>
+  <Card
+    className='h-[480px] flex flex-col hover:shadow-lg hover:border-primary/50 transition-all overflow-hidden'
+  >
+    <CardHeader className='p-4 md:p-5 pb-3 space-y-1 shrink-0'>
+      <CardTitle className='text-lg font-bold leading-[1.5] line-clamp-2'>
+        {short.data.title}
+      </CardTitle>
+    </CardHeader>
+
+    <CardContent className='px-4 md:px-5 py-0 flex-1 overflow-hidden relative'>
+      <div
+        class='h-full text-sm leading-relaxed text-muted-foreground overflow-hidden [&_p]:my-1.5 [&_pre]:my-2 [&_pre]:text-xs [&_code]:text-xs'
+      >
+        {short.body && <MarkdownContent html={short.body} />}
+      </div>
+      <div
+        class='absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-card via-card/95 to-transparent pointer-events-none'
+      >
+      </div>
+    </CardContent>
+  </Card>
+</a>

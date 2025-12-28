@@ -1,0 +1,140 @@
+name: Create Short from Issue
+
+on:
+  issues:
+    types: [labeled]
+
+defaults:
+  run:
+    shell: bash
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  create-short:
+    if: github.event.label.name == 'short'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+
+      - name: Generate UUID and Date
+        id: meta
+        run: |
+          # UUIDv4生成（最初の8文字のみ使用）
+          UUID=$(uuidgen | cut -d'-' -f1 | tr '[:upper:]' '[:lower:]')
+          echo "uuid=$UUID" >> "$GITHUB_OUTPUT"
+
+          # JST日付取得
+          DATE=$(TZ=Asia/Tokyo date +%Y-%m-%d)
+          echo "date=$DATE" >> "$GITHUB_OUTPUT"
+
+          echo "Generated UUID: $UUID"
+          echo "Date (JST): $DATE"
+
+      - name: Extract Issue Content
+        id: issue
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+        run: |
+          # Issue本文からタイトルと本文を抽出
+          # 本文を抽出（### 本文セクション以降を取得）
+          CONTENT=$(echo "$ISSUE_BODY" | sed -n '/### 本文/,$ p' | tail -n +3)
+
+          # マルチライン対応
+          {
+            echo "title<<EOF"
+            echo "$ISSUE_TITLE"
+            echo "EOF"
+            echo "content<<EOF"
+            echo "$CONTENT"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create Short File
+        env:
+          UUID: ${{ steps.meta.outputs.uuid }}
+          DATE: ${{ steps.meta.outputs.date }}
+          TITLE: ${{ steps.issue.outputs.title }}
+          CONTENT: ${{ steps.issue.outputs.content }}
+        run: |
+          # ディレクトリ存在確認
+          mkdir -p contents/shorts
+
+          # Markdownファイル作成
+          cat > "contents/shorts/${UUID}.md" << EOF
+          ---
+          title: "${TITLE}"
+          date: ${DATE}
+          ---
+
+          ${CONTENT}
+          EOF
+
+          echo "Created: contents/shorts/${UUID}.md"
+          cat "contents/shorts/${UUID}.md"
+
+      - name: Create Pull Request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          UUID: ${{ steps.meta.outputs.uuid }}
+          TITLE: ${{ steps.issue.outputs.title }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_USER: ${{ github.event.issue.user.login }}
+        run: |
+          # Git設定
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # ブランチ作成
+          BRANCH="short/${UUID}"
+          git checkout -b "$BRANCH"
+
+          # コミット
+          git add "contents/shorts/${UUID}.md"
+          git commit -m "Add short: ${TITLE}
+
+          Issue: #${ISSUE_NUMBER}
+          UUID: ${UUID}"
+
+          # プッシュ
+          git push origin "$BRANCH"
+
+          # PR作成
+          gh pr create \
+            --title "📝 Short: ${TITLE}" \
+            --body "## Summary
+
+          新しいShortを追加します。
+
+          ## Details
+
+          - **Issue**: #${ISSUE_NUMBER}
+          - **UUID**: \`${UUID}\`
+          - **File**: \`contents/shorts/${UUID}.md\`
+
+          ---
+
+          🤖 This PR was automatically created by GitHub Actions." \
+            --label "short" \
+            --assignee "${ISSUE_USER}"
+
+      - name: Close Issue
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          UUID: ${{ steps.meta.outputs.uuid }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue close "${ISSUE_NUMBER}" --comment "✅ Shortファイルを作成し、PRを作成しました。
+
+          - **File**: \`contents/shorts/${UUID}.md\`
+          - **Branch**: \`short/${UUID}\`
+
+          PRをマージすると、自動的にデプロイされます。"

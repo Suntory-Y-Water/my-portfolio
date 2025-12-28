@@ -1,6 +1,7 @@
 import {
   AlertTriangle,
   ArrowLeft,
+  ArrowRight,
   Calendar,
   Check,
   ChevronLeft,
@@ -12,17 +13,20 @@ import {
   Home,
   Info,
   Laptop,
+  Link,
   Mail,
   Moon,
   Rss,
   Sun,
   Tag,
   XCircle,
+  Zap,
 } from 'lucide-react';
 
 export const Icons = {
   AlertTriangle,
   ArrowLeft,
+  ArrowRight,
   Calendar,
   Check,
   ChevronLeft,
@@ -34,12 +38,14 @@ export const Icons = {
   Home,
   Info,
   Laptop,
+  Link,
   Mail,
   Moon,
   Rss,
   Sun,
   Tag,
   XCircle,
+  Zap,
   // キャメルケースのエイリアスも保持
   alertTriangle: AlertTriangle,
   arrowLeft: ArrowLeft,
