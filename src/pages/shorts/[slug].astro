@@ -60,7 +60,7 @@ const { short, nextShort, compiledPages } = Astro.props;
             </h2>
           </div>
 
-          <div class='flex justify-center gap-2 px-4 pb-4' id='progress-bar'>
+          <div class='flex justify-center gap-2 px-4' id='progress-bar'>
             {
               compiledPages.map((_, index) => (
                 <div
@@ -87,7 +87,7 @@ const { short, nextShort, compiledPages } = Astro.props;
                 class='flex flex-col w-full h-full p-6 pt-32 pb-6 overflow-y-auto scrollbar-hide overscroll-contain shrink-0 snap-start'
                 data-page={index}
               >
-                <div class='prose dark:prose-invert prose-zinc max-w-none text-base leading-relaxed'>
+                <div class='prose dark:prose-invert prose-zinc max-w-none text-base leading-relaxed py-4'>
                   <MarkdownContent html={pageHtml} />
                 </div>
               </div>
