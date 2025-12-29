@@ -12,8 +12,8 @@ tags:
 ---
 Agents Skills は、Claude Code がベストプラクティスに沿って実装できる仕組みです。例えば、何回も繰り返すような情報や定型作業、一番わかりやすい例では Git の操作などが挙げられます。AI に毎回指示するのではなく、Skills で「Git スキルでプルリクエストを発行してください」と実行するだけで、Claude Code が自律的にベストプラクティスに従って実装してくれます。
 
-提携作業や毎回コンテキストとしては与えなければいけない情報を設定ファイルとして定義しておき、ユーザが指示をするだけで、ベストプラクティスで実行してくれるのは素晴らしい仕組みですが、課題も存在します。それはスキルを適切に読み込んでくれないことです。
-実際に、AI エージェントに対して「スキルを実行して」と指示しなければ読み込んでくれないことが多々発生します。これはほんの数文字ですが、毎回伝えるのはとても億劫です。
+定型作業や毎回コンテキストとして与えなければいけない情報を設定ファイルとして定義しておき、ユーザが指示をするだけで、ベストプラクティスで実行してくれるのは素晴らしい仕組みですが、課題も存在します。それはスキルを適切に読み込んでくれないことです。
+実際に、AI エージェントに対して「スキルを実行して」と指示しなければ読み込んでくれないことが多々あります。これはほんの数文字ですが、毎回伝えるのはとても億劫に感じます。
 
 実体験として Playwright を使ってボタン操作や画面の待機などをする際などの、対処法が複数ある場合などによく発生します。
 Playwright 公式ドキュメントによればボタン押下では `page.locator().click()` というメソッドを使うのがベストプラクティスとされています。Locator メソッドは、画面に存在するボタン要素が操作可能になるまで待機してくれるためです。
@@ -21,13 +21,13 @@ Playwright 公式ドキュメントによればボタン押下では `page.locat
 しかし、Claude Code はボタン操作の時に `page.evaluate()` を利用していました。`evaluate` 内で `querySelector` を実行して、その要素をクリックするという処理を行っています。
 その実装を行うと、`evaluate` は `locator` と異なり要素の待機時間が設けられず、ボタンを押すことができない場合があります。そしてボタンが押せないことから、追加で固定のタイムアウトなどを実装するといった無駄な実装が増えてしまいます。
 
-作成した Playwright のスキルも、一応、公式ドキュメントの記述に沿って作成しています。実際に作成した Skills の Description は以下のような記述となっております。
+作成した Playwright のスキルも、一応、公式ドキュメントの記述に沿って作成しています。実際に作成した Skills の description は以下のような記述となっております。
 ```yaml
 description: Playwright automation best practices for web scraping and testing. Use when writing or reviewing Playwright code, especially for element operations (click, fill, select), waiting strategies (waitForSelector, waitForURL, waitForLoadState), navigation patterns, and locator usage. Apply when encountering unstable tests, race conditions, or needing guidance on avoiding deprecated patterns like waitForNavigation or networkidle.
 ```
 
 しかし、この状態でもスキルは発動しませんでした。では、なぜ実行されなかったのでしょうか。
-この記事は、スキルの実行ロジックを理解し、確実にスキルを起動させる仕組みを考えていきましょう。
+この記事では、スキルの実行ロジックを理解し、確実にスキルを起動させる仕組みを考えていきます。
 
 ## なぜスキルは実行しないのか
 
@@ -35,7 +35,7 @@ description: Playwright automation best practices for web scraping and testing. 
 
 > Skills are **model-invoked**: Claude decides which Skills to use based on your request. You don’t need to explicitly call a Skill. Claude automatically applies relevant Skills when your request matches their description.
 
-つまり、ユーザーが明示的に「このスキルを使って」と呼び出すのではなく、Claude がリクエスト内容を見て自動的に判断します。この点で、[Slash commands](https://code.claude.com/docs/en/slash-commands)(`/commit` など)とは明確に異なります。
+つまり、ユーザーが明示的に「このスキルを使って」と呼び出すのではなく、Claude がリクエスト内容を見て自動的に判断します。この点で、Slash commands(`/commit` など)とは明確に異なります。
 
 スキルの実行プロセスは以下の 3 つのステップで構成されています(公式ドキュメントより引用)。
 
@@ -103,7 +103,7 @@ UserPromptSubmit Hooks はユーザーがプロンプトを送信した際に、
 
 https://code.claude.com/docs/en/hooks#userpromptsubmit
 
-これを実装することで、例えば「Git」にまた「コミット」や「PR」、「プルリクエスト」といった特定のキーワードが含まれていた場合、ユーザーがプロンプトを送信したタイミングで、自動的に Claude Code へ指示テキストを注入することが可能になります。
+これを実装することで、例えば「Git」または「コミット」や「PR」、「プルリクエスト」といった特定のキーワードが含まれていた場合、ユーザーがプロンプトを送信したタイミングで、自動的に Claude Code へ指示テキストを注入することが可能になります。
 
 実装の全体像は以下のとおりです。
 
@@ -224,7 +224,7 @@ installed valibot@1.2.0
 6 packages installed [655.00ms]
 ```
 
-次に今回 Hooks を定義するディレクトリであるディレクトリを作成し、使用するファイルを作成していきましょう。
+次に今回 Hooks を定義するディレクトリを作成し、使用するファイルを作成していきましょう。
 
 ```bash
 mkdir -p hooks 
@@ -232,7 +232,7 @@ touch hooks/dynamic-context-skill-loader.ts hooks/context-skills-schema.json hoo
 ```
 
 最初に設定ファイルである `context-skills.yml` の yml を型安全に設定を行えるように、`context-skills-schema.json` を作成します。
-設定ファイルはスキル名をキーとして、そのスキルをの内容を簡単に記載する `description` と、トリガーとなるキーワードを定義する `trigger` を定義します。
+設定ファイルはスキル名をキーとして、そのスキルの内容を簡単に記載する `description` と、トリガーとなるキーワードを定義する `trigger` を定義します。
 
 ```json .claude/hooks/context-skills-schema.json
 {
@@ -469,10 +469,10 @@ if (import.meta.main) {
 
 実際に設定を行って試したところ、正しくスキルを起動できているようでした。念のため確認を行うと、システムリマインダーに設定したプロンプトが注入され、Claude Code が自律的にスキルを利用してタスクを実行していることが確認できます。
 
-![image](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/aa2a20bed9f355db065f85d4b7a97855.png)
+![Hooksによるスキル自動起動のシステムリマインダー表示](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/aa2a20bed9f355db065f85d4b7a97855.png)
 
 試しに一度 Hooks を削除してから同じ内容を Claude Code に依頼したところ、今回はスキルが使用されませんでした。これは、セマンティック類似度の判定に依存してしまった結果であると推測できます。
-![image](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/44121c1cac68ecbcc0bbf98d7a3edc0f.png)
+![Hooks削除後のスキル非起動の状態](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/44121c1cac68ecbcc0bbf98d7a3edc0f.png)
 
 ## まだ試せていないもの
 
@@ -490,7 +490,7 @@ Claude Code のスキルは、「AI が状況を判断し、必要なツール�
 
 今回紹介した UserPromptSubmit フックによる解決策は、ある意味で AI の自律性を否定し、人間が強制的にレールを敷くアプローチです。
 「AI を楽に使うために、人間が裏で必死にお膳立てをする」という状況は、楽にしようとした結果、逆に泥臭いハックになってしまったという皮肉な状況です。
-ですが私はこの「不完全なオモチャをどのように楽しく手なずけるか」試行錯誤することこそが意外と好きです。セマンティック類似度の不確実性をキーワードマッチングで補うという、ベストな解決策ではないですが、少なくとも確実に動作します。
+ですが私はこの「発展途上の技術をどのように楽しく手なずけるか」試行錯誤することこそが意外と好きです。セマンティック類似度の不確実性をキーワードマッチングで補うという、ベストな解決策ではないですが、少なくとも確実に動作します。
 
 いずれモデルの推論能力が飛躍的に向上すれば、このハックは不要になるでしょう。それまでの間、この記事で紹介した方法が、同じもどかしさを感じている方の助けになれば嬉しいです。
 
