@@ -49,6 +49,9 @@ next-env.d.ts
 # pagefind search index
 /public/pagefind
 
+# generated markdown endpoints
+/public/blog/*.md
+
 # lighthouse ci reports
 /.lighthouseci
 
