@@ -19,7 +19,7 @@
     "lint": "biome lint .",
     "lint:ai": "set -o pipefail && biome lint . --reporter=github 2>&1 | { grep '^::' || true; }",
     "lint:fix": "biome lint --write .",
-    "lint:unsage-fix": "biome lint --write --unsafe .",
+    "lint:unsafe-fix": "biome lint --write --unsafe .",
     "type-check": "astro check && tsc --noEmit",
     "type-check:ai": "astro check && tsc --noEmit --pretty false",
     "astro-check": "astro check",

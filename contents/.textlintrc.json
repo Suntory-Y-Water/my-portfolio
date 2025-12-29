@@ -35,7 +35,10 @@
         "after": true
       }
     },
-    "@textlint-ja/preset-ai-writing": true
+    "@textlint-ja/preset-ai-writing": true,
+    "prh": {
+      "rulePaths": ["./prh.yml"]
+    }
   },
   "@proofdict/proofdict": {
     "dictURL": "https://azu.github.io/proof-dictionary/"

@@ -27,7 +27,7 @@ Cloudflare Browser Rendering は、ブラウザの自動化や Web スクレイ�
 
 ## 開発に至った背景
 
-なぜ今回このような API を作ろうと思ったのか、その背景にある私個人の課題感について少しお話しさせてください。
+なぜ今回この API を作ろうと思ったのか、その背景にある私個人の課題感について少しお話しさせてください。
 
 私は日々の情報の保管庫として Obsidian を使っているのですが、`line_to_obsidian` というツールを使ってスマホから URL を送信し、そのページを後で Obsidian Web Clipper を使って Markdown に落とし込むというフローを実践しています。
 
@@ -35,7 +35,7 @@ https://github.com/onikun94/line_to_obsidian
 
 https://obsidian.md/clipper
 
-この記事自体も、「X (旧 Twitter) で Cloudflare のエンドポイントを叩くと Markdown が返ってくるらしい」という情報を元に、様々な情報を集めて作成しています。しかし、このようなブログ記事のネタ集めだったり、日々の「これ後で読んでおこうかな」といった情報を抽出したりする過程で、ある 1 つの問題が発生するのです。
+この記事自体も、「X (旧 Twitter) で Cloudflare のエンドポイントを叩くと Markdown が返ってくるらしい」という情報を元に、様々な情報を集めて作成しています。しかし、このブログ記事のネタ集めだったり、日々の「これ後で読んでおこうかな」といった情報を抽出したりする過程で、ある 1 つの問題が発生するのです。
 
 ### 積読における期待値のズレ
 
@@ -351,7 +351,7 @@ https://developers.cloudflare.com/api/resources/browser_rendering/subresources/m
 ![Zennの記事からasideタグとfooterタグが削除されたレスポンスの画像](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/2250b25255d6eb5fe6a688f20ea66ba3.png)
 
 
-さらに、Markdown 変換の精度を上げるために、不要なリソースの読み込みをブロックできます。`rejectResourceTypes` と `rejectRequestPattern` パラメータを使うことで、CSS や画像ファイルなどのコンテンツに直接関係のないリソースを除外できます。
+より、Markdown 変換の精度を上げるために、不要なリソースの読み込みをブロックできます。`rejectResourceTypes` と `rejectRequestPattern` パラメータを使うことで、CSS や画像ファイルなどのコンテンツに直接関係のないリソースを除外できます。
 
 ```diff
  const markdown = await client.browserRendering.markdown.create({
@@ -397,9 +397,9 @@ REST API のレスポンスには `X-Browser-Ms-Used` ヘッダーが含まれ�
 
 今回は、Cloudflare Browser Rendering を使って、URL を渡すと Markdown が返ってくる API を構築しました。REST API を使うことで、複雑なセットアップなしにシンプルな実装ができることを確認できました。
 
-今後の展開としては、この記事の冒頭で触れたように、Workers AI と組み合わせて記事の要約機能を追加したり、Obsidian との連携を自動化したりといった拡張も考えられます。また、複雑なブラウザ操作が必要になった場合は、Puppeteer API への移行も選択肢になるでしょう。
+今後の展開としては、この記事の冒頭で触れたように、Workers AI と組み合わせて記事の要約機能を追加したり、Obsidian との連携を自動化したりといった拡張も考えられます。また、複雑なブラウザ操作が必要になった時は、Puppeteer API への移行も選択肢になるでしょう。
 
-Cloudflare Browser Rendering は、エッジでのブラウザ自動化という新しい可能性を提供してくれています。今回のようなシンプルなユースケースから始めて、徐々に活用の幅を広げていくのが良いのかなと思います。
+Cloudflare Browser Rendering は、エッジでのブラウザ自動化という新しい可能性を提供してくれています。今回のようなシンプルなユースケースから始めて、徐々に活用の幅を広げていくのが良いのかなでしょう。
 
 今回使用したリポジトリは以下で確認できます。
 
