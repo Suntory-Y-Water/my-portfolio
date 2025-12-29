@@ -8,6 +8,7 @@
  */
 
 export const TAG_SLUG_MAP: Record<string, string> = {
+  AgentsSkills: 'agents-skills',
   Anaconda: 'anaconda',
   Angular: 'angular',
   API: 'api',

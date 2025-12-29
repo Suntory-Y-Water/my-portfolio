@@ -12,9 +12,7 @@
       "Read(**/*token*)",
       "Read(**/*key*)",
       "Write(.env*)",
-      "Write(**/secrets/**)",
-      "Bash(curl:*)",
-      "Bash(wget:*)"
+      "Write(**/secrets/**)"
     ],
     "ask": [
       "Bash(git push:*)",
