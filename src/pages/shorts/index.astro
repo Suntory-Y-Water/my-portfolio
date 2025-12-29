@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ShortsGrid from '@/components/feature/shorts/shorts-grid.astro';
 import { getCollection } from 'astro:content';
+import { Icons } from '@/components/icons';
 
 import { compileMarkdown } from '@/components/feature/content/custom-markdown';
 import { getFirstPage } from '@/lib/shorts';
@@ -28,20 +29,22 @@ const description = '技術的な短いメモやTips、Q&Aなどのまとめ';
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class='container py-10'>
-    <div
-      class='flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8 mb-10'
-    >
-      <div class='flex-1 space-y-4'>
-        <h1 class='inline-block font-bold text-4xl tracking-tight lg:text-5xl'>
-          {title}
-        </h1>
-        <p class='text-xl text-muted-foreground'>
+  <section class='space-y-10'>
+    <div class='space-y-3 border-b border-border/60 pb-4'>
+      <nav class='flex items-center gap-2 text-sm text-muted-foreground'>
+        <a href='/' class='transition-colors hover:text-primary'> Home </a>
+        <Icons.ChevronRight client:load className='size-4' />
+        <span class='text-foreground'>Shorts</span>
+      </nav>
+
+      <div class='space-y-2'>
+        <h1 class='text-3xl font-bold tracking-tight md:text-4xl'>Shorts</h1>
+        <p class='text-base text-muted-foreground'>
           {description}
         </p>
       </div>
     </div>
 
     <ShortsGrid shorts={compiledShorts} />
-  </div>
+  </section>
 </BaseLayout>
