@@ -5,14 +5,16 @@ import type { GetLikeResponse, IncrementLikeRequest } from '@/types/like';
 
 type LikeButtonProps = {
   slug: string;
+  iconSvg: string;
 };
 
 /**
  * いいねボタンコンポーネント
  *
  * @param slug - 記事のスラッグ
+ * @param iconSvg - インラインSVGアイコン (getInlineIconで取得)
  */
-export function LikeButton({ slug }: LikeButtonProps) {
+export function LikeButton({ slug, iconSvg }: LikeButtonProps) {
   const [allCount, setAllCount] = useState(0);
   const [localCount, setLocalCount] = useState(0);
   const [isClicked, setIsClicked] = useState(false);
@@ -101,13 +103,17 @@ export function LikeButton({ slug }: LikeButtonProps) {
         variant='secondary'
         size='icon'
         className={cn(
-          'w-36 h-36 rounded-full text-7xl shadow-lg cursor-pointer transition-transform duration-300 ease-in-out',
+          'w-36 h-36 rounded-full shadow-lg cursor-pointer transition-transform duration-300 ease-in-out',
           isClicked && 'scale-110',
           isLoading && 'opacity-50 cursor-not-allowed',
         )}
         aria-label={`この記事にいいねする（現在${allCount}いいね）`}
       >
-        👍
+        <span
+          className='h-24 w-24 [&>svg]:h-full [&>svg]:w-full [&>svg]:object-contain'
+          aria-hidden
+          dangerouslySetInnerHTML={{ __html: iconSvg }}
+        />
       </Button>
       <p className='text-lg mt-3 text-foreground'>
         {isLoading ? '...' : allCount}
