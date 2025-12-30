@@ -9,24 +9,68 @@ icon_url: /icons/high_voltage_flat.svg
 tags:
   - ClaudeCode
   - AgentsSkills
+selfAssessment:
+  quizzes:
+    - question: "Claude Codeのスキル実行プロセスにおいて、ユーザーのリクエストとスキルのdescriptionのマッチング判定に使用される技術は何か？"
+      answers:
+        - text: "キーワードマッチング"
+          correct: false
+          explanation: "公式実装ではセマンティック類似度が使用されます。キーワードマッチングは本記事で提案したUserPromptSubmit Hooksによる解決策で採用した手法です。"
+        - text: "セマンティック類似度"
+          correct: true
+          explanation: "Claude Codeは、ユーザー入力とスキルのdescriptionの意味的な類似性を計算し、一定の閾値を超えた場合にスキルを実行させます。これは確率的判定であり100%の精度ではないため、自然な言い回しでは期待通りにスキルが起動しないことがあります。"
+        - text: "正規表現マッチング"
+          correct: false
+          explanation: null
+        - text: "完全一致検索"
+          correct: false
+          explanation: null
+    - question: "Claude Codeのスキルシステムで採用されている「Progressive Disclosure(段階的開示)」の目的は何か？"
+      answers:
+        - text: "スキルの実行速度を向上させるため"
+          correct: false
+          explanation: null
+        - text: "コンテキストウィンドウを節約しながら、必要なスキルを発見できるようにするため"
+          correct: true
+          explanation: "起動時には全スキルのnameとdescriptionのみをシステムプロンプトに読み込み、SKILL.mdの本文は読み込みません。スキルが実際にマッチした場合にのみSKILL.md全体を読み込むことで、コンテキストウィンドウを効率的に使用します。"
+        - text: "スキルの開発を簡単にするため"
+          correct: false
+          explanation: null
+        - text: "スキルのセキュリティを強化するため"
+          correct: false
+          explanation: null
+    - question: "本記事で提案されたUserPromptSubmit Hooksによる解決策の主なトレードオフは何か？"
+      answers:
+        - text: "実装が複雑になるが、スキルの起動が確実になる"
+          correct: false
+          explanation: null
+        - text: "AIの自律性を否定し、人間が強制的にレールを敷くアプローチであるが、確実に動作する"
+          correct: true
+          explanation: "この解決策は、セマンティック類似度の不確実性をキーワードマッチングで補うものです。AIが状況を判断し自律的にツールを選択するという理想からは離れますが、少なくとも確実に動作します。記事では「発展途上の技術をどのように攻略していくか」という試行錯誤の一例として紹介されています。"
+        - text: "処理速度が遅くなるが、精度が向上する"
+          correct: false
+          explanation: null
+        - text: "設定ファイルの管理が煩雑になるが、複数のスキルを同時実行できる"
+          correct: false
+          explanation: null
 ---
-Agents Skills は、Claude Code がベストプラクティスに沿って実装できる仕組みです。例えば、何回も繰り返すような情報や定型作業、一番わかりやすい例では Git の操作などが挙げられます。AI に毎回指示するのではなく、Skills で「Git スキルでプルリクエストを発行してください」と実行するだけで、Claude Code が自律的にベストプラクティスに従って実装してくれます。
+Agents Skills は、Claude Code がベストプラクティスに沿って実装できる仕組みです。例えば、何回も繰り返し伝える情報や定型作業、一番わかりやすい例では Git の操作などが挙げられます。AI に毎回指示するのではなく、Skills で「Git スキルでプルリクエストを発行してください」と実行するだけで、Claude Code が自律的にベストプラクティスに従って実装してくれます。
 
-定型作業や毎回コンテキストとして与えなければいけない情報を設定ファイルとして定義しておき、ユーザが指示をするだけで、ベストプラクティスで実行してくれるのは素晴らしい仕組みですが、課題も存在します。それは、AI エージェントに「スキルを実行して」と明示的に指示しなければ、スキルが読み込まれないことです。これはほんの数文字ですが、毎回伝えるのはとても億劫に感じます。
+定型作業や毎回コンテキストとして与えなければいけない情報を設定ファイルとして定義しておけば、ユーザが指示するだけでベストプラクティスに従った実行が可能です。しかし課題も存在します。AI エージェントが「スキルを実行して」という明示的な指示なしではスキルを読み込まないことです。ほんの数文字ですが、毎回伝えるのはとても億劫に感じます。
 
-実体験として Playwright を使ってボタン操作や画面の待機などをする際などの、対処法が複数ある場合などによく発生します。
-Playwright 公式ドキュメントによればボタン押下では `page.locator().click()` というメソッドを使うのがベストプラクティスとされています。Locator メソッドは、画面に存在するボタン要素が操作可能になるまで待機してくれるためです。
+実体験として、Playwright でボタン操作や画面の待機を実装するなど、対処法が複数ある場合によく発生します。
+[Playwright 公式ドキュメント](https://playwright.dev/docs/best-practices#use-locators)によればボタン押下では `page.locator().click()` というメソッドを使うのがベストプラクティスとされています。Locator メソッドは、画面に存在するボタン要素が操作可能になるまで待機してくれるためです。
 
 しかし、Claude Code はボタン操作の時に `page.evaluate()` を利用していました。`evaluate` 内で `querySelector` を実行して、その要素をクリックするという処理を行っています。
-その実装を行うと、`evaluate` は `locator` と異なり要素の待機時間が設けられず、ボタンを押すことができない場合があります。そしてボタンが押せないことから、追加で固定のタイムアウトなどを実装するといった無駄な実装が増えてしまいます。
+その実装を行うと、`evaluate` は `locator` と異なり要素の待機時間が設けられず、ボタンを押すことができない場合があります。そしてボタンが押せないことから、追加でタイムアウトなどを実装するといった無駄な実装が増えてしまいます。
 
-作成した Playwright のスキルも、一応、公式ドキュメントの記述に沿って作成しています。実際に作成した Skills の description は以下のような記述となっております。
+作成した Playwright のスキルも、一応、公式ドキュメントの記述に沿って作成しています。実際に作成した Skills の description は以下のような記述となっています。
 ```yaml
 description: Playwright automation best practices for web scraping and testing. Use when writing or reviewing Playwright code, especially for element operations (click, fill, select), waiting strategies (waitForSelector, waitForURL, waitForLoadState), navigation patterns, and locator usage. Apply when encountering unstable tests, race conditions, or needing guidance on avoiding deprecated patterns like waitForNavigation or networkidle.
 ```
 
 しかし、この状態でもスキルは発動しませんでした。では、なぜ実行されなかったのでしょうか。
-この記事では、スキルの実行ロジックを理解し、確実に起動させる仕組みを解説します。
+この記事では、スキルの実行ロジックを理解し、より確実に起動させるアプローチを解説します。
 
 ## なぜスキルは実行しないのか
 
@@ -34,7 +78,7 @@ description: Playwright automation best practices for web scraping and testing. 
 
 > Skills are **model-invoked**: Claude decides which Skills to use based on your request. You don’t need to explicitly call a Skill. Claude automatically applies relevant Skills when your request matches their description.
 
-つまり、ユーザーが明示的に「このスキルを使って」と呼び出すのではなく、Claude がリクエスト内容を見て自動的に判断します。この点で、Slash commands(`/commit` など)とは明確に異なります。
+つまり、ユーザーが明示的に「このスキルを使って」と呼び出すのではなく、Claude がリクエスト内容を見て自動的に判断します。この点で、`Slash commands` とは明確に異なります。
 
 スキルの実行プロセスは以下の 3 つのステップで構成されています(公式ドキュメントより引用)。
 
@@ -48,7 +92,7 @@ description: Playwright automation best practices for web scraping and testing. 
 
 > When your request matches a Skill's description, Claude asks to use the Skill. You'll see a confirmation prompt before the full `SKILL.md` is loaded into context. Claude matches requests against descriptions using semantic similarity, so [write descriptions](#skill-not-triggering) that include keywords users would naturally say.
 
-ユーザーのリクエストがスキルの description と一致した場合、Claude はスキルの使用確認プロンプトを表示します。この判定には **セマンティック類似度(semantic similarity)** が使用されます。つまり、リクエストと description の意味的な類似性を計算し、類似度が高ければスキルを提案する仕組みです。
+ユーザーのリクエストがスキルの description とマッチした場合、Claude はスキルの使用を求めます。このとき `SKILL.md` がコンテキストに読み込まれる際、確認プロンプトが表示されます。マッチング判定には **セマンティック類似度** が使用されます。つまり、リクエストと description の意味的な類似性を計算し、類似度が高ければスキルを提案する仕組みです。
 
 > [!NOTE]
 > セマンティック類似度は、2つのテキストの「意味の近さ」を数値で測る技術です。
@@ -56,9 +100,7 @@ description: Playwright automation best practices for web scraping and testing. 
 > - 「犬が走る」と「イヌが駆ける」→ 意味が似ている → 類似度が高い
 > - 「犬が走る」と「猫が寝る」→ 意味が異なる → 類似度が低い
 >
-> Claude Codeでは、ユーザー入力(「ボタンクリックを修正して」)とスキルのdescription(「Playwright automation... click operations」)の意味的な類似度を計算し、一定の閾値を超えた場合にスキルを実行させます。
->
-> しかし、この判定は確率的であり、同じ意味でも言い回しが異なると類似度が下がる場合があります。
+> Claude Codeでは、ユーザー入力(「ボタンのクリック操作を修正して」)とスキルのdescription(「Playwright automation... click operations」)の意味的な類似度を計算し、一定の閾値を超えた場合にスキルを実行させます。
 
 承認されたら、初めて SKILL.md の本文全体をコンテキストに読み込みます。
 
@@ -70,7 +112,7 @@ SKILL.md の指示に従ってタスクを実行します。参照ファイル�
 
 ### descriptionの改善と限界
 
-この問題に気づいた後、私は description の改善を試みました。ユーザー入力を「Playwright のベストプラクティスに従って!」に変更してみましたが、それでも実行されないときがあります。description は既に詳細に書いており、約 200 文字でキーワードを増やしても、改善しません。
+この問題に気づいた後、私は description の改善を試みました。ユーザー入力を「Playwright のベストプラクティスに従って！」に変更してみましたが、それでも実行されないときがあります。description は既に詳細に書いており、約 200 文字でキーワードを増やしても、改善しません。
 
 > The `description` field enables Skill discovery and should include both what the Skill does and when to use it.
 > **Be specific and include key terms**. Include both what the Skill does and specific triggers/contexts for when to use it.
@@ -86,15 +128,14 @@ description: Extract text and tables from PDF files, fill forms, merge documents
 私の Playwright スキルも、この形式に従って書きましたが、実行されませんでした。description には 1024 文字という制限があります。そのため、すべての言い回しを詰め込むことはできません。「ボタンクリック」「画面操作」という自然な指示には、「Playwright」というキーワードが含まれません。
 
 セマンティック類似度は確率的判定で、100%の精度ではありません。ユーザーが異なる言い回しをすれば、類似度は下がります。
-それではキーワードを増やせばいいのでしょうか？そうすると、description が冗長になり、本質的な情報が埋もれます。
+それではキーワードを増やせばいいのでしょうか？そうすると、description が冗長になり、本質的な情報が埋もれてしまいます。
 
 description だけでは、確実な実行を保証できないと判断しました。
 
----
-## UserPromptSubmit フックによる解決
+## UserPromptSubmit Hooks による解決
 では、セマンティック類似度に頼らず、確実にスキルを起動させる方法はないのでしょうか。
 
-一番簡単な方法は、「スキルを利用して」と明言することです。しかし、毎回入力するのは面倒です。
+一番簡単な方法は、「スキルを利用して」と明言することです。しかし、課題で記載したとおり毎回入力するのは面倒です。
 
 そこで今回は、UserPromptSubmit Hooks を利用します。これは、ユーザーがプロンプトを送信した際、Claude Code が処理する前に実行される仕組みです。特定のキーワードが含まれていた場合、自動的にスキルを起動させる指示を注入することで、確実にスキルを実行させます。
 
@@ -110,8 +151,8 @@ flowchart TD
     %% ユーザー入力の具体的内容
     Input[入力: 'git commit']
     
-    %% システムフック
-    Hook[フック: Submit]
+    %% システムHooks
+    Hook[Hooks: Submit]
 
     %% 設定ファイルの内容を分解して可視化
     subgraph Rules [判定ルール]
@@ -436,7 +477,7 @@ if (import.meta.main) {
 }
 ```
 
-最後に `settings.json` にフックを登録します。
+最後に `settings.json` へ Hooks を登録します。
 
 ```json .claude/settings.json
 {
@@ -484,8 +525,14 @@ if (import.meta.main) {
 
 Claude Code のスキルは、「AI が状況を判断し、必要なツールを自律的に選択する」という今後の AI による開発の理想を体現した良い仕組みです。しかし現実には、セマンティック類似度という確率的な困難に阻まれ、私たちが期待するほどの「よしなにやってくれる」ようにはまだできていません。
 
-今回紹介した UserPromptSubmit フックによる解決策は、ある意味で AI の自律性を否定し、人間が強制的にレールを敷くアプローチです。
+今回紹介した UserPromptSubmit Hooks による解決策は、ある意味で AI の自律性を否定し、人間が強制的にレールを敷くアプローチです。
 「AI を楽に使うために、人間が裏で必死にお膳立てをする」という状況は、楽にしようとした結果、逆に泥臭いハックになってしまったという皮肉な状況です。
-ですが私はこの「発展途上の技術をどのように楽しく手なずけるか」試行錯誤することこそが意外と好きです。セマンティック類似度の不確実性をキーワードマッチングで補うという、ベストな解決策ではないですが、少なくとも確実に動作します。
+ですが私はこの「**発展途上の技術をどのように攻略していくか**」試行錯誤するのが意外と好きです。セマンティック類似度の不確実性をキーワードマッチングで補うという、ベストな解決策ではないですが、少なくとも確実に動作します。
 
 いずれモデルの推論能力が飛躍的に向上すれば、このハックは不要になるでしょう。それまでの間、この記事で紹介した方法が、同じもどかしさを感じている方の助けになれば嬉しいです。
+
+## 参考
+
+https://playwright.dev/docs/api/class-locator#locator-click
+
+https://platform.claude.com/docs/ja/agents-and-tools/agent-skills/overview
