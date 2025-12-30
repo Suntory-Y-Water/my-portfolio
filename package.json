@@ -4,7 +4,6 @@
   "version": "2.0.0",
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "bun run scripts/generate-md-endpoints.ts",
     "build": "astro build",
     "postbuild": "pagefind --site dist",
     "start": "astro preview",
