@@ -40,6 +40,17 @@ export default defineConfig({
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
+    // 開発環境のみ: Workers API (localhost:8787) へプロキシ
+    ...(process.env.NODE_ENV !== 'production' && {
+      server: {
+        proxy: {
+          '/api': {
+            target: 'http://localhost:8787',
+            changeOrigin: true,
+          },
+        },
+      },
+    }),
     optimizeDeps: {
       exclude: ['@resvg/resvg-js'],
     },
