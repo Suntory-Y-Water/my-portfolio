@@ -53,6 +53,9 @@ const displayUrl =
   (post.data.icon?.startsWith('https://') ? post.data.icon : null);
 const inlineSvg = displayUrl ? getInlineIcon(displayUrl) : undefined;
 
+// いいねボタン用のSVGアイコンを取得
+const likeIconSvg = getInlineIcon('/icons/thumbs_up_flat_default.svg');
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
@@ -204,7 +207,11 @@ const compiledHtml = await compileMarkdown({ source: post.body });
           />
         )
       }
-      <LikeButton client:load slug={slug} />
+      {
+        likeIconSvg && (
+          <LikeButton client:load slug={slug} iconSvg={likeIconSvg} />
+        )
+      }
       <footer
         class='mt-10 flex flex-wrap items-center justify-between gap-4 border-t pt-8'
       >
