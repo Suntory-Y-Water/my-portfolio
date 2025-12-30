@@ -17,3 +17,7 @@
 # CSS/JSなどのアセット: 1年間キャッシュ (不変)
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Markdownエンドポイント: charset=utf-8を明示
+/blog/*.md
+  Content-Type: text/markdown; charset=utf-8

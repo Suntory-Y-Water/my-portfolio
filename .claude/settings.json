@@ -72,9 +72,6 @@
       "WebFetch"
     ]
   },
-  "env": {
-    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1"
-  },
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": ["context7", "serena"],
   "hooks": {
