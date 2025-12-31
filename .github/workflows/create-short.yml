@@ -3,6 +3,20 @@ name: Create Short from Issue
 on:
   issues:
     types: [labeled]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue番号'
+        required: true
+        type: number
+      issue_title:
+        description: 'Issueタイトル（[Short] を除いた本文）'
+        required: true
+        type: string
+      issue_body:
+        description: 'Issue本文'
+        required: true
+        type: string
 
 defaults:
   run:
@@ -15,13 +29,32 @@ permissions:
 
 jobs:
   create-short:
-    if: github.event.label.name == 'short'
+    if: github.event_name == 'workflow_dispatch' || github.event.label.name == 'short'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           persist-credentials: false
+
+      - uses: ./.github/actions/setup
+
+      - name: Get Puppeteer version
+        id: puppeteer-version
+        run: echo "version=$(grep '\"api-translator\"' package.json | head -n 1 | grep -oP '\d+\.\d+\.\d+' || echo '0')" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Puppeteer browsers
+        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
+        id: puppeteer-cache
+        with:
+          path: ~/.cache/puppeteer
+          key: puppeteer-${{ runner.os }}-${{ steps.puppeteer-version.outputs.version }}
+          restore-keys: |
+            puppeteer-${{ runner.os }}-
+
+      - name: Install Chromium for Puppeteer
+        if: steps.puppeteer-cache.outputs.cache-hit != 'true'
+        run: node node_modules/puppeteer/install.js
 
       - name: Generate GitHub App Token
         id: generate-token
@@ -33,25 +66,31 @@ jobs:
           permission-contents: write
           permission-pull-requests: write
 
-      - name: Generate UUID and Date
+      - name: Generate Slug and Date
         id: meta
+        env:
+          ISSUE_TITLE: ${{ github.event_name == 'workflow_dispatch' && inputs.issue_title || github.event.issue.title }}
+          PUPPETEER_ARGS: '{"args":["--no-sandbox","--disable-setuid-sandbox"]}'
         run: |
-          # UUIDv4生成（最初の8文字のみ使用）
-          UUID=$(uuidgen | cut -d'-' -f1 | tr '[:upper:]' '[:lower:]')
-          echo "uuid=$UUID" >> "$GITHUB_OUTPUT"
+          # タイトルから"[Short] "を除去
+          TITLE="${ISSUE_TITLE#\[Short\] }"
+
+          # タイトルを英語翻訳してスラグ化
+          SLUG=$(bun run scripts/translate-title-to-slug.ts "$TITLE")
+          echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
 
           # JST日付取得
           DATE=$(TZ=Asia/Tokyo date +%Y-%m-%d)
           echo "date=$DATE" >> "$GITHUB_OUTPUT"
 
-          echo "Generated UUID: $UUID"
+          echo "Generated Slug: $SLUG"
           echo "Date (JST): $DATE"
 
       - name: Extract Issue Content
         id: issue
         env:
-          ISSUE_BODY: ${{ github.event.issue.body }}
-          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event_name == 'workflow_dispatch' && inputs.issue_body || github.event.issue.body }}
+          ISSUE_TITLE: ${{ github.event_name == 'workflow_dispatch' && inputs.issue_title || github.event.issue.title }}
         run: |
           # タイトルはIssueタイトルから"[Short] "を除去
           TITLE="${ISSUE_TITLE#\[Short\] }"
@@ -74,7 +113,7 @@ jobs:
 
       - name: Create Short File
         env:
-          UUID: ${{ steps.meta.outputs.uuid }}
+          SLUG: ${{ steps.meta.outputs.slug }}
           DATE: ${{ steps.meta.outputs.date }}
           TITLE: ${{ steps.issue.outputs.title }}
           CONTENT: ${{ steps.issue.outputs.content }}
@@ -83,7 +122,7 @@ jobs:
           mkdir -p contents/shorts
 
           # Markdownファイル作成
-          cat > "contents/shorts/${UUID}.md" << EOF
+          cat > "contents/shorts/${SLUG}.md" << EOF
           ---
           title: "${TITLE}"
           date: ${DATE}
@@ -92,16 +131,16 @@ jobs:
           ${CONTENT}
           EOF
 
-          echo "Created: contents/shorts/${UUID}.md"
-          cat "contents/shorts/${UUID}.md"
+          echo "Created: contents/shorts/${SLUG}.md"
+          cat "contents/shorts/${SLUG}.md"
 
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@98357b18bf14b5342f975ff684046ec3b2a07725 # v8.0.0
         env:
-          UUID: ${{ steps.meta.outputs.uuid }}
+          SLUG: ${{ steps.meta.outputs.slug }}
           TITLE: ${{ steps.issue.outputs.title }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_NUMBER: ${{ github.event_name == 'workflow_dispatch' && inputs.issue_number || github.event.issue.number }}
         with:
           token: ${{ steps.generate-token.outputs.token }}
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
@@ -109,9 +148,9 @@ jobs:
           commit-message: |
             Add short: ${{ steps.issue.outputs.title }}
 
-            Issue: #${{ github.event.issue.number }}
-            UUID: ${{ steps.meta.outputs.uuid }}
-          branch: short/${{ steps.meta.outputs.uuid }}
+            Issue: #${{ github.event_name == 'workflow_dispatch' && inputs.issue_number || github.event.issue.number }}
+            Slug: ${{ steps.meta.outputs.slug }}
+          branch: short/${{ steps.meta.outputs.slug }}
           delete-branch: true
           title: "📝 Short: ${{ steps.issue.outputs.title }}"
           body: |
@@ -121,13 +160,13 @@ jobs:
 
             ## Details
 
-            - **UUID**: `${{ steps.meta.outputs.uuid }}`
-            - **File**: `contents/shorts/${{ steps.meta.outputs.uuid }}.md`
+            - **Slug**: `${{ steps.meta.outputs.slug }}`
+            - **File**: `contents/shorts/${{ steps.meta.outputs.slug }}.md`
 
-            Closes #${{ github.event.issue.number }}
+            Closes #${{ github.event_name == 'workflow_dispatch' && inputs.issue_number || github.event.issue.number }}
 
             ---
 
             🤖 This PR was automatically created by GitHub Actions.
           labels: short
-          assignees: ${{ github.event.issue.user.login }}
+          assignees: ${{ github.event_name == 'workflow_dispatch' && github.actor || github.event.issue.user.login }}
