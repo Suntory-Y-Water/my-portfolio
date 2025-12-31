@@ -100,8 +100,5 @@
   "statusLine": {
     "type": "command",
     "command": "node ~/.claude/scripts/statusline.js"
-  },
-  "enabledPlugins": {
-    "example-skills@anthropic-agent-skills": true
   }
 }

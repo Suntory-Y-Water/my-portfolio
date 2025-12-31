@@ -23,6 +23,25 @@ jobs:
         with:
           persist-credentials: false
 
+      - uses: ./.github/actions/setup
+
+      - name: Get Puppeteer version
+        id: puppeteer-version
+        run: echo "version=$(grep '\"api-translator\"' package.json | head -n 1 | grep -oP '\d+\.\d+\.\d+' || echo '0')" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Puppeteer browsers
+        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
+        id: puppeteer-cache
+        with:
+          path: ~/.cache/puppeteer
+          key: puppeteer-${{ runner.os }}-${{ steps.puppeteer-version.outputs.version }}
+          restore-keys: |
+            puppeteer-${{ runner.os }}-
+
+      - name: Install Chromium for Puppeteer
+        if: steps.puppeteer-cache.outputs.cache-hit != 'true'
+        run: node node_modules/puppeteer/install.js
+
       - name: Generate GitHub App Token
         id: generate-token
         uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
@@ -33,18 +52,23 @@ jobs:
           permission-contents: write
           permission-pull-requests: write
 
-      - name: Generate UUID and Date
+      - name: Generate Slug and Date
         id: meta
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
         run: |
-          # UUIDv4生成（最初の8文字のみ使用）
-          UUID=$(uuidgen | cut -d'-' -f1 | tr '[:upper:]' '[:lower:]')
-          echo "uuid=$UUID" >> "$GITHUB_OUTPUT"
+          # タイトルから"[Short] "を除去
+          TITLE="${ISSUE_TITLE#\[Short\] }"
+
+          # タイトルを英語翻訳してスラグ化
+          SLUG=$(bun run scripts/translate-title-to-slug.ts "$TITLE")
+          echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
 
           # JST日付取得
           DATE=$(TZ=Asia/Tokyo date +%Y-%m-%d)
           echo "date=$DATE" >> "$GITHUB_OUTPUT"
 
-          echo "Generated UUID: $UUID"
+          echo "Generated Slug: $SLUG"
           echo "Date (JST): $DATE"
 
       - name: Extract Issue Content
@@ -74,7 +98,7 @@ jobs:
 
       - name: Create Short File
         env:
-          UUID: ${{ steps.meta.outputs.uuid }}
+          SLUG: ${{ steps.meta.outputs.slug }}
           DATE: ${{ steps.meta.outputs.date }}
           TITLE: ${{ steps.issue.outputs.title }}
           CONTENT: ${{ steps.issue.outputs.content }}
@@ -83,7 +107,7 @@ jobs:
           mkdir -p contents/shorts
 
           # Markdownファイル作成
-          cat > "contents/shorts/${UUID}.md" << EOF
+          cat > "contents/shorts/${SLUG}.md" << EOF
           ---
           title: "${TITLE}"
           date: ${DATE}
@@ -92,14 +116,14 @@ jobs:
           ${CONTENT}
           EOF
 
-          echo "Created: contents/shorts/${UUID}.md"
-          cat "contents/shorts/${UUID}.md"
+          echo "Created: contents/shorts/${SLUG}.md"
+          cat "contents/shorts/${SLUG}.md"
 
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@98357b18bf14b5342f975ff684046ec3b2a07725 # v8.0.0
         env:
-          UUID: ${{ steps.meta.outputs.uuid }}
+          SLUG: ${{ steps.meta.outputs.slug }}
           TITLE: ${{ steps.issue.outputs.title }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
         with:
@@ -110,8 +134,8 @@ jobs:
             Add short: ${{ steps.issue.outputs.title }}
 
             Issue: #${{ github.event.issue.number }}
-            UUID: ${{ steps.meta.outputs.uuid }}
-          branch: short/${{ steps.meta.outputs.uuid }}
+            Slug: ${{ steps.meta.outputs.slug }}
+          branch: short/${{ steps.meta.outputs.slug }}
           delete-branch: true
           title: "📝 Short: ${{ steps.issue.outputs.title }}"
           body: |
@@ -121,8 +145,8 @@ jobs:
 
             ## Details
 
-            - **UUID**: `${{ steps.meta.outputs.uuid }}`
-            - **File**: `contents/shorts/${{ steps.meta.outputs.uuid }}.md`
+            - **Slug**: `${{ steps.meta.outputs.slug }}`
+            - **File**: `contents/shorts/${{ steps.meta.outputs.slug }}.md`
 
             Closes #${{ github.event.issue.number }}
 
