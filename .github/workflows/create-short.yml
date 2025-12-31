@@ -3,6 +3,20 @@ name: Create Short from Issue
 on:
   issues:
     types: [labeled]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: "Issue番号"
+        required: true
+        type: number
+      issue_title:
+        description: "Issueタイトル（[Short] を除いた本文）"
+        required: true
+        type: string
+      issue_body:
+        description: "Issue本文"
+        required: true
+        type: string
 
 defaults:
   run:
@@ -15,7 +29,7 @@ permissions:
 
 jobs:
   create-short:
-    if: github.event.label.name == 'short'
+    if: github.event_name == 'workflow_dispatch' || github.event.label.name == 'short'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -25,22 +39,26 @@ jobs:
 
       - uses: ./.github/actions/setup
 
-      - name: Get Puppeteer version
-        id: puppeteer-version
-        run: echo "version=$(grep '\"api-translator\"' package.json | head -n 1 | grep -oP '\d+\.\d+\.\d+' || echo '0')" >> "$GITHUB_OUTPUT"
+      - name: Get Playwright version
+        id: playwright-version
+        run: echo "version=$(node -p "require('./package.json').devDependencies.playwright || require('./package.json').dependencies.playwright" | tr -d '^~')" >> "$GITHUB_OUTPUT"
 
-      - name: Cache Puppeteer browsers
+      - name: Cache Playwright browsers
         uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
-        id: puppeteer-cache
+        id: playwright-cache
         with:
-          path: ~/.cache/puppeteer
-          key: puppeteer-${{ runner.os }}-${{ steps.puppeteer-version.outputs.version }}
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
           restore-keys: |
-            puppeteer-${{ runner.os }}-
+            playwright-${{ runner.os }}-
 
-      - name: Install Chromium for Puppeteer
-        if: steps.puppeteer-cache.outputs.cache-hit != 'true'
-        run: node node_modules/puppeteer/install.js
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: bunx --bun playwright install --with-deps chromium
+
+      - name: Install Playwright system dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: bunx --bun playwright install-deps chromium
 
       - name: Generate GitHub App Token
         id: generate-token
@@ -55,7 +73,7 @@ jobs:
       - name: Generate Slug and Date
         id: meta
         env:
-          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_TITLE: ${{ github.event_name == 'workflow_dispatch' && inputs.issue_title || github.event.issue.title }}
         run: |
           # タイトルから"[Short] "を除去
           TITLE="${ISSUE_TITLE#\[Short\] }"
@@ -74,8 +92,8 @@ jobs:
       - name: Extract Issue Content
         id: issue
         env:
-          ISSUE_BODY: ${{ github.event.issue.body }}
-          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event_name == 'workflow_dispatch' && inputs.issue_body || github.event.issue.body }}
+          ISSUE_TITLE: ${{ github.event_name == 'workflow_dispatch' && inputs.issue_title || github.event.issue.title }}
         run: |
           # タイトルはIssueタイトルから"[Short] "を除去
           TITLE="${ISSUE_TITLE#\[Short\] }"
@@ -125,7 +143,7 @@ jobs:
         env:
           SLUG: ${{ steps.meta.outputs.slug }}
           TITLE: ${{ steps.issue.outputs.title }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_NUMBER: ${{ github.event_name == 'workflow_dispatch' && inputs.issue_number || github.event.issue.number }}
         with:
           token: ${{ steps.generate-token.outputs.token }}
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
@@ -133,7 +151,7 @@ jobs:
           commit-message: |
             Add short: ${{ steps.issue.outputs.title }}
 
-            Issue: #${{ github.event.issue.number }}
+            Issue: #${{ github.event_name == 'workflow_dispatch' && inputs.issue_number || github.event.issue.number }}
             Slug: ${{ steps.meta.outputs.slug }}
           branch: short/${{ steps.meta.outputs.slug }}
           delete-branch: true
@@ -148,10 +166,10 @@ jobs:
             - **Slug**: `${{ steps.meta.outputs.slug }}`
             - **File**: `contents/shorts/${{ steps.meta.outputs.slug }}.md`
 
-            Closes #${{ github.event.issue.number }}
+            Closes #${{ github.event_name == 'workflow_dispatch' && inputs.issue_number || github.event.issue.number }}
 
             ---
 
             🤖 This PR was automatically created by GitHub Actions.
           labels: short
-          assignees: ${{ github.event.issue.user.login }}
+          assignees: ${{ github.event_name == 'workflow_dispatch' && github.actor || github.event.issue.user.login }}
