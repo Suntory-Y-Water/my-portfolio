@@ -27,7 +27,7 @@ jobs:
 
       - name: Get Puppeteer version
         id: puppeteer-version
-        run: echo "version=$(cat package.json | grep '\"api-translator\"' | head -n 1 | grep -oP '\d+\.\d+\.\d+' || echo '0')" >> "$GITHUB_OUTPUT"
+        run: echo "version=$(grep '\"api-translator\"' package.json | head -n 1 | grep -oP '\d+\.\d+\.\d+' || echo '0')" >> "$GITHUB_OUTPUT"
 
       - name: Cache Puppeteer browsers
         uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
