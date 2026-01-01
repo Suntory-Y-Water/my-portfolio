@@ -3,7 +3,7 @@ title: Claude Codeへ「スキルを使って」と言うのに疲れたあな�
 slug: claude-code-dynamic-skill-loading
 date: 2025-12-30
 modified_time: 2025-12-30
-description: Claude CodeのAgent Skillsは、ベストプラクティスに従った実装を自動化する優れた仕組みですが、セマンティック類似度により実行判定には限界があります。Playwrightを例に挙げると、「クリック操作を修正して」のような自然な指示では、descriptionに「Playwright」が含まれていてもスキルが起動しないことがあります。本記事では、UserPromptSubmitフックを活用し、キーワードマッチングによってスキルを確実に起動させる実装方法を解説します。
+description: Claude CodeのAgent Skillsは、ベストプラクティスに従った実装を自動化する優れた仕組みですが、Claudeの推論による実行判定には限界があります。Playwrightを例に挙げると、「クリック操作を修正して」のような自然な指示では、descriptionに「Playwright」が含まれていてもスキルが起動しないことがあります。本記事では、UserPromptSubmitフックを活用し、キーワードマッチングによってスキルを確実に起動させる実装方法を解説します。
 icon: ⚡
 icon_url: /icons/high_voltage_flat.svg
 tags:
@@ -11,14 +11,17 @@ tags:
   - AgentsSkills
 selfAssessment:
   quizzes:
-    - question: "Claude Codeのスキル実行プロセスにおいて、ユーザーのリクエストとスキルのdescriptionのマッチング判定に使用される技術は何か？"
+    - question: "Claude Codeのスキル実行プロセスにおいて、ユーザーのリクエストとスキルのdescriptionのマッチング判定は、実際にはどのような仕組みで行われているか？"
       answers:
         - text: "キーワードマッチング"
           correct: false
-          explanation: "公式実装ではセマンティック類似度が使用されます。キーワードマッチングは本記事で提案したUserPromptSubmit Hooksによる解決策で採用した手法です。"
+          explanation: "キーワードマッチングは本記事で提案したUserPromptSubmit Hooksによる解決策で採用した手法です。"
         - text: "セマンティック類似度"
+          correct: false
+          explanation: "実際には機械的なスコア計算ではなく、Claude自身がdescriptionを読んで判断しています。"
+        - text: "Claude自身による推論"
           correct: true
-          explanation: "Claude Codeは、ユーザー入力とスキルのdescriptionの意味的な類似性を計算し、一定の閾値を超えた場合にスキルを実行させます。これは確率的判定であり100%の精度ではないため、自然な言い回しでは期待通りにスキルが起動しないことがあります。"
+          explanation: "起動時に読み込まれたスキルのdescriptionをClaudeが読み、「今の文脈ならこのスキルを使うのが適切だ」と判断した場合にのみ提案されます。"
         - text: "正規表現マッチング"
           correct: false
           explanation: null
@@ -46,7 +49,7 @@ selfAssessment:
           explanation: null
         - text: "AIの自律性を否定し、人間が強制的にレールを敷くアプローチであるが、確実に動作する"
           correct: true
-          explanation: "この解決策は、セマンティック類似度の不確実性をキーワードマッチングで補うものです。AIが状況を判断し自律的にツールを選択するという理想からは離れますが、少なくとも確実に動作します。記事では「発展途上の技術をどのように攻略していくか」という試行錯誤の一例として紹介されています。"
+          explanation: "この解決策は、Claudeの推論による判定の不確実性をキーワードマッチングで補うものです。AIが状況を判断し自律的にツールを選択するという理想からは離れますが、少なくとも確実に動作します。記事では「発展途上の技術をどのように攻略していくか」という試行錯誤の一例として紹介されています。"
         - text: "処理速度が遅くなるが、精度が向上する"
           correct: false
           explanation: null
@@ -92,15 +95,12 @@ description: Playwright automation best practices for web scraping and testing. 
 
 > When your request matches a Skill's description, Claude asks to use the Skill. You'll see a confirmation prompt before the full `SKILL.md` is loaded into context. Claude matches requests against descriptions using semantic similarity, so [write descriptions](#skill-not-triggering) that include keywords users would naturally say.
 
-ユーザーのリクエストがスキルの description とマッチした場合、Claude はスキルの使用を求めます。このとき `SKILL.md` がコンテキストに読み込まれる際、確認プロンプトが表示されます。マッチング判定には **セマンティック類似度** が使用されます。つまり、リクエストと description の意味的な類似性を計算し、類似度が高ければスキルを提案する仕組みです。
+ユーザーのリクエストがスキルの description とマッチした場合、Claude はスキルの使用を求めます。このとき `SKILL.md` がコンテキストに読み込まれる際、確認プロンプトが表示されます。
+この「マッチング判定」は、外部の検索アルゴリズムではなく、Claude 自身の推論によって行われます。
+起動時に読み込まれた description はシステムプロンプトの一部として Claude に提示されています。
+Claude はユーザーのリクエストと、手元にあるスキルのリスト(説明文)を照らし合わせ、「今の文脈ならこのスキルを使うのが適切だ」と判断した場合にのみ、スキルの使用を提案します。
 
-> [!NOTE]
-> セマンティック類似度は、2つのテキストの「意味の近さ」を数値で測る技術です。
->
-> - 「犬が走る」と「イヌが駆ける」→ 意味が似ている → 類似度が高い
-> - 「犬が走る」と「猫が寝る」→ 意味が異なる → 類似度が低い
->
-> Claude Codeでは、ユーザー入力(「ボタンのクリック操作を修正して」)とスキルのdescription(「Playwright automation... click operations」)の意味的な類似度を計算し、一定の閾値を超えた場合にスキルを実行させます。
+つまり、機械的なキーワード一致や類似度スコアではなく、「AI が説明文を読んで、使うべきかどうかを考えている」というのが実態です。
 
 承認されたら、初めて SKILL.md の本文全体をコンテキストに読み込みます。
 
@@ -127,7 +127,7 @@ description: Extract text and tables from PDF files, fill forms, merge documents
 
 私の Playwright スキルも、この形式に従って書きましたが、実行されませんでした。description には 1024 文字という制限があります。そのため、すべての言い回しを詰め込むことはできません。「ボタンクリック」「画面操作」という自然な指示には、「Playwright」というキーワードが含まれません。
 
-セマンティック類似度は確率的判定で、100%の精度ではありません。ユーザーが異なる言い回しをすれば、類似度は下がります。
+LLM の推論も万能ではありません。 description はシステムプロンプトに注入されますが、コンテキストウィンドウ内には「ユーザーとの会話履歴」や「システム指示」など、他の情報も大量に存在します。その中で、短い description が Claude の注意を十分に引けない場合、Claude は「スキルを使わずに自力で解決しよう」としたり、単にスキルの存在を見落としたりします。
 それではキーワードを増やせばいいのでしょうか？そうすると、description が冗長になり、本質的な情報が埋もれてしまいます。
 
 description だけでは、確実な実行を保証できないと判断しました。
