@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["skills"],
+  "properties": {
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "description", "trigger"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "スキル名(スキルの name プロパティを使用してください)"
+          },
+          "description": {
+            "type": "string",
+            "description": "スキルの概要"
+          },
+          "trigger": {
+            "type": "object",
+            "required": ["required", "any"],
+            "properties": {
+              "required": {
+                "type": "string",
+                "description": "必ず含まれている必要があるキーワード"
+              },
+              "any": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "少なくとも1つ含まれている必要があるキーワードのリスト"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
