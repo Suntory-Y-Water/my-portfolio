@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-01-01T14:45:00+09:00",
+  "adrs": [
+    {
+      "id": "ADR-0001",
+      "title": "Implement Dynamic Context Skill Loader and ADR Memory Manager",
+      "status": "accepted",
+      "timestamp": "2026-01-01T14:45:00+09:00",
+      "tags": ["infrastructure", "agent-config", "adr", "skills"],
+      "keywords": [
+        "dynamic skill loader",
+        "adr memory manager",
+        "context-skills",
+        "settings.json hooks"
+      ],
+      "affected_components": [
+        "Agent Configuration",
+        "Skill System",
+        "Documentation"
+      ],
+      "file_path": "docs/adr/decisions/0001-implement-dynamic-skills-and-adr-manager.json"
+    }
+  ],
+  "indices": {
+    "by_tag": {
+      "infrastructure": ["ADR-0001"],
+      "agent-config": ["ADR-0001"],
+      "adr": ["ADR-0001"],
+      "skills": ["ADR-0001"]
+    },
+    "by_component": {
+      "Agent Configuration": ["ADR-0001"],
+      "Skill System": ["ADR-0001"],
+      "Documentation": ["ADR-0001"]
+    },
+    "by_status": {
+      "accepted": ["ADR-0001"]
+    }
+  }
+}

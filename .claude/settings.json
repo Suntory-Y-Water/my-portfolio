@@ -33,12 +33,9 @@
       "Bash({} ;)",
       "Bash(gh issue list:*)",
       "Bash(for:*)",
-      "Bash(do)",
       "Bash(sed:*)",
-      "Bash(done)",
       "Bash(gh issue comment:*)",
-      "Bash(xargs curl -s)",
-      "WebFetch(domain:developers.cloudflare.com)",
+      "WebFetch",
       "WebSearch",
       "Bash(bunx biome:*)"
     ],
@@ -57,7 +54,8 @@
       "Bash(wget:*)",
       "NotebookEdit",
       "NotebookRead",
-      "ExitPlanMode"
+      "ExitPlanMode",
+      "Bash(curl:*)"
     ],
     "ask": [
       "Bash(git push:*)",
@@ -67,9 +65,7 @@
       "Bash(git switch:*)",
       "Bash(bun add:*)",
       "Bash(bun remove:*)",
-      "Bash(curl:*)",
-      "Bash(rm:*)",
-      "WebFetch"
+      "Bash(rm:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
@@ -87,11 +83,28 @@
     ],
     "PreToolUse": [
       {
-        "matcher": "Write|Edit|MultiEdit",
         "hooks": [
           {
             "type": "command",
             "command": "bun run --silent -i ~/.claude/scripts/typescript/no-restricted-edit.ts"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run --silent -i ~/.claude/scripts/typescript/web-fetch-advice.ts"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run --silent -i ~/.claude/scripts/typescript/dynamic-context-skill-loader.ts"
           }
         ]
       }

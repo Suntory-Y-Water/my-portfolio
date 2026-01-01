@@ -1,0 +1,61 @@
+# yaml-language-server: $schema=./context-skills-schema.json
+skills:
+  - name: managing-git-github-workflow
+    description: Git operation automation and GitHub CLI wrapper
+    trigger:
+      required: 'git'
+      any:
+        [
+          'add',
+          'commit',
+          'push',
+          'pull',
+          'branch',
+          'repo',
+          'repository',
+          'issue',
+          'PR',
+          'pull request',
+          'プルリク',
+        ]
+  - name: building-astro5-blogs
+    description: Astro 5.x静的ブログ構築のベストプラクティス (Islands Architecture, Content Layer API, 画像最適化, SEOなど)
+    trigger:
+      required: 'astro'
+      any: ['blog', 'ブログ', 'ssg', 'islands', 'content layer', 'image', 'seo']
+  - name: playwright-best-practices
+    description: Playwright automation best practices for web scraping and testing (Element operations, waiting strategies, locators)
+    trigger:
+      required: 'playwright'
+      any:
+        [
+          'test',
+          'e2e',
+          'scraping',
+          'click',
+          'fill',
+          'locator',
+          'automation',
+          'browser',
+          'テスト',
+          'スクレイピング',
+          '自動化',
+          'ベストプラクティス',
+          'ベスト・プラクティス',
+        ]
+  - name: reviewing-skills
+    description: Claude Codeスキルを公式ベストプラクティスに基づいてレビューし、改善提案を行う。
+    trigger:
+      required: 'skill'
+      any:
+        [
+          'review',
+          'check',
+          'lint',
+          'audit',
+          'best practice',
+          'レビュー',
+          'チェック',
+          '診断',
+          '改善',
+        ]
