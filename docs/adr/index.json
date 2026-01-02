@@ -39,10 +39,7 @@
         "Google Discover",
         "rich preview"
       ],
-      "affected_components": [
-        "BaseLayout",
-        "BlogPostPage"
-      ],
+      "affected_components": ["BaseLayout", "BlogPostPage"],
       "file_path": "docs/adr/decisions/0002-implement-seo-improvements-for-blog-articles.json"
     }
   ],
