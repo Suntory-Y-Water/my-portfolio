@@ -1,14 +1,20 @@
 import type { ActionSectionData } from '@/types/diagram';
-import { FormattedText, Icon } from './content-common';
+import { FormattedText, Icon, resolveColor } from './content-common';
 
 export function ActionSection({ data }: { data: ActionSectionData }) {
+  const accentColor = resolveColor(data.accentColor);
   return (
     <div className='relative'>
       <div className='relative w-full sm:max-w-7xl mx-auto p-4 sm:p-8 lg:p-12 z-10'>
         <div className='text-center flex justify-center sm:block'>
           <div className='inline-block shadow-xl w-full sm:max-w-3xl mx-1 sm:mx-auto overflow-hidden bg-background rounded-lg border-4 border-primary'>
-            <div className='p-4 sm:p-6 bg-primary'>
-              <div className='px-3 sm:px-4 py-2 rounded-full font-bold text-sm sm:text-lg inline-flex items-center mb-4 text-primary-foreground'>
+            <div className='p-4 sm:p-6 bg-background'>
+              <div
+                className='px-3 sm:px-4 py-2 rounded-full font-bold text-sm sm:text-lg inline-flex items-center mb-4 text-primary-foreground bg-primary'
+                style={{
+                  backgroundColor: accentColor,
+                }}
+              >
                 <Icon
                   name='check'
                   size={20}
@@ -18,7 +24,7 @@ export function ActionSection({ data }: { data: ActionSectionData }) {
                 Next Actions
               </div>
               <div className='flex items-center justify-center'>
-                <h3 className='text-primary-foreground font-bold text-center text-xl sm:text-2xl lg:text-3xl leading-tight'>
+                <h3 className='text-foreground font-bold text-center text-xl sm:text-2xl lg:text-3xl leading-tight'>
                   {data.title}
                 </h3>
               </div>

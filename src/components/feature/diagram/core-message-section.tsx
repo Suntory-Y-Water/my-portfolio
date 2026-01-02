@@ -1,13 +1,19 @@
 import type { CoreMessageSectionData } from '@/types/diagram';
-import { FormattedText, Icon } from './content-common';
+import { FormattedText, Icon, resolveColor } from './content-common';
 
 export function CoreMessageSection({ data }: { data: CoreMessageSectionData }) {
+  const badgeColor = resolveColor(data.coreHighlight.accentColor);
   return (
     <div className='bg-background relative border-4 border-primary'>
       <div className='relative w-full sm:max-w-7xl mx-auto p-4 sm:p-8 lg:p-12'>
         <div className='p-4 sm:p-6 mx-auto w-full sm:max-w-5xl text-center mb-8'>
           <div className='mb-4'>
-            <div className='inline-block rounded-full px-4 py-2 mb-3 bg-primary'>
+            <div
+              className='inline-block rounded-full px-4 py-2 mb-3 bg-primary'
+              style={{
+                backgroundColor: badgeColor,
+              }}
+            >
               <span className='text-sm font-bold text-primary-foreground uppercase tracking-wider'>
                 CORE MESSAGE
               </span>

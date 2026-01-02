@@ -1,5 +1,5 @@
 import type { ProblemSectionData } from '@/types/diagram';
-import { FormattedText, Icon } from './content-common';
+import { FormattedText, Icon, resolveColor } from './content-common';
 
 export function ProblemSection({ data }: { data: ProblemSectionData }) {
   return (
@@ -24,37 +24,52 @@ export function ProblemSection({ data }: { data: ProblemSectionData }) {
           <div
             className={`grid grid-cols-1 ${data.cards.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'} gap-6 mb-8`}
           >
-            {data.cards.map((card, i) => (
-              <div
-                key={i}
-                className={`bg-background p-6 rounded-sm border-2 ${card.isHighlight ? 'border-primary' : 'border-border'}`}
-              >
-                <div className='flex items-center justify-center mb-4'>
-                  <Icon
-                    name={card.icon}
-                    size={32}
-                    className={`mr-1 sm:mr-3 ${card.isHighlight ? 'text-primary' : 'text-muted-foreground'}`}
-                  />
-                  <h3
-                    className={`text-base sm:text-lg font-bold ${card.isHighlight ? 'text-primary' : 'text-muted-foreground'}`}
-                  >
-                    {card.title}
-                  </h3>
-                </div>
-                <p className='leading-relaxed font-medium mb-3 text-sm sm:text-base text-foreground'>
-                  {card.subtitle}
-                </p>
+            {data.cards.map((card, i) => {
+              const color = resolveColor(card.accentColor);
+              return (
                 <div
-                  className={`p-4 rounded-lg ${card.isHighlight ? 'bg-muted' : 'bg-muted/50'}`}
+                  key={i}
+                  className={`bg-background p-6 rounded-sm border-2 ${card.isHighlight ? 'border-primary' : 'border-border'}`}
+                  style={{
+                    borderColor: color,
+                  }}
                 >
-                  <p
-                    className={`text-sm leading-relaxed ${card.isHighlight ? 'text-primary' : 'text-muted-foreground'}`}
-                  >
-                    <FormattedText text={card.description} />
+                  <div className='flex items-center justify-center mb-4'>
+                    <Icon
+                      name={card.icon}
+                      size={32}
+                      className={`mr-1 sm:mr-3 ${card.isHighlight ? 'text-primary' : 'text-muted-foreground'}`}
+                      style={{
+                        color,
+                      }}
+                    />
+                    <h3
+                      className={`text-base sm:text-lg font-bold ${card.isHighlight ? 'text-primary' : 'text-muted-foreground'}`}
+                      style={{
+                        color,
+                      }}
+                    >
+                      {card.title}
+                    </h3>
+                  </div>
+                  <p className='leading-relaxed font-medium mb-3 text-sm sm:text-base text-foreground'>
+                    {card.subtitle}
                   </p>
+                  <div
+                    className={`p-4 rounded-lg ${card.isHighlight ? 'bg-muted' : 'bg-muted/50'}`}
+                  >
+                    <p
+                      className={`text-sm leading-relaxed ${card.isHighlight ? 'text-primary' : 'text-muted-foreground'}`}
+                      style={{
+                        color,
+                      }}
+                    >
+                      <FormattedText text={card.description} />
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {(data.summaryTitle || data.summaryText) && (

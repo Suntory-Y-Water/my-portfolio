@@ -44,6 +44,7 @@ export type ProblemCard = {
   subtitle: string;
   description: string;
   isHighlight?: boolean;
+  accentColor?: ColorKey;
 };
 
 export type ProblemSectionData = BaseSection & {
@@ -70,6 +71,7 @@ export type CoreMessageSectionData = BaseSection & {
   coreHighlight: {
     title: string;
     text: string;
+    accentColor?: ColorKey;
   };
 };
 
@@ -103,6 +105,7 @@ export type ActionSectionData = BaseSection & {
   pointText: string;
   footerText: string;
   subFooterText: string;
+  accentColor?: ColorKey;
 };
 
 export type TransitionSectionData = BaseSection & {
@@ -114,9 +117,8 @@ export type ScoreItem = {
   value: string | number;
   unit: string;
   barPercentage: number;
-  barColor?: string;
-  valueColor?: string;
   description?: string;
+  accentColor?: ColorKey;
 };
 
 export type ScoreComparisonSectionData = BaseSection & {
@@ -148,8 +150,7 @@ export type FlowItem = {
   label: string;
   subLabel?: string;
   highlight?: boolean;
-  borderColor?: string;
-  bgColor?: string;
+  accentColor?: ColorKey;
 };
 
 export type FlowChartSectionData = BaseSection & {
@@ -179,3 +180,10 @@ export type ArticleData = {
   };
   content: ArticleSection[];
 };
+
+export const COLORS = {
+  GOLD: '#D99834',
+  RED: '#D94141',
+} as const;
+
+export type ColorKey = keyof typeof COLORS;

@@ -14,7 +14,7 @@ import {
   Zap,
 } from 'lucide-react';
 import React from 'react';
-import type { IconName } from '@/types/diagram';
+import { COLORS, type ColorKey, type IconName } from '@/types/diagram';
 
 function getIconComponent(name: IconName): React.ElementType {
   const icons: Record<string, React.ElementType> = {
@@ -79,4 +79,14 @@ export function FormattedText({ text }: FormattedTextProps) {
       ))}
     </>
   );
+}
+
+/**
+ * カラーキーをカラーコードに解決するヘルパー関数
+ *
+ * @param key - カラーキー ('GOLD' | 'RED')
+ * @returns カラーコード文字列、またはundefined（デフォルトテーマカラーを使用）
+ */
+export function resolveColor(key?: ColorKey): string | undefined {
+  return key ? COLORS[key] : undefined;
 }
