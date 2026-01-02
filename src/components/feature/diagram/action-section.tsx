@@ -51,7 +51,7 @@ export function ActionSection({ data }: { data: ActionSectionData }) {
                 </div>
               </div>
 
-              <div className='p-4 sm:p-5 rounded-lg mb-6 border-l-4 border-l-primary bg-muted'>
+              <div className='p-4 sm:p-5 rounded-md mb-6 border-l-4 border-l-primary bg-muted'>
                 <p className='text-sm sm:text-base text-foreground/90 leading-relaxed'>
                   <strong className='text-primary'>ポイント:</strong>
                   {data.pointText}

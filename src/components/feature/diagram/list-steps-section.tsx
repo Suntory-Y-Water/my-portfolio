@@ -14,7 +14,7 @@ export function ListStepsSection({ data }: { data: ListStepsSectionData }) {
               size={40}
               className='mb-2 sm:mb-0 sm:mr-4 text-primary'
             />
-            <h2 className='font-bold text-2xl sm:text-2xl lg:text-4xl text-center text-primary'>
+            <h2 className='font-bold text-2xl sm:text-2xl lg:text-4xl text-center text-primary mb-0'>
               {data.title}
             </h2>
           </div>
@@ -29,7 +29,7 @@ export function ListStepsSection({ data }: { data: ListStepsSectionData }) {
             {data.steps.map((step, i) => (
               <div
                 key={i}
-                className='w-full p-4 sm:p-6 bg-background rounded-lg border-l-4 border-primary'
+                className='w-full p-4 sm:p-6 bg-background rounded-lg border-2 border-primary'
               >
                 <div className='flex items-start'>
                   <div className='flex items-center justify-center w-10 h-10 rounded-full text-primary-foreground font-bold text-lg mr-4 shrink-0 bg-primary'>

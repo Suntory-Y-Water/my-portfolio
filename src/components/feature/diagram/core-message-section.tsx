@@ -20,7 +20,7 @@ export function CoreMessageSection({ data }: { data: CoreMessageSectionData }) {
               size={40}
               className='mb-2 sm:mb-0 sm:mr-4 text-primary'
             />
-            <h2 className='font-bold text-2xl sm:text-2xl lg:text-4xl text-center text-primary'>
+            <h2 className='font-bold text-2xl sm:text-2xl lg:text-4xl text-center text-primary mb-0'>
               {data.title}
             </h2>
           </div>
