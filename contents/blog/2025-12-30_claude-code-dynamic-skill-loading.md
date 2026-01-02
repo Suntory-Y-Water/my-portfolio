@@ -9,6 +9,94 @@ icon_url: /icons/high_voltage_flat.svg
 tags:
   - ClaudeCode
   - AgentsSkills
+diagram:
+  - type: hero
+    date: "2025/12/30"
+    title: "Claude Codeへ「スキルを使って」と言うのに疲れたあなたへ"
+    subtitle: "UserPromptSubmit Hooksで実現する確実なAgent Skills実行戦略"
+  - type: problem
+    title: "Agent Skills運用の壁"
+    introText: "便利な機能ですが、AIの自律的な判断に任せると意図通りに動かないことが多々あります。"
+    cards:
+      - icon: alert
+        title: "スキルが起動しない"
+        subtitle: "推論の限界"
+        description: "AIが文脈から判断するため、明確に指示しないと認識されないことがある。"
+        isHighlight: true
+        accentColor: RED
+      - icon: message
+        title: "毎回指示が面倒"
+        subtitle: "入力の手間"
+        description: "ほんの数文字の指示であっても、毎回入力するのは億劫になってしまう。"
+      - icon: pen
+        title: "記述の限界"
+        subtitle: "Description制限"
+        description: "文字数制限があり、あらゆるキーワードや言い回しを網羅できない。"
+  - type: core_message
+    title: "推論から確実なルールへ"
+    mainMessage: "AIの曖昧な推論判定に頼るのをやめ、Hooksを利用してキーワード合致時に強制的な起動指示を注入します。"
+    comparisons:
+      - icon: help
+        title: "AI任せの推論"
+        text: "ユーザーの意図を汲み取れず、スキルが起動しないことがある。"
+        isGood: false
+      - icon: zap
+        title: "Hooksによる強制"
+        text: "キーワード検知で確実にスキルを起動させる。"
+        isGood: true
+    coreHighlight:
+      title: "UserPromptSubmitの活用"
+      text: "ユーザー入力送信前にシステムが介入し、強力な指示をプロンプトに追加する。"
+      accentColor: GOLD
+  - type: flow_chart
+    title: "確実な起動の仕組み"
+    introText: "ユーザーが入力してからスキルが実行されるまでの処理フローです。"
+    flows:
+      - label: "ユーザー入力"
+        subLabel: "git commit..."
+      - label: "Hooks検知"
+        subLabel: "キーワード一致"
+      - label: "指示注入"
+        subLabel: "強制起動命令"
+        highlight: true
+        accentColor: GOLD
+      - label: "Claude推論"
+        subLabel: "指示を認識"
+      - label: "スキル実行"
+        subLabel: "タスク完了"
+  - type: steps
+    title: "実装ステップ"
+    introText: "Bun環境でHooksをセットアップし、キーワードマッチングを実装する手順です。"
+    steps:
+      - number: 1
+        title: "環境構築"
+        text: "Bunとライブラリ導入"
+        detailText: "Bunをインストールし、型安全なライブラリcc-hooks-ts等を導入します。"
+      - number: 2
+        title: "設定定義"
+        text: "スキーマとYAML作成"
+        detailText: "起動条件となるキーワードと、対応するスキル情報を定義します。"
+      - number: 3
+        title: "ロジック実装"
+        text: "Hooksスクリプト作成"
+        detailText: "入力内容を判定し、条件合致時にプロンプトを注入する処理を書きます。"
+      - number: 4
+        title: "登録"
+        text: "settings.json設定"
+        detailText: "作成したHooksスクリプトをClaude Codeの設定ファイルに登録します。"
+  - type: action
+    title: "AIを使いこなそう"
+    mainText: "AIの進化を待つだけでなく、今ある機能をハックして自分の手になじませていきましょう。"
+    actionStepsTitle: "攻略のステップ"
+    actionSteps:
+      - title: "課題を見つける"
+        description: "毎日の作業で感じる小さなストレスや反復作業を特定する。"
+      - title: "仕組みで解決"
+        description: "Hooksや設定ファイルを活用して、自分だけの自動化を構築する。"
+    pointText: "発展途上の技術を攻略する楽しさを知り、快適な開発環境を作りましょう。"
+    footerText: "泥臭いハックで確実な成果を。"
+    subFooterText: "sui Tech Blog"
+    accentColor: GOLD
 selfAssessment:
   quizzes:
     - question: "Claude Codeのスキル実行プロセスにおいて、ユーザーのリクエストとスキルのdescriptionのマッチング判定は、実際にはどのような仕組みで行われているか？"

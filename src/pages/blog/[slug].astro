@@ -203,6 +203,21 @@ const compiledHtml = await compileMarkdown({ source: post.body });
         )
       }
       {
+        post.data.diagram && (
+          <div class='mt-4'>
+            <a
+              href={`/blog/diagram/${post.id}`}
+              class={buttonVariants({ variant: 'outline', size: 'sm' })}
+            >
+              <span class='inline-flex items-center gap-1.5'>
+                <Icons.Image client:load className='size-4' />
+                図解ページはこちら
+              </span>
+            </a>
+          </div>
+        )
+      }
+      {
         tableOfContents.length > 0 && (
           <TableOfContents items={tableOfContents} />
         )

@@ -4,6 +4,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { absoluteUrl } from '@/lib/utils';
 import { siteConfig } from '@/config/site';
+import { Icons } from '@/components/icons';
+import { buttonVariants } from '@/components/ui/button';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog');
@@ -73,5 +75,21 @@ const canonicalUrl = absoluteUrl(`/blog/diagram/${post.id}`);
     is:inline
     set:html={JSON.stringify(jsonLd)}
   />
-  <DynamicPageBuilder data={sections} />
+  <div>
+    <div class='mb-6 flex items-center justify-between'>
+      <a
+        href={`/blog/${post.id}`}
+        class={buttonVariants({ variant: 'ghost', size: 'sm' })}
+      >
+        <span class='group inline-flex items-center'>
+          <Icons.arrowLeft
+            client:load
+            className='mr-2 size-4 transition-transform group-hover:-translate-x-1'
+          />
+          ブログ記事に戻る
+        </span>
+      </a>
+    </div>
+    <DynamicPageBuilder data={sections} />
+  </div>
 </BaseLayout>
