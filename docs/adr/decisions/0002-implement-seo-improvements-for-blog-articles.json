@@ -24,7 +24,10 @@
     "alternatives": [
       {
         "option": "フロントマター構造を変更してlastModifiedフィールドを追加",
-        "pros": ["より明示的なフィールド名", "新規プロジェクトでは採用しやすい"],
+        "pros": [
+          "より明示的なフィールド名",
+          "新規プロジェクトでは採用しやすい"
+        ],
         "cons": ["既存記事の一括マイグレーションが必要", "破壊的変更"],
         "rejected": true,
         "reason": "既存のmodified_timeフィールドで十分に要件を満たせるため、破壊的変更を避けた"
@@ -59,10 +62,7 @@
       "src/layouts/BaseLayout.astro",
       "src/pages/blog/[slug].astro"
     ],
-    "affected_components": [
-      "BaseLayout",
-      "BlogPostPage"
-    ],
+    "affected_components": ["BaseLayout", "BlogPostPage"],
     "code_patterns": [
       "Conditional meta tag rendering in Astro",
       "JSON-LD structured data optimization",

@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-01-02T00:00:00+09:00",
+  "last_updated": "2026-01-02T17:00:00+09:00",
   "adrs": [
     {
       "id": "ADR-0001",
@@ -39,11 +39,50 @@
         "Google Discover",
         "rich preview"
       ],
-      "affected_components": [
-        "BaseLayout",
-        "BlogPostPage"
-      ],
+      "affected_components": ["BaseLayout", "BlogPostPage"],
       "file_path": "docs/adr/decisions/0002-implement-seo-improvements-for-blog-articles.json"
+    },
+    {
+      "id": "ADR-0003",
+      "title": "Migrate Diagram Components from React Context to CSS Variables for Dark Mode and JavaScript Reduction",
+      "status": "accepted",
+      "timestamp": "2026-01-02T17:00:00+09:00",
+      "tags": [
+        "astro",
+        "islands-architecture",
+        "ssg",
+        "dark-mode",
+        "css-variables",
+        "tailwind-css",
+        "react",
+        "performance",
+        "diagram-components"
+      ],
+      "keywords": [
+        "diagram components",
+        "dark mode",
+        "CSS variables",
+        "React Context",
+        "Astro Islands",
+        "static HTML",
+        "JavaScript reduction",
+        "Tailwind CSS",
+        "globals.css",
+        "theme migration",
+        "SSG optimization",
+        "client:load"
+      ],
+      "affected_components": [
+        "DiagramPageBuilder",
+        "HeroSection",
+        "ProblemSection",
+        "CoreMessageSection",
+        "StepsSection",
+        "MessageSection",
+        "ActionSection",
+        "TransitionSection"
+      ],
+      "file_path": "docs/adr/decisions/0003-migrate-diagram-components-from-react-context-to-css-variables.json"
     }
   ],
   "indices": {
@@ -56,17 +95,34 @@
       "opengraph": ["ADR-0002"],
       "schema-org": ["ADR-0002"],
       "structured-data": ["ADR-0002"],
-      "metadata": ["ADR-0002"]
+      "metadata": ["ADR-0002"],
+      "astro": ["ADR-0003"],
+      "islands-architecture": ["ADR-0003"],
+      "ssg": ["ADR-0003"],
+      "dark-mode": ["ADR-0003"],
+      "css-variables": ["ADR-0003"],
+      "tailwind-css": ["ADR-0003"],
+      "react": ["ADR-0003"],
+      "performance": ["ADR-0003"],
+      "diagram-components": ["ADR-0003"]
     },
     "by_component": {
       "Agent Configuration": ["ADR-0001"],
       "Skill System": ["ADR-0001"],
       "Documentation": ["ADR-0001"],
       "BaseLayout": ["ADR-0002"],
-      "BlogPostPage": ["ADR-0002"]
+      "BlogPostPage": ["ADR-0002"],
+      "DiagramPageBuilder": ["ADR-0003"],
+      "HeroSection": ["ADR-0003"],
+      "ProblemSection": ["ADR-0003"],
+      "CoreMessageSection": ["ADR-0003"],
+      "StepsSection": ["ADR-0003"],
+      "MessageSection": ["ADR-0003"],
+      "ActionSection": ["ADR-0003"],
+      "TransitionSection": ["ADR-0003"]
     },
     "by_status": {
-      "accepted": ["ADR-0001", "ADR-0002"]
+      "accepted": ["ADR-0001", "ADR-0002", "ADR-0003"]
     }
   }
 }

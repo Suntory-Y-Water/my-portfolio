@@ -7,6 +7,21 @@
     "kiri": {
       "command": "kiri",
       "args": ["--repo", ".", "--db", ".kiri/index.duckdb", "--watch"]
+    },
+    "serena": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant",
+        "--project",
+        ".",
+        "--enable-web-dashboard=false"
+      ],
+      "cwd": "."
     }
   }
 }

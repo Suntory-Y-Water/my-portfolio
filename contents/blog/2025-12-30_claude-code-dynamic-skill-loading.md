@@ -9,6 +9,94 @@ icon_url: /icons/high_voltage_flat.svg
 tags:
   - ClaudeCode
   - AgentsSkills
+diagram:
+  - type: hero
+    date: "2025/12/30"
+    title: "Claude Codeへ「スキルを使って」と言うのに疲れたあなたへ"
+    subtitle: "UserPromptSubmit Hooksで実現する確実なAgent Skills実行戦略"
+  - type: problem
+    title: "Agent Skills運用の壁"
+    introText: "便利な機能ですが、AIの自律的な判断に任せると意図通りに動かないことが多々あります。"
+    cards:
+      - icon: alert
+        title: "スキルが起動しない"
+        subtitle: "推論の限界"
+        description: "AIが文脈から判断するため、明確に指示しないと認識されないことがある。"
+        isHighlight: true
+        accentColor: RED
+      - icon: message
+        title: "毎回指示が面倒"
+        subtitle: "入力の手間"
+        description: "ほんの数文字の指示であっても、毎回入力するのは億劫になってしまう。"
+      - icon: pen
+        title: "記述の限界"
+        subtitle: "Description制限"
+        description: "文字数制限があり、あらゆるキーワードや言い回しを網羅できない。"
+  - type: core_message
+    title: "推論から確実なルールへ"
+    mainMessage: "AIの曖昧な推論判定に頼るのをやめ、Hooksを利用してキーワード合致時に強制的な起動指示を注入します。"
+    comparisons:
+      - icon: help
+        title: "AI任せの推論"
+        text: "ユーザーの意図を汲み取れず、スキルが起動しないことがある。"
+        isGood: false
+      - icon: zap
+        title: "Hooksによる強制"
+        text: "キーワード検知で確実にスキルを起動させる。"
+        isGood: true
+    coreHighlight:
+      title: "UserPromptSubmitの活用"
+      text: "ユーザー入力送信前にシステムが介入し、強力な指示をプロンプトに追加する。"
+      accentColor: GOLD
+  - type: flow_chart
+    title: "確実な起動の仕組み"
+    introText: "ユーザーが入力してからスキルが実行されるまでの処理フローです。"
+    flows:
+      - label: "ユーザー入力"
+        subLabel: "git commit..."
+      - label: "Hooks検知"
+        subLabel: "キーワード一致"
+      - label: "指示注入"
+        subLabel: "強制起動命令"
+        highlight: true
+        accentColor: GOLD
+      - label: "Claude推論"
+        subLabel: "指示を認識"
+      - label: "スキル実行"
+        subLabel: "タスク完了"
+  - type: steps
+    title: "実装ステップ"
+    introText: "Bun環境でHooksをセットアップし、キーワードマッチングを実装する手順です。"
+    steps:
+      - number: 1
+        title: "環境構築"
+        text: "Bunとライブラリ導入"
+        detailText: "Bunをインストールし、型安全なライブラリcc-hooks-ts等を導入します。"
+      - number: 2
+        title: "設定定義"
+        text: "スキーマとYAML作成"
+        detailText: "起動条件となるキーワードと、対応するスキル情報を定義します。"
+      - number: 3
+        title: "ロジック実装"
+        text: "Hooksスクリプト作成"
+        detailText: "入力内容を判定し、条件合致時にプロンプトを注入する処理を書きます。"
+      - number: 4
+        title: "登録"
+        text: "settings.json設定"
+        detailText: "作成したHooksスクリプトをClaude Codeの設定ファイルに登録します。"
+  - type: action
+    title: "AIを使いこなそう"
+    mainText: "AIの進化を待つだけでなく、今ある機能をハックして自分の手になじませていきましょう。"
+    actionStepsTitle: "攻略のステップ"
+    actionSteps:
+      - title: "課題を見つける"
+        description: "毎日の作業で感じる小さなストレスや反復作業を特定する。"
+      - title: "仕組みで解決"
+        description: "Hooksや設定ファイルを活用して、自分だけの自動化を構築する。"
+    pointText: "発展途上の技術を攻略する楽しさを知り、快適な開発環境を作りましょう。"
+    footerText: "泥臭いハックで確実な成果を。"
+    subFooterText: "sui Tech Blog"
+    accentColor: GOLD
 selfAssessment:
   quizzes:
     - question: "Claude Codeのスキル実行プロセスにおいて、ユーザーのリクエストとスキルのdescriptionのマッチング判定は、実際にはどのような仕組みで行われているか？"
@@ -133,7 +221,7 @@ LLM の推論も万能ではありません。 description はシステムプロ
 description だけでは、確実な実行を保証できないと判断しました。
 
 ## UserPromptSubmit Hooks による解決
-では、セマンティック類似度に頼らず、確実にスキルを起動させる方法はないのでしょうか。
+では、Claude の推論判定に頼らず、確実にスキルを起動させる方法はないのでしょうか。
 
 一番簡単な方法は、「スキルを利用して」と明言することです。しかし、課題で記載したとおり毎回入力するのは面倒です。
 
@@ -508,7 +596,7 @@ if (import.meta.main) {
 
 ![Hooksによるスキル自動起動のシステムリマインダー表示](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/aa2a20bed9f355db065f85d4b7a97855.png)
 
-試しに一度 Hooks を削除してから同じ内容を Claude Code に依頼したところ、今回はスキルが使用されませんでした。これは、セマンティック類似度の判定に依存してしまった結果であると推測できます。
+試しに一度 Hooks を削除してから同じ内容を Claude Code に依頼したところ、今回はスキルが使用されませんでした。これは、Claude の推論判定に依存してしまった結果であると推測できます。
 ![Hooks削除後のスキル非起動の状態](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/44121c1cac68ecbcc0bbf98d7a3edc0f.png)
 
 ## まだ試せていないもの
@@ -523,11 +611,11 @@ if (import.meta.main) {
 
 ## おわりに
 
-Claude Code のスキルは、「AI が状況を判断し、必要なツールを自律的に選択する」という今後の AI による開発の理想を体現した良い仕組みです。しかし現実には、セマンティック類似度という確率的な困難に阻まれ、私たちが期待するほどの「よしなにやってくれる」ようにはまだできていません。
+Claude Code のスキルは、「AI が状況を判断し、必要なツールを自律的に選択する」という今後の AI による開発の理想を体現した良い仕組みです。しかし現実には、Claude の推論による判定という不確実性により、私たちが期待するほどの「よしなにやってくれる」ようにはまだできていません。
 
 今回紹介した UserPromptSubmit Hooks による解決策は、ある意味で AI の自律性を否定し、人間が強制的にレールを敷くアプローチです。
 「AI を楽に使うために、人間が裏で必死にお膳立てをする」という状況は、楽にしようとした結果、逆に泥臭いハックになってしまったという皮肉な状況です。
-ですが私はこの「**発展途上の技術をどのように攻略していくか**」試行錯誤するのが意外と好きです。セマンティック類似度の不確実性をキーワードマッチングで補うという、ベストな解決策ではないですが、少なくとも確実に動作します。
+ですが私はこの「**発展途上の技術をどのように攻略していくか**」試行錯誤するのが意外と好きです。Claude の推論判定の不確実性をキーワードマッチングで補うという、ベストな解決策ではないですが、少なくとも確実に動作します。
 
 いずれモデルの推論能力が飛躍的に向上すれば、このハックは不要になるでしょう。それまでの間、この記事で紹介した方法が、同じもどかしさを感じている方の助けになれば嬉しいです。
 
