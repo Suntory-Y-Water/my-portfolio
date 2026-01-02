@@ -1,0 +1,147 @@
+---
+import DynamicPageBuilder from '@/components/feature/diagram/dynamic-page-builder';
+import type { ArticleData } from '@/types/diagram';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const ARTICLE_DEMO_DATA = {
+  meta: {
+    id: 'claude-code-dynamic-skill-loading',
+    title: 'Claude Codeへ「スキルを使って」と言うのに疲れたあなたへ',
+  },
+  content: [
+    {
+      id: 'section-1',
+      type: 'hero',
+      date: '2025/12/30',
+      title: 'Claude Codeへ「スキルを使って」と言うのに疲れたあなたへ',
+      subtitle:
+        'Agents Skillsは便利だが、毎回「スキルを使って」と伝えるのは面倒。UserPromptSubmit Hooksで確実に起動させる方法を解説します。',
+    },
+    {
+      id: 'section-2',
+      type: 'problem',
+      title: 'なぜスキルは実行されないのか',
+      introText:
+        'Agents Skillsは素晴らしい仕組みですが、Claudeの推論による実行判定には限界があります。自然な指示では、descriptionに含まれていてもスキルが起動しないことがあります。',
+      cards: [
+        {
+          icon: 'alert',
+          title: 'Claudeの推論に依存',
+          subtitle: 'Model-invokedの限界',
+          description:
+            'スキルはClaude自身が判断して起動。descriptionを見落とす場合や「自力で解決しよう」とする場合がある。',
+          isHighlight: true,
+        },
+        {
+          icon: 'search',
+          title: 'descriptionの改善に限界',
+          subtitle: '1024文字の制約',
+          description:
+            'キーワードを増やしても改善しない。「ボタンクリック」という自然な指示には「Playwright」というキーワードが含まれない。',
+        },
+        {
+          icon: 'message',
+          title: '毎回の明示指示が必要',
+          subtitle: '手動起動の煩わしさ',
+          description:
+            '「スキルを使って」と明言すれば起動する。しかし、毎回入力するのは面倒。自動化できないだろうか？',
+        },
+      ],
+      summaryTitle: 'descriptionだけでは確実な実行を保証できない',
+      summaryText:
+        'LLMの推論も万能ではありません。コンテキストウィンドウ内には会話履歴やシステム指示など大量の情報が存在し、短いdescriptionがClaudeの注意を引けない場合があります。',
+    },
+    {
+      id: 'section-transition-1',
+      type: 'transition',
+    },
+    {
+      id: 'section-3',
+      type: 'core_message',
+      title: 'UserPromptSubmit Hooksによる解決',
+      mainMessage:
+        'セマンティック類似度に頼らず、確実にスキルを起動させる方法があります。UserPromptSubmit Hooksを使い、キーワードマッチングで自動的にスキル起動指示を注入します。',
+      comparisons: [
+        {
+          icon: 'alert',
+          title: 'Model-invokedの課題',
+          text: '・Claudeの推論に依存・descriptionを見落とす可能性・自然な指示では起動しないことも',
+          isGood: false,
+        },
+        {
+          icon: 'zap',
+          title: 'Hooksによる解決',
+          text: '・キーワードマッチングで確実に起動・「git」「コミット」等で自動判定・明示指示不要で楽に使える',
+          isGood: true,
+        },
+      ],
+      coreHighlight: {
+        title: 'AIの自律性を補う確実なアプローチ',
+        text: 'Claudeの推論による判定の不確実性をキーワードマッチングで補う。発展途上の技術を攻略する試行錯誤の一例です。',
+      },
+    },
+    {
+      id: 'section-4',
+      type: 'steps',
+      title: '実装の3ステップ',
+      introText:
+        'Bunを使ってUserPromptSubmit Hooksを実装します。設定ファイルでキーワードを定義し、自動的にスキルを起動させましょう。',
+      steps: [
+        {
+          number: 1,
+          title: '設定ファイルの準備',
+          text: 'スキル名とトリガーキーワードを定義します。',
+          detailTitle: 'context-skills.yml',
+          details: [
+            'スキル名(name)を記載',
+            '必須キーワード(required)を設定',
+            '任意キーワード(any)をリストで定義',
+          ],
+        },
+        {
+          number: 2,
+          title: 'Hooksロジックの実装',
+          text: 'キーワードマッチング判定とプロンプト注入処理を実装します。',
+          detailText:
+            'プロンプト内に必須キーワードと任意キーワードが含まれるか判定。マッチしたらスキル起動指示を注入します。',
+        },
+        {
+          number: 3,
+          title: 'settings.jsonへ登録',
+          text: 'UserPromptSubmitにHooksコマンドを登録します。',
+          detailText:
+            '「bun run --silent -i.claude/hooks/dynamic-context-skill-loader.ts」を登録すれば完了です。',
+        },
+      ],
+    },
+    {
+      id: 'section-6',
+      type: 'action',
+      title: '今すぐ実装しよう',
+      mainText:
+        'この解決策はPoCレベルですが、確実に動作します。「スキルを使って」と毎回言う煩わしさから解放されましょう。',
+      actionStepsTitle: '実装のポイント',
+      actionSteps: [
+        {
+          title: '1. Bunのインストールと初期設定',
+          description:
+            'curl -fsSL https://bun.sh/install | bashでインストール後、.claudeディレクトリでbun initを実行。',
+        },
+        {
+          title: '2. 依存関係のインストール',
+          description:
+            'cc-hooks-tsとvalibotをインストール。型安全にHooksを実装できます。',
+        },
+      ],
+      pointText:
+        'キーワードマッチングの調整や複数スキル競合などの課題は残っています。ファイルパターンマッチングとの組み合わせなど、今後の改善余地があります。',
+      footerText: '発展途上の技術を攻略していこう',
+      subFooterText: 'Sui Tech Blog',
+    },
+  ],
+} as const satisfies ArticleData;
+---
+
+<BaseLayout title={ARTICLE_DEMO_DATA.meta.title}>
+  <DynamicPageBuilder data={ARTICLE_DEMO_DATA} />
+</BaseLayout>
