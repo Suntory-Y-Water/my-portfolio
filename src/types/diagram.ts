@@ -1,3 +1,24 @@
+import type { z } from 'astro:content';
+import type {
+  ActionSectionSchema,
+  ActionStepSchema,
+  ComparisonItemSchema,
+  CoreMessageSectionSchema,
+  DiagramSectionSchema,
+  FlowChartSectionSchema,
+  FlowItemSchema,
+  HeroSectionSchema,
+  ListStepItemSchema,
+  ListStepsSectionSchema,
+  ProblemCardSchema,
+  ProblemSectionSchema,
+  ScoreComparisonSectionSchema,
+  ScoreItemSchema,
+  StepItemSchema,
+  StepsSectionSchema,
+  TransitionSectionSchema,
+} from '../content.config.ts';
+
 export type IconName =
   | 'alert'
   | 'check'
@@ -25,161 +46,29 @@ export type SectionType =
   | 'list_steps'
   | 'flow_chart';
 
-export type BaseSection = {
-  id: string;
-  type: SectionType;
-};
+// 各セクション型を個別スキーマから直接生成
+export type HeroSectionData = z.infer<typeof HeroSectionSchema>;
+export type ProblemSectionData = z.infer<typeof ProblemSectionSchema>;
+export type CoreMessageSectionData = z.infer<typeof CoreMessageSectionSchema>;
+export type StepsSectionData = z.infer<typeof StepsSectionSchema>;
+export type ActionSectionData = z.infer<typeof ActionSectionSchema>;
+export type TransitionSectionData = z.infer<typeof TransitionSectionSchema>;
+export type ScoreComparisonSectionData = z.infer<
+  typeof ScoreComparisonSectionSchema
+>;
+export type ListStepsSectionData = z.infer<typeof ListStepsSectionSchema>;
+export type FlowChartSectionData = z.infer<typeof FlowChartSectionSchema>;
 
-export type HeroSectionData = BaseSection & {
-  type: 'hero';
-  date: string;
-  title: string;
-  subtitle: string;
-  imageUrl?: string;
-};
-
-export type ProblemCard = {
-  icon: IconName;
-  title: string;
-  subtitle: string;
-  description: string;
-  isHighlight?: boolean;
-  accentColor?: ColorKey;
-};
-
-export type ProblemSectionData = BaseSection & {
-  type: 'problem';
-  title: string;
-  introText: string;
-  cards: ProblemCard[];
-  summaryTitle?: string;
-  summaryText?: string;
-};
-
-export type ComparisonItem = {
-  icon: IconName;
-  title: string;
-  text: string;
-  isGood: boolean;
-};
-
-export type CoreMessageSectionData = BaseSection & {
-  type: 'core_message';
-  title: string;
-  mainMessage: string;
-  comparisons?: ComparisonItem[];
-  coreHighlight: {
-    title: string;
-    text: string;
-    accentColor?: ColorKey;
-  };
-};
-
-export type StepItem = {
-  number: number;
-  title: string;
-  text: string;
-  detailTitle?: string;
-  details?: string[];
-  detailText?: string;
-};
-
-export type StepsSectionData = BaseSection & {
-  type: 'steps';
-  title: string;
-  introText: string;
-  steps: StepItem[];
-};
-
-export type ActionStep = {
-  title: string;
-  description: string;
-};
-
-export type ActionSectionData = BaseSection & {
-  type: 'action';
-  title: string;
-  mainText: string;
-  actionStepsTitle: string;
-  actionSteps: ActionStep[];
-  pointText: string;
-  footerText: string;
-  subFooterText: string;
-  accentColor?: ColorKey;
-};
-
-export type TransitionSectionData = BaseSection & {
-  type: 'transition';
-};
-
-export type ScoreItem = {
-  title: string;
-  value: string | number;
-  unit: string;
-  barPercentage: number;
-  description?: string;
-  accentColor?: ColorKey;
-};
-
-export type ScoreComparisonSectionData = BaseSection & {
-  type: 'score_comparison';
-  title: string;
-  introText?: string;
-  scores: ScoreItem[];
-};
-
-export type ListStepItem = {
-  title: string;
-  subtitle?: string;
-  description: string;
-  badge: string;
-  badgeColor?: string;
-};
-
-export type ListStepsSectionData = BaseSection & {
-  type: 'list_steps';
-  title: string;
-  introText?: string;
-  steps: ListStepItem[];
-  summaryTitle?: string;
-  summaryText?: string;
-};
-
-// 3. Flow Chart
-export type FlowItem = {
-  label: string;
-  subLabel?: string;
-  highlight?: boolean;
-  accentColor?: ColorKey;
-};
-
-export type FlowChartSectionData = BaseSection & {
-  type: 'flow_chart';
-  title: string;
-  introText?: string;
-  flows: FlowItem[];
-};
+export type ProblemCard = z.infer<typeof ProblemCardSchema>;
+export type ComparisonItem = z.infer<typeof ComparisonItemSchema>;
+export type StepItem = z.infer<typeof StepItemSchema>;
+export type ActionStep = z.infer<typeof ActionStepSchema>;
+export type ScoreItem = z.infer<typeof ScoreItemSchema>;
+export type ListStepItem = z.infer<typeof ListStepItemSchema>;
+export type FlowItem = z.infer<typeof FlowItemSchema>;
 
 // Union Type for all sections
-export type ArticleSection =
-  | HeroSectionData
-  | ProblemSectionData
-  | CoreMessageSectionData
-  | StepsSectionData
-  | ActionSectionData
-  | TransitionSectionData
-  | ScoreComparisonSectionData
-  | ListStepsSectionData
-  | FlowChartSectionData;
-
-// Article Data Structure
-export type ArticleData = {
-  meta: {
-    id: string;
-    title: string;
-  };
-  content: ArticleSection[];
-};
+export type ArticleSection = z.infer<typeof DiagramSectionSchema>;
 
 export const COLORS = {
   GOLD: '#D99834',
