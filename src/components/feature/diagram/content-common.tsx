@@ -1,6 +1,7 @@
 import {
   AlertCircle,
   ArrowDown,
+  ArrowRight,
   CheckCircle,
   Flag,
   HelpCircle,
@@ -14,10 +15,6 @@ import {
 } from 'lucide-react';
 import React from 'react';
 import type { IconName } from '@/types/diagram';
-
-// ==========================================
-// 🛠 HELPER FUNCTIONS
-// ==========================================
 
 function getIconComponent(name: IconName): React.ElementType {
   const icons: Record<string, React.ElementType> = {
@@ -33,13 +30,10 @@ function getIconComponent(name: IconName): React.ElementType {
     search: Search,
     pen: PenTool,
     flag: Flag,
+    arrowRight: ArrowRight,
   };
   return icons[name] || HelpCircle;
 }
-
-// ==========================================
-// 🧩 UI COMPONENTS
-// ==========================================
 
 type IconProps = {
   name: IconName;

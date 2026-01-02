@@ -1,8 +1,11 @@
 import type { ArticleData } from '@/types/diagram';
 import { ActionSection } from './action-section';
 import { CoreMessageSection } from './core-message-section';
+import { FlowChartSection } from './flow-chart-section';
 import { HeroSection } from './hero-section';
+import { ListStepsSection } from './list-steps-section';
 import { ProblemSection } from './problem-section';
+import { ScoreComparisonSection } from './score-comparison-section';
 import { StepsSection } from './steps-section';
 import { TransitionSection } from './transition-section';
 
@@ -27,6 +30,12 @@ export default function DynamicPageBuilder({ data }: DynamicPageBuilderProps) {
             return <StepsSection key={section.id} data={section} />;
           case 'action':
             return <ActionSection key={section.id} data={section} />;
+          case 'score_comparison':
+            return <ScoreComparisonSection key={section.id} data={section} />;
+          case 'list_steps':
+            return <ListStepsSection key={section.id} data={section} />;
+          case 'flow_chart':
+            return <FlowChartSection key={section.id} data={section} />;
           default:
             return null;
         }

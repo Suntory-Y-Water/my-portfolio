@@ -60,7 +60,7 @@ export function CoreMessageSection({ data }: { data: CoreMessageSectionData }) {
 
           <div className='text-primary-foreground p-6 sm:p-8 rounded-lg bg-primary'>
             <p className='text-xl sm:text-2xl lg:text-3xl font-bold leading-relaxed mb-4'>
-              <span className='text-primary-foreground/80'>
+              <span className='text-primary-foreground'>
                 {data.coreHighlight.title}
               </span>
             </p>

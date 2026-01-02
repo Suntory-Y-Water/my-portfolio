@@ -10,7 +10,8 @@ export type IconName =
   | 'users'
   | 'search'
   | 'pen'
-  | 'flag';
+  | 'flag'
+  | 'arrowRight';
 
 export type SectionType =
   | 'hero'
@@ -19,7 +20,10 @@ export type SectionType =
   | 'steps'
   | 'message'
   | 'action'
-  | 'transition';
+  | 'transition'
+  | 'score_comparison'
+  | 'list_steps'
+  | 'flow_chart';
 
 export type BaseSection = {
   id: string;
@@ -105,6 +109,56 @@ export type TransitionSectionData = BaseSection & {
   type: 'transition';
 };
 
+export type ScoreItem = {
+  title: string;
+  value: string | number;
+  unit: string;
+  barPercentage: number;
+  barColor?: string;
+  valueColor?: string;
+  description?: string;
+};
+
+export type ScoreComparisonSectionData = BaseSection & {
+  type: 'score_comparison';
+  title: string;
+  introText?: string;
+  scores: ScoreItem[];
+};
+
+export type ListStepItem = {
+  title: string;
+  subtitle?: string;
+  description: string;
+  badge: string;
+  badgeColor?: string;
+};
+
+export type ListStepsSectionData = BaseSection & {
+  type: 'list_steps';
+  title: string;
+  introText?: string;
+  steps: ListStepItem[];
+  summaryTitle?: string;
+  summaryText?: string;
+};
+
+// 3. Flow Chart
+export type FlowItem = {
+  label: string;
+  subLabel?: string;
+  highlight?: boolean;
+  borderColor?: string;
+  bgColor?: string;
+};
+
+export type FlowChartSectionData = BaseSection & {
+  type: 'flow_chart';
+  title: string;
+  introText?: string;
+  flows: FlowItem[];
+};
+
 // Union Type for all sections
 export type ArticleSection =
   | HeroSectionData
@@ -112,7 +166,10 @@ export type ArticleSection =
   | CoreMessageSectionData
   | StepsSectionData
   | ActionSectionData
-  | TransitionSectionData;
+  | TransitionSectionData
+  | ScoreComparisonSectionData
+  | ListStepsSectionData
+  | FlowChartSectionData;
 
 // Article Data Structure
 export type ArticleData = {
