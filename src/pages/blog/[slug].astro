@@ -60,17 +60,20 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
   headline: post.data.title,
-  datePublished: post.data.date,
-  dateModified: post.data.date,
+  datePublished: post.data.date.toISOString(),
+  ...(post.data.modified_time && {
+    dateModified: post.data.modified_time.toISOString(),
+  }),
   description: post.data.description,
   image: absoluteUrl(`/blog/ogp/${post.id}.png`),
+  url: absoluteUrl(`/blog/${post.id}`),
   author: { '@type': 'Person', name: siteConfig.name, url: siteConfig.url },
   publisher: {
-    '@type': 'Person',
+    '@type': 'Organization',
     name: siteConfig.name,
-    image: {
+    logo: {
       '@type': 'ImageObject',
-      url: absoluteUrl(`/blog/ogp/${post.id}.png`),
+      url: absoluteUrl('/opengraph-image.png'),
     },
   },
   mainEntityOfPage: {
@@ -95,6 +98,14 @@ const compiledHtml = await compileMarkdown({ source: post.body });
   description={post.data.description}
   ogImage={absoluteUrl(`/blog/ogp/${post.id}.png`)}
   canonicalUrl={canonicalUrl}
+  ogType='article'
+  article={{
+    publishedTime: post.data.date.toISOString(),
+    modifiedTime: post.data.modified_time?.toISOString(),
+    author: siteConfig.name,
+    section: post.data.tags?.[0],
+    tags: post.data.tags,
+  }}
 >
   <script
     type='application/ld+json'

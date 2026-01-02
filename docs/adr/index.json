@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-01-01T14:45:00+09:00",
+  "last_updated": "2026-01-02T00:00:00+09:00",
   "adrs": [
     {
       "id": "ADR-0001",
@@ -20,6 +20,30 @@
         "Documentation"
       ],
       "file_path": "docs/adr/decisions/0001-implement-dynamic-skills-and-adr-manager.json"
+    },
+    {
+      "id": "ADR-0002",
+      "title": "Implement SEO Improvements for Blog Articles",
+      "status": "accepted",
+      "timestamp": "2026-01-02T00:00:00+09:00",
+      "tags": ["seo", "opengraph", "schema-org", "structured-data", "metadata"],
+      "keywords": [
+        "SEO optimization",
+        "Open Graph Protocol",
+        "Schema.org",
+        "article:published_time",
+        "article:modified_time",
+        "dateModified",
+        "JSON-LD",
+        "structured data",
+        "Google Discover",
+        "rich preview"
+      ],
+      "affected_components": [
+        "BaseLayout",
+        "BlogPostPage"
+      ],
+      "file_path": "docs/adr/decisions/0002-implement-seo-improvements-for-blog-articles.json"
     }
   ],
   "indices": {
@@ -27,15 +51,22 @@
       "infrastructure": ["ADR-0001"],
       "agent-config": ["ADR-0001"],
       "adr": ["ADR-0001"],
-      "skills": ["ADR-0001"]
+      "skills": ["ADR-0001"],
+      "seo": ["ADR-0002"],
+      "opengraph": ["ADR-0002"],
+      "schema-org": ["ADR-0002"],
+      "structured-data": ["ADR-0002"],
+      "metadata": ["ADR-0002"]
     },
     "by_component": {
       "Agent Configuration": ["ADR-0001"],
       "Skill System": ["ADR-0001"],
-      "Documentation": ["ADR-0001"]
+      "Documentation": ["ADR-0001"],
+      "BaseLayout": ["ADR-0002"],
+      "BlogPostPage": ["ADR-0002"]
     },
     "by_status": {
-      "accepted": ["ADR-0001"]
+      "accepted": ["ADR-0001", "ADR-0002"]
     }
   }
 }

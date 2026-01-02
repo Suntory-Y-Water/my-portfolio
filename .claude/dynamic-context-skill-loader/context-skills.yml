@@ -22,7 +22,7 @@ skills:
     description: Astro 5.x静的ブログ構築のベストプラクティス (Islands Architecture, Content Layer API, 画像最適化, SEOなど)
     trigger:
       required: 'astro'
-      any: ['blog', 'ブログ', 'ssg', 'islands', 'content layer', 'image', 'seo']
+      any: ['ベストプラクティス', 'ベスト・プラクティス']
   - name: playwright-best-practices
     description: Playwright automation best practices for web scraping and testing (Element operations, waiting strategies, locators)
     trigger:
