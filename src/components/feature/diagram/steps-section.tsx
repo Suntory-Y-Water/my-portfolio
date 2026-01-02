@@ -68,7 +68,7 @@ export function StepsSection({ data }: { data: StepsSectionData }) {
                             {step.details.map((detail, k) => (
                               <div key={k} className='flex items-start'>
                                 <span
-                                  className={`w-2 h-2 rounded-full mr-3 mt-2 shrink-0 ${isHighlight ? 'bg-background' : 'bg-accent'}`}
+                                  className={`w-2 h-2 rounded-full mr-3 mt-2 shrink-0 ${isHighlight ? 'bg-background' : 'bg-primary'}`}
                                 ></span>
                                 <p
                                   className={`text-sm sm:text-base ${isHighlight ? 'text-primary-foreground/90' : 'text-foreground'}`}
