@@ -27,7 +27,6 @@ export const HeroSectionSchema = z.object({
   date: z.string(),
   title: z.string(),
   subtitle: z.string(),
-  imageUrl: z.string().optional(),
 });
 
 // 2. ProblemSection
