@@ -11,6 +11,94 @@ tags:
   - GAS
   - GoogleAppScript
   - clasp
+diagram:
+  - type: hero
+    date: "2025/11/03"
+    title: "GASを使うと社内だけで使えるWebサイトが簡単に作れるの知ってました？"
+    subtitle: "claspとTypeScriptを活用してGoogle Drive検索アプリを構築し、モダンな開発環境を実現する"
+  - type: transition
+  - type: problem
+    title: "従来のGAS開発における課題"
+    introText: "ブラウザ上のエディタでの開発は手軽ですが、本格的なアプリ開発には不便な点もあります。"
+    cards:
+      - icon: pen
+        title: "エディタの制約"
+        subtitle: "使い慣れた環境が使えない"
+        description: "ブラウザ上のエディタでは拡張機能やショートカットが使えず不便。"
+      - icon: alert
+        title: "型安全性の欠如"
+        subtitle: "実行時エラーのリスク"
+        description: "JavaScriptでは型がないため、開発時にエラーに気づきにくい。"
+        isHighlight: true
+        accentColor: RED
+      - icon: flag
+        title: "バージョン管理"
+        subtitle: "Git管理がしにくい"
+        description: "コードの履歴管理やチーム開発での共有が難しい。"
+  - type: transition
+  - type: core_message
+    title: "claspでモダンな開発環境へ"
+    mainMessage: "claspを使えばVS Codeで開発でき、TypeScriptによる型安全性とGitによるバージョン管理の恩恵を受けられます。"
+    comparisons:
+      - icon: alert
+        title: "従来の開発"
+        text: "ブラウザエディタで開発し、型補完がなく生産性が低い。"
+        isGood: false
+      - icon: zap
+        title: "clasp導入後"
+        text: "VS CodeとTSを活用し、AI支援も受けられる快適な環境。"
+        isGood: true
+    coreHighlight:
+      title: "社内ツールに最適"
+      text: "Google Workspaceを利用していれば、追加インフラなしで社内限定公開が可能。"
+      accentColor: GOLD
+  - type: steps
+    title: "Webアプリ構築の4ステップ"
+    introText: "テンプレートを使用して環境を整え、実装からデプロイまで進めていきます。"
+    steps:
+      - number: 1
+        title: "環境セットアップ"
+        text: "テンプレートからプロジェクトを作成しログイン。"
+        detailText: "ez-claspを使用し、pnpm installとclasp loginを実行して認証します。"
+      - number: 2
+        title: "アプリの実装"
+        text: "Drive検索機能とHTML画面を作成します。"
+        detailText: "DriveAppで検索するサービスと、結果を表示するHTML/CSSを実装します。"
+      - number: 3
+        title: "デプロイと設定"
+        text: "GASへプッシュしWebアプリとして公開。"
+        detailText: "clasp pushでコードを反映し、公開範囲をドメイン内に設定してデプロイ。"
+      - number: 4
+        title: "動作確認"
+        text: "OAuth認証を行い検索機能をテスト。"
+        detailText: "初回アクセス時に権限を承認し、実際にファイルが検索できるか確認します。"
+  - type: list_steps
+    title: "社内公開時のセキュリティ対策"
+    introText: "社内ツールであってもセキュリティへの配慮は不可欠です。以下の3点を確認しましょう。"
+    steps:
+      - badge: "1"
+        title: "部門との連携"
+        description: "情報セキュリティ部門に相談し、権限設定やインシデント対応について助言を仰ぎます。"
+      - badge: "2"
+        title: "最小権限の原則"
+        description: "必要な権限のみを設定します。今回は読み取り専用のdrive.readonlyを使用します。"
+      - badge: "3"
+        title: "公開範囲の確認"
+        description: "デプロイ時に「自分のみ」や「ドメイン内」を正しく選択し、全体公開を防ぎます。"
+  - type: transition
+  - type: action
+    title: "GASで業務効率化を始めよう"
+    mainText: "claspとTypeScriptの環境が整えば、GmailやCalendarと連携した便利なツールも自由に作成できます。"
+    actionStepsTitle: "アイデアの例"
+    actionSteps:
+      - title: "Gmail連携"
+        description: "特定のラベルが付いたメールの添付ファイルを自動でDriveに保存するツール。"
+      - title: "Sheets連携"
+        description: "スプレッドシートを簡易データベースとして利用する備品管理アプリ。"
+    pointText: "日々の業務の「ちょっとした不便」を解決するアプリを、自らの手で作り出しましょう。"
+    footerText: "あなたの「あったらいいな」を実現へ"
+    subFooterText: "sui Tech Blog"
+    accentColor: GOLD
 ---
 
 ## はじめに
