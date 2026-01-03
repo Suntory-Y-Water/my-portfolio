@@ -9,6 +9,97 @@ icon_url: /icons/recycling_symbol_flat.svg
 tags:
   - Renovate
   - GitHubActions
+diagram:
+  - type: hero
+    date: "2025/12/25"
+    title: "Renovateで作る「頑張らない」運用のすすめ"
+    subtitle: "依存関係更新の辛さから解放され、サプライチェーン攻撃も防ぐ安全な自動化戦略"
+  - type: problem
+    title: "手動更新が引き起こす3つの「破綻」"
+    introText: "「やらなければ」という思いが認知負荷を高め、組織的なリスクを招きます。"
+    cards:
+      - icon: alert
+        title: "心理的負担"
+        subtitle: "認知負荷の増大"
+        description: "「更新しなきゃ」という意識が脳のメモリを消費し続ける。"
+        isHighlight: true
+        accentColor: RED
+      - icon: users
+        title: "属人化リスク"
+        subtitle: "担当者依存の運用"
+        description: "特定の人しか手順を知らず、不在時に対応が停止する。"
+      - icon: alert
+        title: "脆弱性の放置"
+        subtitle: "セキュリティリスク"
+        description: "面倒さが勝ち、既知の脆弱性をそのままにしてしまう。"
+    summaryTitle: "運用の限界"
+    summaryText: "人の意志力に頼る運用は、遅かれ早かれ必ず破綻します。"
+  - type: transition
+  - type: core_message
+    title: "「判断」と「作業」を分離する"
+    mainMessage: "人間はルールを決めるだけ。実際の更新作業はすべて機械に任せることで、感情や負荷を排除します。"
+    comparisons:
+      - icon: alert
+        title: "毎回手動で判断"
+        text: "都度リスク評価し疲弊する"
+        isGood: false
+      - icon: zap
+        title: "ルールで自動化"
+        text: "決めた規則通りに淡々と処理"
+        isGood: true
+    coreHighlight:
+      title: "自動化の鉄則"
+      text: "悩む要素を最初から対象外にし、残りを機械的に回す。"
+      accentColor: GOLD
+  - type: flow_chart
+    title: "安全性を担保する「3日間の待機」"
+    introText: "最新版を即座に入れないことで、サプライチェーン攻撃のリスクを回避します。"
+    flows:
+      - label: "New Ver公開"
+        subLabel: "悪意あるコードの可能性"
+      - label: "3日間の待機"
+        subLabel: "コミュニティ検証期間"
+        highlight: true
+        accentColor: GOLD
+      - label: "CI自動テスト"
+        subLabel: "動作確認とビルド"
+      - label: "自動マージ"
+        subLabel: "本番への反映"
+  - type: list_steps
+    title: "堅牢な運用を支える3つの設定"
+    introText: "Renovateの設定において、特に重要なポイントは以下の3点です。"
+    steps:
+      - badge: "1"
+        title: "クールダウン期間"
+        subtitle: "minimumReleaseAge"
+        description: "公開後すぐには取り込まず、マルウェア混入リスクを低減させる。"
+        badgeColor: "#333"
+      - badge: "2"
+        title: "メジャーVer除外"
+        subtitle: "破壊的変更の回避"
+        description: "判断が必要な更新は自動化せず、安定性を最優先にする。"
+        badgeColor: "#333"
+      - badge: "3"
+        title: "緊急時CIフロー"
+        subtitle: "属人化の排除"
+        description: "手動作業を禁止し、誰でもボタン一つで安全に更新可能にする。"
+        badgeColor: "#333"
+  - type: transition
+  - type: action
+    title: "まずは小さな一歩から"
+    mainText: "すべてを一気に解決する必要はありません。個人プロジェクトから始めてみましょう。"
+    actionStepsTitle: "導入ステップ"
+    actionSteps:
+      - title: "Dependabot導入"
+        description: "まずは自動更新を体験してみる"
+      - title: "Renovateへ移行"
+        description: "柔軟な設定で課題を解決する"
+      - title: "チームへの展開"
+        description: "組織全体の負荷を下げる"
+    pointText: "日常的に更新され続ける状態こそが、最強のセキュリティ対策です。"
+    footerText: "自動化で、開発に安心と余裕を。"
+    subFooterText: "sui Tech Blog"
+    accentColor: GOLD
 selfAssessment:
   quizzes:
     - question: "Renovateの「クールダウン期間(minimum release age)」を設定する主な目的は何ですか？"
