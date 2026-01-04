@@ -9,12 +9,4 @@
   "vars": {
     "PUBLIC_APP_URL": "https://suntory-n-water.com"
   },
-  "env": {
-    "preview": {
-      "name": "sui-tech-blog-preview",
-      "vars": {
-        "PUBLIC_APP_URL": "https://suntory-n-water.com"
-      }
-    }
-  }
 }

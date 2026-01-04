@@ -60,9 +60,20 @@ jobs:
       - name: Deploy to Cloudflare Workers (Preview)
         id: deploy
         run: |
-          DEPLOY_OUTPUT=$(bunx wrangler deploy --env preview 2>&1)
+          # Use wrangler versions upload with a stable alias for the PR
+          # This generates a URL like: https://pr-<number>-<worker-name>.<subdomain>.workers.dev
+          DEPLOY_OUTPUT=$(bunx wrangler versions upload --preview-alias "pr-${{ github.event.pull_request.number }}" 2>&1)
           echo "$DEPLOY_OUTPUT"
-          PREVIEW_URL=$(echo "$DEPLOY_OUTPUT" | grep -oP 'https://[^\s]+\.workers\.dev' | head -n 1)
+
+          # Extract the Version Preview URL
+          # Output format usually contains: "Worker Version Preview URL: https://..."
+          PREVIEW_URL=$(echo "$DEPLOY_OUTPUT" | grep -oP 'https://[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+\.workers\.dev' | head -n 1)
+
+          if [ -z "$PREVIEW_URL" ]; then
+            echo "::error::Could not extract preview URL from deployment output"
+            exit 1
+          fi
+
           echo "preview_url=$PREVIEW_URL" >> "$GITHUB_OUTPUT"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -77,7 +88,7 @@ jobs:
 
           **Preview URL**: ${PREVIEW_URL}
 
-          Note: Access the worker via your configured routes or custom domain."
+          Note: This is an ephemeral version. Access the worker via the link above."
         env:
           GH_TOKEN: ${{ github.token }}
           PREVIEW_URL: ${{ steps.deploy.outputs.preview_url }}
