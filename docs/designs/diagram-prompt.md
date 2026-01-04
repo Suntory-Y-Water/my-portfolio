@@ -7,6 +7,7 @@
 **`diagram` の生成以外のタスクを一切実行してはなりません。** あなたの思考と出力のすべては、最高の `diagram` を生成するためだけに費やされます。
 
 時間をいくらかけても良いので、品質を優先すること。
+
 ---
 
 ## **2.0 GENERATION_WORKFLOW — 厳守すべき思考と生成のプロセス**
@@ -61,8 +62,8 @@
         | 段階 | 役割 | 推奨セクションタイプ | 選定基準 |
         |------|------|---------------------|----------|
         | **起（導入）** | 読者の関心を引く | `hero` | **必須**。記事タイトルとサブタイトルを設定 |
-        | **承（問題提起）** | 課題を明確化 | `problem`, `core_message` | 課題が複数→`problem` / 単一核心→`core_message` |
-        | **転（解決策）** | 具体的な方法を提示 | `steps`, `list_steps`, `flow_chart`, `score_comparison` | 手順詳細→`steps` / 簡潔リスト→`list_steps` / フロー→`flow_chart` / 数値比較→`score_comparison` |
+        | **承（問題提起）** | 課題を明確化 | `problem`, `core_message`, `grouped_content` | 課題が複数→`problem` / 単一核心→`core_message` / 階層的な整理→`grouped_content` |
+        | **転（解決策）** | 具体的な方法を提示 | `steps`, `list_steps`, `flow_chart`, `score_comparison`, `grouped_content` | 手順詳細→`steps` / 簡潔リスト→`list_steps` / フロー→`flow_chart` / 数値比較→`score_comparison` / 階層的な情報→`grouped_content` |
         | **結（まとめ）** | 行動を促す | `action` | **必須**。読者へのCTAを設定 |
         | **区切り** | 段階間の視覚的区切り | `transition` | 起→承、承→転、転→結の間に任意で挿入 |
         
@@ -76,6 +77,7 @@
         - `hero`（必須）
     - **承（問題提起）**: 1〜3セクション
         - `problem`（複数課題）または `core_message`（単一核心・比較対比）
+        - `grouped_content`（階層的な情報の整理・補足コラム）
         - 必要に応じて `transition` を前後に挿入
     - **転（解決策）**: 2〜5セクション
         - `steps`（詳細な手順）
@@ -83,6 +85,7 @@
         - `flow_chart`（プロセスフロー）
         - `score_comparison`（数値比較）
         - `core_message`（解決策の核心）
+        - `grouped_content`（階層的な情報の整理・概念の深掘り）
         - 必要に応じて `transition` を挿入
     - **結（まとめ）**: 1セクション
         - `action`（必須）
@@ -122,12 +125,13 @@
 
 ```yaml
 # IconName（アイコン名）
-# 以下のいずれかを使用:
-# alert, check, help, arrow, lightbulb, zap, message, target, users, search, pen, flag, arrowRight
+# Lucide Reactのアイコン名をキャメルケース（小文字始まり）で指定
+# 例: alert, checkCircle, arrowRight
+# アイコン一覧: https://lucide.dev/icons/
+# 未実装のアイコンはビルドエラーになりますが開発者が対応します
 
 # ColorKey（アクセントカラー）
-# 以下のいずれかを使用:
-# GOLD, RED
+# GOLD または RED
 ```
 
 **セクションタイプ別定義**
@@ -137,28 +141,55 @@
 
 ```yaml
 - type: hero
-  date: "YYYY/MM/DD"        # 必須: 記事の公開日付と同じ（文字列）
-  title: "..."              # 必須: 記事のタイトルと同じ（全角40文字以内）
+  date: "YYYY/MM/DD"        # 必須: 【重要】記事の公開日付と同じ（文字列）
+  title: "..."              # 必須: 【重要】記事のタイトルと同じ（全角40文字以内）
   subtitle: "..."           # 必須: サブタイトル（全角80文字以内）
 ```
+タイトルと公開日付は、記事の内容と同じ内容を設定する。
+```yaml 
+# 例 元になるタイトルと日付を一言一句同じにする！
+title: "ブログ記事のタイトル"
+date: "2025/01/01"
+- type: hero
+  date: "2025/01/01"        # 必須: 【重要】記事の公開日付と同じ（文字列）
+  title: "ブログ記事のタイトル"              # 必須: 【重要】記事のタイトルと同じ（全角40文字以内）
+```
 
-### **problem（問題セクション）** — 承（問題提起）・複数の課題を提示
+
+### **problem（問題セクション）** — 承/転（問題提起、解決策の提示）・複数の課題を提示解決策の提示
 読者が抱える問題・課題をカード形式で可視化。
+
+**2つのバリアント**:
+- `simple`（デフォルト）: 背景色のみのシンプルな表示
+- `highlight`: 太い枠線付きの強調表示
 
 ```yaml
 - type: problem
-  title: "..."              # 必須: セクションタイトル（全角30文字以内）
-  introText: "..."          # 必須: 導入テキスト（全角100文字以内）
-  cards:                    # 必須: 問題カード配列（2〜4枚）
-    - icon: alert           # 必須: アイコン名
-      title: "..."          # 必須: カードタイトル（全角20文字以内）
-      subtitle: "..."       # 必須: カードサブタイトル（全角25文字以内）
-      description: "..."    # 必須: カード説明（全角60文字以内）
-      isHighlight: true     # 任意: ハイライト表示
-      accentColor: RED      # 任意: アクセントカラー
-  summaryTitle: "..."       # 任意: まとめタイトル
-  summaryText: "..."        # 任意: まとめテキスト
+  variant: simple             # 任意: 'simple'（デフォルト）または 'highlight'
+  icon: alert                 # 任意: セクションアイコン（デフォルト: alert）
+  title: "..."                # 必須: セクションタイトル（全角30文字以内）
+  introText: "..."            # 必須: 導入テキスト（全角100文字以内）
+  cards:                      # 必須: 問題カード配列（2〜4枚）
+    - icon: alert             # 必須: アイコン名
+      title: "..."            # 必須: カードタイトル（全角20文字以内）
+      subtitle: "..."         # 必須: カードサブタイトル（全角25文字以内）
+      description: "..."      # 必須: カード説明（全角60文字以内）
+      isHighlight: true       # 任意: ハイライト表示
+      accentColor: RED        # 任意: アクセントカラー
+  summaryTitle: "..."         # 任意: まとめタイトル
+  summaryText: "..."          # 任意: まとめテキスト
 ```
+
+**バリアント別の使い分け**:
+| バリアント | 用途 | レイアウト |
+|-----------|------|-----------|
+| `simple` | 通常の問題提起 | 背景色のみ |
+| `highlight` | 重要な問題・解決策の強調 | 枠線付き |
+
+**カードレイアウト**:
+- 2枚: 2列表示
+- 3枚: 3列表示
+- 4枚: 2x2グリッド表示
 
 ### **transition（トランジション）** — 起承転結の区切り
 視覚的な区切りを挿入。起→承、承→転、転→結の間に配置。
@@ -170,24 +201,36 @@
 ### **core_message（核心メッセージセクション）** — 承/転・解決策の提示
 記事の核心メッセージと、オプションで比較対比を表示。
 
+**2つのバリアント**:
+- `highlight`（デフォルト）: 太い枠線、COREバッジ付きの強調表示
+- `simple`: 枠線なし、バッジなしのシンプル表示
+
 ```yaml
 - type: core_message
-  title: "..."              # 必須: セクションタイトル（全角30文字以内）
-  mainMessage: "..."        # 必須: メインメッセージ（全角120文字以内）
-  comparisons:              # 任意: 比較項目配列（2項目固定：悪い例→良い例）
-    - icon: alert           # 必須: アイコン名
-      title: "..."          # 必須: 比較タイトル（全角20文字以内）
-      text: "..."           # 必須: 比較テキスト（全角60文字以内）
-      isGood: false         # 必須: 良い例か否か
+  variant: highlight          # 任意: 'highlight'（デフォルト）または 'simple'
+  icon: target                # 任意: タイトル横のアイコン
+  title: "..."                # 必須: セクションタイトル（全角30文字以内）
+  mainMessage: "..."          # 必須: メインメッセージ（全角120文字以内）
+  comparisons:                # 任意: 比較項目配列（2項目固定：悪い例→良い例）
+    - icon: alert             # 必須: アイコン名
+      title: "..."            # 必須: 比較タイトル（全角20文字以内）
+      text: "..."             # 必須: 比較テキスト（全角60文字以内）
+      isGood: false           # 必須: 良い例か否か
     - icon: zap
       title: "..."
       text: "..."
       isGood: true
-  coreHighlight:            # 必須: コアハイライト
-    title: "..."            # 必須: ハイライトタイトル（全角25文字以内）
-    text: "..."             # 必須: ハイライトテキスト（全角80文字以内）
-    accentColor: GOLD       # 任意: アクセントカラー
+  coreHighlight:              # 任意: コアハイライト（highlight版では推奨）
+    title: "..."              # 必須: ハイライトタイトル（全角25文字以内）
+    text: "..."               # 必須: ハイライトテキスト（全角80文字以内）
+    accentColor: GOLD         # 任意: アクセントカラー
 ```
+
+**バリアント別の使い分け**:
+| バリアント | 用途 | coreHighlight |
+|-----------|------|---------------|
+| `highlight` | 記事の最も重要な核心メッセージ | 推奨 |
+| `simple` | 問題提起や導入的なメッセージ、比較カードの提示 | 任意 |
 
 ### **steps（ステップセクション）** — 転（解決策）・詳細な手順説明
 番号付きの詳細なステップを表示。
@@ -280,6 +323,30 @@
       accentColor: GOLD     # 任意: アクセントカラー
 ```
 
+### **grouped_content（グループ化コンテンツセクション）** — 承/転・階層的な情報の整理
+「大分類＞小分類＞カード」のような階層構造を持つ情報や、「概念的なトピックの深掘り」や「本筋の補足となるコラム」に使用。
+カード単体ではなく、意味のまとまり（グループ）ごとに情報を整理したい場合に適している。
+
+```yaml
+- type: grouped_content
+  title: "..."              # 必須: セクションタイトル（全角30文字以内）
+  introText: "..."          # 任意: 導入テキスト
+  icon: lightbulb           # 任意: アイコン名（デフォルト: lightbulb）
+  sectionBgColor: muted     # 任意: セクション背景色（'white' または 'muted'）
+  groups:                   # 必須: グループ配列（1〜3グループ）
+    - title: "..."          # 任意: グループタイトル（全角25文字以内）
+      description: "..."    # 任意: グループ説明（全角80文字以内）
+      bgColor: white        # 任意: グループ背景色（'white' または 'muted'）
+      isHighlight: false    # 任意: グループ強調（枠線色変化）
+      footerText: "..."     # 任意: グループフッターテキスト
+      cards:                # 必須: カード配列（2〜6枚）
+        - title: "..."      # 必須: カードタイトル（全角20文字以内）
+          text: "..."       # 必須: カードテキスト（全角50文字以内）
+          isHighlight: true # 任意: カード強調
+          accentColor: GOLD # 任意: アクセントカラー
+          bgColor: white    # 任意: カード背景色（'white', 'muted', 'gray'）
+```
+
 ---
 
 ## **4.0 COMPOSITION_RULES — 起承転結に基づく構成規則**
@@ -290,9 +357,9 @@
 |------|------|-----------------|----------|------|
 | 1 | 起（導入） | `hero` | **必須** | 必ず最初に配置 |
 | 2 | - | `transition` | 任意 | 起→承の区切り |
-| 3 | 承（問題提起） | `problem` / `core_message` | **必須**（いずれか1つ以上） | 課題の明確化 |
+| 3 | 承（問題提起） | `problem` / `core_message` / `grouped_content` | **必須**（いずれか1つ以上） | 課題の明確化 |
 | 4 | - | `transition` | 任意 | 承→転の区切り |
-| 5 | 転（解決策） | `steps` / `list_steps` / `flow_chart` / `score_comparison` / `core_message` | **必須**（1つ以上） | 具体的な方法の提示 |
+| 5 | 転（解決策） | `steps` / `list_steps` / `flow_chart` / `score_comparison` / `core_message` / `grouped_content` | **必須**（1つ以上） | 具体的な方法の提示 |
 | 6 | - | `transition` | 任意 | 転→結の区切り |
 | 7 | 結（まとめ） | `action` | **必須** | 必ず最後に配置 |
 
@@ -311,32 +378,26 @@
 
 | コンテンツの特徴 | 選択すべきセクションタイプ | 理由 |
 |-----------------|-------------------------|------|
-| 複数の課題・問題点がある | `problem` | カード形式で個別課題を視覚化 |
-| 良い例と悪い例の対比がある | `core_message` with `comparisons` | 比較形式で差異を明確化 |
-| 単一の核心メッセージがある | `core_message` | ハイライト形式で強調 |
+| 複数の課題・問題点がある（通常） | `problem` with `variant: simple` | カード形式で個別課題を視覚化 |
+| 複数の課題・問題点がある（強調） | `problem` with `variant: highlight` | 枚線付きで強調表示 |
+| 良い例と悪い例の対比がある（強調表示） | `core_message` with `variant: highlight` | 比較形式で差異を明確化、COREバッジ付き |
+| 良い例と悪い例の対比がある（導入的） | `core_message` with `variant: simple` | 比較形式、シンプル表示 |
+| 記事の最重要な核心メッセージ | `core_message` with `variant: highlight` | ハイライト形式で強調 |
+| 問題提起や導入的なメッセージ | `core_message` with `variant: simple` | 枠線なしのシンプル表示 |
 | 順序立てた手順がある | `steps` | 番号付きで詳細な手順を表示 |
 | 簡潔なリストがある | `list_steps` | バッジ付きで要点を表示 |
 | 数値データの比較がある | `score_comparison` | 棒グラフ形式で数値を比較 |
 | 流れ・プロセスがある | `flow_chart` | 矢印でフローを視覚化 |
+| 階層的な情報の整理が必要 | `grouped_content` | グループ化されたカード形式で階層を表現 |
+| 概念の深掘りや補足コラムがある | `grouped_content` | グループごとに情報を整理 |
 | 段階間の明確な区切りが必要 | `transition` | 視覚的な区切りを挿入 |
 
 ### **アイコン選定ガイドライン**
 
-| アイコン | 用途 | 使用シーン例 |
-|----------|------|-------------|
-| `alert` | 警告、問題、注意 | 課題提起、リスク説明 |
-| `check` | 完了、成功、正解 | 解決策、達成項目 |
-| `help` | 質問、疑問 | 問題の背景説明 |
-| `arrow` | 方向、遷移 | プロセス、フロー |
-| `lightbulb` | アイデア、ヒント | 解決策の提案 |
-| `zap` | 高速、効率 | 改善効果、利点 |
-| `message` | コミュニケーション | 対話、フィードバック |
-| `target` | 目標、ターゲット | 目的、ゴール設定 |
-| `users` | ユーザー、チーム | 対象者、協力者 |
-| `search` | 検索、調査 | 分析、調査結果 |
-| `pen` | 編集、執筆 | 作成、ドキュメント |
-| `flag` | マイルストーン | 達成点、節目 |
-| `arrowRight` | 次へ、進む | ステップ遷移、次のアクション |
+- コンテンツの意味に最も適したLucide Reactアイコンを自由に選択してください
+- アイコン名はキャメルケース（小文字始まり）で指定: `alertCircle`, `checkCircle`, `arrowRight`
+- アイコン一覧: https://lucide.dev/icons/
+- 未実装のアイコンを使用した場合、ビルドエラーが発生しますが開発者が対応します
 
 ### **アクセントカラー使用ガイドライン**
 
@@ -348,6 +409,10 @@
 **【重要】アクセント使用の制限**
 - **1セクション内でアクセントカラー（`accentColor`）は最大1箇所のみ使用する**
 - **1セクション内でハイライト（`isHighlight`, `highlight`）は最大1箇所のみ使用する**
+- **`problem`セクションでアクセントを使用する場合、必ず真ん中のカードに設定する**
+  - 3枚のカードがある場合 → 2番目のカードにアクセントを設定
+  - 2枚のカードがある場合 → アクセントを使用しない（両端しかないため）
+  - 4枚のカードがある場合 → 2番目または3番目のカードにアクセントを設定
 - アクセントは「1つだけ目立たせる」ために存在する。複数使用すると並列化され、かえって変化がなくなる
 - 例: `problem` セクションで3枚のカードがある場合、`accentColor: RED` は最も重要な1枚のみに設定
 - 例: `flow_chart` セクションで4項目ある場合、`highlight: true` は最も強調したい1項目のみに設定
@@ -387,7 +452,7 @@
 |-----------|----------|------|
 | `hero.title` | 全角40文字 | メインタイトル |
 | `hero.subtitle` | 全角80文字 | サブタイトル |
-| セクション `title` | 全角30文字 | 各セクションのタイトル |
+| `title` | 全角30文字 | 各セクションのタイトル |
 | `problem.introText` | 全角100文字 | 導入テキスト |
 | `problem.cards[].title` | 全角20文字 | カードタイトル |
 | `problem.cards[].subtitle` | 全角25文字 | カードサブタイトル |
@@ -411,6 +476,11 @@
 | `list_steps.steps[].description` | 全角100文字 | ステップ説明 |
 | `flow_chart.flows[].label` | 全角10文字 | フローラベル |
 | `flow_chart.flows[].subLabel` | 全角20文字 | フローサブラベル |
+| `grouped_content.title` | 全角30文字 | セクションタイトル |
+| `grouped_content.groups[].title` | 全角25文字 | グループタイトル |
+| `grouped_content.groups[].description` | 全角80文字 | グループ説明 |
+| `grouped_content.groups[].cards[].title` | 全角20文字 | カードタイトル |
+| `grouped_content.groups[].cards[].text` | 全角50文字 | カードテキスト |
 
 ---
 
@@ -428,8 +498,11 @@
 
 ### **フィールド検証**
 - [ ] すべての必須フィールドが設定されている
-- [ ] `icon` フィールドに有効な値のみを使用している
+- [ ] `icon` フィールドにLucide Reactの有効なアイコン名を使用している（キャメルケース・小文字始まり）
 - [ ] `accentColor` に `GOLD` または `RED` のみを使用している
+- [ ] **注意**: 未実装のアイコンを使用した場合、ビルドエラーが発生する可能性があります（その場合は開発者が対応）
+- [ ] `core_message.variant` に `highlight` または `simple` のみを使用している
+- [ ] `problem.variant` に `highlight` または `simple` のみを使用している
 - [ ] `steps` セクションの `number` フィールドが1から連番になっている
 - [ ] `score_comparison.scores[].barPercentage` が0〜100の範囲内である
 - [ ] **`action` セクションに `actionStepsTitle` が設定されている**
@@ -445,6 +518,7 @@
 ### **アクセント・ハイライト検証**
 - [ ] **各セクション内で `accentColor` が最大1箇所のみ使用されている**
 - [ ] **各セクション内で `isHighlight` / `highlight` が最大1箇所のみ使用されている**
+- [ ] **`problem`セクションのアクセントが真ん中のカードに設定されている**
 - [ ] アクセントが複数箇所に乱用されていない
 - [ ] 読者への問いかけや共感表現が維持されている
 

@@ -7,6 +7,7 @@ import type {
   DiagramSectionSchema,
   FlowChartSectionSchema,
   FlowItemSchema,
+  GroupedContentSectionSchema,
   HeroSectionSchema,
   ListStepItemSchema,
   ListStepsSectionSchema,
@@ -66,6 +67,9 @@ export type ActionStep = z.infer<typeof ActionStepSchema>;
 export type ScoreItem = z.infer<typeof ScoreItemSchema>;
 export type ListStepItem = z.infer<typeof ListStepItemSchema>;
 export type FlowItem = z.infer<typeof FlowItemSchema>;
+export type GroupedContentSectionData = z.infer<
+  typeof GroupedContentSectionSchema
+>;
 
 // Union Type for all sections
 export type ArticleSection = z.infer<typeof DiagramSectionSchema>;
