@@ -1,4 +1,4 @@
-import type { z } from 'astro:content';
+import type { z } from 'zod';
 import type {
   ActionSectionSchema,
   ActionStepSchema,
@@ -7,6 +7,7 @@ import type {
   DiagramSectionSchema,
   FlowChartSectionSchema,
   FlowItemSchema,
+  GroupedContentSectionSchema,
   HeroSectionSchema,
   ListStepItemSchema,
   ListStepsSectionSchema,
@@ -17,34 +18,7 @@ import type {
   StepItemSchema,
   StepsSectionSchema,
   TransitionSectionSchema,
-} from '../content.config.ts';
-
-export type IconName =
-  | 'alert'
-  | 'check'
-  | 'help'
-  | 'arrow'
-  | 'lightbulb'
-  | 'zap'
-  | 'message'
-  | 'target'
-  | 'users'
-  | 'search'
-  | 'pen'
-  | 'flag'
-  | 'arrowRight';
-
-export type SectionType =
-  | 'hero'
-  | 'problem'
-  | 'core_message'
-  | 'steps'
-  | 'message'
-  | 'action'
-  | 'transition'
-  | 'score_comparison'
-  | 'list_steps'
-  | 'flow_chart';
+} from './diagram-schemas';
 
 // 各セクション型を個別スキーマから直接生成
 export type HeroSectionData = z.infer<typeof HeroSectionSchema>;
@@ -66,6 +40,9 @@ export type ActionStep = z.infer<typeof ActionStepSchema>;
 export type ScoreItem = z.infer<typeof ScoreItemSchema>;
 export type ListStepItem = z.infer<typeof ListStepItemSchema>;
 export type FlowItem = z.infer<typeof FlowItemSchema>;
+export type GroupedContentSectionData = z.infer<
+  typeof GroupedContentSectionSchema
+>;
 
 // Union Type for all sections
 export type ArticleSection = z.infer<typeof DiagramSectionSchema>;

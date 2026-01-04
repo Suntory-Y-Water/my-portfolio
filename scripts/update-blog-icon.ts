@@ -36,7 +36,9 @@ async function fileExists(filePath: string) {
 }
 
 async function downloadIcon(url: string, destPath: string, force: boolean) {
-  if (!force && (await fileExists(destPath))) return;
+  if (!force && (await fileExists(destPath))) {
+    return;
+  }
 
   const res = await fetch(url);
   if (!res.ok) {
@@ -69,7 +71,9 @@ function insertOrReplaceIconUrl(content: string, localIconUrl: string): string {
 
 async function resolveRemoteIconUrl(icon?: unknown, iconUrl?: unknown) {
   if (typeof icon === 'string') {
-    if (icon.startsWith('http')) return icon;
+    if (icon.startsWith('http')) {
+      return icon;
+    }
     // 絵文字をFluent UI Emoji URLに
     const url = await convertEmojiToFluentUrl({ icon });
     return url === icon ? undefined : url;
@@ -147,7 +151,9 @@ async function processBlogs() {
     filesToProcess.map((file) => updateBlogIconUrl({ filePath: file, force })),
   );
 
-  for (const result of results) console.log(result);
+  for (const result of results) {
+    console.log(result);
+  }
 
   const updatedCount = results.filter((r) => r.startsWith('✅')).length;
   const skippedCount = results.filter((r) => r.startsWith('ℹ️')).length;

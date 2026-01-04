@@ -30,10 +30,10 @@ import path from 'node:path';
 const FORBID_TAGS = ['script', 'iframe', 'object', 'embed', 'foreignObject'];
 const FORBID_ATTR = ['onerror', 'onload', 'onclick', 'onmouseover'];
 
-interface SecurityIssue {
+type SecurityIssue = {
   file: string;
   issues: string[];
-}
+};
 
 /**
  * SVGをサニタイズして危険なコードを検出
@@ -153,7 +153,7 @@ async function checkSvgSecurity() {
       if (issues.length > 0) {
         securityIssues.push({ file, issues });
       }
-    } catch (error) {
+    } catch (_error) {
       console.error(`⚠️  ${file} の読み込みに失敗しました`);
     }
   }
