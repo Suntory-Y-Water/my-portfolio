@@ -13,137 +13,113 @@ diagram:
   - type: hero
     date: "2025/12/30"
     title: "Claude Codeへ「スキルを使って」と言うのに疲れたあなたへ"
-    subtitle: "UserPromptSubmit Hooksで実現する確実なAgent Skills実行戦略"
+    subtitle: "推論に頼らずHooksで確実にスキルを起動させる実装テクニック"
   - type: problem
-    title: "Agent Skills運用の壁"
-    introText: "便利な機能ですが、AIの自律的な判断に任せると意図通りに動かないことが多々あります。"
+    variant: simple
+    icon: alertCircle
+    title: "「スキルを使って」と言う手間"
+    introText: "Agent Skillsは便利ですが、明示的な指示がないと起動しないことが多々あり、開発体験を損ねています。"
     cards:
-      - icon: alert
-        title: "スキルが起動しない"
-        subtitle: "推論の限界"
-        description: "AIが文脈から判断するため、明確に指示しないと認識されないことがある。"
+      - icon: messageSquareX
+        title: "指示しないと動かない"
+        subtitle: "自然な会話では無視される"
+        description: "「ボタンを押して」などの自然な指示では、関連スキルが起動せず自己流の実装になる。"
+      - icon: brainCircuit
+        title: "推論の限界"
+        subtitle: "説明文改善も効果薄"
+        description: "descriptionを工夫しても、コンテキストに埋もれてClaudeが判断ミスをする。"
         isHighlight: true
         accentColor: RED
-      - icon: message
-        title: "毎回指示が面倒"
-        subtitle: "入力の手間"
-        description: "ほんの数文字の指示であっても、毎回入力するのは億劫になってしまう。"
-      - icon: pen
-        title: "記述の限界"
-        subtitle: "Description制限"
-        description: "文字数制限があり、あらゆるキーワードや言い回しを網羅できない。"
+      - icon: alertTriangle
+        title: "ベストプラクティス無視"
+        subtitle: "品質の低下"
+        description: "Playwrightの例では、locatorを使わずevaluateを使うなど、非推奨な実装をされる。"
+  - type: grouped_content
+    title: "なぜスキルは起動しないのか"
+    introText: "Claudeの「推論」に依存する実行プロセスがボトルネックになっています。"
+    icon: search
+    sectionBgColor: muted
+    groups:
+      - title: "実行プロセスの壁"
+        description: "起動から実行までの3段階において、判定ロジックに不確実性があります。"
+        bgColor: white
+        cards:
+          - title: "Discovery"
+            text: "起動時に読み込まれるのは名前と説明文のみ。"
+          - title: "Activation"
+            text: "リクエストと説明文を推論で照合。ここが判定漏れの主因。"
+            isHighlight: true
+            accentColor: RED
+      - title: "Descriptionのジレンマ"
+        description: "説明文の改善だけでは、確実な起動を保証できません。"
+        bgColor: white
+        cards:
+          - title: "文字数制限"
+            text: "1024文字以内に全てのトリガー単語を含めるのは不可能。"
+          - title: "情報の埋没"
+            text: "キーワードを詰め込みすぎると本質的な指示が薄まる。"
+  - type: transition
   - type: core_message
-    title: "推論から確実なルールへ"
-    mainMessage: "AIの曖昧な推論判定に頼るのをやめ、Hooksを利用してキーワード合致時に強制的な起動指示を注入します。"
+    variant: highlight
+    icon: zap
+    title: "推論に頼らず「強制的に」注入する"
+    mainMessage: "UserPromptSubmit Hooksを活用し、キーワード検知によって「スキル起動命令」をプロンプトに強制注入します。"
     comparisons:
-      - icon: help
-        title: "AI任せの推論"
-        text: "ユーザーの意図を汲み取れず、スキルが起動しないことがある。"
+      - icon: brain
+        title: "推論任せ"
+        text: "AIの気まぐれでスキルが無視され、毎回指示する手間が発生。"
         isGood: false
-      - icon: zap
-        title: "Hooksによる強制"
-        text: "キーワード検知で確実にスキルを起動させる。"
+      - icon: code2
+        title: "Hooksで強制"
+        text: "キーワード一致で確実に起動指示を注入し、自動実行させる。"
         isGood: true
     coreHighlight:
-      title: "UserPromptSubmitの活用"
-      text: "ユーザー入力送信前にシステムが介入し、強力な指示をプロンプトに追加する。"
+      title: "キーワード検知 × プロンプト注入"
+      text: "「git」等の単語をトリガーに、Claudeへスキルの使用を強制するシステム命令を挟み込む。"
       accentColor: GOLD
   - type: flow_chart
-    title: "確実な起動の仕組み"
-    introText: "ユーザーが入力してからスキルが実行されるまでの処理フローです。"
+    title: "Hooksによる強制起動の仕組み"
+    introText: "ユーザー入力から実行までの間にHooksが介入し、コンテキストを書き換えます。"
     flows:
-      - label: "ユーザー入力"
+      - label: "Input"
         subLabel: "git commit..."
-      - label: "Hooks検知"
-        subLabel: "キーワード一致"
-      - label: "指示注入"
-        subLabel: "強制起動命令"
+      - label: "Hook検知"
+        subLabel: "キーワード一致判定"
         highlight: true
         accentColor: GOLD
-      - label: "Claude推論"
-        subLabel: "指示を認識"
-      - label: "スキル実行"
-        subLabel: "タスク完了"
+      - label: "Injection"
+        subLabel: "強制命令を追加"
+      - label: "Execution"
+        subLabel: "スキル読込・実行"
   - type: steps
-    title: "実装ステップ"
-    introText: "Bun環境でHooksをセットアップし、キーワードマッチングを実装する手順です。"
+    title: "Hooks実装の4ステップ"
+    introText: "Bun環境を利用して、キーワード検知とプロンプト注入を行うHooksを実装します。"
     steps:
       - number: 1
         title: "環境構築"
-        text: "Bunとライブラリ導入"
-        detailText: "Bunをインストールし、型安全なライブラリcc-hooks-ts等を導入します。"
+        text: "Bunとcc-hooks-ts、valibotをインストールする。"
       - number: 2
-        title: "設定定義"
-        text: "スキーマとYAML作成"
-        detailText: "起動条件となるキーワードと、対応するスキル情報を定義します。"
+        title: "設定ファイル定義"
+        text: "トリガーとなるキーワードとスキル名をYAMLで定義。"
       - number: 3
         title: "ロジック実装"
-        text: "Hooksスクリプト作成"
-        detailText: "入力内容を判定し、条件合致時にプロンプトを注入する処理を書きます。"
+        text: "入力内のキーワードを検知し、注入メッセージを生成するTSを作成。"
       - number: 4
-        title: "登録"
-        text: "settings.json設定"
-        detailText: "作成したHooksスクリプトをClaude Codeの設定ファイルに登録します。"
+        title: "Hooks登録"
+        text: "settings.jsonにUserPromptSubmitフックとして登録。"
   - type: action
-    title: "AIを使いこなそう"
-    mainText: "AIの進化を待つだけでなく、今ある機能をハックして自分の手になじませていきましょう。"
-    actionStepsTitle: "攻略のステップ"
+    title: "発展途上の技術を攻略しよう"
+    mainText: "AIの自律性を待つのではなく、今ある仕組みをハックして快適な開発環境を作りましょう。"
+    actionStepsTitle: "次のアクション"
     actionSteps:
-      - title: "課題を見つける"
-        description: "毎日の作業で感じる小さなストレスや反復作業を特定する。"
-      - title: "仕組みで解決"
-        description: "Hooksや設定ファイルを活用して、自分だけの自動化を構築する。"
-    pointText: "発展途上の技術を攻略する楽しさを知り、快適な開発環境を作りましょう。"
-    footerText: "泥臭いハックで確実な成果を。"
+      - title: "Hooksを実装する"
+        description: "記事のコードを参考に、よく使うスキルを自動起動設定する。"
+      - title: "ストレスから解放"
+        description: "「スキルを使って」と指示する手間をなくし、本質的な開発に集中。"
+    pointText: "不確実性を技術で乗り越えるハックが、今のAI開発には有効です。"
+    footerText: "同じ課題を感じている方へ"
     subFooterText: "sui Tech Blog"
     accentColor: GOLD
-selfAssessment:
-  quizzes:
-    - question: "Claude Codeのスキル実行プロセスにおいて、ユーザーのリクエストとスキルのdescriptionのマッチング判定は、実際にはどのような仕組みで行われているか？"
-      answers:
-        - text: "キーワードマッチング"
-          correct: false
-          explanation: "キーワードマッチングは本記事で提案したUserPromptSubmit Hooksによる解決策で採用した手法です。"
-        - text: "セマンティック類似度"
-          correct: false
-          explanation: "実際には機械的なスコア計算ではなく、Claude自身がdescriptionを読んで判断しています。"
-        - text: "Claude自身による推論"
-          correct: true
-          explanation: "起動時に読み込まれたスキルのdescriptionをClaudeが読み、「今の文脈ならこのスキルを使うのが適切だ」と判断した場合にのみ提案されます。"
-        - text: "正規表現マッチング"
-          correct: false
-          explanation: null
-        - text: "完全一致検索"
-          correct: false
-          explanation: null
-    - question: "Claude Codeのスキルシステムで採用されている「Progressive Disclosure(段階的開示)」の目的は何か？"
-      answers:
-        - text: "スキルの実行速度を向上させるため"
-          correct: false
-          explanation: null
-        - text: "コンテキストウィンドウを節約しながら、必要なスキルを発見できるようにするため"
-          correct: true
-          explanation: "起動時には全スキルのnameとdescriptionのみをシステムプロンプトに読み込み、SKILL.mdの本文は読み込みません。スキルが実際にマッチした場合にのみSKILL.md全体を読み込むことで、コンテキストウィンドウを効率的に使用します。"
-        - text: "スキルの開発を簡単にするため"
-          correct: false
-          explanation: null
-        - text: "スキルのセキュリティを強化するため"
-          correct: false
-          explanation: null
-    - question: "本記事で提案されたUserPromptSubmit Hooksによる解決策の主なトレードオフは何か？"
-      answers:
-        - text: "実装が複雑になるが、スキルの起動が確実になる"
-          correct: false
-          explanation: null
-        - text: "AIの自律性を否定し、人間が強制的にレールを敷くアプローチであるが、確実に動作する"
-          correct: true
-          explanation: "この解決策は、Claudeの推論による判定の不確実性をキーワードマッチングで補うものです。AIが状況を判断し自律的にツールを選択するという理想からは離れますが、少なくとも確実に動作します。記事では「発展途上の技術をどのように攻略していくか」という試行錯誤の一例として紹介されています。"
-        - text: "処理速度が遅くなるが、精度が向上する"
-          correct: false
-          explanation: null
-        - text: "設定ファイルの管理が煩雑になるが、複数のスキルを同時実行できる"
-          correct: false
-          explanation: null
 ---
 Agents Skills は、Claude Code がベストプラクティスに沿って実装できる仕組みです。例えば、何回も繰り返し伝える情報や定型作業、一番わかりやすい例では Git の操作などが挙げられます。AI に毎回指示するのではなく、Skills で「Git スキルでプルリクエストを発行してください」と実行するだけで、Claude Code が自律的にベストプラクティスに従って実装してくれます。
 

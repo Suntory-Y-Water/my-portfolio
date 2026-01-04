@@ -13,90 +13,114 @@ tags:
   - clasp
 diagram:
   - type: hero
-    date: "2025/11/03"
+    date: "2025-11-03"
     title: "GASを使うと社内だけで使えるWebサイトが簡単に作れるの知ってました？"
-    subtitle: "claspとTypeScriptを活用してGoogle Drive検索アプリを構築し、モダンな開発環境を実現する"
-  - type: transition
+    subtitle: "claspとTypeScriptで構築する、サーバー不要・認証基盤不要の社内限定アプリケーション開発ガイド"
   - type: problem
-    title: "従来のGAS開発における課題"
-    introText: "ブラウザ上のエディタでの開発は手軽ですが、本格的なアプリ開発には不便な点もあります。"
+    variant: simple
+    icon: lock
+    title: "社内ツール開発の「壁」"
+    introText: "便利なツールを作りたいが、社内への安全な配布や環境構築には意外なコストがかかります。"
     cards:
-      - icon: pen
-        title: "エディタの制約"
-        subtitle: "使い慣れた環境が使えない"
-        description: "ブラウザ上のエディタでは拡張機能やショートカットが使えず不便。"
-      - icon: alert
-        title: "型安全性の欠如"
-        subtitle: "実行時エラーのリスク"
-        description: "JavaScriptでは型がないため、開発時にエラーに気づきにくい。"
+      - icon: server
+        title: "インフラ構築"
+        subtitle: "サーバーとドメイン"
+        description: "社内ツールのためだけにサーバーを立てドメインを取得するのは過剰コストになりがち。"
+        isHighlight: false
+      - icon: shieldAlert
+        title: "認証機能の実装"
+        subtitle: "セキュリティの懸念"
+        description: "社員だけがアクセスできる認証基盤を自前で実装するのは、工数もリスクも大きい。"
         isHighlight: true
         accentColor: RED
-      - icon: flag
-        title: "バージョン管理"
-        subtitle: "Git管理がしにくい"
-        description: "コードの履歴管理やチーム開発での共有が難しい。"
+      - icon: refreshCcw
+        title: "配布と更新"
+        subtitle: "運用の手間"
+        description: "修正のたびにファイルを配布し直したり、利用者の環境設定を行うのは大変。"
+        isHighlight: false
   - type: transition
   - type: core_message
-    title: "claspでモダンな開発環境へ"
-    mainMessage: "claspを使えばVS Codeで開発でき、TypeScriptによる型安全性とGitによるバージョン管理の恩恵を受けられます。"
+    variant: highlight
+    icon: building
+    title: "GASなら「社内限定」が即座に実現"
+    mainMessage: "Google Workspaceの認証基盤をそのまま利用可能。サーバー構築もドメイン取得も不要で、特定のドメインメンバーだけにアクセスを許可したWebアプリを公開できます。"
     comparisons:
-      - icon: alert
-        title: "従来の開発"
-        text: "ブラウザエディタで開発し、型補完がなく生産性が低い。"
+      - icon: alertTriangle
+        title: "自前で開発する場合"
+        text: "認証実装に工数がかかり、セキュリティホールを作るリスクがある。"
         isGood: false
-      - icon: zap
-        title: "clasp導入後"
-        text: "VS CodeとTSを活用し、AI支援も受けられる快適な環境。"
+      - icon: checkCircle
+        title: "GASを利用する場合"
+        text: "設定一つでGoogleの堅牢な認証基盤を利用し、ドメイン内限定公開が可能。"
         isGood: true
     coreHighlight:
-      title: "社内ツールに最適"
-      text: "Google Workspaceを利用していれば、追加インフラなしで社内限定公開が可能。"
+      title: "インフラ不要の限定公開"
+      text: "Googleの堅牢な認証基盤に乗っかるだけで、セキュアな社内ツールが完成します。"
       accentColor: GOLD
   - type: steps
-    title: "Webアプリ構築の4ステップ"
-    introText: "テンプレートを使用して環境を整え、実装からデプロイまで進めていきます。"
+    title: "モダンな開発から公開までの流れ"
+    introText: "claspとVS Codeを使い、効率的に開発して社内限定でデプロイするまでのステップです。"
     steps:
       - number: 1
-        title: "環境セットアップ"
-        text: "テンプレートからプロジェクトを作成しログイン。"
-        detailText: "ez-claspを使用し、pnpm installとclasp loginを実行して認証します。"
+        title: "環境構築"
+        text: "claspとTypeScriptテンプレートを導入"
+        detailText: "モダンな開発環境をセットアップし、型安全性を確保します。"
       - number: 2
-        title: "アプリの実装"
-        text: "Drive検索機能とHTML画面を作成します。"
-        detailText: "DriveAppで検索するサービスと、結果を表示するHTML/CSSを実装します。"
+        title: "実装"
+        text: "VS Codeでコーディング"
+        detailText: "使い慣れたエディタとAI支援を活用し、Drive連携などを実装。"
       - number: 3
-        title: "デプロイと設定"
-        text: "GASへプッシュしWebアプリとして公開。"
-        detailText: "clasp pushでコードを反映し、公開範囲をドメイン内に設定してデプロイ。"
+        title: "デプロイ"
+        text: "コマンド一つで反映"
+        detailText: "clasp pushコマンドを実行するだけで、コードがGAS上に反映されます。"
       - number: 4
-        title: "動作確認"
-        text: "OAuth認証を行い検索機能をテスト。"
-        detailText: "初回アクセス時に権限を承認し、実際にファイルが検索できるか確認します。"
-  - type: list_steps
-    title: "社内公開時のセキュリティ対策"
-    introText: "社内ツールであってもセキュリティへの配慮は不可欠です。以下の3点を確認しましょう。"
-    steps:
-      - badge: "1"
-        title: "部門との連携"
-        description: "情報セキュリティ部門に相談し、権限設定やインシデント対応について助言を仰ぎます。"
-      - badge: "2"
-        title: "最小権限の原則"
-        description: "必要な権限のみを設定します。今回は読み取り専用のdrive.readonlyを使用します。"
-      - badge: "3"
-        title: "公開範囲の確認"
-        description: "デプロイ時に「自分のみ」や「ドメイン内」を正しく選択し、全体公開を防ぎます。"
-  - type: transition
+        title: "限定公開設定"
+        text: "アクセス権限をドメイン内に制限"
+        detailText: "デプロイ設定で「アクセスできるユーザー」を自分たちの組織のみに設定。"
+  - type: grouped_content
+    title: "実運用に向けた考慮事項"
+    introText: "社内ツールとして安全に運用するために必要なセキュリティ設定と、モダン開発のメリットです。"
+    icon: shieldCheck
+    sectionBgColor: muted
+    groups:
+      - title: "セキュリティの鉄則"
+        description: "社内データを取り扱うため、権限設定には細心の注意が必要です。"
+        bgColor: white
+        isHighlight: true
+        cards:
+          - title: "権限は最小限に"
+            text: "読み取り専用（readonly）など、必要最低限のスコープを設定します。"
+            isHighlight: false
+            bgColor: muted
+          - title: "公開範囲の確認"
+            text: "「全員（ANYONE）」ではなく必ず「ドメイン内」を選択します。"
+            isHighlight: true
+            accentColor: RED
+            bgColor: white
+      - title: "モダン開発の恩恵"
+        description: "GASエディタではなくローカル環境で開発するメリットです。"
+        bgColor: white
+        isHighlight: false
+        cards:
+          - title: "VS Code活用"
+            text: "豊富な拡張機能やキーボードショートカットを活用できます。"
+            isHighlight: false
+            bgColor: muted
+          - title: "AIとの協業"
+            text: "Claude CodeなどのAIエージェントと連携し生産性を向上できます。"
+            isHighlight: false
+            bgColor: muted
   - type: action
-    title: "GASで業務効率化を始めよう"
-    mainText: "claspとTypeScriptの環境が整えば、GmailやCalendarと連携した便利なツールも自由に作成できます。"
-    actionStepsTitle: "アイデアの例"
+    title: "身近な課題を技術で解決しよう"
+    mainText: "サーバーレスで手軽に、しかし強力な社内ツールが作れます。あなたのアイデアで業務効率化を始めましょう。"
+    actionStepsTitle: "次のステップ"
     actionSteps:
-      - title: "Gmail連携"
-        description: "特定のラベルが付いたメールの添付ファイルを自動でDriveに保存するツール。"
-      - title: "Sheets連携"
-        description: "スプレッドシートを簡易データベースとして利用する備品管理アプリ。"
-    pointText: "日々の業務の「ちょっとした不便」を解決するアプリを、自らの手で作り出しましょう。"
-    footerText: "あなたの「あったらいいな」を実現へ"
+      - title: "環境準備"
+        description: "claspとテンプレートを導入し、ローカル開発環境を整える"
+      - title: "開発開始"
+        description: "DriveやGmailと連携する、小さな便利ツールを作ってみる"
+    pointText: "インフラの悩みを捨てて、課題解決という本質的な開発に集中できます。"
+    footerText: "小さなツールから業務改善を始めよう"
     subFooterText: "sui Tech Blog"
     accentColor: GOLD
 ---

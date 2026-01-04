@@ -8,6 +8,7 @@ icon: 💭
 icon_url: /icons/thought_balloon_flat.svg
 tags:
   - ブログ
+  - AI
 diagram:
   - type: hero
     date: "2026/01/04"
@@ -164,7 +165,7 @@ diagram:
     title: "Agent Skills運用の壁"
     introText: "便利な機能ですが、AIの自律的な判断に任せると意図通りに動かないことが多々あります。"
     cards:
-      - icon: alert
+      - icon: alertCircle
         title: "スキルが起動しない"
         subtitle: "推論の限界"
         description: "AIが文脈から判断するため、明確に指示しないと認識されないことがある。"

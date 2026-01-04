@@ -1,4 +1,4 @@
-import type { z } from 'astro:content';
+import type { z } from 'zod';
 import type {
   ActionSectionSchema,
   ActionStepSchema,
@@ -18,7 +18,7 @@ import type {
   StepItemSchema,
   StepsSectionSchema,
   TransitionSectionSchema,
-} from '../content.config.ts';
+} from './diagram-schemas';
 
 // 各セクション型を個別スキーマから直接生成
 export type HeroSectionData = z.infer<typeof HeroSectionSchema>;

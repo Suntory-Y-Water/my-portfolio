@@ -12,6 +12,7 @@ export const TAG_SLUG_MAP: Record<string, string> = {
   Anaconda: 'anaconda',
   Angular: 'angular',
   API: 'api',
+  AI: 'ai',
   AppRouter: 'app-router',
   Astro: 'astro',
   Biome: 'biome',

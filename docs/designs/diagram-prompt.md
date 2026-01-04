@@ -126,7 +126,7 @@
 ```yaml
 # IconName（アイコン名）
 # Lucide Reactのアイコン名をキャメルケース（小文字始まり）で指定
-# 例: alert, checkCircle, arrowRight
+# 例: alertCircle, checkCircle, arrowRight
 # アイコン一覧: https://lucide.dev/icons/
 # 未実装のアイコンはビルドエラーになりますが開発者が対応します
 
@@ -166,11 +166,11 @@ date: "2025/01/01"
 ```yaml
 - type: problem
   variant: simple             # 任意: 'simple'（デフォルト）または 'highlight'
-  icon: alert                 # 任意: セクションアイコン（デフォルト: alert）
+  icon: alertCircle                 # 任意: セクションアイコン（デフォルト: alertCircle）
   title: "..."                # 必須: セクションタイトル（全角30文字以内）
   introText: "..."            # 必須: 導入テキスト（全角100文字以内）
   cards:                      # 必須: 問題カード配列（2〜4枚）
-    - icon: alert             # 必須: アイコン名
+    - icon: alertCircle             # 必須: アイコン名
       title: "..."            # 必須: カードタイトル（全角20文字以内）
       subtitle: "..."         # 必須: カードサブタイトル（全角25文字以内）
       description: "..."      # 必須: カード説明（全角60文字以内）
@@ -212,7 +212,7 @@ date: "2025/01/01"
   title: "..."                # 必須: セクションタイトル（全角30文字以内）
   mainMessage: "..."          # 必須: メインメッセージ（全角120文字以内）
   comparisons:                # 任意: 比較項目配列（2項目固定：悪い例→良い例）
-    - icon: alert             # 必須: アイコン名
+    - icon: alertCircle             # 必須: アイコン名
       title: "..."            # 必須: 比較タイトル（全角20文字以内）
       text: "..."             # 必須: 比較テキスト（全角60文字以内）
       isGood: false           # 必須: 良い例か否か

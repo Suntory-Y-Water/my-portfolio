@@ -10,6 +10,92 @@ tags:
   - Markdown
   - Notion
   - Obsidian
+diagram:
+  - type: hero
+    date: "2025/11/16"
+    title: "ブログ記事のアーキテクチャをMDXからMarkdownへ変更しました"
+    subtitle: "NotionとLINEの自動化システムから、ObsidianとMarkdownのシンプル管理へ。執筆環境移行の全貌。"
+  - type: problem
+    variant: simple
+    icon: alertTriangle
+    title: "Notion自動化運用の壁"
+    introText: "外出先からの更新を目指して構築したシステムでしたが、実際の運用では複数の「ズレ」が生じていました。"
+    cards:
+      - icon: smartphone
+        title: "スマホ更新の形骸化"
+        subtitle: "頻度と利便性のミスマッチ"
+        description: "そもそも外出先で更新する頻度が低く、PC作業時もLINE経由の手順が足かせになりました。"
+        isHighlight: false
+      - icon: puzzle
+        title: "ツール親和性の欠如"
+        subtitle: "AI恩恵の不在"
+        description: "Notion AIの使い勝手やAPIの制約に加え、Claude Code等の強力な支援を得られません。"
+        isHighlight: true
+        accentColor: RED
+      - icon: fileText
+        title: "構成管理の二度手間"
+        subtitle: "エディタ間の往復"
+        description: "推敲や校正のために別エディタへコピペする必要があり、Notion単体での完結が困難でした。"
+        isHighlight: false
+  - type: transition
+  - type: core_message
+    variant: highlight
+    icon: refreshCcw
+    title: "執筆環境の再定義"
+    mainMessage: "「どこでも書ける」複雑な仕組みから、「質を高めて書ける」シンプルなテキスト管理へ回帰しました。"
+    comparisons:
+      - icon: bot
+        title: "過度な自動化"
+        text: "保守コストが高く、ツールの制約に縛られるNotion構成。"
+        isGood: false
+      - icon: fileCode
+        title: "Markdown管理"
+        text: "VSCodeや生成AIの支援をフル活用できる柔軟な構成。"
+        isGood: true
+    coreHighlight:
+      title: "学習スタイルの変化"
+      text: "Obsidianによる知識管理とGitHub連携を採用し、個人の学習と執筆をシームレスに統合。"
+      accentColor: GOLD
+  - type: grouped_content
+    title: "新環境のメリット"
+    introText: "ObsidianとMarkdownファイルを中心とした管理は、多くの恩恵をもたらしました。"
+    icon: layout
+    sectionBgColor: muted
+    groups:
+      - title: "テキスト管理の強み"
+        description: "ローカルファイルならではの高速な検索・置換と、Gitによる確実なバージョン管理。"
+        bgColor: white
+        cards:
+          - title: "強力な知識リンク"
+            text: "双方向リンクやグラフビューで情報の紐付けが容易。"
+            isHighlight: false
+          - title: "柔軟なデータ連携"
+            text: "GitHub Actions等と連携しやすく拡張性が高い。"
+            isHighlight: true
+            accentColor: GOLD
+      - title: "AIとの協働強化"
+        description: "記事の本文生成ではなく、構成や体裁の品質向上にAIを活用。"
+        bgColor: white
+        cards:
+          - title: "構成の最適化"
+            text: "全体を俯瞰した構成の指摘をAIから受けやすい。"
+            isHighlight: false
+          - title: "品質担保"
+            text: "textlint等のツールを統合し文章品質を向上。"
+            isHighlight: false
+  - type: action
+    title: "運用から学習へ"
+    mainText: "執筆環境の整備は、自分自身の学習スタイルを見つめ直す重要なプロセスでした。"
+    actionStepsTitle: "これからのアクション"
+    actionSteps:
+      - title: "AIをパートナーに"
+        description: "執筆補助としてAIを使い倒し、記事の品質を高める。"
+      - title: "SEOの実践と検証"
+        description: "検索流入を意識した記事作成で学習効果を最大化する。"
+    pointText: "ツールに使われるのではなく、自分の学習と発信を加速させるためのシンプルな環境を選びましょう。"
+    footerText: "発展途上の技術を攻略していこう"
+    subFooterText: "sui Tech Blog"
+    accentColor: GOLD
 ---
 
 ## 以前の構成と比較して
