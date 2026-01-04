@@ -1,22 +1,9 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { ICON_NAMES } from './components/feature/diagram/icon-config';
 
-// IconName型のZodスキーマ
-const IconNameSchema = z.enum([
-  'alert',
-  'check',
-  'help',
-  'arrow',
-  'lightbulb',
-  'zap',
-  'message',
-  'target',
-  'users',
-  'search',
-  'pen',
-  'flag',
-  'arrowRight',
-]);
+// IconName型のZodスキーマ（icon-config.tsのICON_NAMESから直接生成）
+const IconNameSchema = z.enum(ICON_NAMES);
 
 // ColorKey型のZodスキーマ
 const ColorKeySchema = z.enum(['GOLD', 'RED']);
@@ -206,8 +193,6 @@ export const DiagramSectionSchema = z.discriminatedUnion('type', [
   FlowChartSectionSchema,
   GroupedContentSectionSchema,
 ]);
-
-// ===== Blog Collection =====
 
 const blog = defineCollection({
   loader: glob({

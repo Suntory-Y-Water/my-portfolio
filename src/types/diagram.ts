@@ -20,33 +20,6 @@ import type {
   TransitionSectionSchema,
 } from '../content.config.ts';
 
-export type IconName =
-  | 'alert'
-  | 'check'
-  | 'help'
-  | 'arrow'
-  | 'lightbulb'
-  | 'zap'
-  | 'message'
-  | 'target'
-  | 'users'
-  | 'search'
-  | 'pen'
-  | 'flag'
-  | 'arrowRight';
-
-export type SectionType =
-  | 'hero'
-  | 'problem'
-  | 'core_message'
-  | 'steps'
-  | 'message'
-  | 'action'
-  | 'transition'
-  | 'score_comparison'
-  | 'list_steps'
-  | 'flow_chart';
-
 // 各セクション型を個別スキーマから直接生成
 export type HeroSectionData = z.infer<typeof HeroSectionSchema>;
 export type ProblemSectionData = z.infer<typeof ProblemSectionSchema>;
