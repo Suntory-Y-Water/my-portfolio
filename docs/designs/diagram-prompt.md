@@ -62,8 +62,8 @@
         | 段階 | 役割 | 推奨セクションタイプ | 選定基準 |
         |------|------|---------------------|----------|
         | **起（導入）** | 読者の関心を引く | `hero` | **必須**。記事タイトルとサブタイトルを設定 |
-        | **承（問題提起）** | 課題を明確化 | `problem`, `core_message`, `grouped_content` | 課題が複数→`problem` / 単一核心→`core_message` / 階層的な整理→`grouped_content` |
-        | **転（解決策）** | 具体的な方法を提示 | `steps`, `list_steps`, `flow_chart`, `score_comparison`, `grouped_content` | 手順詳細→`steps` / 簡潔リスト→`list_steps` / フロー→`flow_chart` / 数値比較→`score_comparison` / 階層的な情報→`grouped_content` |
+        | **承（問題提起）** | 課題を明確化 | `problem`, `core_message`, `grouped_content`, `timeline_process` | 課題が複数→`problem` / 単一核心→`core_message` / 階層的な整理→`grouped_content` / 時系列→`timeline_process` |
+        | **転（解決策）** | 具体的な方法を提示 | `steps`, `list_steps`, `flow_chart`, `score_comparison`, `grouped_content`, `timeline_process`, `metrics_impact`, `pie_chart` | 手順詳細→`steps` / 簡潔リスト→`list_steps` / フロー→`flow_chart` / 数値比較→`score_comparison` / 数値インパクト→`metrics_impact` / 割合データ→`pie_chart` |
         | **結（まとめ）** | 行動を促す | `action` | **必須**。読者へのCTAを設定 |
         | **区切り** | 段階間の視覚的区切り | `transition` | 起→承、承→転、転→結の間に任意で挿入 |
         
@@ -78,6 +78,7 @@
     - **承（問題提起）**: 1〜3セクション
         - `problem`（複数課題）または `core_message`（単一核心・比較対比）
         - `grouped_content`（階層的な情報の整理・補足コラム）
+        - `timeline_process`（問題発生の経緯・攻撃シナリオ）
         - 必要に応じて `transition` を前後に挿入
     - **転（解決策）**: 2〜5セクション
         - `steps`（詳細な手順）
@@ -86,6 +87,9 @@
         - `score_comparison`（数値比較）
         - `core_message`（解決策の核心）
         - `grouped_content`（階層的な情報の整理・概念の深掘り）
+        - `timeline_process`（移行タイムライン・導入プロセス）
+        - `metrics_impact`（数値インパクトの強調）
+        - `pie_chart`（割合データの可視化）
         - 必要に応じて `transition` を挿入
     - **結（まとめ）**: 1セクション
         - `action`（必須）
@@ -323,6 +327,62 @@ date: "2025/01/01"
       accentColor: GOLD     # 任意: アクセントカラー
 ```
 
+### **timeline_process（タイムラインプロセスセクション）** — 承/転・時系列イベント
+時系列に沿ったイベントを縦方向のタイムラインで表示。攻撃シナリオ、インシデント経緯、移行タイムラインなどに最適。
+
+```yaml
+- type: timeline_process
+  title: "..."              # 必須: セクションタイトル（全角30文字以内）
+  introText: "..."          # 任意: 導入テキスト
+  icon: clock               # 任意: アイコン名（デフォルト: clock）
+  events:                   # 必須: イベント配列（2〜8個）
+    - time: "2025/01/01 10:00"  # 必須: 時刻または日時（文字列）
+      title: "..."          # 必須: イベントタイトル（全角25文字以内）
+      description: "..."    # 必須: イベント説明（全角80文字以内）
+      isHighlight: false    # 任意: ハイライト表示
+      accentColor: GOLD     # 任意: アクセントカラー
+```
+
+**時刻フォーマット例**:
+- `2025/01/01 10:00` — 完全な日時
+- `01/01 10:00` — 月日と時刻
+- `10:00` — 時刻のみ
+
+### **metrics_impact（数値インパクトセクション）** — 転（解決策）・数値の強調
+技術的な改善効果を数値で視覚的に強調。バンドルサイズ削減、パフォーマンス改善、トークン削減などの「量的インパクト」を読者に印象付ける。
+
+```yaml
+- type: metrics_impact
+  title: "..."              # 必須: セクションタイトル（全角30文字以内）
+  introText: "..."          # 任意: 導入テキスト
+  icon: trendingUp          # 任意: アイコン名（デフォルト: trendingUp）
+  layout: horizontal        # 任意: 'horizontal'（デフォルト）または 'vertical'
+  metrics:                  # 必須: メトリクス配列（1〜4個）
+    - value: "-500"         # 必須: 数値（文字列）
+      unit: "KB"            # 任意: 単位（4文字以内推奨、例: KB, MB, %, 秒）
+      label: "..."          # 必須: ラベル（全角20文字以内）
+      description: "..."    # 任意: 説明（全角40文字以内）
+      accentColor: GOLD     # 任意: アクセントカラー
+```
+
+**単位（unit）のガイドライン**:
+- **4文字以内を推奨**: `KB`, `MB`, `%`, `秒`, `件` など
+- 長い単位（例: `modules`, `requests`）はカードからはみ出る可能性があるため控える
+- 長い単位が必要な場合は `description` や `label` で補足する
+
+**アクセントカラーの使用ルール**:
+- **1セクション内でアクセントは1つだけ使用する**
+- **3つ以上のメトリクスがある場合、中央に配置する**
+  - 3個の場合 → 2番目にアクセントを設定
+  - 4個の場合 → 2番目または3番目にアクセントを設定
+- アクセントなしのメトリクスは控えめなグレー色で表示
+
+**レイアウト選択**:
+| layout | 用途 |
+|--------|------|
+| `horizontal` | 横並び（デフォルト）。3個以下のメトリクス向け |
+| `vertical` | 縦並び。1〜2個のメトリクスを強調したい場合 |
+
 ### **grouped_content（グループ化コンテンツセクション）** — 承/転・階層的な情報の整理
 「大分類＞小分類＞カード」のような階層構造を持つ情報や、「概念的なトピックの深掘り」や「本筋の補足となるコラム」に使用。
 カード単体ではなく、意味のまとまり（グループ）ごとに情報を整理したい場合に適している。
@@ -347,6 +407,30 @@ date: "2025/01/01"
           bgColor: white    # 任意: カード背景色（'white', 'muted', 'gray'）
 ```
 
+### **pie_chart（円グラフセクション）** — 承/転・割合データの可視化
+割合データを円グラフで視覚的に表示。アンケート結果、構成比、読者層分析などの「比率情報」を直感的に伝える。
+
+```yaml
+- type: pie_chart
+  title: "..."              # 必須: セクションタイトル（全角30文字以内）
+  introText: "..."          # 任意: 導入テキスト
+  icon: pieChart            # 任意: アイコン名（デフォルト: pieChart）
+  segments:                 # 必須: セグメント配列（2〜5個）
+    - label: "..."          # 必須: ラベル（全角10文字以内）
+      value: 65             # 必須: 値（0〜100、合計は100にすること）
+```
+
+**ユースケース**:
+- 読者層分析（職種別、経験年数別など）
+- 技術スタック比率（使用言語、フレームワーク比率）
+- 予算配分、リソース配分の可視化
+- アンケート結果の表示
+
+**カラー設計**:
+- セグメント1〜3: primary カラーの濃→薄グラデーション
+- セグメント4〜5: muted-foreground のグラデーション
+- CSSクラスで自動適用されるため、個別の色指定は不要
+
 ---
 
 ## **4.0 COMPOSITION_RULES — 起承転結に基づく構成規則**
@@ -359,7 +443,7 @@ date: "2025/01/01"
 | 2 | - | `transition` | 任意 | 起→承の区切り |
 | 3 | 承（問題提起） | `problem` / `core_message` / `grouped_content` | **必須**（いずれか1つ以上） | 課題の明確化 |
 | 4 | - | `transition` | 任意 | 承→転の区切り |
-| 5 | 転（解決策） | `steps` / `list_steps` / `flow_chart` / `score_comparison` / `core_message` / `grouped_content` | **必須**（1つ以上） | 具体的な方法の提示 |
+| 5 | 転（解決策） | `steps` / `list_steps` / `flow_chart` / `score_comparison` / `core_message` / `grouped_content` / `timeline_process` / `metrics_impact` / `pie_chart` | **必須**（1つ以上） | 具体的な方法の提示 |
 | 6 | - | `transition` | 任意 | 転→結の区切り |
 | 7 | 結（まとめ） | `action` | **必須** | 必ず最後に配置 |
 
@@ -388,6 +472,9 @@ date: "2025/01/01"
 | 簡潔なリストがある | `list_steps` | バッジ付きで要点を表示 |
 | 数値データの比較がある | `score_comparison` | 棒グラフ形式で数値を比較 |
 | 流れ・プロセスがある | `flow_chart` | 矢印でフローを視覚化 |
+| 時系列イベントがある | `timeline_process` | 縦方向タイムラインで時系列を表示 |
+| 数値インパクトを強調したい | `metrics_impact` | 大きな数値で改善効果を視覚化 |
+| 割合データを可視化したい | `pie_chart` | 円グラフで比率情報を表示 |
 | 階層的な情報の整理が必要 | `grouped_content` | グループ化されたカード形式で階層を表現 |
 | 概念の深掘りや補足コラムがある | `grouped_content` | グループごとに情報を整理 |
 | 段階間の明確な区切りが必要 | `transition` | 視覚的な区切りを挿入 |
@@ -481,6 +568,11 @@ date: "2025/01/01"
 | `grouped_content.groups[].description` | 全角80文字 | グループ説明 |
 | `grouped_content.groups[].cards[].title` | 全角20文字 | カードタイトル |
 | `grouped_content.groups[].cards[].text` | 全角50文字 | カードテキスト |
+| `timeline_process.events[].title` | 全角25文字 | イベントタイトル |
+| `timeline_process.events[].description` | 全角80文字 | イベント説明 |
+| `metrics_impact.metrics[].label` | 全角20文字 | メトリクスラベル |
+| `metrics_impact.metrics[].description` | 全角40文字 | メトリクス説明 |
+| `pie_chart.segments[].label` | 全角10文字 | セグメントラベル |
 
 ---
 
