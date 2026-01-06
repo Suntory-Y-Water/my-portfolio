@@ -179,6 +179,53 @@ export const GroupedContentSectionSchema = z.object({
   groups: z.array(ContentGroupSchema),
 });
 
+// 10. TimelineProcessSection
+export const TimelineEventSchema = z.object({
+  time: z.string(),
+  title: z.string(),
+  description: z.string(),
+  isHighlight: z.boolean().optional(),
+  accentColor: ColorKeySchema.optional(),
+});
+
+export const TimelineProcessSectionSchema = z.object({
+  type: z.literal('timeline_process'),
+  title: z.string(),
+  introText: z.string().optional(),
+  icon: IconNameSchema.optional(),
+  events: z.array(TimelineEventSchema).min(2).max(8),
+});
+
+const MetricItemSchema = z.object({
+  value: z.string(),
+  unit: z.string().optional(),
+  label: z.string(),
+  description: z.string().optional(),
+  accentColor: ColorKeySchema.optional(),
+});
+
+export const MetricsImpactSectionSchema = z.object({
+  type: z.literal('metrics_impact'),
+  title: z.string(),
+  introText: z.string().optional(),
+  icon: IconNameSchema.optional(),
+  metrics: z.array(MetricItemSchema).min(1).max(4),
+  layout: z.enum(['horizontal', 'vertical']).default('horizontal').optional(),
+});
+
+const PieSegmentSchema = z.object({
+  label: z.string(),
+  value: z.number().min(0).max(100),
+});
+
+export const PieChartSectionSchema = z.object({
+  type: z.literal('pie_chart'),
+  title: z.string(),
+  introText: z.string().optional(),
+  icon: IconNameSchema.optional(),
+  segments: z.array(PieSegmentSchema).min(2).max(5),
+});
+
 // Union型で全セクションをまとめる
 export const DiagramSectionSchema = z.discriminatedUnion('type', [
   HeroSectionSchema,
@@ -191,6 +238,9 @@ export const DiagramSectionSchema = z.discriminatedUnion('type', [
   ListStepsSectionSchema,
   FlowChartSectionSchema,
   GroupedContentSectionSchema,
+  TimelineProcessSectionSchema,
+  MetricsImpactSectionSchema,
+  PieChartSectionSchema,
 ]);
 
 // 型エクスポート

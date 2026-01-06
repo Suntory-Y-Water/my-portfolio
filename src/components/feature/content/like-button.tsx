@@ -15,6 +15,13 @@ type LikeButtonProps = {
  * @param iconSvg - インラインSVGアイコン (getInlineIconで取得)
  */
 export function LikeButton({ slug, iconSvg }: LikeButtonProps) {
+  const isDev = import.meta.env.DEV;
+
+  // 開発環境では何も表示しない
+  if (isDev) {
+    return null;
+  }
+
   const [allCount, setAllCount] = useState(0);
   const [localCount, setLocalCount] = useState(0);
   const [isClicked, setIsClicked] = useState(false);
@@ -87,12 +94,9 @@ export function LikeButton({ slug, iconSvg }: LikeButtonProps) {
     }, 300);
   };
 
+  // エラー時は何も表示しない
   if (error) {
-    return (
-      <div className='text-center mt-10'>
-        <p className='text-sm text-muted-foreground'>{error}</p>
-      </div>
-    );
+    return null;
   }
 
   return (

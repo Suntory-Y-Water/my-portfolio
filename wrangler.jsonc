@@ -8,5 +8,5 @@
   "compatibility_flags": ["nodejs_compat"],
   "vars": {
     "PUBLIC_APP_URL": "https://suntory-n-water.com"
-  },
+  }
 }

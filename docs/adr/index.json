@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-01-02T17:00:00+09:00",
+  "last_updated": "2026-01-05T08:44:00+09:00",
   "adrs": [
     {
       "id": "ADR-0001",
@@ -83,6 +83,44 @@
         "TransitionSection"
       ],
       "file_path": "docs/adr/decisions/0003-migrate-diagram-components-from-react-context-to-css-variables.json"
+    },
+    {
+      "id": "ADR-0004",
+      "title": "Simplify Diagram Component Architecture and Remove Abstraction Layers",
+      "status": "accepted",
+      "timestamp": "2026-01-05T08:44:00+09:00",
+      "tags": [
+        "refactoring",
+        "diagram-components",
+        "simplification",
+        "yagni",
+        "maintainability",
+        "tailwind-css",
+        "typescript",
+        "architecture",
+        "technical-debt-reduction"
+      ],
+      "keywords": [
+        "diagram refactoring",
+        "component simplification",
+        "remove abstraction",
+        "Card component removal",
+        "Badge component removal",
+        "Zod schema removal",
+        "icon-config deletion",
+        "YAGNI principle",
+        "technical debt"
+      ],
+      "affected_components": [
+        "DiagramPageBuilder",
+        "HeroSection",
+        "ProblemSection",
+        "CoreMessageSection",
+        "StepsSection",
+        "ActionSection",
+        "TransitionSection"
+      ],
+      "file_path": "docs/adr/decisions/0004-simplify-diagram-component-architecture.json"
     }
   ],
   "indices": {
@@ -101,10 +139,17 @@
       "ssg": ["ADR-0003"],
       "dark-mode": ["ADR-0003"],
       "css-variables": ["ADR-0003"],
-      "tailwind-css": ["ADR-0003"],
+      "tailwind-css": ["ADR-0003", "ADR-0004"],
       "react": ["ADR-0003"],
       "performance": ["ADR-0003"],
-      "diagram-components": ["ADR-0003"]
+      "diagram-components": ["ADR-0003", "ADR-0004"],
+      "refactoring": ["ADR-0004"],
+      "simplification": ["ADR-0004"],
+      "yagni": ["ADR-0004"],
+      "maintainability": ["ADR-0004"],
+      "typescript": ["ADR-0004"],
+      "architecture": ["ADR-0004"],
+      "technical-debt-reduction": ["ADR-0004"]
     },
     "by_component": {
       "Agent Configuration": ["ADR-0001"],
@@ -112,17 +157,17 @@
       "Documentation": ["ADR-0001"],
       "BaseLayout": ["ADR-0002"],
       "BlogPostPage": ["ADR-0002"],
-      "DiagramPageBuilder": ["ADR-0003"],
-      "HeroSection": ["ADR-0003"],
-      "ProblemSection": ["ADR-0003"],
-      "CoreMessageSection": ["ADR-0003"],
-      "StepsSection": ["ADR-0003"],
+      "DiagramPageBuilder": ["ADR-0003", "ADR-0004"],
+      "HeroSection": ["ADR-0003", "ADR-0004"],
+      "ProblemSection": ["ADR-0003", "ADR-0004"],
+      "CoreMessageSection": ["ADR-0003", "ADR-0004"],
+      "StepsSection": ["ADR-0003", "ADR-0004"],
       "MessageSection": ["ADR-0003"],
-      "ActionSection": ["ADR-0003"],
-      "TransitionSection": ["ADR-0003"]
+      "ActionSection": ["ADR-0003", "ADR-0004"],
+      "TransitionSection": ["ADR-0003", "ADR-0004"]
     },
     "by_status": {
-      "accepted": ["ADR-0001", "ADR-0002", "ADR-0003"]
+      "accepted": ["ADR-0001", "ADR-0002", "ADR-0003", "ADR-0004"]
     }
   }
 }

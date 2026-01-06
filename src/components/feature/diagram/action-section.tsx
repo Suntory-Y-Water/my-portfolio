@@ -42,29 +42,35 @@ export function ActionSection({ data }: { data: ActionSectionData }) {
                   <Icon name='pen' size={24} className='mr-1 sm:mr-2' />
                   {data.actionStepsTitle}
                 </h4>
-                <div className='space-y-3'>
+                <div className='space-y-2'>
                   {data.actionSteps.map((step, i) => (
-                    <Card
+                    <div
                       key={i}
-                      className='bg-background p-4 rounded-sm border-0 border-l-4 border-l-primary text-left shadow-none'
+                      className='bg-background px-3 py-3 border-0 border-l-[3px] border-l-primary text-left'
+                      style={{ borderRadius: '2px' }}
                     >
-                      <p className='font-bold text-sm sm:text-base mb-2 text-primary'>
+                      <p className='font-semibold text-sm sm:text-base text-foreground mb-2 leading-tight'>
                         {step.title}
                       </p>
-                      <p className='text-xs sm:text-sm text-foreground/90'>
+                      <p className='text-xs sm:text-sm text-foreground/70 leading-relaxed'>
                         {step.description}
                       </p>
-                    </Card>
+                    </div>
                   ))}
                 </div>
               </Card>
 
-              <Card className='p-4 sm:p-5 rounded-md mb-6 border-0 border-l-4 border-l-primary bg-muted shadow-none'>
-                <p className='text-sm sm:text-base text-foreground/90 leading-relaxed'>
-                  <strong className='text-primary'>ポイント:</strong>
+              <div
+                className='px-3 py-3 mb-6 border-0 border-l-[3px] border-l-primary bg-muted text-left'
+                style={{ borderRadius: '2px' }}
+              >
+                <p className='text-sm text-foreground/80 leading-relaxed'>
+                  <span className='font-semibold text-foreground'>
+                    ポイント:
+                  </span>{' '}
                   {data.pointText}
                 </p>
-              </Card>
+              </div>
 
               <Card className='mt-6 p-4 text-center bg-primary border-primary shadow-none'>
                 <p className='font-bold text-lg text-white dark:text-background'>

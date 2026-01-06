@@ -74,7 +74,7 @@ const canonicalUrl = absoluteUrl(`/blog/diagram/${post.id}`);
     is:inline
     set:html={JSON.stringify(jsonLd)}
   />
-  <div>
+  <div data-pagefind-ignore>
     <div class='mb-6 flex items-center justify-between'>
       <a
         href={`/blog/${post.id}`}

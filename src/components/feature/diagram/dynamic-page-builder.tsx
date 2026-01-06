@@ -5,9 +5,12 @@ import { FlowChartSection } from './flow-chart-section';
 import { GroupedContentSection } from './grouped-content-section';
 import { HeroSection } from './hero-section';
 import { ListStepsSection } from './list-steps-section';
+import { MetricsImpactSection } from './metrics-impact-section';
+import { PieChartSection } from './pie-chart-section';
 import { ProblemSection } from './problem-section';
 import { ScoreComparisonSection } from './score-comparison-section';
 import { StepsSection } from './steps-section';
+import { TimelineProcessSection } from './timeline-process-section';
 import { TransitionSection } from './transition-section';
 
 type DynamicPageBuilderProps = {
@@ -40,6 +43,12 @@ export default function DynamicPageBuilder({ data }: DynamicPageBuilderProps) {
             return <FlowChartSection key={key} data={section} />;
           case 'grouped_content':
             return <GroupedContentSection key={key} data={section} />;
+          case 'timeline_process':
+            return <TimelineProcessSection key={key} data={section} />;
+          case 'metrics_impact':
+            return <MetricsImpactSection key={key} data={section} />;
+          case 'pie_chart':
+            return <PieChartSection key={key} data={section} />;
           default:
             return null;
         }

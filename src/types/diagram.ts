@@ -11,12 +11,16 @@ import type {
   HeroSectionSchema,
   ListStepItemSchema,
   ListStepsSectionSchema,
+  MetricsImpactSectionSchema,
+  PieChartSectionSchema,
   ProblemCardSchema,
   ProblemSectionSchema,
   ScoreComparisonSectionSchema,
   ScoreItemSchema,
   StepItemSchema,
   StepsSectionSchema,
+  TimelineEventSchema,
+  TimelineProcessSectionSchema,
   TransitionSectionSchema,
 } from './diagram-schemas';
 
@@ -43,6 +47,14 @@ export type FlowItem = z.infer<typeof FlowItemSchema>;
 export type GroupedContentSectionData = z.infer<
   typeof GroupedContentSectionSchema
 >;
+export type TimelineEvent = z.infer<typeof TimelineEventSchema>;
+export type TimelineProcessSectionData = z.infer<
+  typeof TimelineProcessSectionSchema
+>;
+export type MetricsImpactSectionData = z.infer<
+  typeof MetricsImpactSectionSchema
+>;
+export type PieChartSectionData = z.infer<typeof PieChartSectionSchema>;
 
 // Union Type for all sections
 export type ArticleSection = z.infer<typeof DiagramSectionSchema>;
