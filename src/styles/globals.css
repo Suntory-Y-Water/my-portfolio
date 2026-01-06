@@ -130,6 +130,27 @@
   li {
     @apply leading-relaxed text-foreground/90;
   }
+
+  /* パイチャート用セグメントカラー */
+  .pie-segment-1 {
+    fill: var(--primary);
+  }
+  .pie-segment-2 {
+    fill: var(--primary);
+    fill-opacity: 0.6;
+  }
+  .pie-segment-3 {
+    fill: var(--primary);
+    fill-opacity: 0.35;
+  }
+  .pie-segment-4 {
+    fill: var(--muted-foreground);
+    fill-opacity: 0.6;
+  }
+  .pie-segment-5 {
+    fill: var(--muted-foreground);
+    fill-opacity: 0.35;
+  }
 }
 
 /* PagefindUIのスタイルをテーマに合わせてカスタマイズ
