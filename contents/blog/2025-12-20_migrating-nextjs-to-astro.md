@@ -11,6 +11,156 @@ tags:
   - Next.js
   - Playwright
   - ブログ
+diagram:
+  - type: hero
+    date: "2025-12-20"
+    title: "Next.js から Astro へ。拡張性を捨て、シンプルさを選んだ理由"
+    subtitle: "機能過多な「何でもできる」から、ブログに特化した「必要最小限」への技術的移行の記録"
+  - type: transition
+  - type: problem
+    variant: simple
+    icon: alertCircle
+    title: "高機能ゆえの疲弊と乖離"
+    introText: "かつては魔法のようだったNext.js。しかし進化の速さと複雑化により、個人ブログにはオーバースペックな課題が浮上しました。"
+    cards:
+      - icon: zapOff
+        title: "追いつけない新機能"
+        subtitle: "Server Actions / PPR"
+        description: "次々と追加される独自機能。ブログ用途での必要性が見出せず、キャッチアップに疲弊。"
+        isHighlight: false
+      - icon: layers
+        title: "Web標準との不和"
+        subtitle: "View Transitions API"
+        description: "Web標準APIを使いたくても、Reactの仮想DOMとの相性問題で素直に実装できないもどかしさ。"
+        isHighlight: false
+        accentColor: RED
+      - icon: box
+        title: "過剰なJSバンドル"
+        subtitle: "SSGでも残るJS"
+        description: "静的サイトにも関わらず大量のJSが配信される。SEOやパフォーマンス面での懸念。"
+        isHighlight: false
+  - type: timeline_process
+    title: "重い腰を上げた決定打"
+    introText: "「面倒くさい」という怠惰な気持ちを打ち砕いたのは、深刻なセキュリティインシデントの連鎖でした。"
+    icon: shieldAlert
+    events:
+      - time: "以前から"
+        title: "Astroへの憧れ"
+        description: "移行したい思いはあったが、手間の多さから実行に移せず保留状態。"
+        isHighlight: false
+      - time: "2025/12/10"
+        title: "RSC脆弱性発覚"
+        description: "CVSSスコア10.0の致命的な脆弱性が公表される。即時対応が必要な緊急事態に。"
+        isHighlight: true
+        accentColor: RED
+      - time: "2025/12/12"
+        title: "追撃の脆弱性"
+        description: "立て続けに新たな問題が発覚。アーキテクチャ自体への懸念が確信に変わる。"
+        isHighlight: false
+      - time: "決断"
+        title: "Astroへの移行開始"
+        description: "セキュリティ対応を契機に、ブログに最適な環境への移行を決意。"
+        isHighlight: true
+        accentColor: GOLD
+  - type: core_message
+    variant: highlight
+    icon: scale
+    title: "「何でもできる」から「必要最小限」へ"
+    mainMessage: "ブログに必要なのは拡張性ではなく、Web標準に準拠したシンプルさでした。複雑なReactエコシステムを離れ、コンテンツ配信に特化したAstroを選択しました。"
+    comparisons:
+      - icon: layers
+        title: "Next.js / React"
+        text: "拡張性は高いが機能過多。Web標準APIとの統合に難あり。"
+        isGood: false
+      - icon: rocket
+        title: "Astro"
+        text: "SSG特化でJS最小限。Web標準技術を素直に扱える。"
+        isGood: true
+    coreHighlight:
+      title: "Astroを選んだ理由"
+      text: "Honoも候補の一つでWeb標準だが、JSX周りでReact依存の懸念あり。ブログ用途での実績と最適化でAstroを採用。"
+      accentColor: GOLD
+  - type: grouped_content
+    title: "機能の移行検証と互換性"
+    introText: "コア機能が移植できなければ意味がありません。調査の結果、ブログに必要な機能のほとんどが移行可能でした。"
+    icon: checkCircle
+    sectionBgColor: white
+    groups:
+      - title: "スムーズに移行可能"
+        description: "既存の資産やライブラリをほぼそのまま流用できた機能群。"
+        bgColor: muted
+        cards:
+          - title: "動的OGP生成"
+            text: "satori + @resvg/resvg-jsの構成を流用可能。"
+            isHighlight: false
+          - title: "SSG / Markdown"
+            text: "Astroデフォルト機能とimport.meta.globで完結。"
+            isHighlight: true
+            accentColor: GOLD
+          - title: "Pagefind検索"
+            text: "Astro Integrationがあり、むしろ統合が容易に。"
+            isHighlight: false
+  - type: grouped_content
+    title: "直面した技術的壁と解決策"
+    introText: "一筋縄ではいかない部分もありました。特にMermaid.jsによるバンドル肥大化と、CI/CD環境でのPlaywright動作には工夫が必要でした。"
+    icon: hammer
+    sectionBgColor: muted
+    groups:
+      - title: "Mermaidのバンドル肥大化"
+        description: "標準プラグインでは全ページに巨大なJSが含まれてしまう問題。"
+        bgColor: white
+        isHighlight: true
+        cards:
+          - title: "問題: 500KB超"
+            text: "markdown-content.jsだけで約500KBに膨れ上がる。"
+            isHighlight: false
+          - title: "解決: Playwright"
+            text: "ビルド時にブラウザでSVG生成しHTMLに埋め込む。"
+            isHighlight: true
+            accentColor: GOLD
+          - title: "成果: 劇的削減"
+            text: "JSサイズを138KB削減し、モジュール数も激減。"
+            isHighlight: false
+      - title: "CI/CDとビルド時間の壁"
+        description: "Vercel環境での動作不具合と、OGP生成の遅延対策。"
+        bgColor: white
+        cards:
+          - title: "Vercel × Playwright"
+            text: "依存関係で失敗するためGitHub Actionsへ移行。"
+            isHighlight: false
+          - title: "OGP生成の高速化"
+            text: "自作KVSとR2で生成画像をキャッシュし再利用。"
+            isHighlight: true
+            accentColor: GOLD
+  - type: steps
+    title: "ビルドパイプラインの最適化"
+    introText: "PlaywrightをCIで動かすための試行錯誤と、最終的なデプロイフローの確立。"
+    steps:
+      - number: 1
+        title: "ブラウザのキャッシュ"
+        text: "GitHub Actions上でPlaywrightのバイナリをキャッシュ。"
+      - number: 2
+        title: "プレビューデプロイ"
+        text: "Vercel CLIでプレビュー環境へデプロイしURL取得。"
+      - number: 3
+        title: "PRへの通知"
+        text: "GitHub CLIを使用し、PRにプレビューURLを自動コメント。"
+      - number: 4
+        title: "OGPキャッシュ活用"
+        text: "自作バックエンドでOGPデータを永続化しビルド時間を短縮。"
+  - type: action
+    title: "技術選択のその先へ"
+    mainText: "Next.jsを選んだ3年前も、Astroを選んだ今も、その時の自分にとっての「正解」でした。"
+    actionStepsTitle: "これからの向き合い方"
+    actionSteps:
+      - title: "目的を見失わない"
+        description: "技術の流行よりも「何を実現したいか」を優先する。"
+      - title: "変化を恐れない"
+        description: "数年後にはまた別のツールを使うかもしれない柔軟さを持つ。"
+    pointText: "脆弱性はただのきっかけ。「本当に必要な機能は何か」を見つめ直し、自分の課題にとっての最善を選び続けましょう。"
+    footerText: "技術の波を楽しみながら乗りこなそう"
+    subFooterText: "sui Tech Blog"
+    accentColor: GOLD
 ---
 Next.js は Web アプリ開発で一線級を走るフレームワークの 1 つです。
 この業界で働き出した 3 年前、Web 開発のいろはも知らなかった私にとって、Next.js は魔法のようなフレームワークでした。当時から React が Web 開発でいいらしいということはわかっていたのですが、React はフロントエンドでの使用が主流だったため、サーバー部分、いわゆるバックエンドの選択が必須でした。
