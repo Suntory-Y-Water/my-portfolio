@@ -5,10 +5,29 @@ import { getCollection } from 'astro:content';
 import { Icons } from '@/components/icons';
 import { paginateItems } from '@/lib/pagination';
 import { SHORTS_CONSTANTS } from '@/constants';
+import { absoluteUrl } from '@/lib/utils';
 import Pagination from '@/components/shared/pagination-item.astro';
 
 import { compileMarkdown } from '@/components/feature/content/custom-markdown';
 import { getFirstPage } from '@/lib/shorts';
+
+export async function getStaticPaths() {
+  const allShorts = await getCollection('shorts');
+  const totalPages = Math.ceil(
+    allShorts.length / SHORTS_CONSTANTS.POSTS_PER_PAGE,
+  );
+
+  return Array.from({ length: totalPages }, (_, i) => ({
+    params: { page: String(i + 1) },
+  }));
+}
+
+const { page } = Astro.params;
+const pageNum = Number.parseInt(page, 10);
+
+if (Number.isNaN(pageNum)) {
+  return Astro.redirect('/404');
+}
 
 const allShorts = await getCollection('shorts');
 const sortedShorts = allShorts.sort(
@@ -22,9 +41,13 @@ const {
   totalPages,
 } = paginateItems({
   items: sortedShorts,
-  page: 1,
+  page: pageNum,
   pageSize: SHORTS_CONSTANTS.POSTS_PER_PAGE,
 });
+
+if (currentPage > totalPages) {
+  return Astro.redirect('/404');
+}
 
 const compiledShorts = await Promise.all(
   paginatedShorts.map(async (short) => {
@@ -40,9 +63,10 @@ const compiledShorts = await Promise.all(
 
 const title = 'Shorts';
 const description = '技術的な短いメモやTips、Q&Aなどのまとめ';
+const canonicalUrl = absoluteUrl(`/shorts/page/${page}`);
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} canonicalUrl={canonicalUrl}>
   <section class='space-y-10' data-pagefind-ignore>
     <div class='space-y-3 border-b border-border/60 pb-4'>
       <nav class='flex items-center gap-2 text-sm text-muted-foreground'>
@@ -66,16 +90,10 @@ const description = '技術的な短いメモやTips、Q&Aなどのまとめ';
 
     <ShortsGrid shorts={compiledShorts} />
 
-    {
-      totalPages > 1 && (
-        <div class='pt-6'>
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            basePath='/shorts/page'
-          />
-        </div>
-      )
-    }
+    <Pagination
+      currentPage={currentPage}
+      totalPages={totalPages}
+      basePath='/shorts/page'
+    />
   </section>
 </BaseLayout>
