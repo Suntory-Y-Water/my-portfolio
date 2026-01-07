@@ -26,10 +26,7 @@
       }
     },
     "preset-ja-spacing": {
-      "ja-space-between-half-and-full-width": {
-        "space": "always",
-        "exceptPunctuation": true
-      },
+      "ja-space-between-half-and-full-width": false,
       "ja-space-around-code": {
         "before": true,
         "after": true
