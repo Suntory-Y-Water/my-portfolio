@@ -241,7 +241,7 @@ await page.evaluate(() => {
 await page.locator('button.submit').click();
 ```
 
-公式が推奨している `locator` を使用する場合の要素操作の優先度は以下の通りです。
+公式が推奨している `locator` を使用する場合の優先度は以下の通りです。
 
 ```typescript
 // 1. Role(役割)ベース (アクセシビリティに最適)
@@ -289,15 +289,15 @@ await page.locator('.btn-primary');
 
 ## 参考
 
-- [Locators | Playwright](https://playwright.dev/docs/locators)
+- [Agents Skills - Claude Code](https://platform.claude.com/docs/ja/agents-and-tools/agent-skills/overview)
 - [Actionability | Playwright](https://playwright.dev/docs/actionability)
-- [Evaluating JavaScript | Playwright](https://playwright.dev/docs/evaluating)
 - [Best Practices | Playwright](https://playwright.dev/docs/best-practices)
+- [Evaluating JavaScript | Playwright](https://playwright.dev/docs/evaluating)
+- [Locator | Playwright - evaluate](https://playwright.dev/docs/api/class-locator#locator-evaluate)
+- [Locators | Playwright](https://playwright.dev/docs/locators)
 - [Page | Playwright - waitForNavigation](https://playwright.dev/docs/api/class-page#page-wait-for-navigation)
 - [Page | Playwright - waitForLoadState](https://playwright.dev/docs/api/class-page#page-wait-for-load-state)
-- [Page | Playwright - evalOnSelector](https://playwright.dev/docs/api/class-page#page-eval-on-selector)
-- [Locator | Playwright - evaluate](https://playwright.dev/docs/api/class-locator#locator-evaluate)
-- [Agents Skills - Claude Code](https://platform.claude.com/docs/ja/agents-and-tools/agent-skills/overview)
+- [やはり俺の青春ラブコメはまちがっている。 (ガガガ文庫)](https://www.amazon.co.jp/dp/B00A20SDQQ)
 
 
 [^agents-skills]: Agent Skillsは、Claudeの機能を拡張するモジュール型の機能です。領域固有の専門知識を提供する再利用可能なリソースで、指示、メタデータ、オプションのリソース(スクリプト、テンプレート)をパッケージ化します。
