@@ -21,7 +21,7 @@ Next.jsでAPIからGoogle Places API (New)を叩こうとしたら、400番エ�
 
 ## 実際にやったこと
 
-curlでAPIを叩いたときの例が掲載されており、`"X-Goog-Api-Key: API_KEY"`のAPI_KEYを正しく設定すれば情報を取得できる。
+curlでAPIを叩いたときの例が掲載されており、`"X-Goog-Api-Key: API_KEY"` のAPI_KEYを正しく設定すれば情報を取得できる。
 
 次の例は、circle によって定義された、半径 500 m 以内のすべてのレストランの表示名に対する Nearby Search(New)リクエストを示しています。
 

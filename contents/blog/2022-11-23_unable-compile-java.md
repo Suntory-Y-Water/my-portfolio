@@ -22,7 +22,7 @@ Javaを勉強中にコンパイルができず無駄に時間を浪費したの�
 ## 階層構造
 Eclipseを使用
 
-`tree /f`にて階層を確認
+`tree /f` にて階層を確認
 
 ```cmd
 C:\ocjp\workspace\CoffeeChoiceApp>tree /f
@@ -50,7 +50,7 @@ C:.
 ```
 
 ## やりたいこと
-`BestCoffeeChoiceApp.java`をコンパイルしたい
+`BestCoffeeChoiceApp.java` をコンパイルしたい
 
 ## 実際にやったこと
 cmdからコンパイルをしようと下記の階層に移動し実行
@@ -117,7 +117,7 @@ BestCoffeeChoiceApp.java:12: エラー: シンボルを見つけられません
 
 上記のサイトを参考に解消した
 
-`src`をカレントディレクトリとして以下を実行する
+`src` をカレントディレクトリとして以下を実行する
 ```terminal
 javac main/BestCoffeeChoiceApp.java
 ```

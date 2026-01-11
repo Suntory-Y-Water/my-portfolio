@@ -103,10 +103,10 @@ DATABASE_ID=BookNotionのデータベースID
 PAGE_URL=作成後のページが追加されるページのID
 ```
 
-データベースIDの確認方法は、BookNotionで追加したデータベースのページURLが以下の場合、`xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`がデータベースIDになります。
+データベースIDの確認方法は、BookNotionで追加したデータベースのページURLが以下の場合、`xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx` がデータベースIDになります。
 `https://www.notion.so/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx?v=yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy`
 
-ページIDは`https://www.notion.so/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`の場合、`xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`がページIDになります。
+ページIDは `https://www.notion.so/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx` の場合、`xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx` がページIDになります。
 
 ## パスワードのハッシュ化
 
@@ -119,7 +119,7 @@ PAGE_URL=作成後のページが追加されるページのID
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3351724/b8369a2b-c178-7eab-8769-9cd5018c3692.png)
 
-今回ハイライトとコメントをまとめたいのは`解像度を上げる――曖昧な思考を明晰にする「深さ・広さ・構造・時間」の４視点と行動法`という本なので、そのまま送信フォームに入力し`Create a Notion page!`を押します。
+今回ハイライトとコメントをまとめたいのは `解像度を上げる――曖昧な思考を明晰にする「深さ・広さ・構造・時間」の４視点と行動法` という本なので、そのまま送信フォームに入力し `Create a Notion page!` を押します。
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3351724/f9c55056-5f28-0c98-7872-78d17197631e.png)
 
@@ -138,7 +138,7 @@ PAGE_URL=作成後のページが追加されるページのID
     - おもろいもの思いついたらまた何か作りたい
 - TailWind CSSは小規模なら良いと思ったけど大規模には向かなそう？
 - Web APIに対する理解を深めたい
-- App Routerﾅﾝﾓﾜｶﾗﾝから体系的にまとまった教材を探したい
+- App Routerナンモワカランから体系的にまとまった教材を探したい
 
 ## 今後の方針
 

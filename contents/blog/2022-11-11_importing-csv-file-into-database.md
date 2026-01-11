@@ -97,7 +97,7 @@ MySQLのログイン時にオプションでローカルの入力ファイルを
 --local_infile=1 またはon
 ```
 
-今回は上記の`--enable-local-infile`を検証する
+今回は上記の `--enable-local-infile` を検証する
 
 ### 一度ログアウトし、再度インポートを試みる
 
@@ -126,7 +126,7 @@ Records: 300  Deleted: 0  Skipped: 0  Warnings: 0
 
 ## 結論
 
-- csvファイルをインポートするときはログイン時に`--enable-local-infile`を忘れない
+- csvファイルをインポートするときはログイン時に `--enable-local-infile` を忘れない
 
 ## 参考資料
 
