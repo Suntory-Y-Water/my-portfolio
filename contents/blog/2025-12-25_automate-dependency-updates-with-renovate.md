@@ -255,19 +255,28 @@ jobs:
   auto-merge:
     if: |
       contains(github.event.pull_request.labels.*.name, 'automerge') &&
-      (github.event.pull_request.user.login == 'renovate[bot]' ||
-       github.event.pull_request.user.login == 'your-github-app-automation[bot]') 
+      (github.event.pull_request.user.login == 'renovate[bot]' || github.event.pull_request.user.login == 'your-github-app-automation[bot]')
     timeout-minutes: 30
     permissions:
       contents: write
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
+      - name: Generate GitHub App Token
+        id: generate-token
+        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          repositories: ${{ github.event.repository.name }}
+          permission-contents: write
+          permission-pull-requests: write
+
       - name: Enable Auto Merge (will wait for required checks)
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: gh pr merge --repo "$GITHUB_REPOSITORY" --squash --auto --delete-branch "$PR_NUMBER"
+        run: gh pr merge --repo "$GITHUB_REPOSITORY" --merge --auto --delete-branch "$PR_NUMBER"
 ```
 
 この設定により、Renovate や緊急時のバージョン更新フローで作成した PR は、テストやビルドが成功した後に自動的にマージされます。人間が介入する必要はありません。
