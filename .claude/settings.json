@@ -53,9 +53,7 @@
       "Write(**/secrets/**)",
       "Bash(wget:*)",
       "NotebookEdit",
-      "NotebookRead",
-      "ExitPlanMode",
-      "Bash(curl:*)"
+      "NotebookRead"
     ],
     "ask": [
       "Bash(git push:*)",
@@ -97,16 +95,6 @@
           {
             "type": "command",
             "command": "bun run --silent -i ~/.claude/scripts/typescript/web-fetch-advice.ts"
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bun run --silent -i ~/.claude/scripts/typescript/dynamic-context-skill-loader.ts"
           }
         ]
       }
