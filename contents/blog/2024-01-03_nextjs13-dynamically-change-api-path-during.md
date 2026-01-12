@@ -30,7 +30,7 @@ Next.js13でAPIを取得したときにパスの関係で手こずったこと�
 
 画面起動時にSSGやSSRでAPIを発火して取得することだと思っています。
 
-以下の画面では環境変数`API_URL`で[`http://localhost:3000`](http://localhost:3000/)を定義し、取得したデータをmap関数で展開しています。
+以下の画面では環境変数 `API_URL` で[`http://localhost:3000`](http://localhost:3000/)を定義し、取得したデータをmap関数で展開しています。
 
 ```tsx app/bad/page.tsx
 import Link from 'next/link';
@@ -97,14 +97,14 @@ TypeError: fetch failed
 Error: Command "npm run build" exited with 1
 ```
 
-API_URLが`localhost:3000`のままなので当たり前なんですが、絶対パスではなく相対パスでビルドできるか試そうにも、そもそもローカル環境でビルドが通らないです。
+API_URLが `localhost:3000` のままなので当たり前なんですが、絶対パスではなく相対パスでビルドできるか試そうにも、そもそもローカル環境でビルドが通らないです。
 
 GPT先生に聞いたところ以下の回答をもらった。
 
 > Next.jsでは、静的サイト生成(SSG)の際、ビルド時にページが事前にレンダリングされます。外部データを必要としないページについては、Next.jsが各ページごとに単一のHTMLファイルを生成します。
-しかし、外部データに依存するページの場合、Next.jsは`getStaticProps`や`getStaticPaths`のような関数を提供しています。これらの関数はビルド時にデータを取得し、ページのpropsに渡して事前レンダリングするために使用されます。
-`getStaticProps`を使用する場合、この関数はビルド時に外部APIからデータを取得するために呼び出されます。
-例として、絶対URLを使用してブログの投稿を取得するシナリオが示されています。同様に、`pages/posts/[id].js`のような動的ルートの場合、`getStaticProps`は特定の投稿のデータ(`id`)を使用して取得し、この関数もビルド時に呼び出されます。
+しかし、外部データに依存するページの場合、Next.jsは `getStaticProps` や `getStaticPaths` のような関数を提供しています。これらの関数はビルド時にデータを取得し、ページのpropsに渡して事前レンダリングするために使用されます。
+`getStaticProps` を使用する場合、この関数はビルド時に外部APIからデータを取得するために呼び出されます。
+例として、絶対URLを使用してブログの投稿を取得するシナリオが示されています。同様に、`pages/posts/[id].js` のような動的ルートの場合、`getStaticProps` は特定の投稿のデータ(`id`)を使用して取得し、この関数もビルド時に呼び出されます。
 これらの例と説明から、Next.jsにおけるSSGやSSRでは、特にビルド時にAPIからデータを取得する際には、絶対URLの使用が一般的であることがわかります。これは、サーバーサイドやビルド時のコンテキストでは相対URLが正しく解決されないためです。
  
 
@@ -114,8 +114,8 @@ GPT先生に聞いたところ以下の回答をもらった。
 
 ## 改善例
 
-- `next/headers`を使用して現在のURLを動的に取得する。
-- `next/headers`ではプロトコル部分(`http://`)を取得できないため、環境変数で設定しておきデプロイ後`https://`に変更する。
+- `next/headers` を使用して現在のURLを動的に取得する。
+- `next/headers` ではプロトコル部分(`http://`)を取得できないため、環境変数で設定しておきデプロイ後 `https://` に変更する。
 
 ``` tsx app/good/page.tsx
 import Link from 'next/link';
@@ -149,9 +149,9 @@ export default async function Good() {
 }
 ```
 
-以下は環境変数の読み込み用の`lib/config.ts`と`.env.local`
+以下は環境変数の読み込み用の `lib/config.ts` と `.env.local`
 
-開発環境では`API_PREFIX=http://`と定義しておき、デプロイ時に環境変数を変更することで、開発環境と本番環境でコードを修正することがなくなる。
+開発環境では `API_PREFIX=http://` と定義しておき、デプロイ時に環境変数を変更することで、開発環境と本番環境でコードを修正することがなくなる。
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3351724/b9752534-bdf7-ea35-ead9-dbdfe34aefd4.png)
 

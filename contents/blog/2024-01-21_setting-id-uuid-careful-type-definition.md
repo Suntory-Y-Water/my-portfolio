@@ -30,7 +30,7 @@ async def read_blog(blog_id: UUID, db: AsyncSession = Depends(get_db)):
     return blog
 ```
 
-`read_blog`ではUUIDを受け取っている。
+`read_blog` ではUUIDを受け取っている。
 受け取ったUUIDをもとにデータベースへ検索をかけている
 
 ```text
@@ -81,7 +81,7 @@ async def get_blog_by_id(db: AsyncSession, blog_id: UUID) -> blog_model.Blog | N
 
 ## 解決策
 
-`read_blog`の型を`UUID`ではなく`str`で受け取れば解決する。
+`read_blog` の型を `UUID` ではなく `str` で受け取れば解決する。
 
 ```python
 @router.get("/blog/{blog_id}", response_model=schema.Blog)

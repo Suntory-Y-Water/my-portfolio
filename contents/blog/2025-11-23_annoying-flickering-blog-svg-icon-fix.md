@@ -19,11 +19,11 @@ tags:
 
 https://suntory-n-water.com/blog/ios-kawaii-emoji
 
-その記事からの再度の引用になりますが、絵文字というものは Unicode で規定されているものの、表示する媒体によってある程度の「表現の幅」が認められています。例えば、同じ「サングラスをした顔」であっても、Windows と Apple の絵文字ではデザインが異なります。
+その記事からの再度の引用になりますが、絵文字というものは Unicode で規定されているものの、表示する媒体によってある程度の「表現の幅」が認められています。たとえば、同じ「サングラスをした顔」であっても、Windows と Apple の絵文字ではデザインが異なります。
 
 https://0g0.org/unicode/1F60E/
 
-これまでは、ブログで絵文字を採用する際に GitHub 上にある静的ファイルを直接 URL で指定し、Next.js の Image タグで取得していました。例えば同じ「サングラスをした顔」であれば `https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Smiling%20face%20with%20sunglasses/Flat/smiling_face_with_sunglasses_flat.svg` という URL で絵文字を取得できます。
+これまでは、ブログで絵文字を採用する際に GitHub 上にある静的ファイルを直接 URL で指定し、Next.js の Image タグで取得していました。たとえば同じ「サングラスをした顔」であれば `https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Smiling%20face%20with%20sunglasses/Flat/smiling_face_with_sunglasses_flat.svg` という URL で絵文字を取得できます。
 
 しかし、この実装では初回アクセス時に限り、絵文字が表示されるまでに若干のちらつきが発生していました。2 回目以降はキャッシュが効いてスムーズに表示されるのですが、初回はページの描画と画像の読み込みタイミングがずれることで、一瞬空白が表示されてしまいます。
 
@@ -38,7 +38,7 @@ https://0g0.org/unicode/1F60E/
 
 しかし、ローカルに配置したにもかかわらず、依然としてちらつきは解消されませんでした。
 
-原因を調べたところ、Next.js の `<Image>` コンポーネントはデフォルトで遅延読み込み (lazy loading) が有効になっており、ネットワーク経由で画像を取得する仕組みになっていることが判明しました。
+原因を調べたところ、Next.js の `<Image>` コンポーネントはデフォルトで遅延読み込み (lazy loading) が有効になっており、ネットワーク経由で画像を取得するしくみになっていることが判明しました。
 
 https://nextjs.org/docs/app/getting-started/images
 
@@ -50,7 +50,7 @@ https://github.com/vercel/next.js/issues/63681
 https://nextjs.org/docs/app/api-reference/components/image#dangerouslyallowsvg
 
 ## SVGインライン化による解決
-「どうにかならないか」と考えた末、React の時は実際の SVG コードを直接ソースコードに埋め込む方が、ほぼ確実にちらつきを防げることに気づきました。
+「どうにかならないか」と考えた末、React の時は実際の SVG コードを直接ソースコードに埋め込む方が、ほぼ確実にちらつきを防げることに気付きました。
 
 SVG をインライン化(コード中に直接埋め込み)することで、ネットワーク経由の画像取得プロセスをスキップできます。ビルド時に静的ファイルの中に SVG コードそのものを含めてしまえば、画像のロードを待つ必要がなくなり、初回表示時からちらつくことなく表示されます。SVG は React のコンポーネントとして作成し、ビルド時に静的ファイルとして配信することで、ネットワークリクエストをなくし、ちらつきをなくす強引な手段で実装しました。
 
@@ -90,7 +90,7 @@ sequenceDiagram
     Browser->>Browser: ネットワーク取得なし(ちらつきなし)
 ```
 
-ブログ記事は全て Markdown ファイルのフロントマターで定義しています。
+ブログ記事はすべて Markdown ファイルのフロントマターで定義しています。
 本ブログでは `icon` を元に `Fluent Emoji` を Fetch して `icon_url` に設定し、表示したいアイコンのパスへ変換する処理を自動で行っています。
 
 ```yaml contents/blog/2025-11-23_annoying-flickering-blog-svg-icon-fix.md
@@ -238,7 +238,7 @@ function sanitizeSVG(svg: string): string {
 
 実際に両方の実装を比較してみましょう。
 
-まず、従来通り URL で画像を指定した方式です。初回起動時や `Command + Shift + R` などでスーパーリロードした時には、コンマ数秒程度ではありますが、ちらつきが発生します。2 回目以降、同じ URL の絵文字を表示する際にはちらつきませんが、初回のこの挙動は依然として気になります。
+まず、従来通り URL で画像を指定した方式です。初回起動時や `Command + Shift + R` などでスーパーリロードした時には、カンマ数秒程度ではありますが、ちらつきが発生します。2 回目以降、同じ URL の絵文字を表示する際にはちらつきませんが、初回のこの挙動は依然として気になります。
 ![image](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/0161e1ae5986ee182717fd16cd97ce49.gif)
 
 一方、SVG をビルドに直接埋め込む方式ではどうでしょうか。ローカル環境ではなく、Vercel 上にデプロイされた環境で検証しましたが、確認できる限りちらつきは発生していません。実際のソースコードを確認すると、該当の SVG 部分には SVG コードが直接埋め込まれていることが分かります。

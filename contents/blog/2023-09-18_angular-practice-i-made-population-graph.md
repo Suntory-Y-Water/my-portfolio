@@ -42,7 +42,7 @@ URL : https://funabashi-population-trends.vercel.app/
 ## 個人的に良かったところ
 
 - UIはデジタル庁を参考にしたけど、結構楽しい
-- Angular…ｺﾜｲがなくなったこと
+- Angular…コワイがなくなったこと
 - 可視化すると人気な町とほどほどな町が一瞬で分かって楽しい
     - 老人も減っている町は先が心配だなと
 

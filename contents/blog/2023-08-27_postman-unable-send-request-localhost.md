@@ -13,7 +13,7 @@ tags:
 ## 経緯
 [こちらの記事](https://qiita.com/KNR109/items/7e094dba6bcf37ed73cf#openapi%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)でSwaggerとOpenAPIの勉強をしているときに発生した備忘録です。
 
-`http://localhost:3001/users`にPostmanからリクエストを送信してもエラーになってしまう。
+`http://localhost:3001/users` にPostmanからリクエストを送信してもエラーになってしまう。
 
 > [!INFO]
 > Could not send request

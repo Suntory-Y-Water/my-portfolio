@@ -32,7 +32,7 @@ code .
 npm run start
 ```
 
-プロジェクトを作成したら`App.js`を修正します
+プロジェクトを作成したら `App.js` を修正します
 
 ```jsx
 import React, { useEffect } from 'react';
@@ -82,7 +82,7 @@ if __name__ == '__main__':
 
 ## おまけ
 
-`--disable-blink-features=AutomationControlled`を追加することでwindow.navigator.webdriverプロパティを無効にすることができるそうですね。
+`--disable-blink-features=AutomationControlled` を追加することでwindow.navigator.webdriverプロパティを無効にできるそうですね。
 知らなかったので補足しておきます。(使用時はサイトの利用規約を守ってください)
 
 ``` python 

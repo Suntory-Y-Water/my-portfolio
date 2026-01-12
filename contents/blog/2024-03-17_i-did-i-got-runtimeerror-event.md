@@ -15,13 +15,13 @@ tags:
 ---
 ## はじめに
 
-Docker + SQLAlchemy + pytest + MySQL + FastAPIでテストをしようとしたときに`RuntimeError: Event loop is closed`が発生したので、解決した方法を記載する
+Docker + SQLAlchemy + pytest + MySQL + FastAPIでテストをしようとしたときに `RuntimeError: Event loop is closed` が発生したので、解決した方法を記載する
 
 ## 前提知識
 
 本当はMySQLではなくSQLiteを使ってテストをしようとしたが、SQLiteがUPSERTに対応していなかったためMySQLで実施することにした
 
-テストに使用するコードは以下の通りで、コメントアウトしている部分のテストを実行すると`RuntimeError: Event loop is closed`が発生する
+テストに使用するコードは以下の通りで、コメントアウトしている部分のテストを実行すると `RuntimeError: Event loop is closed` が発生する
 
 ```python
 ## db.py

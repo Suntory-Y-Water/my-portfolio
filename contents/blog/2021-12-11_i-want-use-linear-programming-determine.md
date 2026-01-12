@@ -69,7 +69,7 @@ tags:
 
 Pythonで線形計画法を行うには、PuLPライブラリを使用している内容がほとんどだったのでインストールしていきます。
 
-本投稿は`jupyter lab`で動かしていきました。
+本投稿は `jupyter lab` で動かしていきました。
 
 ```python
 pip install pulp
@@ -101,7 +101,7 @@ Products_Data = [[product, *map(float, data)] for product, *data in Products_Dat
 
 前提条件として自身のスペックをもとに定義した。
 
-- 身体活動レベル ふつう
+- 身体活動レベルふつう
 - 男性 18~29歳
 - 糖質は「炭水化物 - 食物繊維」の値
 - 食塩相当量は未満にすべき値
@@ -161,7 +161,7 @@ for row in Products_Data:
 
 線形計画法ではある目的関数に対してその値を大きくする、もしくは小さくすることを目的とするのでそのようにコードを書きます。
 
-今回は最適な食品選ぶ観点から、価格を最小にすることが目的なので`Minimize`を選択し、最大化をする場合はコメントアウトしてある`Maxmize`を選択します。
+今回は最適な食品選ぶ観点から、価格を最小にすることが目的なので `Minimize` を選択し、最大化をする場合はコメントアウトしてある `Maxmize` を選択します。
 
 ```python
 ## 問題の定義
@@ -173,7 +173,7 @@ problem = pulp.LpProblem(name="セブンイレブン", sense=pulp.LpMinimize)
 ### 変数の定義
 
 
-`lowBound`は最小値、`upBound`は最大値を表しています。
+`lowBound` は最小値、`upBound` は最大値を表しています。
 
 最大値は入力しなくてもよいのですが、最初は適当に100と設定します。これによってどんなに良い商品があっても100個までしか選択できなくなります。
 
@@ -186,7 +186,7 @@ xs = [pulp.LpVariable(x, cat='Integer', lowBound=0, upBound=100) for x in name]
 
 ### 目的関数の定義
 
-先述通り価格を最小化するため`price`を設定します。
+先述通り価格を最小化するため `price` を設定します。
 
 ```python
 ## 目的関数(最小or最大にすべき関数)
@@ -214,7 +214,7 @@ problem += pulp.lpDot(salt_equivalent, xs) <= one_da_nutrition_dict["食塩相�
 
 ### 問題を解いていただく
 
-制約を書いたら問題を解いていただき、この時に問題が解けていた(最適解が得られていた)ら`Optimal`と出力されます。
+制約を書いたら問題を解いていただき、この時に問題が解けていた(最適解が得られていた)ら `Optimal` と出力されます。
 
 ```python
 status = problem.solve()
@@ -287,7 +287,7 @@ Result
 ```
 
 数値だけ見ると中々理にかなった結果になりました。
-しかし`７プレミアム緑豆もやし`は1袋250g入っているので、一日**3,250g**食べなければなりません。
+しかし `７プレミアム緑豆もやし` は1袋250g入っているので、一日**3,250g**食べなければなりません。
 
 
 <img width="150" alt="代替テキスト" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/ec92fcc6-6f38-cc10-c551-6506bfe4f83b.jpeg"><img width="150" alt="代替テキスト" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/ec92fcc6-6f38-cc10-c551-6506bfe4f83b.jpeg"><img width="150" alt="代替テキスト" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/ec92fcc6-6f38-cc10-c551-6506bfe4f83b.jpeg"><img width="150" alt="代替テキスト" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/ec92fcc6-6f38-cc10-c551-6506bfe4f83b.jpeg"><img width="150" alt="代替テキスト" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/ec92fcc6-6f38-cc10-c551-6506bfe4f83b.jpeg"><img width="150" alt="代替テキスト" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/ec92fcc6-6f38-cc10-c551-6506bfe4f83b.jpeg"><img width="150" alt="代替テキスト" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/ec92fcc6-6f38-cc10-c551-6506bfe4f83b.jpeg"><img width="150" alt="代替テキスト" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/ec92fcc6-6f38-cc10-c551-6506bfe4f83b.jpeg"><img width="150" alt="代替テキスト" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/ec92fcc6-6f38-cc10-c551-6506bfe4f83b.jpeg"><img width="150" alt="代替テキスト" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/ec92fcc6-6f38-cc10-c551-6506bfe4f83b.jpeg"><img width="150" alt="代替テキスト" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/ec92fcc6-6f38-cc10-c551-6506bfe4f83b.jpeg"><img width="150" alt="代替テキスト" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/ec92fcc6-6f38-cc10-c551-6506bfe4f83b.jpeg"><img width="150" alt="代替テキスト" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/ec92fcc6-6f38-cc10-c551-6506bfe4f83b.jpeg">
@@ -320,14 +320,14 @@ Result
 
 ```
 
-今度は`７プレミアム緑豆もやし × 13`ような結果には至りませんが、たまごが圧倒的な存在感を出しています。
+今度は `７プレミアム緑豆もやし × 13` ような結果には至りませんが、たまごが圧倒的な存在感を出しています。
 
 しかしこれだけでは数値上では満たしても、主食が少なくてカロリーも低くすぎてお腹が減りそうな量ですね。
 
 現在、カロリーを2,650以下に設定しているためかなり厳しい条件となっていますが、お腹が減ってしまうことから2,000カロリーは摂取したいので、
 
-- `one_da_nutrition_dict`の`熱量(kcal)`を2,000に
-- `熱量(kcal)`の変数を以下から以上に
+- `one_da_nutrition_dict` の `熱量(kcal)` を2,000に
+- `熱量(kcal)` の変数を以下から以上に
 
 これらの変更点を踏まえて再度実行していきます。
 

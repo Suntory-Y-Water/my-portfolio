@@ -32,7 +32,7 @@ Pythonは触ってきたので、JavaScriptの基礎を勉強しました。
 
 最初はNext.JSのロゴがカッコよくReactの過程をすっ飛ばしてインストールしましたが、冷静に分からなさすぎたので引退しました。
 
-node.jsをインストール後、`npx create-react-app app-name`で新規プロジェクトを作成します。
+node.jsをインストール後、`npx create-react-app app-name` で新規プロジェクトを作成します。
 
 ## Reactの基礎を知る
 

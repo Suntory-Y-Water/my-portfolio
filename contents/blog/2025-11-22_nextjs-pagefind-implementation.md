@@ -27,7 +27,7 @@ https://pagefind.app/
 
 ## セットアップ
 
-Pagefind は、静的サイトジェネレーター(SSG)で生成された HTML ファイルを解析し、検索用インデックスを作成します。
+Pagefind は、静的サイトジェネレータ(SSG)で生成された HTML ファイルを解析し、検索用インデックスを作成します。
 今回はランタイムに **Bun** を使用しているため、`package.json` のスクリプトは以下のようになります。
 
 ```json package.json
@@ -47,7 +47,7 @@ Pagefind は、静的サイトジェネレーター(SSG)で生成された HTML 
 
 https://nextjs.org/docs/app/api-reference/file-conventions/public-folder
 
-ここにインデックスファイルや `pagefind.js` を出力することで、ブラウザ(クライアントサイド)から `/pagefind/pagefind.js` として直接アクセスが可能になり、スムーズに検索スクリプトをロードできるようになります。
+ここにインデックスファイルや `pagefind.js` を出力することで、ブラウザ(クライアントサイド)から `/pagefind/pagefind.js` として直接アクセスが可能になり、スムーズに検索スクリプトをロードできます。
 
 実際にこのブログで検索したときのデモです。見ての通り爆速で記事検索ができていることが確認できます。
 ![image](https://pub-151065dba8464e6982571edb9ce95445.r2.dev/images/b88b12b125263c0895529d4a4c487cec.gif)
@@ -124,6 +124,6 @@ https://www.petemillspaugh.com/nextjs-search-with-pagefind
 ## おまけ
 
 作成したコードを載せてもよかったのですが、フロントエンドを触るのが久しぶりすぎたので気になる人だけ見てください…(結構汚いです)
-本当は検索で引っかかった記事アイコンのキャッシュとかもできたらいいですね。
+本当は検索で引っかかった記事アイコンのキャッシュとかもできたらよいですね。
 
 https://github.com/Suntory-N-Water/sui-blog/blob/main/src/components/feature/search/search-dialog.tsx

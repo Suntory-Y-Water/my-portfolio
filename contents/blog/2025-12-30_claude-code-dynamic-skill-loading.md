@@ -121,9 +121,9 @@ diagram:
     subFooterText: "sui Tech Blog"
     accentColor: GOLD
 ---
-Agents Skills は、Claude Code がベストプラクティスに沿って実装できる仕組みです。例えば、何回も繰り返し伝える情報や定型作業、一番わかりやすい例では Git の操作などが挙げられます。AI に毎回指示するのではなく、Skills で「Git スキルでプルリクエストを発行してください」と実行するだけで、Claude Code が自律的にベストプラクティスに従って実装してくれます。
+Agents Skills は、Claude Code がベストプラクティスに沿って実装できるしくみです。たとえば、何回も繰り返し伝える情報や定型作業、一番わかりやすい例では Git の操作などが挙げられます。AI に毎回指示するのではなく、Skills で「Git スキルでPull Requestを発行してください」と実行するだけで、Claude Code が自律的にベストプラクティスに従って実装してくれます。
 
-定型作業や毎回コンテキストとして与えなければいけない情報を設定ファイルとして定義しておけば、ユーザが指示するだけでベストプラクティスに従った実行が可能です。しかし課題も存在します。AI エージェントが「スキルを実行して」という明示的な指示なしではスキルを読み込まないことです。ほんの数文字ですが、毎回伝えるのはとても億劫に感じます。
+定型作業や毎回コンテキストとして与えなければいけない情報を設定ファイルとして定義しておけば、ユーザーが指示するだけでベストプラクティスに従った実行が可能です。しかし課題も存在します。AI エージェントが「スキルを実行して」という明示的な指示なしではスキルを読み込まないことです。ほんの数文字ですが、毎回伝えるのはとても億劫に感じます。
 
 実体験として、Playwright でボタン操作や画面の待機を実装するなど、対処法が複数ある場合によく発生します。
 [Playwright 公式ドキュメント](https://playwright.dev/docs/best-practices#use-locators)によればボタン押下では `page.locator().click()` というメソッドを使うのがベストプラクティスとされています。Locator メソッドは、画面に存在するボタン要素が操作可能になるまで待機してくれるためです。
@@ -176,7 +176,7 @@ SKILL.md の指示に従ってタスクを実行します。参照ファイル�
 
 ### descriptionの改善と限界
 
-この問題に気づいた後、私は description の改善を試みました。ユーザー入力を「Playwright のベストプラクティスに従って！」に変更してみましたが、それでも実行されないときがあります。description は既に詳細に書いており、約 200 文字でキーワードを増やしても、改善しません。
+この問題に気付いた後、私は description の改善を試みました。ユーザー入力を「Playwright のベストプラクティスに従って！」に変更してみましたが、それでも実行されないときがあります。description はすでに詳細に書いており、約 200 文字でキーワードを増やしても、改善しません。
 
 > The `description` field enables Skill discovery and should include both what the Skill does and when to use it.
 > **Be specific and include key terms**. Include both what the Skill does and specific triggers/contexts for when to use it.
@@ -187,12 +187,12 @@ SKILL.md の指示に従ってタスクを実行します。参照ファイル�
 description: Extract text and tables from PDF files, fill forms, merge documents. Use when working with PDF files or when the user mentions PDFs, forms, or document extraction.
 ```
 
-機能(Extract、fill、merge)とトリガーキーワード(PDF、forms、document extraction)を明示的に含める。これが推奨される書き方です。
+機能(Extract、fill、merge)とトリガキーワード(PDF、forms、document extraction)を明示的に含める。これが推奨される書き方です。
 
 私の Playwright スキルも、この形式に従って書きましたが、実行されませんでした。description には 1024 文字という制限があります。そのため、すべての言い回しを詰め込むことはできません。「ボタンクリック」「画面操作」という自然な指示には、「Playwright」というキーワードが含まれません。
 
 LLM の推論も万能ではありません。 description はシステムプロンプトに注入されますが、コンテキストウィンドウ内には「ユーザーとの会話履歴」や「システム指示」など、他の情報も大量に存在します。その中で、短い description が Claude の注意を十分に引けない場合、Claude は「スキルを使わずに自力で解決しよう」としたり、単にスキルの存在を見落としたりします。
-それではキーワードを増やせばいいのでしょうか？そうすると、description が冗長になり、本質的な情報が埋もれてしまいます。
+それではキーワードを増やせばよいのでしょうか？そうすると、description が冗長になり、本質的な情報が埋もれてしまいます。
 
 description だけでは、確実な実行を保証できないと判断しました。
 
@@ -201,11 +201,11 @@ description だけでは、確実な実行を保証できないと判断しま�
 
 一番簡単な方法は、「スキルを利用して」と明言することです。しかし、課題で記載したとおり毎回入力するのは面倒です。
 
-そこで今回は、UserPromptSubmit Hooks を利用します。これは、ユーザーがプロンプトを送信した際、Claude Code が処理する前に実行される仕組みです。特定のキーワードが含まれていた場合、自動的にスキルを起動させる指示を注入することで、確実にスキルを実行させます。
+そこで今回は、UserPromptSubmit Hooks を利用します。これは、ユーザーがプロンプトを送信した際、Claude Code が処理する前に実行されるしくみです。特定のキーワードが含まれていた場合、自動的にスキルを起動させる指示を注入することで、確実にスキルを実行させます。
 
 https://code.claude.com/docs/en/hooks#userpromptsubmit
 
-これにより、「git」「コミット」「PR」などのキーワードが含まれていた場合、自動的にスキルを起動させる指示を注入できます。
+これにより、「Git」「コミット」「PR」などのキーワードが含まれていた場合、自動的にスキルを起動させる指示を注入できます。
 
 実装の全体像は以下のとおりです。
 
@@ -333,7 +333,7 @@ touch hooks/dynamic-context-skill-loader.ts hooks/context-skills-schema.json hoo
 ```
 
 まず、設定ファイル `context-skills.yml` の型定義として、`context-skills-schema.json` を作成します。
-設定ファイルはスキル名をキーとして、そのスキルの内容を簡単に記載する `description` と、トリガーとなるキーワードを定義する `trigger` を定義します。
+設定ファイルはスキル名をキーとして、そのスキルの内容を簡単に記載する `description` と、トリガとなるキーワードを定義する `trigger` を定義します。
 
 ```json .claude/hooks/context-skills-schema.json
 {
@@ -385,8 +385,8 @@ touch hooks/dynamic-context-skill-loader.ts hooks/context-skills-schema.json hoo
 
 https://github.com/Suntory-N-Water/sui-blog/tree/main/.claude/skills/managing-git-github-workflow
 
-スキル名は `managing-git-github-workflow` なので、設定ファイルでは以下のように定義します。
-`git` という単語を必須項目に設定して、その他の単語(`add` や `プルリク`)は任意キーワードとして定義します。これにより「git でプルリクまでよろしく！」のような、スキルが実行されるか判断が難しい内容でも、Claude Code へスキルを実行するよう確実に指示を与えることが可能です。
+スキル名は `managing-git-github-workflow` ですので、設定ファイルでは以下のように定義します。
+`git` という単語を必須項目に設定して、その他の単語(`add` や `プルリク`)は任意キーワードとして定義します。これにより「Git でプルリクまでよろしく！」のような、スキルが実行されるか判断が難しい内容でも、Claude Code へスキルを実行するよう確実に指示を与えることが可能です。
 
 ```yml .claude/hooks/context-skills.yml
 # yaml-language-server: $schema=./context-skills-schema.json
@@ -583,17 +583,17 @@ if (import.meta.main) {
 
 2 つ目は、複数スキルの競合です。Git 関連のスキルを複数個定義した場合、優先順位なしで全部起動されてしまうため、Claude Code が予期せぬ挙動になる可能性があります。
 
-3 つ目は、本格運用に難がある点です。例えば、Playwright のテストファイル(`**/*.test.ts`)を開いているときだけスキルを実行させる条件があります。この、ファイルパターンマッチングを組み合わせた条件は、まだ試せていません。特定の役割を持ったファイルやフォルダ(例: server, client など)で実施することで、それ専用のスキルを起動するような検証も今後行っていきたいです。
+3 つ目は、本格運用に難がある点です。たとえば、Playwright のテストファイル(`**/*.test.ts`)を開いているときだけスキルを実行させる条件があります。この、ファイルパターンマッチングを組み合わせた条件は、まだ試せていません。特定の役割を持ったファイルやフォルダ(例: server, client など)で実施することで、それ専用のスキルを起動するような検証も今後行っていきたいです。
 
 ## おわりに
 
-Claude Code のスキルは、「AI が状況を判断し、必要なツールを自律的に選択する」という今後の AI による開発の理想を体現した良い仕組みです。しかし現実には、Claude の推論による判定という不確実性により、私たちが期待するほどの「よしなにやってくれる」ようにはまだできていません。
+Claude Code のスキルは、「AI が状況を判断し、必要なツールを自律的に選択する」という今後の AI による開発の理想を体現した良いしくみです。しかし現実には、Claude の推論による判定という不確実性により、私たちが期待するほどの「よしなにやってくれる」ようにはまだできていません。
 
 今回紹介した UserPromptSubmit Hooks による解決策は、ある意味で AI の自律性を否定し、人間が強制的にレールを敷くアプローチです。
 「AI を楽に使うために、人間が裏で必死にお膳立てをする」という状況は、楽にしようとした結果、逆に泥臭いハックになってしまったという皮肉な状況です。
 ですが私はこの「**発展途上の技術をどのように攻略していくか**」試行錯誤するのが意外と好きです。Claude の推論判定の不確実性をキーワードマッチングで補うという、ベストな解決策ではないですが、少なくとも確実に動作します。
 
-いずれモデルの推論能力が飛躍的に向上すれば、このハックは不要になるでしょう。それまでの間、この記事で紹介した方法が、同じもどかしさを感じている方の助けになれば嬉しいです。
+いずれモデルの推論能力が飛躍的に向上すれば、このハックは不要になるでしょう。それまでの間、この記事で紹介した方法が、同じもどかしさを感じている方の助けになればうれしいです。
 
 ## 参考
 

@@ -16,7 +16,7 @@ tags:
 ## alt + ~~
 ## alt + アンダーライン付きローマ字
 
-検索と置換を例にあげますが、**alt + D**で検索へ**alt + T**でオプション画面へ遷移することができます。
+検索と置換を例にあげますが、**alt + D**で検索へ**alt + T**でオプション画面へ遷移できます。
 アンダーラインが引いてあるローマ字系はalt + xxxで操作可能です。
 
 
@@ -29,7 +29,7 @@ tags:
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/9bed1833-97bf-7168-de1a-37808cbb1727.png)
 
 
-極端ですがこんなに無駄があるシートでもctrl + Aで全選択を実施後に、**alt + H + O + I**で列の幅を自動調整することができます。
+極端ですがこんなに無駄があるシートでもctrl + Aで全選択を実施後に、**alt + H + O + I**で列の幅を自動調整できます。
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/837411/e5ebd735-fad2-233e-44bc-44659ef8ba48.png)
 

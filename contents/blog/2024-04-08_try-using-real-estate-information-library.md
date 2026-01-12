@@ -36,7 +36,7 @@ Postmanの使用方法は調べたらいくらでも出てくると思うので�
 [Postman API Platform | Sign Up for Free](https://www.postman.com/)
 今回は国土数値情報(将来推計人口500mメッシュ)APIを使っていきます。
 
-前提として不動産情報ライブラリAPIを叩くにはリクエストヘッダの`Ocp-Apim-Subscription-Key`にAPIキーを設定する必要があります。
+前提として不動産情報ライブラリAPIを叩くにはリクエストヘッダの `Ocp-Apim-Subscription-Key` にAPIキーを設定する必要があります。
 
 ![a.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3351724/0e9aea12-93c9-44ed-9164-c7ccb4489b32.png)
 
@@ -258,7 +258,7 @@ https://maps.gsi.go.jp/development/tileCoordCheck.html#15/35.6865/140.0223
                 
 ```
 
-APIレスポンスを確認すると`SHICODE`というカラムがあります。こちらはドキュメントを見ると`行政区域コード`として設定されており、返却された行政地区コードが正しいものか確認してみます。
+APIレスポンスを確認すると `SHICODE` というカラムがあります。こちらはドキュメントを見ると `行政区域コード` として設定されており、返却された行政地区コードが正しいものか確認してみます。
 
 実際に確認すると津田沼駅は千葉県習志野市なので正しく設定されていますね！
 ![d.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3351724/8461702e-58d0-ed8f-4aff-73f9871e6268.png)
