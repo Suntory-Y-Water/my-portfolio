@@ -1,5 +1,5 @@
 ---
-title: AIエージェント向けに最適化されてたagents-browserをplaywright MCPと比較検証してみた
+title: AIエージェント向けに最適化されてたagents-browserをPlaywright MCPと比較検証してみた
 slug: i-tried-using-agents-browser
 date: 2026-01-12
 modified_time: 2026-01-12
@@ -13,7 +13,7 @@ tags:
 diagram:
   - type: hero
     date: "2026/01/12"
-    title: "AIエージェント向けに最適化されてたagents-browserをplaywright MCPと比較検証してみた"
+    title: "AIエージェント向けに最適化されてたagents-browserをPlaywright MCPと比較検証してみた"
     subtitle: "Playwright MCPと比較してデータ量を最大75%削減。Yahoo! JAPANでの検証結果を公開"
   - type: problem
     variant: simple
