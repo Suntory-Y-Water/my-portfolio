@@ -66,8 +66,6 @@
       "Bash(rm:*)"
     ]
   },
-  "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": ["context7", "serena"],
   "hooks": {
     "Stop": [
       {
