@@ -48,6 +48,7 @@ export function rehypeCodeCopyButton() {
                       'text-xs',
                       'font-medium',
                       'text-foreground',
+                      'whitespace-nowrap',
                       'hidden',
                     ],
                   },
