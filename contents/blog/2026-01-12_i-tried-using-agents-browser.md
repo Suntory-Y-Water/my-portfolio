@@ -10,6 +10,36 @@ tags:
   - agents-browser
   - Playwright
   - AI
+selfAssessment:
+  quizzes:
+    - question: "agents-browserがPlaywright MCPと比較してSnapshotサイズを削減した割合はどれくらいですか?"
+      answers:
+        - text: "約93%削減"
+          correct: false
+          explanation: "93%は開発者の主張値であり、Yahoo! JAPANでの実際の検証では約75%の削減率でした"
+        - text: "約75%削減"
+          correct: true
+          explanation: "Yahoo! JAPANでの実測値では、Playwright MCPの137KBに対してagents-browserは34KBとなり、約75%のデータ削減を実現しました"
+        - text: "約35%削減"
+          correct: false
+          explanation: null
+        - text: "約50%削減"
+          correct: false
+          explanation: null
+    - question: "agents-browserのRef機能の役割として正しいものはどれですか?"
+      answers:
+        - text: "要素に短いIDを付与してAIが認識しやすくする仕組み"
+          correct: true
+          explanation: "Ref機能は各要素に[ref=e1]のような短いIDを割り当て、click @e97のようにIDを指定して正確に操作できるようにします"
+        - text: "HTMLデータを圧縮する仕組み"
+          correct: false
+          explanation: "Ref機能はデータ圧縮ではなく、要素に参照IDを付与して操作しやすくする仕組みです"
+        - text: "トークン消費量を削減する仕組み"
+          correct: false
+          explanation: null
+        - text: "ページのスクリーンショットを撮る仕組み"
+          correct: false
+          explanation: null
 diagram:
   - type: hero
     date: "2026/01/12"
@@ -173,7 +203,7 @@ agents-browserのSnapshotは約34KBでした。この軽量さにより、AIエ�
 
 ### Ref(参照ID)によるクリック動作の検証
 
-agents-browserの特徴的な機能として、Refシステムがあります。これは、各要素に参照IDを付与して、そのIDを使って操作を行う仕組みです。
+agents-browserの特徴的な機能として、Refシステムがあります。これは、各要素に参照IDを付与して、そのIDを使って操作を行うしくみです。
 スナップショットを取得すると、こんな感じで出力されます。
 
 ```bash
@@ -230,7 +260,7 @@ Playwright MCPのSnapshotは約137KBでした。Playwright MCPはアクセシビ
 | agents-browser | 34,481バイト (約34KB) | 43.8K (27%) |
 | **削減率** | **約75%削減** | **約35%削減** |
 
-agents-browserは、Playwright MCPと比較してSnapshotサイズを**約75%削減**しました。これは開発者の主張である「Up to 93% less context」には届きませんが、複雑なサイトでも大幅なデータ削減が実現できています。
+agents-browserは、Playwright MCPと比較してSnapshotサイズを**約75%削減**しました。これは開発者の主張である「Up to 93% LESS context」には届きませんが、複雑なサイトでも大幅なデータ削減が実現できています。
 
 トークン使用量もPlaywright MCPより少なく、LLMのコンテキストウィンドウを効率的に使えます。どちらも十分に実用的ですが、agents-browserはより軽量です。AIエージェントではより軽量なツールが求められるため、agents-browserは有力な選択肢です。
 
@@ -248,7 +278,7 @@ agents-browserは、Playwright MCPと比較してSnapshotサイズを**約75%削
 
 ## おまけ
 
-Claude Codeで使用した、agents-browserとPlaywright MCP両方のトークンセッション内容を全て記載します。興味がある方はご覧ください。
+Claude Codeで使用した、agents-browserとPlaywright MCP両方のトークンセッション内容をすべて記載します。興味がある方はご覧ください。
 
 <details>
 <summary>agents-browserのトークンセッション内容</summary>
