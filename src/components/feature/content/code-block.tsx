@@ -10,16 +10,6 @@ type CodeBlockProps = {
 
 /**
  * コードブロックを表示するコンポーネント
- *
- * このコンポーネントはシンタックスハイライト付きのコードブロックを表示し、
- * コピーボタンを提供してユーザーがコードを簡単にクリップボードにコピーできるようにします。
- * コピーボタンはホバー時に表示され、コピー後は1秒間チェックマークに変わります。
- *
- * @param className - 追加のCSSクラス名(任意)。preタグにカスタムスタイルを適用する際に使用します
- * @param children - コードブロック内に表示する内容。通常はcodeタグでラップされたコード文字列です
- * @returns コードブロックコンポーネント
- *
- * ```
  */
 export function CodeBlock({ className, children, ...props }: CodeBlockProps) {
   const [isCopied, setIsCopied] = useState(false);
