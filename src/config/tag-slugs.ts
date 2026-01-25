@@ -13,7 +13,7 @@ export const TAG_SLUG_MAP: Record<string, string> = {
   Angular: 'angular',
   API: 'api',
   AI: 'ai',
-  'agents-browser': 'agents-browser',
+  'agent-browser': 'agent-browser',
   AppRouter: 'app-router',
   Astro: 'astro',
   Biome: 'biome',

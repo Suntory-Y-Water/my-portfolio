@@ -24,6 +24,7 @@ export function ModeToggle() {
 
 // window.toggleTheme の型定義
 declare global {
+  // biome-ignore lint/style/useConsistentTypeDefinitions: 型拡張のため
   interface Window {
     toggleTheme: () => void;
   }
