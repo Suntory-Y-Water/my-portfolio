@@ -182,7 +182,7 @@ diagram:
 ---
 AIエージェントによるブラウザ自動操作は、2025年3月にMicrosoftが公開したPlaywright MCPによって可能になりました。AIがブラウザを操作し、ページの状態を確認しながら次の操作を決定するというしくみです。しかし、Playwright MCPにはページのスナップショット全体をAIに送信するため、トークン消費量[^token]が膨大になるという課題がありました。
 
-この課題を解決するため、2026年1月にVercelがagent-browserというCLIツールを公開しました。agent-browserは独自の参照方式（Refs）を採用し、ページ全体ではなく必要な要素のRefと要約情報をAIに渡すことで、トークン消費量の削減を実現しています。agent-browserを使用してPlaywright MCPと比較検証した結果、約70%のトークン削減に成功しました。詳細は[こちらの記事](https://suntory-n-water.com/blog/i-tried-using-agents-browser/)をご覧ください。
+この課題を解決するため、2026年1月にVercelがagent-browserというCLIツールを公開しました。agent-browserは独自の参照方式（Refs）を採用し、ページ全体ではなく必要な要素のRefと要約情報をAIに渡すことで、トークン消費量の削減を実現しています。agent-browserを使用してPlaywright MCPと比較検証した結果、約70%のトークン削減に成功しました。詳細は[こちらの記事](https://suntory-n-water.com/blog/i-tried-using-agent-browser/)をご覧ください。
 
 そして同じく2026年1月、Playwrightの開発元であるMicrosoftが新たにPlaywright CLIを公開しました。このツールもagent-browserと同様にCLIベースのブラウザ操作ツールですが、設計思想に違いがあります。この記事では、agent-browserとPlaywright CLIの両方を使って同じ操作を試み、設計思想の違いと実際のトークン消費量の差異を検証していきます。
 
