@@ -1,32 +1,32 @@
 ---
-title: AIエージェント向けに最適化されてたagents-browserをPlaywright MCPと比較検証してみた
-slug: i-tried-using-agents-browser
+title: AIエージェント向けに最適化されてたagent-browserをPlaywright MCPと比較検証してみた
+slug: i-tried-using-agent-browser
 date: 2026-01-12
 modified_time: 2026-01-12
-description: agents-browserの「Up to 93% less context than Playwright MCP」は本当か気になったので、Yahoo! JAPANを対象にPlaywright MCPと比較してデータ削減率とトークン消費量を検証します。
+description: agent-browserの「Up to 93% less context than Playwright MCP」は本当か気になったので、Yahoo! JAPANを対象にPlaywright MCPと比較してデータ削減率とトークン消費量を検証します。
 icon: 🌐
 icon_url: /icons/globe_with_meridians_flat.svg
 tags:
-  - agents-browser
+  - agent-browser
   - Playwright
   - AI
 selfAssessment:
   quizzes:
-    - question: "agents-browserがPlaywright MCPと比較してSnapshotサイズを削減した割合はどれくらいですか?"
+    - question: "agent-browserがPlaywright MCPと比較してSnapshotサイズを削減した割合はどれくらいですか?"
       answers:
         - text: "約93%削減"
           correct: false
           explanation: "93%は開発者の主張値であり、Yahoo! JAPANでの実際の検証では約75%の削減率でした"
         - text: "約75%削減"
           correct: true
-          explanation: "Yahoo! JAPANでの実測値では、Playwright MCPの137KBに対してagents-browserは34KBとなり、約75%のデータ削減を実現しました"
+          explanation: "Yahoo! JAPANでの実測値では、Playwright MCPの137KBに対してagent-browserは34KBとなり、約75%のデータ削減を実現しました"
         - text: "約35%削減"
           correct: false
           explanation: null
         - text: "約50%削減"
           correct: false
           explanation: null
-    - question: "agents-browserのRef機能の役割として正しいものはどれですか?"
+    - question: "agent-browserのRef機能の役割として正しいものはどれですか?"
       answers:
         - text: "要素に短いIDを付与してAIが認識しやすくする仕組み"
           correct: true
@@ -43,7 +43,7 @@ selfAssessment:
 diagram:
   - type: hero
     date: "2026/01/12"
-    title: "AIエージェント向けに最適化されてたagents-browserをPlaywright MCPと比較検証してみた"
+    title: "AIエージェント向けに最適化されてたagent-browserをPlaywright MCPと比較検証してみた"
     subtitle: "Playwright MCPと比較してデータ量を最大75%削減。Yahoo! JAPANでの検証結果を公開"
   - type: problem
     variant: simple
@@ -109,7 +109,7 @@ diagram:
         unit: "KB"
         barPercentage: 100
         description: "構造化されたYAML形式だが容量は大きめ"
-      - title: "agents-browser"
+      - title: "agent-browser"
         value: 34
         unit: "KB"
         barPercentage: 25
@@ -118,7 +118,7 @@ diagram:
   - type: transition
   - type: score_comparison
     title: "検証結果のインパクト"
-    introText: "agents-browser導入によるリソース削減率(対Playwright比)"
+    introText: "agent-browser導入によるリソース削減率(対Playwright比)"
     scores:
       - title: "データサイズ"
         value: 75
@@ -134,14 +134,14 @@ diagram:
   - type: core_message
     icon: checkCircle
     title: "検証の結論"
-    mainMessage: "agents-browserは圧倒的に軽量で実用的。複雑なDOM構造を持つサイトでもRef機能により正確に操作可能"
+    mainMessage: "agent-browserは圧倒的に軽量で実用的。複雑なDOM構造を持つサイトでもRef機能により正確に操作可能"
     comparisons:
       - icon: box
         title: "Playwright MCP"
         text: "詳細な情報保持に優れるがデータ量が大きくコストがかさむ"
         isGood: false
       - icon: feather
-        title: "agents-browser"
+        title: "agent-browser"
         text: "必要十分な情報に絞り込み高速かつ低コストで運用可能"
         isGood: true
   - type: transition
@@ -160,10 +160,10 @@ diagram:
     accentColor: GOLD
 ---
 
-agents-browserは、Vercel が開発したブラウザ自動化ツールです。AIエージェント向けに最適化されており、Rust製の高速なCLIとして実装されています。
+agent-browserは、Vercel が開発したブラウザ自動化ツールです。AIエージェント向けに最適化されており、Rust製の高速なCLIとして実装されています。
 
 開発者いわく、従来のブラウザ操作ツールであるPlaywright MCPと比較して最大93%のデータ量削減が可能です。本当にそこまで削減できるのか気になったので、実際に検証してみることにしました。
-本記事では、Yahoo! JAPANのトップページを対象に、agents-browserとPlaywright MCPの両方を使ってデータ削減率とトークン消費量を比較します。
+本記事では、Yahoo! JAPANのトップページを対象に、agent-browserとPlaywright MCPの両方を使ってデータ削減率とトークン消費量を比較します。
 
 ## 検証環境と方法
 
@@ -175,9 +175,9 @@ agents-browserは、Vercel が開発したブラウザ自動化ツールです�
 
 Yahoo! JAPANを選んだのは、日本の代表的なポータルサイトであり、リンクや動的コンテンツが豊富で複雑な構造を持つ実際のWebサイトだからです。実際にブラウザ操作を自動化する際は、複雑な構造を持つサイトが多いため、こういった現実的なケースでの性能把握が重要です。
 
-## agents-browserの検証結果
+## agent-browserの検証結果
 
-まず、agents-browserをインストールします。
+まず、agent-browserをインストールします。
 
 ```bash
 npm install -g agent-browser
@@ -199,11 +199,11 @@ $ agent-browser snapshot -i --json | wc -c
    34481
 ```
 
-agents-browserのSnapshotは約34KBでした。この軽量さにより、AIエージェントのコンテキストウィンドウを効率的に活用できます。
+agent-browserのSnapshotは約34KBでした。この軽量さにより、AIエージェントのコンテキストウィンドウを効率的に活用できます。
 
 ### Ref(参照ID)によるクリック動作の検証
 
-agents-browserの特徴的な機能として、Refシステムがあります。これは、各要素に参照IDを付与して、そのIDを使って操作を行うしくみです。
+agent-browserの特徴的な機能として、Refシステムがあります。これは、各要素に参照IDを付与して、そのIDを使って操作を行うしくみです。
 スナップショットを取得すると、こんな感じで出力されます。
 
 ```bash
@@ -219,7 +219,7 @@ $ agent-browser snapshot -i | head -100
 ```
 
 各要素に `[ref=e1]` のようなIDが付与されています。今回はトップニュースの「中国軍台湾近く沖合で上陸訓練か」(Ref: e97)をクリックします。
-agents-browserでは操作完了後、Doneと表示されるのが特徴です。AIエージェント向けに設計されており、操作が完了したことを明示的に示します。
+agent-browserでは操作完了後、Doneと表示されるのが特徴です。AIエージェント向けに設計されており、操作が完了したことを明示的に示します。
 
 ```bash
 $ agent-browser click @e97
@@ -257,35 +257,35 @@ Playwright MCPのSnapshotは約137KBでした。Playwright MCPはアクセシビ
 | ツール | Snapshotサイズ | トークン使用量 |
 |--------|---------------|---------------|
 | Playwright MCP | 136,725バイト (約137KB) | 67.17K (42%) |
-| agents-browser | 34,481バイト (約34KB) | 43.8K (27%) |
+| agent-browser | 34,481バイト (約34KB) | 43.8K (27%) |
 | **削減率** | **約75%削減** | **約35%削減** |
 
-agents-browserは、Playwright MCPと比較してSnapshotサイズを**約75%削減**しました。これは開発者の主張である「Up to 93% LESS context」には届きませんが、複雑なサイトでも大幅なデータ削減が実現できています。
+agent-browserは、Playwright MCPと比較してSnapshotサイズを**約75%削減**しました。これは開発者の主張である「Up to 93% LESS context」には届きませんが、複雑なサイトでも大幅なデータ削減が実現できています。
 
-トークン使用量もPlaywright MCPより少なく、LLMのコンテキストウィンドウを効率的に使えます。どちらも十分に実用的ですが、agents-browserはより軽量です。AIエージェントではより軽量なツールが求められるため、agents-browserは有力な選択肢です。
+トークン使用量もPlaywright MCPより少なく、LLMのコンテキストウィンドウを効率的に使えます。どちらも十分に実用的ですが、agent-browserはより軽量です。AIエージェントではより軽量なツールが求められるため、agent-browserは有力な選択肢です。
 
 ## まとめ
 
 - Playwright MCPと比較して、Snapshotサイズを約75%削減、トークン使用量で約35%削減
 - Ref機能による要素操作は実用性が高く、Yahoo! JAPANのような複雑なサイトでも正常に動作する
 - AIエージェント向けに最適化されており、LLMのコンテキストウィンドウを効率的に活用できる
-- Playwright MCPも十分実用的だが、より軽量なツールを求める時はagents-browserが有力な選択肢
+- Playwright MCPも十分実用的だが、より軽量なツールを求める時はagent-browserが有力な選択肢
 
 ## 参考
 
-- [agents-browser公式リポジトリ](https://github.com/vercel-labs/agent-browser)
+- [agent-browser公式リポジトリ](https://github.com/vercel-labs/agent-browser)
 - [開発者のツイート](https://x.com/ctatedev/status/2010400005887082907)
 
 ## おまけ
 
-Claude Codeで使用した、agents-browserとPlaywright MCP両方のトークンセッション内容をすべて記載します。興味がある方はご覧ください。
+Claude Codeで使用した、agent-browserとPlaywright MCP両方のトークンセッション内容をすべて記載します。興味がある方はご覧ください。
 
 <details>
-<summary>agents-browserのトークンセッション内容</summary>
+<summary>agent-browserのトークンセッション内容</summary>
 
 ```bash:claude-code
-❯ /browsing-web @docs/designs/agents-browser-readme.md
-  は新しく作成されたブラウザツールの検証を行うためのREADMEです。Playwrightの実行前にagents-browserで検証を行ってください。
+❯ /browsing-web @docs/designs/agent-browser-readme.md
+  は新しく作成されたブラウザツールの検証を行うためのREADMEです。Playwrightの実行前にagent-browserで検証を行ってください。
 
   ⏺ READMEファイルの内容を確認しました。agent-browserを使ってYahoo! JAPANのトップページでトークン削減効果の検証と操作テストを実施します。 
 
@@ -402,14 +402,14 @@ Claude Codeで使用した、agents-browserとPlaywright MCP両方のトーク�
 
 
 ```bash:playwright-mcp
-❯ @docs/designs/agents-browser-readme.md は新しく作成されたブラウザツールの検証を行うためのREADMEです。既にagents-broser
+❯ @docs/designs/agent-browser-readme.md は新しく作成されたブラウザツールの検証を行うためのREADMEです。既にagents-broser
   での検証は完了しているので、Playwright MCP を使って同様の手順を行ってください。検証を行ってください。 
-  Step3はagents-browser 
+  Step3はagent-browser 
   特有の要素だと思うので、ブラウザを開き、ニュースを一個クリックして、ニュース画面に遷移。そのあとページ本文を取得。で検証をすること
 
   ⏺ まず、既存の検証結果を確認してから、Playwright MCPでの検証を開始します。
 
-  ⏺ Playwright MCPを使用してagents-browserと同様の検証を行います。まず、タスクを整理します。
+  ⏺ Playwright MCPを使用してagent-browserと同様の検証を行います。まず、タスクを整理します。
 
   ⏺ まず、Playwright MCPツールをロードします。
 
@@ -506,7 +506,7 @@ Claude Codeで使用した、agents-browserとPlaywright MCP両方のトーク�
 
   結論
 
-  Playwright MCPのスナップショット機能により、agents-browserと同様に約65%のトークン削減が実現されました。また、複雑なYahoo! 
+  Playwright MCPのスナップショット機能により、agent-browserと同様に約65%のトークン削減が実現されました。また、複雑なYahoo! 
   JAPANのサイトでも、Ref IDを使用した正確な要素操作が可能であることが証明されました。 
 
   詳細な検証レポートは /User/tmp/dev/sui-blog/docs/designs/playwright-mcp-verification-report.md に保存されています。
