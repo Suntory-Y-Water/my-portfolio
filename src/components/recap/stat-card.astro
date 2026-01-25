@@ -58,7 +58,7 @@ const { label, value, suffix = '', class: className = '' } = Astro.props;
       const easeProgress = 1 - Math.pow(1 - progress, 4);
 
       obj.innerHTML = Math.floor(
-        progress * (end - start) + start,
+        easeProgress * (end - start) + start,
       ).toLocaleString();
       if (progress < 1) {
         window.requestAnimationFrame(step);

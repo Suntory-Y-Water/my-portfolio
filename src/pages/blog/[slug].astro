@@ -16,7 +16,7 @@ import { MarkdownCopyButton } from '@/components/feature/content/markdown-copy-b
 import RelatedArticles from '@/components/feature/content/related-articles.astro';
 import { SelfAssessment } from '@/components/feature/content/self-assessment';
 import TableOfContents from '@/components/feature/content/table-of-contents.astro';
-import { LikeButton } from '@/components/feature/content/like-button';
+
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
@@ -110,7 +110,7 @@ const compiledHtml = await compileMarkdown({ source: post.body });
     set:html={JSON.stringify(jsonLd)}
   />
   <div>
-    <article class='min-h-[500px]'>
+    <article class='min-h-125'>
       <div class='mb-6 flex items-center justify-between'>
         <a
           href='/blog'
