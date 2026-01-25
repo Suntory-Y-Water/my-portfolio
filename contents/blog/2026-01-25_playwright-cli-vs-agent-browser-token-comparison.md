@@ -3,7 +3,7 @@ title: Playwright CLI と agent-browser のどちらがトークン消費量が�
 slug: playwright-cli-vs-agent-browser-token-comparison
 date: 2026-01-25
 modified_time: 2026-01-25
-description: Playwright CLI と agent-browser の両方を使って、同じ操作を試みた時の思想の違いや実際のトークン量の差異を検証してみました。
+description: Playwright CLIとagent-browserで同一操作を行い、トークン消費量を比較しました。スナップショットをファイル出力してGrep検索する設計思想により、Playwright CLIはagent-browserより約40%のトークン削減を達成しています。本記事ではAIブラウザ操作ツールの設計思想の違いがコストに与える影響を検証します。
 icon: 💉
 icon_url: /icons/syringe_flat.svg
 tags:
@@ -182,7 +182,7 @@ diagram:
 ---
 AIエージェントによるブラウザ自動操作は、2025年3月にMicrosoftが公開したPlaywright MCPによって可能になりました。AIがブラウザを操作し、ページの状態を確認しながら次の操作を決定するというしくみです。しかし、Playwright MCPにはページのスナップショット全体をAIに送信するため、トークン消費量[^token]が膨大になるという課題がありました。
 
-この課題を解決するため、2026年1月にVercelがagent-browserというCLIツールを公開しました。agent-browserは独自の参照方式（Refs）を採用し、ページ全体ではなく必要な要素のRefと要約情報をAIに渡すことで、トークン消費量の削減を実現しています。agent-browserを使用してPlaywright MCPと比較検証した結果、約70%のトークン削減に成功しました。詳細は[こちらの記事](https://suntory-n-water.com/blog/i-tried-using-agent-browser/)をご覧ください。
+この課題を解決するため、2026年1月にVercelがagent-browserというCLIツールを公開しました。agent-browserは独自の参照方式(Refs)を採用し、ページ全体ではなく必要な要素のRefと要約情報をAIに渡すことで、トークン消費量の削減を実現しています。agent-browserを使用してPlaywright MCPと比較検証した結果、約70%のトークン削減に成功しました。詳細は[こちらの記事](https://suntory-n-water.com/blog/i-tried-using-agent-browser/)をご覧ください。
 
 そして同じく2026年1月、Playwrightの開発元であるMicrosoftが新たにPlaywright CLIを公開しました。このツールもagent-browserと同様にCLIベースのブラウザ操作ツールですが、設計思想に違いがあります。この記事では、agent-browserとPlaywright CLIの両方を使って同じ操作を試み、設計思想の違いと実際のトークン消費量の差異を検証していきます。
 
@@ -194,7 +194,7 @@ Playwright CLIの実態はPlaywright MCPです。これはnpmパッケージと�
 npm install -g @playwright/mcp@latest
 ```
 
-実際に操作するときにはagent skillsを使用するのが推奨されていますので、skillsをインストールします。
+実際に操作するときはagent skills[^agent-skills]を使用するのが推奨されていますので、skillsをインストールします。
 ```bash
 mkdir -p .claude/skills/playwright-cli
 curl -o .claude/skills/playwright-cli/SKILL.md \
@@ -298,7 +298,7 @@ graph LR
     C -->|全要素| D[LLM]
 ```
 
-一方、Playwright CLIではスナップショットを取得すると、エージェントにはファイルパスのみが返却されます。
+一方、Playwright CLIではスナップショットを取得すると、`open` コマンドを実行したときと同様に、エージェントにはファイルパスのみが返却されます。
 
 ```bash
 playwright-cli snapshot
@@ -320,7 +320,7 @@ graph LR
     C -->|最小限のトークン| D[LLM]
 ```
 
-このように、Playwright CLIはファイルに出力した後にGrep検索するため、トークン消費量を削減できることが予測されます。
+このように、Playwright CLIはファイルへ出力した後にGrep検索するため、無駄な情報をAIエージェントに渡さずに済むことからトークン消費量を削減できることが予測されます。
 
 ## agent-browserとトークン消費量を比較する
 それではClaude Codeを使って、Playwright CLIとagent-browserの両方に同じ操作をさせてトークン消費量の差異を確認していきましょう。参考程度に実際の手順書を貼っておきます。
@@ -550,3 +550,4 @@ https://github.com/vercel-labs/agent-browser
 
 
 [^token]: トークンとは、AIが処理するテキストの単位で、使用量に応じて料金がかかります。トークン消費量が多いほど、処理コストと応答時間が増加します。
+[^agent-skills]: Agent Skillsは、AIエージェントの機能を拡張するモジュール型の機能です。各Skillは、AIエージェントが関連する場合に自動的に使用する指示、メタデータ、およびオプションのリソース(スクリプト、テンプレート)をパッケージ化します。
