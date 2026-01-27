@@ -53,6 +53,29 @@ const displayUrl =
   (post.data.icon?.startsWith('https://') ? post.data.icon : null);
 const inlineSvg = displayUrl ? getInlineIcon(displayUrl) : undefined;
 
+// 読了時間の推定計算
+// より正確な読了時間のために、散文以外のコンテンツを除外
+const CHARS_PER_MINUTE_JA = 650;
+const readableText = (post.body ?? '')
+  // コードブロックを除去
+  .replace(/```[\s\S]*?```/g, '')
+  // インラインコードを除去
+  .replace(/`[^`]+`/g, '')
+  // Markdownリンクをテキストのみに変換: [text](url) → text
+  .replace(/\[([^\]]*)\]\([^)]+\)/g, '$1')
+  // HTML/MDXタグを除去
+  .replace(/<[^>]+>/g, '')
+  // 脚注参照を除去 [^1]
+  .replace(/\[\^[^\]]+\]/g, '')
+  // 脚注定義を除去 [^1]: ...
+  .replace(/^\[\^[^\]]+\]:.*$/gm, '')
+  // 見出しマーカーを除去
+  .replace(/^#+\s*/gm, '')
+  // 複数の改行を1つに
+  .replace(/\n{2,}/g, '\n');
+const charCount = readableText.trim().length;
+const readingTime = Math.max(1, Math.round(charCount / CHARS_PER_MINUTE_JA));
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
@@ -154,19 +177,25 @@ const compiledHtml = await compileMarkdown({ source: post.body });
       <div
         class='mb-6 flex flex-wrap items-center justify-between text-sm text-muted-foreground'
       >
-        {
-          post.data.date && (
-            <div
-              class='inline-flex items-center gap-1'
-              transition:name={`blog-date-${slug}`}
-            >
-              <Icons.Calendar client:load className='size-4' />
-              <time datetime={post.data.date.toISOString()}>
-                {formatDate(post.data.date.getTime())}
-              </time>
-            </div>
-          )
-        }
+        <div class='inline-flex flex-wrap items-center gap-3'>
+          {
+            post.data.date && (
+              <div
+                class='inline-flex items-center gap-1'
+                transition:name={`blog-date-${slug}`}
+              >
+                <Icons.Calendar client:load className='size-4' />
+                <time datetime={post.data.date.toISOString()}>
+                  {formatDate(post.data.date.getTime())}
+                </time>
+              </div>
+            )
+          }
+          <span class='inline-flex items-center gap-1'>
+            <Icons.Clock client:load className='size-4' />
+            <span>{readingTime}分で読めます</span>
+          </span>
+        </div>
         {
           post.data.tags && post.data.tags.length > 0 && (
             <div class='inline-flex flex-wrap gap-2'>
